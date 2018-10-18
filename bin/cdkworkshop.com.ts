@@ -10,8 +10,10 @@ class CdkWorkshop extends cdk.Stack {
             zoneName: "cdkworkshop.com",
         })
 
-
-
+        new cdk.Output(this, "DNSNameservers", {
+            description: "Nameservers for workshop DNS zone",
+            value: zone.nameServers,
+        })
 
     }
 }
