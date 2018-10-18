@@ -17,8 +17,12 @@
         "aws-cdk": "^0.12.0"
     },
     "dependencies": {
+        "@aws-cdk/aws-cloudfront": "^0.12.0",
+        "@aws-cdk/aws-events": "^0.12.0",
+        "@aws-cdk/aws-guardduty": "^0.12.0",
         "@aws-cdk/aws-route53": "^0.12.0",
         "@aws-cdk/aws-s3": "^0.12.0",
+        "@aws-cdk/aws-sns": "^0.12.0",
         "@aws-cdk/cdk": "^0.12.0"
     }
 }
