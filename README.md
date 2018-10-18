@@ -10,7 +10,7 @@ This workshop is built with markdown as a static HTML site using [hugo](http://g
 $ brew install hugo
 ```
 
-You'll find the content of the workshop in the [public/](public/) directory.
+You'll find the content of the workshop in the [workshop/](workshop/) directory.
 
 You can start up a local development server by running:
 
