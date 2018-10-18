@@ -4,6 +4,7 @@ import route53 = require('@aws-cdk/aws-route53');
 import cloudfront = require('@aws-cdk/aws-cloudfront');
 import s3 = require('@aws-cdk/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
+import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 
 class CdkWorkshop extends cdk.Stack {
 
@@ -27,6 +28,17 @@ class CdkWorkshop extends cdk.Stack {
 
         // Bucket to hold the static website
         const bucket = new s3.Bucket(this, 'Bucket');
+        const origin = new cloudfront.cloudformation.CloudFrontOriginAccessIdentityResource(this, "BucketOrigin", {
+            cloudFrontOriginAccessIdentityConfig: { comment: this.domain }
+        })
+
+        // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
+        const bucketPolicy = new PolicyStatement()
+        bucketPolicy.addPrincipal(new CanonicalUserPrincipal(origin.cloudFrontOriginAccessIdentityS3CanonicalUserId));
+        bucketPolicy.addAction("s3:GetObject");
+        bucketPolicy.addResource(bucket.bucketArn + "/*");
+        bucketPolicy.allow();
+        bucket.addToResourcePolicy(bucketPolicy);
 
         // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available 
 
@@ -38,6 +50,7 @@ class CdkWorkshop extends cdk.Stack {
                 behaviors: [{ isDefaultBehavior: true }],
                 s3OriginSource: {
                     s3BucketSource: bucket,
+                    originAccessIdentity: origin,
                 }
             }],
             aliasConfiguration: {
