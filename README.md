@@ -15,7 +15,7 @@ You'll find the content of the workshop in the [public/](public/) directory.
 You can start up a local development server by running:
 
 ```bash
-$ cd public
+$ cd workshop
 $ hugo server -D
 $ open http://localhost:1313/
 ```
