@@ -17,6 +17,8 @@
         "aws-cdk": "^0.12.0"
     },
     "dependencies": {
+        "@aws-cdk/aws-route53": "^0.12.0",
+        "@aws-cdk/aws-s3": "^0.12.0",
         "@aws-cdk/cdk": "^0.12.0"
     }
 }

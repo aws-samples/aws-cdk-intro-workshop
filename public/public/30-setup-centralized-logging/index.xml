@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Setup Centralized Logging on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</title>
+    <link>https://spinnakerworkshop.com/30-setup-centralized-logging.html</link>
+    <description>Recent content in Setup Centralized Logging on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://spinnakerworkshop.com/30-setup-centralized-logging/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Create a log group</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/log-group.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/log-group.html</guid>
+      <description>The first step, is to setup an AWS CloudWatch Log Group that will be used to store all of our Kubernetes logs. Make sure to create the log group in the same AWS region as your Amazon EKS cluster.
+$ aws logs create-log-group --log-group-name kubernetes --region eu-west-1  By default, CloudWatch Logs will keep all of your log entries indefinitely. If you want to automatically purge logs older than a certain number of days, you can setup a retention policy.</description>
+    </item>
+    
+    <item>
+      <title>Configure IAM role</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/iam-permissions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/iam-permissions.html</guid>
+      <description>Your Kubernetes worker nodes will need IAM permissions to write log entries to CloudWatch Logs. We will need to update the IAM Role assigned to the worker nodes in order to allow this.
+First we need to get the name of the IAM Role associated with your worker nodes. To do this, we&amp;rsquo;ll look at the CloudFormation Outputs from the stack deployed by eksctl when we deployed the cluster:
+$ export ROLE_ARN=$(aws cloudformation describe-stacks --stack-name eksctl-eks-cluster-nodegroup-0 | jq -r &#39;.</description>
+    </item>
+    
+    <item>
+      <title>Configure log shipping</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/fluentd-cloudwatchlogs.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/fluentd-cloudwatchlogs.html</guid>
+      <description>In order to ship our container logs to AWS CloudWatch Logs, we will make use of an open source fluentd based plugin. We can install it straight from Helm like so:
+$ helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/ $ helm install \ --name fluentd incubator/fluentd-cloudwatch \ --set awsRegion=eu-west-1,rbac.create=true  Make sure to specify the region you created the AWS CloudWatch Logs log group in with the --set awsRegion=&amp;lt;region&amp;gt; flag in the above command</description>
+    </item>
+    
+    <item>
+      <title>View the logs</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/viewing-logs.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/viewing-logs.html</guid>
+      <description>$ aws logs create-log-group --log-group-name kubernetes --region eu-west-1  </description>
+    </item>
+    
+    <item>
+      <title>Graphing and alerting</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/graphing-and-alerting.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/graphing-and-alerting.html</guid>
+      <description>$ aws logs create-log-group --log-group-name kubernetes  </description>
+    </item>
+    
+  </channel>
+</rss>

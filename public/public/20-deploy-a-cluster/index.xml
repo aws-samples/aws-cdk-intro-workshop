@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy a Kubernetes Cluster on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</title>
+    <link>https://spinnakerworkshop.com/20-deploy-a-cluster.html</link>
+    <description>Recent content in Deploy a Kubernetes Cluster on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 13:31:55 -0700</lastBuildDate>
+    
+	<atom:link href="https://spinnakerworkshop.com/20-deploy-a-cluster/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Prerequisites</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/prerequisites.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/prerequisites.html</guid>
+      <description>For this chapter, we need to download the eksctl binary:
+curl --silent --location &amp;quot;https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz&amp;quot; | tar xz -C /tmp sudo mv /tmp/eksctl /usr/local/bin  Confirm the eksctl command works:
+eksctl --help  </description>
+    </item>
+    
+    <item>
+      <title>Launch EKS</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/launcheks.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:34:24 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/launcheks.html</guid>
+      <description>To create a basic EKS cluster, run:
+eksctl create cluster --name=eks-cluster --nodes=3  Launching EKS and all the dependencies will take approximately 15 minutes
+ </description>
+    </item>
+    
+    <item>
+      <title>Test the Cluster</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/test.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:36:57 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/test.html</guid>
+      <description>Confirm your Nodes:
+kubectl get nodes  Congratulations! You now have a fully working Amazon EKS Cluster that is ready to use!</description>
+    </item>
+    
+    <item>
+      <title>Cleanup</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/cleanup.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:37:53 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/cleanup.html</guid>
+      <description>In order to delete the resources created for this EKS cluster, run the following commands:
+Delete the cluster:
+eksctl delete cluster --name=eksworkshop-eksctl  The command will return quickly, but destroying all the resources will take approximately 15 minutes, and can be monitored via the CloudFormation Console
+ </description>
+    </item>
+    
+  </channel>
+</rss>

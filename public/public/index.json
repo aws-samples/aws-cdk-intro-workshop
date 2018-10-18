@@ -1,0 +1,295 @@
+[
+{
+	"uri": "https://spinnakerworkshop.com/",
+	"title": "Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus",
+	"tags": [],
+	"description": "",
+	"content": "Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus "
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/account.html",
+	"title": "Create an AWS account",
+	"tags": [],
+	"description": "",
+	"content": "Your account must have the ability to create new IAM roles and scope other IAM permissions.\n  If you don\u0026rsquo;t already have an AWS account with Administrator access: create one now by clicking here\n Once you have an AWS account, ensure you are following the remaining workshop steps as an IAM user with administrator access to the AWS account: Create a new IAM user to use for the workshop\n Enter the user details:  Attach the AdministratorAccess IAM Policy:  Click to create the new user:  Take note of the login URL and save:   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/90-conclusion/conclusion.html",
+	"title": "What Have We Accomplished",
+	"tags": [],
+	"description": "",
+	"content": "We have:\n Built EKS using a partner provided tool called eksctl Built EKS using a community contributed terraform module Built EKS using the recommended steps from AWS Deployed the Kubernetes Dashboard  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/95-cleanup/others.html",
+	"title": "Cleanup the Other Clusters",
+	"tags": [],
+	"description": "",
+	"content": "If you haven\u0026rsquo;t removed the earlier clusters already, make sure to delete the first two clusters we created:\nFollow the instructions here to delete the cluster we created with eksctl.\nFollow the instructions here to delete the cluster we created with terraform.\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/25-deploy-helm/rbac.html",
+	"title": "Configure RBAC",
+	"tags": [],
+	"description": "",
+	"content": "Before we deploy Helm to our Kubernetes cluster, we need to setup Role Based Access Control (RBAC) permissions for it. This will give the Tiller component of Helm the permissions it needs within the cluster to deploy applications.\nRecent versions of Kubernetes employ a role-based access control (or RBAC) system (as do modern operating systems) to help mitigate the damage that can be done if credentials are misused or bugs exist. Even where an identity is hijacked, the identity has only so many permissions to a controlled space. This effectively adds a layer of security to limit the scope of any attack with that identity.\nHelm and Tiller are designed to install, remove, and modify logical applications that can contain many services interacting together. As a result, often its usefulness involves cluster-wide operations, which in a multitenant cluster means that great care must be taken with access to a cluster-wide Tiller installation to prevent improper activity.\nIn order to grant Helm the permissions it needs, we need to create a dedicated ServiceAccount for it. We\u0026rsquo;ll also deploy a ClusterRoleBinding, which will grant cluster-admin permissions to the tiller service account.\ncat \u0026lt;\u0026lt;EOF | kubectl create -f - apiVersion: v1 kind: ServiceAccount metadata: name: tiller namespace: kube-system --- apiVersion: rbac.authorization.k8s.io/v1beta1 kind: ClusterRoleBinding metadata: name: tiller roleRef: apiGroup: rbac.authorization.k8s.io kind: ClusterRole name: cluster-admin subjects: - kind: ServiceAccount name: tiller namespace: kube-system EOF  You should see the following output, confirming that the service account and permissions were configured correctly:\nserviceaccount/tiller created clusterrolebinding.rbac.authorization.k8s.io/tiller created  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/50-deploy-istio/install.html",
+	"title": "Install with Helm",
+	"tags": [],
+	"description": "",
+	"content": "The first step towards installing Istio, is to download the latest release\n$ curl -L https://git.io/getLatestIstio | sh -  This will create a folder in your current directory. At the time of writing, the latest version was 1.0.1, and the command above created a directory istio-1.0.1. We need to add the directory to our path, so we can use the istioctl binary, but also cd into the directory to continue.\n$ cd istio-1.0.1 $ export PATH=$PATH:$(pwd)/bin $ istioctl version Version: 1.0.1 GitRevision: 42773aacced474d97159902d20579a25b1f98106 User: root@832d5020b1d4 Hub: gcr.io/istio-release GolangVersion: go1.10.1 BuildStatus: Clean  Once we\u0026rsquo;re in the istio-1.0.1 directory, we can use Helm to easily install (and upgrade in the future) Helm within our Kubernetes cluster.\n$ helm install install/kubernetes/helm/istio \\ --name istio \\ --namespace istio-system \\ --set global.configValidation=false \\ --set sidecarInjectorWebhook.enabled=false \\ --set grafana.enabled=true  This will deploy Istio, Prometheus (for metric collection) and Grafana (for dashboards).\nIstio works by attaching a sidecar container to pods you run within your cluster. This sidecar container manages traffic flows, and logs metrics. Istio supports automatically attaching this sidecar container to every pod through a Kubernetes feature called Mutating Admission Webhooks. These are not currently supported with Amazon EKS (as of Sept 2018), which is why the --set sidecarInjectorWebhook.enabled=false flag is required.\n We can validate that Istio deployed success, by running kubectl get all -n istio-system\n$ kubectl get all --namespace istio-system NAME READY STATUS RESTARTS AGE pod/grafana-56d946d5b6-fxjb8 1/1 Running 0 10m pod/istio-citadel-769b85bf84-rkh2q 1/1 Running 0 10m pod/istio-egressgateway-677c95648f-qh66g 1/1 Running 0 10m pod/istio-galley-5c65774d47-jmpk8 1/1 Running 0 10m pod/istio-ingressgateway-6fd6575b8b-88tp4 1/1 Running 0 10m pod/istio-pilot-65f4cfb764-p6rb2 2/2 Running 0 10m pod/istio-policy-5b9945744b-4984m 2/2 Running 0 10m pod/istio-statsd-prom-bridge-7f44bb5ddb-hmtkk 1/1 Running 0 10m pod/istio-telemetry-5fc7ccc5b7-4l2pc 2/2 Running 0 10m pod/prometheus-84bd4b9796-9f7cr 1/1 Running 0 10m NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE service/grafana ClusterIP 10.100.80.106 \u0026lt;none\u0026gt; 3000/TCP 10m service/istio-citadel ClusterIP 10.100.26.178 \u0026lt;none\u0026gt; 8060/TCP,9093/TCP 10m service/istio-egressgateway ClusterIP 10.100.207.80 \u0026lt;none\u0026gt; 80/TCP,443/TCP 10m service/istio-galley ClusterIP 10.100.78.152 \u0026lt;none\u0026gt; 443/TCP,9093/TCP 10m service/istio-ingressgateway LoadBalancer 10.100.177.45 a9a6f7806b29211e8aee9021fe026032-921576903.eu-west-1.elb.amazonaws.com 80:31380/TCP,443:31390/TCP,31400:31400/TCP,15011:30083/TCP,8060:31588/TCP,853:30615/TCP,15030:31985/TCP,15031:32034/TCP 10m service/istio-pilot ClusterIP 10.100.249.226 \u0026lt;none\u0026gt; 15010/TCP,15011/TCP,8080/TCP,9093/TCP 10m service/istio-policy ClusterIP 10.100.225.35 \u0026lt;none\u0026gt; 9091/TCP,15004/TCP,9093/TCP 10m service/istio-statsd-prom-bridge ClusterIP 10.100.165.99 \u0026lt;none\u0026gt; 9102/TCP,9125/UDP 10m service/istio-telemetry ClusterIP 10.100.188.26 \u0026lt;none\u0026gt; 9091/TCP,15004/TCP,9093/TCP,42422/TCP 10m service/prometheus ClusterIP 10.100.73.203 \u0026lt;none\u0026gt; 9090/TCP 10m NAME DESIRED CURRENT UP-TO-DATE AVAILABLE AGE deployment.apps/grafana 1 1 1 1 10m deployment.apps/istio-citadel 1 1 1 1 10m deployment.apps/istio-egressgateway 1 1 1 1 10m deployment.apps/istio-galley 1 1 1 1 10m deployment.apps/istio-ingressgateway 1 1 1 1 10m deployment.apps/istio-pilot 1 1 1 1 10m deployment.apps/istio-policy 1 1 1 1 10m deployment.apps/istio-statsd-prom-bridge 1 1 1 1 10m deployment.apps/istio-telemetry 1 1 1 1 10m deployment.apps/prometheus 1 1 1 1 10m NAME DESIRED CURRENT READY AGE replicaset.apps/grafana-56d946d5b6 1 1 1 10m replicaset.apps/istio-citadel-769b85bf84 1 1 1 10m replicaset.apps/istio-egressgateway-677c95648f 1 1 1 10m replicaset.apps/istio-galley-5c65774d47 1 1 1 10m replicaset.apps/istio-ingressgateway-6fd6575b8b 1 1 1 10m replicaset.apps/istio-pilot-65f4cfb764 1 1 1 10m replicaset.apps/istio-policy-5b9945744b 1 1 1 10m replicaset.apps/istio-statsd-prom-bridge-7f44bb5ddb 1 1 1 10m replicaset.apps/istio-telemetry-5fc7ccc5b7 1 1 1 10m replicaset.apps/prometheus-84bd4b9796 1 1 1 10m NAME REFERENCE TARGETS MINPODS MAXPODS REPLICAS AGE horizontalpodautoscaler.autoscaling/istio-egressgateway Deployment/istio-egressgateway \u0026lt;unknown\u0026gt;/80% 1 5 1 10m horizontalpodautoscaler.autoscaling/istio-ingressgateway Deployment/istio-ingressgateway \u0026lt;unknown\u0026gt;/80% 1 5 1 10m horizontalpodautoscaler.autoscaling/istio-pilot Deployment/istio-pilot \u0026lt;unknown\u0026gt;/80% 1 5 1 10m horizontalpodautoscaler.autoscaling/istio-policy Deployment/istio-policy \u0026lt;unknown\u0026gt;/80% 1 5 1 10m horizontalpodautoscaler.autoscaling/istio-telemetry Deployment/istio-telemetry \u0026lt;unknown\u0026gt;/80% 1 5 1 10m  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/20-deploy-a-cluster/prerequisites.html",
+	"title": "Prerequisites",
+	"tags": [],
+	"description": "",
+	"content": "For this chapter, we need to download the eksctl binary:\ncurl --silent --location \u0026quot;https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz\u0026quot; | tar xz -C /tmp sudo mv /tmp/eksctl /usr/local/bin  Confirm the eksctl command works:\neksctl --help  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/95-cleanup/cleanup.html",
+	"title": "Cleanup the CloudFormation Cluster",
+	"tags": [],
+	"description": "",
+	"content": "To clean up the resources in your AWS account created by this workshop. Run the following commands:\nRemove the Worker nodes from EKS:\naws cloudformation delete-stack --stack-name \u0026quot;eksworkshop-cf-worker-nodes\u0026quot;  Delete the EKS Cluster:\naws eks delete-cluster --name \u0026quot;eksworkshop-cf\u0026quot;  Confirm the Cluster is deleted before removing Cluster VPC:\naws eks describe-cluster --name eksworkshop-cf --query \u0026quot;cluster.status\u0026quot;  Remove the Cluster VPC:\naws cloudformation delete-stack --stack-name \u0026quot;eksworkshop-cf\u0026quot;  Detach IAM Policies from Role:\naws iam detach-role-policy --role-name \u0026quot;eks-service-role-workshop\u0026quot; --policy-arn \u0026quot;arn:aws:iam::aws:policy/AmazonEKSClusterPolicy\u0026quot; aws iam detach-role-policy --role-name \u0026quot;eks-service-role-workshop\u0026quot; --policy-arn \u0026quot;arn:aws:iam::aws:policy/AmazonEKSServicePolicy\u0026quot;  Remove the IAM Role craeted for the EKS cluster:\naws iam delete-role --role-name \u0026quot;eks-service-role-workshop\u0026quot;  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/workspace.html",
+	"title": "Create a Workspace",
+	"tags": [],
+	"description": "",
+	"content": "The Cloud9 workspace should be built by an IAM user with Administrator privileges, not the root account user. Please ensure you are logged in as an IAM user, not the root account user.\n Ad blockers, javascript disablers, and tracking blockers should be disabled for the cloud9 domain, or connecting to the workspace might be impacted.\n  Create a Cloud9 Environment  select Create environment  Name it eksworkshop, and take all other defaults When it comes up, customize the environment by closing the welcome tab and lower work area, and opening a new terminal tab in the main work area:  Your workspace should now look like this:  If you like this theme, you can choose it yourself by selecting View / Themes / Solarized / Solarized Dark in the Cloud9 workspace menu.\n  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/30-setup-centralized-logging/log-group.html",
+	"title": "Create a log group",
+	"tags": [],
+	"description": "",
+	"content": "The first step, is to setup an AWS CloudWatch Log Group that will be used to store all of our Kubernetes logs. Make sure to create the log group in the same AWS region as your Amazon EKS cluster.\n$ aws logs create-log-group --log-group-name kubernetes --region eu-west-1  By default, CloudWatch Logs will keep all of your log entries indefinitely. If you want to automatically purge logs older than a certain number of days, you can setup a retention policy. For example:\n$ aws logs put-retention-policy --log-group-name kubernetes --retention-in-days 365  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/10-introduction.html",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": " Welcome! This guide\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites.html",
+	"title": "Prerequisites",
+	"tags": [],
+	"description": "",
+	"content": " Prerequisites for the Workshop  Create an AWS account   Create a Workspace   Create an IAM role for your Workspace   Attach the IAM role to your Workspace   Update IAM settings for your Workspace   Create a SSH key   Update to the latest AWS CLI   Install Kubernetes Tools   Clone the Workshop Repository   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/20-deploy-a-cluster/launcheks.html",
+	"title": "Launch EKS",
+	"tags": [],
+	"description": "",
+	"content": "To create a basic EKS cluster, run:\neksctl create cluster --name=eks-cluster --nodes=3  Launching EKS and all the dependencies will take approximately 15 minutes\n "
+},
+{
+	"uri": "https://spinnakerworkshop.com/25-deploy-helm/install.html",
+	"title": "Install Helm &amp; Tiller",
+	"tags": [],
+	"description": "",
+	"content": "If you are using Mac OS, you can install Helm with Homebrew. For other operating systems, please see the Helm documentation.\nbrew install kubernetes-helm  Once installed, you can verify that it installed correctly by running helm version\nhelm version Client: \u0026amp;version.Version{SemVer:\u0026quot;v2.10.0\u0026quot;, GitCommit:\u0026quot;9ad53aac42165a5fadc6c87be0dea6b115f93090\u0026quot;, GitTreeState:\u0026quot;clean\u0026quot;} Error: could not find tiller  You\u0026rsquo;ll see an error from Helm about not being able to find tiller. This is expected at this stage, as so far all we have done is install the Helm CLI to our local machine - now we need to deploy tiller to our Kubernetes cluster.\nTo do this, just run\nhelm init --service-account tiller  This will install tiller (responsible for deploying helm charts to your cluster) as a Deployment in your Kubernetes cluster. You can verify it deployed successfully by running kubectl get deployment tiller-deploy -n kube-system\nkubectl get deployment tiller-deploy -n kube-system NAME DESIRED CURRENT UP-TO-DATE AVAILABLE AGE tiller-deploy 1 1 1 1 53s  You should now be able to re-run helm version, and helm will show both the client (cli), and server (tiller) versions\nhelm version Client: \u0026amp;version.Version{SemVer:\u0026quot;v2.10.0\u0026quot;, GitCommit:\u0026quot;9ad53aac42165a5fadc6c87be0dea6b115f93090\u0026quot;, GitTreeState:\u0026quot;clean\u0026quot;} Server: \u0026amp;version.Version{SemVer:\u0026quot;v2.10.0\u0026quot;, GitCommit:\u0026quot;9ad53aac42165a5fadc6c87be0dea6b115f93090\u0026quot;, GitTreeState:\u0026quot;clean\u0026quot;}  If you ever want to upgrade helm and tiller to the latest versions, just run\nbrew upgrade kubernetes-helm helm init --service-account tiller --upgrade  We\u0026rsquo;ll use helm in our next chapter, to install Istio to our Kubernetes cluster.\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/50-deploy-istio/sample-application.html",
+	"title": "Sample Application",
+	"tags": [],
+	"description": "",
+	"content": "Istio contains a handy sample application (BookInfo) that we can use to verify Istio is deployed successfully, and explore some of the key features.\nEnsure that your are still in the istio folder downloaded in the previous page, and then run\n$ kubectl apply -f \u0026lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)  If you get an error that the istioctl command is not found, please make sure you added the the bin folder to your PATH. You can do this with export PATH=$PATH:$(pwd)/bin whilst in the downloaded istio directory\n This will deploy a sample application for displaying book reviews, made up of a few different microservices. You can verify that the sample application deployed successfully by running kubectl get pods\n$ kubectl get pods NAME READY STATUS RESTARTS AGE details-v1-6c77545767-kdprj 2/2 Running 0 1m productpage-v1-79bd99d8c5-tdgsg 2/2 Running 0 1m ratings-v1-6df6bcf5ff-9zcrw 2/2 Running 0 1m reviews-v1-84648f754c-vr96b 2/2 Running 0 1m reviews-v2-878d96859-9b2gg 2/2 Running 0 1m reviews-v3-6c4489748c-jbgdj 2/2 Running 0 1m  In order to allow access to our sample application from the outside world, we need to setup an ingress route via an Istio Gateway.\n$ kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml gateway.networking.istio.io/bookinfo-gateway created virtualservice.networking.istio.io/bookinfo created  Now that our external routing is configured, we can find out the hostname of the Istio ingress gateway\u0026rsquo;s Elastic Load Balancer (ELB), and open it in a browser to connect to our sample application:\n$ export INGRESS_ELB=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}') $ open http://$INGRESS_ELB/productpage  You should see a new browser window, containing the sample application\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/30-setup-centralized-logging/iam-permissions.html",
+	"title": "Configure IAM role",
+	"tags": [],
+	"description": "",
+	"content": "Your Kubernetes worker nodes will need IAM permissions to write log entries to CloudWatch Logs. We will need to update the IAM Role assigned to the worker nodes in order to allow this.\nFirst we need to get the name of the IAM Role associated with your worker nodes. To do this, we\u0026rsquo;ll look at the CloudFormation Outputs from the stack deployed by eksctl when we deployed the cluster:\n$ export ROLE_ARN=$(aws cloudformation describe-stacks --stack-name eksctl-eks-cluster-nodegroup-0 | jq -r '.Stacks[0].Outputs[0].OutputValue') $ export ROLE_NAME=$(echo $ROLE_ARN | cut -d '/' -f2)  Now we know the worker node role, we can attach an AWS IAM Managed Policy that allows full access to CloudWatch Logs.\n$ aws iam attach-role-policy --role-name $ROLE_NAME --policy-arn arn:aws:iam::aws:policy/CloudWatchLogsFullAccess  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/20-deploy-a-cluster.html",
+	"title": "Deploy a Kubernetes Cluster",
+	"tags": [],
+	"description": "",
+	"content": "We have some very powerful partner tools that allow us to automate much of the experience of creating an EKS cluster, simplifying the process.\nIn this module, we will highlight a tool contributed by Weaveworks called eksctl, based on the official AWS CloudFormation templates, and will use it to launch and configure our EKS cluster and nodes.\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/iamrole.html",
+	"title": "Create an IAM role for your Workspace",
+	"tags": [],
+	"description": "",
+	"content": " Follow this deep link to create an IAM role with Administrator access. Confirm that AWS service and EC2 are selected, then click Next to view permissions. Confirm that AdministratorAccess is checked, then click Next to review. Enter eksworkshop-admin for the Name, and select Create Role   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/25-deploy-helm.html",
+	"title": "Deploy Helm",
+	"tags": [],
+	"description": "",
+	"content": "Helm is a package management system for Kubernetes. It allows you to easily deploy applications (known as Charts) to your Kubernetes cluster from either public or private repositories. We\u0026rsquo;ll use it throughout this guide, to install application such as Istio.\nHelm is comprised of two parts:\n A CLI tool helm, that you can run from your local machine to search and install charts. A Kubernetes controller called Tiller that runs inside your cluster and performs the deployments.  In this chapter, we will talk you through installing both components.\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/ec2instance.html",
+	"title": "Attach the IAM role to your Workspace",
+	"tags": [],
+	"description": "",
+	"content": " Follow this deep link to find your Cloud9 EC2 instance Select the instance, then choose Actions / Instance Settings / Attach/Replace IAM Role  Choose eksworkshop-admin from the IAM Role drop down, and select Apply   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/20-deploy-a-cluster/test.html",
+	"title": "Test the Cluster",
+	"tags": [],
+	"description": "",
+	"content": " Confirm your Nodes:\nkubectl get nodes  Congratulations! You now have a fully working Amazon EKS Cluster that is ready to use!\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/30-setup-centralized-logging/fluentd-cloudwatchlogs.html",
+	"title": "Configure log shipping",
+	"tags": [],
+	"description": "",
+	"content": "In order to ship our container logs to AWS CloudWatch Logs, we will make use of an open source fluentd based plugin. We can install it straight from Helm like so:\n$ helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/ $ helm install \\ --name fluentd incubator/fluentd-cloudwatch \\ --set awsRegion=eu-west-1,rbac.create=true  Make sure to specify the region you created the AWS CloudWatch Logs log group in with the --set awsRegion=\u0026lt;region\u0026gt; flag in the above command\n We can verify that it installed correctly, by running kubectl --namespace=default get pods -l \u0026quot;app=fluentd-cloudwatch,release=fluentd\u0026quot;. You should see one pod per worker node.\n$ kubectl --namespace=default get pods -l \u0026quot;app=fluentd-cloudwatch,release=fluentd\u0026quot; NAME READY STATUS RESTARTS AGE fluentd-fluentd-cloudwatch-gwcnr 1/1 Running 0 1m fluentd-fluentd-cloudwatch-mksnh 1/1 Running 0 1m  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/50-deploy-istio/dashboard.html",
+	"title": "Istio Dashboard",
+	"tags": [],
+	"description": "",
+	"content": "Istio automatically collects metrics for our microservices, including throughput, error rates and latencies. To help visualise and these metrics, Istio comes preconfigured with some handy Grafana dashboards.\nThese dashboards are not exposed to the outside world by default, so we need to port-forward from our local machine to the Grafana pod in order to access them.\n$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 $ open http://localhost:3000/d/1/istio-mesh-dashboard  You should see a browser window pop up, with the Istio mesh dashboard. This page gives a general overview of all of the Istio-enabled services deployed in your Kubernetes cluster.\nIf you click on a service, you can drill down and see the metrics available for that individual service. This includes things like top requests, request sources, latencies and error rates.\nWe will use these metrics later on when configuring our canary deployments, to make sure that any new versions of our applications we deploy don\u0026rsquo;t have a negative impact on application performance.\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/30-setup-centralized-logging.html",
+	"title": "Setup Centralized Logging",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/workspaceiam.html",
+	"title": "Update IAM settings for your Workspace",
+	"tags": [],
+	"description": "",
+	"content": "Cloud9 normally manages IAM credentials dynamically. This isn\u0026rsquo;t currently compatible with the heptio authentication plugin, so we will disable it and rely on the IAM role instead.\n  Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab Select AWS SETTINGS Turn off AWS managed temporary credentials Close the Preferences tab  To ensure temporary credentials aren\u0026rsquo;t already in place we will also remove any existing credentials file:\nrm -vf ${HOME}/.aws/credentials  We should configure our aws cli with a default region: us-west-2\naws configure set default.region us-west-2 aws configure get default.region   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/20-deploy-a-cluster/cleanup.html",
+	"title": "Cleanup",
+	"tags": [],
+	"description": "",
+	"content": "In order to delete the resources created for this EKS cluster, run the following commands:\nDelete the cluster:\neksctl delete cluster --name=eksworkshop-eksctl  The command will return quickly, but destroying all the resources will take approximately 15 minutes, and can be monitored via the CloudFormation Console\n "
+},
+{
+	"uri": "https://spinnakerworkshop.com/50-deploy-istio/cleanup.html",
+	"title": "Cleanup Sample Application",
+	"tags": [],
+	"description": "",
+	"content": "Now that we have played around with the Istio sample application, we can undeploy the external gateway we created for it by running:\n$ kubectl delete -f samples/bookinfo/networking/bookinfo-gateway.yaml gateway.networking.istio.io \u0026quot;bookinfo-gateway\u0026quot; deleted virtualservice.networking.istio.io \u0026quot;bookinfo\u0026quot; deleted  and then delete the sample application itself with:\n$ kubectl delete -f \u0026lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml) service \u0026quot;details\u0026quot; deleted deployment.extensions \u0026quot;details-v1\u0026quot; deleted service \u0026quot;ratings\u0026quot; deleted deployment.extensions \u0026quot;ratings-v1\u0026quot; deleted service \u0026quot;reviews\u0026quot; deleted deployment.extensions \u0026quot;reviews-v1\u0026quot; deleted deployment.extensions \u0026quot;reviews-v2\u0026quot; deleted deployment.extensions \u0026quot;reviews-v3\u0026quot; deleted service \u0026quot;productpage\u0026quot; deleted deployment.extensions \u0026quot;productpage-v1\u0026quot; deleted  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/sshkey.html",
+	"title": "Create a SSH key",
+	"tags": [],
+	"description": "",
+	"content": " Create a ssh key for your workspace\nssh-keygen  Press enter 3 times to take the default choices\n  Upload the public key to your EC2 region:\naws ec2 import-key-pair --key-name \u0026quot;eksworkshop\u0026quot; --public-key-material file://~/.ssh/id_rsa.pub   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/30-setup-centralized-logging/viewing-logs.html",
+	"title": "View the logs",
+	"tags": [],
+	"description": "",
+	"content": "$ aws logs create-log-group --log-group-name kubernetes --region eu-west-1  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/awscli.html",
+	"title": "Update to the latest AWS CLI",
+	"tags": [],
+	"description": "",
+	"content": " Run the following command to view the current version of aws-cli:\npip freeze | grep awscli  Update to the latest version:\npip install --user --upgrade awscli  Confirm you have a newer version:\npip freeze | grep awscli   "
+},
+{
+	"uri": "https://spinnakerworkshop.com/95-cleanup/workspace.html",
+	"title": "Cleanup the Workspace",
+	"tags": [],
+	"description": "",
+	"content": "Let\u0026rsquo;s delete our SSH key:\naws ec2 delete-key-pair --key-name \u0026quot;eksworkshop\u0026quot;  Since we no longer need the Cloud9 instance to have Administrator access to our account, we can delete the role we created:\n Go to the IAM Console Click Delete role in the upper right corner  Finally, let\u0026rsquo;s delete our Cloud9 EC2 Instance:\n Go to your Cloud9 Environment Select the environment named eksworkshop and pick delete  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/50-deploy-istio.html",
+	"title": "Deploy Istio",
+	"tags": [],
+	"description": "",
+	"content": " Istio is a service mesh for Kubernetes. It helps route and secure traffic between microservices, as well as provide great visibility into how your microservices are communicating (traffic throughput, error rates, latencies etc).\nIt\u0026rsquo;s particularly useful in the context of canary deployments, as it will allow us to easily route a percentage of our application traffic (e.g. 5%) to the canary deployment at a per-request granularity.\nIn general, Istio provides the following:\nTraffic management Istio’s easy rules configuration and traffic routing lets you control the flow of traffic and API calls between services. Istio simplifies configuration of service-level properties like circuit breakers, timeouts, and retries, and makes it a breeze to set up important tasks like A/B testing, canary rollouts, and staged rollouts with percentage-based traffic splits.\nWith better visibility into your traffic, and out-of-box failure recovery features, you can catch issues before they cause problems, making calls more reliable, and your network more robust – no matter what conditions you face.\nSecurity Istio’s security capabilities free developers to focus on security at the application level. Istio provides the underlying secure communication channel, and manages authentication, authorization, and encryption of service communication at scale. With Istio, service communications are secured by default, letting you enforce policies consistently across diverse protocols and runtimes – all with little or no application changes.\nWhile Istio is platform independent, using it with Kubernetes (or infrastructure) network policies, the benefits are even greater, including the ability to secure pod-to-pod or service-to-service communication at the network and application layers.\nObservability Istio’s robust tracing, monitoring, and logging give you deep insights into your service mesh deployment. Gain a real understanding of how service performance impacts things upstream and downstream with Istio’s monitoring features, while its custom dashboards provide visibility into the performance of all your services and let you see how that performance is affecting your other processes.\nAll these features let you more effectively set, monitor, and enforce SLOs on services. Of course, the bottom line is that you can detect and fix issues quickly and efficiently.\n"
+},
+{
+	"uri": "https://spinnakerworkshop.com/30-setup-centralized-logging/graphing-and-alerting.html",
+	"title": "Graphing and alerting",
+	"tags": [],
+	"description": "",
+	"content": "$ aws logs create-log-group --log-group-name kubernetes  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/k8stools.html",
+	"title": "Install Kubernetes Tools",
+	"tags": [],
+	"description": "",
+	"content": " Amazon EKS clusters require kubectl and kubelet binaries and the Heptio Authenticator to allow IAM authentication for your Kubernetes cluster.\nIn this workshop we will give you the commands to download the Linux binaries. If you are running Mac OSX / Windows, please see the official EKS docs for the download links.\n Install kubectl sudo curl -kLo /usr/local/bin/kubectl \u0026quot;https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/bin/linux/amd64/kubectl\u0026quot; sudo chmod +x /usr/local/bin/kubectl  Install Heptio Authenticator sudo curl -kLo /usr/local/bin/heptio-authenticator-aws \u0026quot;https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/bin/linux/amd64/heptio-authenticator-aws\u0026quot; sudo chmod +x /usr/local/bin/heptio-authenticator-aws  Verify the binaries kubectl version --short --client heptio-authenticator-aws help  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/15-prerequisites/gitclone.html",
+	"title": "Clone the Workshop Repository",
+	"tags": [],
+	"description": "",
+	"content": "We have a repository of tools to help with the remaining workshop. Clone the repository to your local workspace with this command:\ncd ${HOME}/environment git clone https://github.com/mandusm/howto-launch-eks-workshop.git  "
+},
+{
+	"uri": "https://spinnakerworkshop.com/60-deploy-spinnaker.html",
+	"title": "Deploy Spinnaker",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://spinnakerworkshop.com/70-create-a-deployment-pipeline.html",
+	"title": "Create a Deployment Pipeline",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://spinnakerworkshop.com/80-perform-a-deployment.html",
+	"title": "Perform a Deployment",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://spinnakerworkshop.com/90-conclusion.html",
+	"title": "Conclusion",
+	"tags": [],
+	"description": "",
+	"content": " What Have We Accomplished? "
+},
+{
+	"uri": "https://spinnakerworkshop.com/95-cleanup.html",
+	"title": "Cleanup",
+	"tags": [],
+	"description": "",
+	"content": " Cleanup "
+},
+{
+	"uri": "https://spinnakerworkshop.com/categories.html",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://spinnakerworkshop.com/tags.html",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

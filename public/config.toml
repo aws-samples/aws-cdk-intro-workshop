@@ -1,0 +1,43 @@
+baseURL = "https://spinnakerworkshop.com"
+languageCode = "en-us"
+defaultContentLanguage = "en"
+title = "Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus"
+theme = "learn"
+uglyurls = true
+googleAnalytics = "UA-44634850-4"
+sectionPagesMenu = "main"
+#pygmentsCodeFences = true
+#pygmentsCodeFencesGuessSyntax = true
+#pygmentsStyle = "monokai"
+
+[blackfriday]
+hrefTargetBlank = true
+
+[params]
+themeVariant = "mine"
+showVisitedLinks = false
+author = "Paul Maddox"
+description = "Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus"
+disableSearch = false
+disableAssetsBusting = false
+disableLanguageSwitchingButton = true
+disableShortcutsTitle=true
+#
+
+[menu]
+  [[menu.main]]
+    identifier = "Prerequisites"
+    name = "This is the Mu track"
+    title = "Workshop using Mu"
+    url = "/mu/"
+    weight = -110
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-twitter fa-lg'></i> @paulmaddox"
+identifier = "mm"
+url = "https://twitter.com/intent/user?screen_name=paulmaddox"
+weight = 1
+
+[outputs]
+home = [ "HTML", "AMP", "RSS", "JSON"]
+page = [ "HTML", "AMP"]

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</title>
+    <link>https://spinnakerworkshop.com/</link>
+    <description>Recent content on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 12:37:34 -0700</lastBuildDate>
+    
+	<atom:link href="https://spinnakerworkshop.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Create an AWS account</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/account.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/account.html</guid>
+      <description>Your account must have the ability to create new IAM roles and scope other IAM permissions.
+  If you don&amp;rsquo;t already have an AWS account with Administrator access: create one now by clicking here
+ Once you have an AWS account, ensure you are following the remaining workshop steps as an IAM user with administrator access to the AWS account: Create a new IAM user to use for the workshop</description>
+    </item>
+    
+    <item>
+      <title>What Have We Accomplished</title>
+      <link>https://spinnakerworkshop.com/90-conclusion/conclusion.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/90-conclusion/conclusion.html</guid>
+      <description>We have:
+ Built EKS using a partner provided tool called eksctl Built EKS using a community contributed terraform module Built EKS using the recommended steps from AWS Deployed the Kubernetes Dashboard  </description>
+    </item>
+    
+    <item>
+      <title>Cleanup the Other Clusters</title>
+      <link>https://spinnakerworkshop.com/95-cleanup/others.html</link>
+      <pubDate>Tue, 07 Aug 2018 12:37:34 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/95-cleanup/others.html</guid>
+      <description>If you haven&amp;rsquo;t removed the earlier clusters already, make sure to delete the first two clusters we created:
+Follow the instructions here to delete the cluster we created with eksctl.
+Follow the instructions here to delete the cluster we created with terraform.</description>
+    </item>
+    
+    <item>
+      <title>Configure RBAC</title>
+      <link>https://spinnakerworkshop.com/25-deploy-helm/rbac.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/25-deploy-helm/rbac.html</guid>
+      <description>Before we deploy Helm to our Kubernetes cluster, we need to setup Role Based Access Control (RBAC) permissions for it. This will give the Tiller component of Helm the permissions it needs within the cluster to deploy applications.
+Recent versions of Kubernetes employ a role-based access control (or RBAC) system (as do modern operating systems) to help mitigate the damage that can be done if credentials are misused or bugs exist.</description>
+    </item>
+    
+    <item>
+      <title>Install with Helm</title>
+      <link>https://spinnakerworkshop.com/50-deploy-istio/install.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/50-deploy-istio/install.html</guid>
+      <description>The first step towards installing Istio, is to download the latest release
+$ curl -L https://git.io/getLatestIstio | sh -  This will create a folder in your current directory. At the time of writing, the latest version was 1.0.1, and the command above created a directory istio-1.0.1. We need to add the directory to our path, so we can use the istioctl binary, but also cd into the directory to continue.</description>
+    </item>
+    
+    <item>
+      <title>Prerequisites</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/prerequisites.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/prerequisites.html</guid>
+      <description>For this chapter, we need to download the eksctl binary:
+curl --silent --location &amp;quot;https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz&amp;quot; | tar xz -C /tmp sudo mv /tmp/eksctl /usr/local/bin  Confirm the eksctl command works:
+eksctl --help  </description>
+    </item>
+    
+    <item>
+      <title>Cleanup the CloudFormation Cluster</title>
+      <link>https://spinnakerworkshop.com/95-cleanup/cleanup.html</link>
+      <pubDate>Tue, 07 Aug 2018 12:37:34 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/95-cleanup/cleanup.html</guid>
+      <description>To clean up the resources in your AWS account created by this workshop. Run the following commands:
+Remove the Worker nodes from EKS:
+aws cloudformation delete-stack --stack-name &amp;quot;eksworkshop-cf-worker-nodes&amp;quot;  Delete the EKS Cluster:
+aws eks delete-cluster --name &amp;quot;eksworkshop-cf&amp;quot;  Confirm the Cluster is deleted before removing Cluster VPC:
+aws eks describe-cluster --name eksworkshop-cf --query &amp;quot;cluster.status&amp;quot;  Remove the Cluster VPC:
+aws cloudformation delete-stack --stack-name &amp;quot;eksworkshop-cf&amp;quot;  Detach IAM Policies from Role:</description>
+    </item>
+    
+    <item>
+      <title>Create a Workspace</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/workspace.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/workspace.html</guid>
+      <description>The Cloud9 workspace should be built by an IAM user with Administrator privileges, not the root account user. Please ensure you are logged in as an IAM user, not the root account user.
+ Ad blockers, javascript disablers, and tracking blockers should be disabled for the cloud9 domain, or connecting to the workspace might be impacted.
+  Create a Cloud9 Environment  select Create environment  Name it eksworkshop, and take all other defaults When it comes up, customize the environment by closing the welcome tab and lower work area, and opening a new terminal tab in the main work area:  Your workspace should now look like this:  If you like this theme, you can choose it yourself by selecting View / Themes / Solarized / Solarized Dark in the Cloud9 workspace menu.</description>
+    </item>
+    
+    <item>
+      <title>Create a log group</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/log-group.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/log-group.html</guid>
+      <description>The first step, is to setup an AWS CloudWatch Log Group that will be used to store all of our Kubernetes logs. Make sure to create the log group in the same AWS region as your Amazon EKS cluster.
+$ aws logs create-log-group --log-group-name kubernetes --region eu-west-1  By default, CloudWatch Logs will keep all of your log entries indefinitely. If you want to automatically purge logs older than a certain number of days, you can setup a retention policy.</description>
+    </item>
+    
+    <item>
+      <title>Launch EKS</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/launcheks.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:34:24 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/launcheks.html</guid>
+      <description>To create a basic EKS cluster, run:
+eksctl create cluster --name=eks-cluster --nodes=3  Launching EKS and all the dependencies will take approximately 15 minutes
+ </description>
+    </item>
+    
+    <item>
+      <title>Install Helm &amp; Tiller</title>
+      <link>https://spinnakerworkshop.com/25-deploy-helm/install.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/25-deploy-helm/install.html</guid>
+      <description>If you are using Mac OS, you can install Helm with Homebrew. For other operating systems, please see the Helm documentation.
+brew install kubernetes-helm  Once installed, you can verify that it installed correctly by running helm version
+helm version Client: &amp;amp;version.Version{SemVer:&amp;quot;v2.10.0&amp;quot;, GitCommit:&amp;quot;9ad53aac42165a5fadc6c87be0dea6b115f93090&amp;quot;, GitTreeState:&amp;quot;clean&amp;quot;} Error: could not find tiller  You&amp;rsquo;ll see an error from Helm about not being able to find tiller. This is expected at this stage, as so far all we have done is install the Helm CLI to our local machine - now we need to deploy tiller to our Kubernetes cluster.</description>
+    </item>
+    
+    <item>
+      <title>Sample Application</title>
+      <link>https://spinnakerworkshop.com/50-deploy-istio/sample-application.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/50-deploy-istio/sample-application.html</guid>
+      <description>Istio contains a handy sample application (BookInfo) that we can use to verify Istio is deployed successfully, and explore some of the key features.
+Ensure that your are still in the istio folder downloaded in the previous page, and then run
+$ kubectl apply -f &amp;lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)  If you get an error that the istioctl command is not found, please make sure you added the the bin folder to your PATH.</description>
+    </item>
+    
+    <item>
+      <title>Configure IAM role</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/iam-permissions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/iam-permissions.html</guid>
+      <description>Your Kubernetes worker nodes will need IAM permissions to write log entries to CloudWatch Logs. We will need to update the IAM Role assigned to the worker nodes in order to allow this.
+First we need to get the name of the IAM Role associated with your worker nodes. To do this, we&amp;rsquo;ll look at the CloudFormation Outputs from the stack deployed by eksctl when we deployed the cluster:
+$ export ROLE_ARN=$(aws cloudformation describe-stacks --stack-name eksctl-eks-cluster-nodegroup-0 | jq -r &#39;.</description>
+    </item>
+    
+    <item>
+      <title>Create an IAM role for your Workspace</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/iamrole.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/iamrole.html</guid>
+      <description> Follow this deep link to create an IAM role with Administrator access. Confirm that AWS service and EC2 are selected, then click Next to view permissions. Confirm that AdministratorAccess is checked, then click Next to review. Enter eksworkshop-admin for the Name, and select Create Role   </description>
+    </item>
+    
+    <item>
+      <title>Attach the IAM role to your Workspace</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/ec2instance.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/ec2instance.html</guid>
+      <description> Follow this deep link to find your Cloud9 EC2 instance Select the instance, then choose Actions / Instance Settings / Attach/Replace IAM Role  Choose eksworkshop-admin from the IAM Role drop down, and select Apply   </description>
+    </item>
+    
+    <item>
+      <title>Test the Cluster</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/test.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:36:57 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/test.html</guid>
+      <description>Confirm your Nodes:
+kubectl get nodes  Congratulations! You now have a fully working Amazon EKS Cluster that is ready to use!</description>
+    </item>
+    
+    <item>
+      <title>Configure log shipping</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/fluentd-cloudwatchlogs.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/fluentd-cloudwatchlogs.html</guid>
+      <description>In order to ship our container logs to AWS CloudWatch Logs, we will make use of an open source fluentd based plugin. We can install it straight from Helm like so:
+$ helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/ $ helm install \ --name fluentd incubator/fluentd-cloudwatch \ --set awsRegion=eu-west-1,rbac.create=true  Make sure to specify the region you created the AWS CloudWatch Logs log group in with the --set awsRegion=&amp;lt;region&amp;gt; flag in the above command</description>
+    </item>
+    
+    <item>
+      <title>Istio Dashboard</title>
+      <link>https://spinnakerworkshop.com/50-deploy-istio/dashboard.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/50-deploy-istio/dashboard.html</guid>
+      <description>Istio automatically collects metrics for our microservices, including throughput, error rates and latencies. To help visualise and these metrics, Istio comes preconfigured with some handy Grafana dashboards.
+These dashboards are not exposed to the outside world by default, so we need to port-forward from our local machine to the Grafana pod in order to access them.
+$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath=&#39;{.items[0].metadata.name}&#39;) 3000:3000 $ open http://localhost:3000/d/1/istio-mesh-dashboard  You should see a browser window pop up, with the Istio mesh dashboard.</description>
+    </item>
+    
+    <item>
+      <title>Update IAM settings for your Workspace</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/workspaceiam.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/workspaceiam.html</guid>
+      <description>Cloud9 normally manages IAM credentials dynamically. This isn&amp;rsquo;t currently compatible with the heptio authentication plugin, so we will disable it and rely on the IAM role instead.
+  Return to your workspace and click the sprocket, or launch a new tab to open the Preferences tab Select AWS SETTINGS Turn off AWS managed temporary credentials Close the Preferences tab  To ensure temporary credentials aren&amp;rsquo;t already in place we will also remove any existing credentials file:</description>
+    </item>
+    
+    <item>
+      <title>Cleanup</title>
+      <link>https://spinnakerworkshop.com/20-deploy-a-cluster/cleanup.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:37:53 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/20-deploy-a-cluster/cleanup.html</guid>
+      <description>In order to delete the resources created for this EKS cluster, run the following commands:
+Delete the cluster:
+eksctl delete cluster --name=eksworkshop-eksctl  The command will return quickly, but destroying all the resources will take approximately 15 minutes, and can be monitored via the CloudFormation Console
+ </description>
+    </item>
+    
+    <item>
+      <title>Cleanup Sample Application</title>
+      <link>https://spinnakerworkshop.com/50-deploy-istio/cleanup.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/50-deploy-istio/cleanup.html</guid>
+      <description>Now that we have played around with the Istio sample application, we can undeploy the external gateway we created for it by running:
+$ kubectl delete -f samples/bookinfo/networking/bookinfo-gateway.yaml gateway.networking.istio.io &amp;quot;bookinfo-gateway&amp;quot; deleted virtualservice.networking.istio.io &amp;quot;bookinfo&amp;quot; deleted  and then delete the sample application itself with:
+$ kubectl delete -f &amp;lt;(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml) service &amp;quot;details&amp;quot; deleted deployment.extensions &amp;quot;details-v1&amp;quot; deleted service &amp;quot;ratings&amp;quot; deleted deployment.extensions &amp;quot;ratings-v1&amp;quot; deleted service &amp;quot;reviews&amp;quot; deleted deployment.extensions &amp;quot;reviews-v1&amp;quot; deleted deployment.extensions &amp;quot;reviews-v2&amp;quot; deleted deployment.</description>
+    </item>
+    
+    <item>
+      <title>Create a SSH key</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/sshkey.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/sshkey.html</guid>
+      <description> Create a ssh key for your workspace
+ssh-keygen  Press enter 3 times to take the default choices
+  Upload the public key to your EC2 region:
+aws ec2 import-key-pair --key-name &amp;quot;eksworkshop&amp;quot; --public-key-material file://~/.ssh/id_rsa.pub   </description>
+    </item>
+    
+    <item>
+      <title>View the logs</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/viewing-logs.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/viewing-logs.html</guid>
+      <description>$ aws logs create-log-group --log-group-name kubernetes --region eu-west-1  </description>
+    </item>
+    
+    <item>
+      <title>Update to the latest AWS CLI</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/awscli.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/awscli.html</guid>
+      <description> Run the following command to view the current version of aws-cli:
+pip freeze | grep awscli  Update to the latest version:
+pip install --user --upgrade awscli  Confirm you have a newer version:
+pip freeze | grep awscli   </description>
+    </item>
+    
+    <item>
+      <title>Cleanup the Workspace</title>
+      <link>https://spinnakerworkshop.com/95-cleanup/workspace.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/95-cleanup/workspace.html</guid>
+      <description>Let&amp;rsquo;s delete our SSH key:
+aws ec2 delete-key-pair --key-name &amp;quot;eksworkshop&amp;quot;  Since we no longer need the Cloud9 instance to have Administrator access to our account, we can delete the role we created:
+ Go to the IAM Console Click Delete role in the upper right corner  Finally, let&amp;rsquo;s delete our Cloud9 EC2 Instance:
+ Go to your Cloud9 Environment Select the environment named eksworkshop and pick delete  </description>
+    </item>
+    
+    <item>
+      <title>Graphing and alerting</title>
+      <link>https://spinnakerworkshop.com/30-setup-centralized-logging/graphing-and-alerting.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/30-setup-centralized-logging/graphing-and-alerting.html</guid>
+      <description>$ aws logs create-log-group --log-group-name kubernetes  </description>
+    </item>
+    
+    <item>
+      <title>Install Kubernetes Tools</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/k8stools.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/k8stools.html</guid>
+      <description>Amazon EKS clusters require kubectl and kubelet binaries and the Heptio Authenticator to allow IAM authentication for your Kubernetes cluster.
+In this workshop we will give you the commands to download the Linux binaries. If you are running Mac OSX / Windows, please see the official EKS docs for the download links.
+ Install kubectl sudo curl -kLo /usr/local/bin/kubectl &amp;quot;https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/bin/linux/amd64/kubectl&amp;quot; sudo chmod +x /usr/local/bin/kubectl  Install Heptio Authenticator sudo curl -kLo /usr/local/bin/heptio-authenticator-aws &amp;quot;https://amazon-eks.</description>
+    </item>
+    
+    <item>
+      <title>Clone the Workshop Repository</title>
+      <link>https://spinnakerworkshop.com/15-prerequisites/gitclone.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/15-prerequisites/gitclone.html</guid>
+      <description>We have a repository of tools to help with the remaining workshop. Clone the repository to your local workspace with this command:
+cd ${HOME}/environment git clone https://github.com/mandusm/howto-launch-eks-workshop.git  </description>
+    </item>
+    
+  </channel>
+</rss>

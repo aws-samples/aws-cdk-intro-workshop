@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conclusion on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</title>
+    <link>https://spinnakerworkshop.com/90-conclusion.html</link>
+    <description>Recent content in Conclusion on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://spinnakerworkshop.com/90-conclusion/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What Have We Accomplished</title>
+      <link>https://spinnakerworkshop.com/90-conclusion/conclusion.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/90-conclusion/conclusion.html</guid>
+      <description>We have:
+ Built EKS using a partner provided tool called eksctl Built EKS using a community contributed terraform module Built EKS using the recommended steps from AWS Deployed the Kubernetes Dashboard  </description>
+    </item>
+    
+  </channel>
+</rss>

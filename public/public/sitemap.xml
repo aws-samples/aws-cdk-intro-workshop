@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/</loc>
+    <lastmod>2018-08-07T12:37:34-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/account.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/90-conclusion/conclusion.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/95-cleanup/others.html</loc>
+    <lastmod>2018-08-07T12:37:34-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/25-deploy-helm/rbac.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/50-deploy-istio/install.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/20-deploy-a-cluster/prerequisites.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/95-cleanup/cleanup.html</loc>
+    <lastmod>2018-08-07T12:37:34-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/workspace.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/30-setup-centralized-logging/log-group.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/10-introduction.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/20-deploy-a-cluster/launcheks.html</loc>
+    <lastmod>2018-08-07T13:34:24-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/25-deploy-helm/install.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/50-deploy-istio/sample-application.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/30-setup-centralized-logging/iam-permissions.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/20-deploy-a-cluster.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/iamrole.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/25-deploy-helm.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/ec2instance.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/20-deploy-a-cluster/test.html</loc>
+    <lastmod>2018-08-07T13:36:57-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/30-setup-centralized-logging/fluentd-cloudwatchlogs.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/50-deploy-istio/dashboard.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/30-setup-centralized-logging.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/workspaceiam.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/20-deploy-a-cluster/cleanup.html</loc>
+    <lastmod>2018-08-07T13:37:53-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/50-deploy-istio/cleanup.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/sshkey.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/30-setup-centralized-logging/viewing-logs.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/awscli.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/95-cleanup/workspace.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/50-deploy-istio.html</loc>
+    <lastmod>2018-08-07T13:31:55-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/30-setup-centralized-logging/graphing-and-alerting.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/k8stools.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/15-prerequisites/gitclone.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/60-deploy-spinnaker.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/70-create-a-deployment-pipeline.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/80-perform-a-deployment.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/90-conclusion.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/95-cleanup.html</loc>
+    <lastmod>2018-08-07T12:37:34-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/categories.html</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://spinnakerworkshop.com/tags.html</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

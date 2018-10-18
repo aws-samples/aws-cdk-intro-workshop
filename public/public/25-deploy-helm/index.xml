@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy Helm on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</title>
+    <link>https://spinnakerworkshop.com/25-deploy-helm.html</link>
+    <description>Recent content in Deploy Helm on Canary deployments with Amazon EKS, Spinnaker, Istio and Prometheus</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 13:31:55 -0700</lastBuildDate>
+    
+	<atom:link href="https://spinnakerworkshop.com/25-deploy-helm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configure RBAC</title>
+      <link>https://spinnakerworkshop.com/25-deploy-helm/rbac.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/25-deploy-helm/rbac.html</guid>
+      <description>Before we deploy Helm to our Kubernetes cluster, we need to setup Role Based Access Control (RBAC) permissions for it. This will give the Tiller component of Helm the permissions it needs within the cluster to deploy applications.
+Recent versions of Kubernetes employ a role-based access control (or RBAC) system (as do modern operating systems) to help mitigate the damage that can be done if credentials are misused or bugs exist.</description>
+    </item>
+    
+    <item>
+      <title>Install Helm &amp; Tiller</title>
+      <link>https://spinnakerworkshop.com/25-deploy-helm/install.html</link>
+      <pubDate>Tue, 07 Aug 2018 13:31:55 -0700</pubDate>
+      
+      <guid>https://spinnakerworkshop.com/25-deploy-helm/install.html</guid>
+      <description>If you are using Mac OS, you can install Helm with Homebrew. For other operating systems, please see the Helm documentation.
+brew install kubernetes-helm  Once installed, you can verify that it installed correctly by running helm version
+helm version Client: &amp;amp;version.Version{SemVer:&amp;quot;v2.10.0&amp;quot;, GitCommit:&amp;quot;9ad53aac42165a5fadc6c87be0dea6b115f93090&amp;quot;, GitTreeState:&amp;quot;clean&amp;quot;} Error: could not find tiller  You&amp;rsquo;ll see an error from Helm about not being able to find tiller. This is expected at this stage, as so far all we have done is install the Helm CLI to our local machine - now we need to deploy tiller to our Kubernetes cluster.</description>
+    </item>
+    
+  </channel>
+</rss>
