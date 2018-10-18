@@ -11,7 +11,7 @@ class CdkWorkshop extends cdk.Stack {
         })
 
         new cdk.Output(this, "DNSNameservers", {
-            description: "Nameservers for workshop DNS zone",
+            description: "Nameservers for DNS zone",
             value: zone.nameServers,
         })
 
