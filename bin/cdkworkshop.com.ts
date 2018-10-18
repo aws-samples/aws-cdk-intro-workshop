@@ -91,7 +91,7 @@ class CdkWorkshop extends cdk.Stack {
 
         new cdk.Output(this, 'Nameservers', {
             description: 'Nameservers for DNS zone',
-            value: zone.nameServers.concat("", ","),
+            value: new cdk.FnJoin(', ', zone.nameServers.resolve())
         })
 
     }
