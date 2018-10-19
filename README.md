@@ -1,6 +1,4 @@
-## AWS Cdk Intro Workshop
-
-Introduction to the AWS CDK - Workshop
+## Introduction to the AWS Cloud Development Kit (CDK) - Workshop
 
 ## Developer Guide
 

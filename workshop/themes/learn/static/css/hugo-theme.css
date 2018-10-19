@@ -161,8 +161,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 h2 {
-  font-size: 2.5rem;
-  line-height: 110% !important;
+  font-size: 1.5rem;
   margin: 2.5rem 0 1.5rem 0;
 }
 

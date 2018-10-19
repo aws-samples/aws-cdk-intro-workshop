@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 #top-github-link, #body #breadcrumbs {
     position: relative;
     top: 50%;
@@ -15,31 +17,12 @@
 .button:active, .button-secondary:active {
     margin: 2px 0 -2px 0;
 }
-@font-face {
-    font-family: 'Novacento Sans Wide';
-    src: url("../fonts/Novecentosanswide-UltraLight-webfont.eot");
-    src: url("../fonts/Novecentosanswide-UltraLight-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Novecentosanswide-UltraLight-webfont.woff2") format("woff2"), url("../fonts/Novecentosanswide-UltraLight-webfont.woff") format("woff"), url("../fonts/Novecentosanswide-UltraLight-webfont.ttf") format("truetype"), url("../fonts/Novecentosanswide-UltraLight-webfont.svg#novecento_sans_wideultralight") format("svg");
-    font-style: normal;
-    font-weight: 200;
-}
-@font-face {
-    font-family: 'Work Sans';
-    font-style: normal;
-    font-weight: 300;
-    src: url("../fonts/Work_Sans_300.eot?#iefix") format("embedded-opentype"), url("../fonts/Work_Sans_300.woff") format("woff"), url("../fonts/Work_Sans_300.woff2") format("woff2"), url("../fonts/Work_Sans_300.svg#WorkSans") format("svg"), url("../fonts/Work_Sans_300.ttf") format("truetype");
-}
-@font-face {
-    font-family: 'Work Sans';
-    font-style: normal;
-    font-weight: 500;
-    src: url("../fonts/Work_Sans_500.eot?#iefix") format("embedded-opentype"), url("../fonts/Work_Sans_500.woff") format("woff"), url("../fonts/Work_Sans_500.woff2") format("woff2"), url("../fonts/Work_Sans_500.svg#WorkSans") format("svg"), url("../fonts/Work_Sans_500.ttf") format("truetype");
-}
 body {
     background: #fff;
     color: #777;
 }
 body #chapter h1 {
-    font-size: 3.5rem;
+    font-size: 30pt;
 }
 @media only all and (min-width: 48em) and (max-width: 59.938em) {
     body #chapter h1 {
@@ -53,6 +36,9 @@ body #chapter h1 {
 }
 a {
     color: #00bdf3;
+}
+p {
+    text-align: justify;
 }
 a:hover {
     color: #0082a7;
@@ -326,6 +312,8 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     margin: 3rem auto;
     display: block;
     text-align: center;
+    border: 2px #eee solid;
+    box-shadow: #1d1f21;
 }
 #body img.border, #body .video-container.border {
     border: 2px solid #e6e6e6 !important;
@@ -343,7 +331,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     border: 1px solid #ccc;
 }
 #body .padding {
-    padding: 3rem 6rem;
+    padding: 0rem 8rem;
 }
 @media only all and (max-width: 59.938em) {
     #body .padding {
@@ -378,6 +366,8 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     cursor: pointer;
     display: table;
     text-align: center;
+    background: #eee;
+
 }
 #body .nav > i {
     display: table-cell;
@@ -400,7 +390,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     }
 }
 #body .nav:hover {
-    background: #F6F6F6;
+    background: #ddd;
 }
 #body .nav.nav-pref {
     left: 0;
@@ -423,7 +413,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     max-width: 80%;
 }
 #chapter h3 {
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     text-align: center;
 }
@@ -432,7 +422,6 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     border-bottom: 4px solid #F0F2F4;
 }
 #chapter p {
-    text-align: center;
     font-size: 1.2rem;
 }
 #footer {
@@ -444,22 +433,19 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     margin: 0;
 }
 body {
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     line-height: 1.6;
     font-size: 18px !important;
 }
 h2, h3, h4, h5, h6 {
-    font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
     text-rendering: optimizeLegibility;
     color: #5e5e5e;
     font-weight: 400;
     letter-spacing: -1px;
 }
 h1 {
-    font-family: "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
     text-align: center;
-    text-transform: uppercase;
     color: #222;
     font-weight: 200;
 }
@@ -620,7 +606,7 @@ section.attachments.grey .attachments-files {
 
 code, kbd, pre, samp {
     font-family: "Consolas", menlo, monospace;
-    font-size: 92%;
+    font-size: 100%;
 }
 code {
     border-radius: 2px;
@@ -653,7 +639,7 @@ pre code {
     border: 0;
     padding: 0;
     margin: 0;
-    font-size: 15px;
+    font-size: 13px;
 }
 hr {
     border-bottom: 4px solid #F0F2F4;
@@ -797,7 +783,8 @@ td {
     z-index: 1000000;
     display: none;
     padding: 5px 8px;
-    font: normal normal 11px/1.5 "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px/1.5;
     color: #fff;
     text-align: center;
     text-decoration: none;
@@ -1116,7 +1103,7 @@ pre .copy-to-clipboard:hover {
 }
 
 #sidebar #shortcuts h3 {
-    font-family: "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+
     color: white ;
     margin-top:1rem;
     padding-left: 1rem;
