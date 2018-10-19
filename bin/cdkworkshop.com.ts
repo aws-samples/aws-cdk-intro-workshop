@@ -11,6 +11,8 @@ class CdkWorkshop extends cdk.Stack {
     public readonly domain = 'cdkworkshop.com';
     public readonly certificate = 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35';
     public readonly email = 'aws-cdk-workshop@amazon.com';
+    public readonly restrictToAmazonNetwork = true;
+    public readonly restrictToAmazonNetworkWebACL = new cdk.FnImportValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL');
 
     constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
         super(parent, name, props);
@@ -42,10 +44,16 @@ class CdkWorkshop extends cdk.Stack {
 
         // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available 
 
+        let acl: string | undefined
+        if (this.restrictToAmazonNetwork) {
+            acl = this.restrictToAmazonNetworkWebACL.toString()
+        }
+
         // CloudFront distribution
         const cdn = new cloudfront.CloudFrontWebDistribution(this, 'CloudFront', {
             viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.RedirectToHTTPS,
             priceClass: cloudfront.PriceClass.PriceClassAll,
+            webACLId: acl,
             originConfigs: [{
                 behaviors: [{ isDefaultBehavior: true }],
                 s3OriginSource: {
@@ -67,7 +75,7 @@ class CdkWorkshop extends cdk.Stack {
             hostedZoneId: zone.hostedZoneId,
             type: 'A',
             aliasTarget: {
-                hostedZoneId: 'Z2FDTNDATAQYW2', // Always used for CloudFront in any region
+                hostedZoneId: cdn.aliasHostedZoneId, // Always used for CloudFront in any region
                 dnsName: cdn.domainName,
             },
         });

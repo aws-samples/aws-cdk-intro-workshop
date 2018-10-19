@@ -3,7 +3,7 @@ import guardduty = require('@aws-cdk/aws-guardduty');
 import events = require('@aws-cdk/aws-events');
 import sns = require('@aws-cdk/aws-sns');
 
-export class GuardDutyNotifierProps {
+export interface GuardDutyNotifierProps {
 
     // An environment name included in the notification email for identification purposes
     environmentName: string
