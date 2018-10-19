@@ -6,32 +6,56 @@ import s3 = require('@aws-cdk/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
 import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 
+interface CdkWorkshopProps extends cdk.StackProps {
+
+    /**
+     * The Domain the workshop should be hosted at
+     */
+    domain: string
+
+    /**
+     * The ARN of the Amazon Certificate Manager (ACM) certificate to use with CloudFront
+     */
+    certificate: string
+
+    /**
+     * Email address to use for AWS GuardDuty security finding notifications
+     */
+    email: string
+
+    /**
+     * If true, AWS WAF will be deployed in front of the workshop CloudFront 
+     * distribution, with a ruleset to only allow access from the Amazon corporate network
+     */
+    restrictToAmazonNetwork: boolean
+
+    /**
+     * The ARN of the AWS WAF WebACL that restricts access to the Amazon corporate network (should be deployed separately)
+     */
+    restrictToAmazonNetworkWebACL: cdk.Token
+
+}
+
 class CdkWorkshop extends cdk.Stack {
 
-    public readonly domain = 'cdkworkshop.com';
-    public readonly certificate = 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35';
-    public readonly email = 'aws-cdk-workshop@amazon.com';
-    public readonly restrictToAmazonNetwork = true;
-    public readonly restrictToAmazonNetworkWebACL = new cdk.FnImportValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL');
-
-    constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
+    constructor(parent: cdk.App, name: string, props: CdkWorkshopProps) {
         super(parent, name, props);
 
         // Enable AWS GuardDuty in this account, and send any security findings via email
         new GuardDutyNotifier(this, "GuardDuty", {
-            environmentName: this.domain,
-            email: this.email
+            environmentName: props.domain,
+            email: props.email
         })
 
         // Create DNS Zone
         const zone = new route53.PublicHostedZone(this, 'HostedZone', {
-            zoneName: this.domain,
+            zoneName: props.domain,
         })
 
         // Bucket to hold the static website
         const bucket = new s3.Bucket(this, 'Bucket');
         const origin = new cloudfront.cloudformation.CloudFrontOriginAccessIdentityResource(this, "BucketOrigin", {
-            cloudFrontOriginAccessIdentityConfig: { comment: this.domain }
+            cloudFrontOriginAccessIdentityConfig: { comment: props.domain }
         })
 
         // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
@@ -45,8 +69,8 @@ class CdkWorkshop extends cdk.Stack {
         // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available 
 
         let acl: string | undefined
-        if (this.restrictToAmazonNetwork) {
-            acl = this.restrictToAmazonNetworkWebACL.toString()
+        if (props.restrictToAmazonNetwork) {
+            acl = props.restrictToAmazonNetworkWebACL.toString()
         }
 
         // CloudFront distribution
@@ -62,8 +86,8 @@ class CdkWorkshop extends cdk.Stack {
                 }
             }],
             aliasConfiguration: {
-                names: [this.domain],
-                acmCertRef: this.certificate,
+                names: [props.domain],
+                acmCertRef: props.certificate,
             }
         })
 
@@ -71,7 +95,7 @@ class CdkWorkshop extends cdk.Stack {
         // Having to use L1 construct here as currently only TXT/NS records can be created with the L2 construct
         // https://github.com/awslabs/aws-cdk/issues/966
         new route53.cloudformation.RecordSetResource(this, 'CloudFrontDNSRecord', {
-            recordSetName: this.domain + '.',
+            recordSetName: props.domain + '.',
             hostedZoneId: zone.hostedZoneId,
             type: 'A',
             aliasTarget: {
@@ -84,7 +108,7 @@ class CdkWorkshop extends cdk.Stack {
 
         new cdk.Output(this, 'URL', {
             description: 'The URL of the workshop',
-            value: 'https://' + this.domain,
+            value: 'https://' + props.domain,
         })
 
         new cdk.Output(this, 'CloudFrontURL', {
@@ -94,7 +118,7 @@ class CdkWorkshop extends cdk.Stack {
 
         new cdk.Output(this, 'CertificateArn', {
             description: 'The SSL certificate ARN',
-            value: this.certificate,
+            value: props.certificate,
         })
 
         new cdk.Output(this, 'Nameservers', {
@@ -106,5 +130,14 @@ class CdkWorkshop extends cdk.Stack {
 }
 
 const app = new cdk.App();
-new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', { env: { account: '025656461920', region: 'eu-west-1' } });
+
+new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', {
+    env: { account: '025656461920', region: 'eu-west-1' },
+    domain: 'cdkworkshop.com',
+    certificate: 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35',
+    email: 'aws-cdk-workshop@amazon.com',
+    restrictToAmazonNetwork: true,
+    restrictToAmazonNetworkWebACL: new cdk.FnImportValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
+});
+
 app.run();
