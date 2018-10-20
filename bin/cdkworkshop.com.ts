@@ -5,6 +5,8 @@ import cloudfront = require('@aws-cdk/aws-cloudfront');
 import s3 = require('@aws-cdk/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
 import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
+import s3deploy = require('@aws-cdk/aws-s3-deployment');
+import path = require('path');
 
 interface CdkWorkshopProps extends cdk.StackProps {
 
@@ -66,7 +68,11 @@ class CdkWorkshop extends cdk.Stack {
         bucketPolicy.allow();
         bucket.addToResourcePolicy(bucketPolicy);
 
-        // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available 
+        // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available
+        new s3deploy.BucketDeployment(this, 'DeployWebsite', {
+            source: s3deploy.Source.asset(path.join(__dirname, '..', 'workshop', 'public')),
+            destinationBucket: bucket
+        });
 
         let acl: string | undefined
         if (props.restrictToAmazonNetwork) {
