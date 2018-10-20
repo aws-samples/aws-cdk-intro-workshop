@@ -19,8 +19,9 @@ class CdkWorkshopStack extends cdk.Stack {
     });
 
     // defines an API Gateway REST API resource backed by our "hello" function.
-    const api = new apigw.LambdaRestApi(this, 'Endpoint', { handler: helloWithCounter.handler, proxyPath: '/' });
-    api.root.addMethod('ANY');
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: helloWithCounter.handler
+    });
   }
 }
 
