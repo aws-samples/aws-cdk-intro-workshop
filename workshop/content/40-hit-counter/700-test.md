@@ -16,7 +16,7 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
 1. Now, go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home)
 2. Open our table and select "Items"
 
-    ![](./dynamno1.png)
+    ![](./dynamo1.png)
 
 Good job!
 
