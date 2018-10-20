@@ -12,17 +12,17 @@
         "cdk": "cdk"
     },
     "devDependencies": {
-        "@types/node": "^8.9.4",
+        "@types/node": "^10.12.0",
         "typescript": "^3.1.2",
-        "aws-cdk": "^0.12.0"
+        "aws-cdk": "^0.13.0"
     },
     "dependencies": {
-        "@aws-cdk/aws-cloudfront": "^0.12.0",
-        "@aws-cdk/aws-events": "^0.12.0",
-        "@aws-cdk/aws-guardduty": "^0.12.0",
-        "@aws-cdk/aws-route53": "^0.12.0",
-        "@aws-cdk/aws-s3": "^0.12.0",
-        "@aws-cdk/aws-sns": "^0.12.0",
-        "@aws-cdk/cdk": "^0.12.0"
+        "@aws-cdk/aws-cloudfront": "^0.13.0",
+        "@aws-cdk/aws-events": "^0.13.0",
+        "@aws-cdk/aws-guardduty": "^0.13.0",
+        "@aws-cdk/aws-route53": "^0.13.0",
+        "@aws-cdk/aws-s3": "^0.13.0",
+        "@aws-cdk/aws-sns": "^0.13.0",
+        "@aws-cdk/cdk": "^0.13.0"
     }
 }
