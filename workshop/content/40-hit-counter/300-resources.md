@@ -3,12 +3,14 @@ title = "Define resources"
 weight = 300
 +++
 
+## Add resources our hit counter
+
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct.
 
-Before we do that, we will need to install the DynamoDB construct library:
+As usual, we first need to install the DynamoDB construct library:
 
-```s
+```shell
 $ npm i @aws-cdk/aws-dynamodb
 ```
 
@@ -48,15 +50,21 @@ export class HitCounter extends cdk.Construct {
 }
 {{</highlight>}}
 
+## What did we do here?
+
 This code is hopefully quite easy to understand:
 
- * We define a DynamoDB table with a "path" partition key.
- * We define a Lambda function that is bound to the "hitcounter.handler" code.
- * We wire the Lambda's environment variables to the `functionName` and `tableName`
+ * We defined a DynamoDB table with `path` as the partition key.
+ * We defined a Lambda function which is bound to the `hitcounter.handler` code.
+ * We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
    of our resources.
 
-{{% notice info %}} The `functionName` and `tableName` properties are values
-that can only resolve when we deploy our stack. This means that if you print
+## Late-bound values
+
+The `functionName` and `tableName` properties are values that only resolve when
+we deploy our stack (notice that we haven't configured these physical names when
+we defined the table/function, only logical IDs). This means that if you print
 their values during synthesis, you will get a "TOKEN", which is how the CDK
-represents these late-bound values. Don't be tempted to parse this value. {{%
-/notice %}}
+represents these late-bound values. You should treat tokens as _opaque strings_.
+This means you can concatenate them together for example, but don't be tempted
+to parse them in your code.

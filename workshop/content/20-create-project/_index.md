@@ -1,5 +1,5 @@
 +++
-title = "🍼 New Project"
+title = "New Project"
 chapter = true
 weight = 20
 +++

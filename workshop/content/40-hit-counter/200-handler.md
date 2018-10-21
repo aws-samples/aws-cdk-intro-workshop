@@ -3,7 +3,11 @@ title = "Hit counter handler"
 weight = 100
 +++
 
-Okay, now let's write the Lambda handler code for our hit counter. Create a file under `lambda/hitcounter.js`:
+## Write the hit counter runtime logic
+
+Okay, now let's write the Lambda handler code for our hit counter.
+
+Create a file under `lambda/hitcounter.js`:
 
 ```js
 const { DynamoDB, Lambda } = require('aws-sdk');
@@ -36,9 +40,14 @@ exports.handler = async function(event) {
 };
 ```
 
+## Discovering resources at runtime
+
 You'll notice that this code relies on two environment variables:
 
  * `HITS_TABLE_NAME` is the name of the DynamoDB table to use for storage.
  * `DOWNSTREAM_FUNCTION_NAME` is the name of the downstream AWS Lambda function.
 
-We will wire up these variables in the next section.
+Since the actual name of the table and the downstream function will only be
+decided when we deploy our app, we need to wire up these values from our
+construct code. We'll do that in the next section.
+

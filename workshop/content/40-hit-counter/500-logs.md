@@ -3,15 +3,17 @@ title = "CloudWatch Logs"
 weight = 500
 +++
 
+## Viewing CloudWatch logs for our Lambda function
+
 The first thing to do is to go and look at the logs of your AWS Lambda function.
 There are many tools that help you do that like [SAM
 CLI](https://github.com/awslabs/aws-sam-cli) and
 [awslogs](https://github.com/jorgebastida/awslogs). In this workshop, we'll show you how
 to find your logs through the AWS console.
 
-1. Open the [AWS Lambda console](https://console.aws.amazon.com/lambda/home). Make sure you
-   are connected to the correct region.
-2. Click on the "HitCounter" Lambda function:
+1. Open the [AWS Lambda console](https://console.aws.amazon.com/lambda/home) (make sure you
+   are connected to the correct region).
+2. Click on the __HitCounter__ Lambda function:
 
     ![](./logs1.png)
 
@@ -49,7 +51,9 @@ to find your logs through the AWS console.
     }
     ```
 
+---
+
 Okay, this is starting to make sense. It seems like our Lambda function can't
 write to our DynamoDB table. Which, kind of makes sense. We didn't actually
-grant it these permissions.
+grant it those permissions. Let's do that now.
 

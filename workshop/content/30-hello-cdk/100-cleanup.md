@@ -3,8 +3,10 @@ title = "Cleanup sample"
 weight = 100
 +++
 
-Open `bin/cdk-workshop.ts` and delete remove all resources from your stack and
-the relevant `import` statements.
+## Delete the sample code from your stack
+
+Open `bin/cdk-workshop.ts` and remove resources from your stack and the relevant
+`import` statements.
 
 You code should look like this.
 
@@ -20,17 +22,15 @@ class CdkWorkshopStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
-
 app.run();
 ```
 
 ## cdk diff
 
 Now, that we modified our stack's contents, we can ask the toolkit to show us
-what will happen if we run `cdk deplot` again (the difference between our CDK
-app and what's currently deployed):
+what will happen if we run `cdk deploy` (the difference between our CDK app and
+what's currently deployed):
 
 ```s
 $ cdk diff
@@ -38,13 +38,11 @@ $ cdk diff
 [-] ☢️ Destroying CdkWorkshopQueuePolicyAF2494A5 (type: AWS::SQS::QueuePolicy)
 [-] ☢️ Destroying CdkWorkshopTopicD368A42F (type: AWS::SNS::Topic)
 [-] ☢️ Destroying CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 (type: AWS::SNS::Subscription)
-[~] 🛠 Updating CDKMetadata (type: AWS::CDK::Metadata)
- └─ [~] .Modules:
-     ├─ [-] Old value: @aws-cdk/aws-cloudwatch=0.12.0,@aws-cdk/aws-iam=0.12.0,@aws-cdk/aws-kms=0.12.0,@aws-cdk/aws-s3-notifications=0.12.0,@aws-cdk/aws-sns=0.12.0,@aws-cdk/aws-sqs=0.12.0,@aws-cdk/cdk=0.12.0,@aws-cdk/cx-api=0.12.0,cdk-workshop=0.1.0
-     └─ [+] New value: @aws-cdk/cdk=0.12.0,@aws-cdk/cx-api=0.12.0,cdk-workshop=0.1.0
 ```
 
 As expected, all of our resources are going to be brutally destroyed.
+
+## cdk deploy
 
 Run `cdk deploy` and __proceed to the next section__ (no need to wait):
 

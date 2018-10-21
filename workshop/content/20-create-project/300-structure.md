@@ -3,6 +3,8 @@ title = "Project structure"
 weight = 300
 +++
 
+## Open your IDE
+
 Now's a good time to kick off your IDE and explore our little project.
 
 If you use VSCode, you can just type:
@@ -11,6 +13,8 @@ If you use VSCode, you can just type:
 $ cd cdk-workshop
 $ code .
 ```
+
+## Explore your project directory
 
 You'll see something like this:
 
@@ -28,6 +32,8 @@ You'll see something like this:
   from source control and when publishing this module to the package manager.
 * `node_modules` is maintained by npm and includes all your project's
   dependencies.
+
+## Your app's entry point
 
 Let's open up `bin/cdk-workshop.ts`:
 
@@ -51,13 +57,13 @@ class CdkWorkshopStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
-
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
-
 app.run();
 ```
 
 As you can see, our app was created with a sample CDK stack
-(`CdkWorkshopStack`). The stack includes an SQS Queue and an SNS Topic, and we
-also subscribe the queue to receive any messages published to the topic via
-`subscribeQueue`.
+(`CdkWorkshopStack`).The stack includes:
+
+- SQS Queue (`new sqs.Queue`)
+- SNS Topic (`new sns.Topic)`
+- Subscribes the queue to receive any messages published to the topic (`subscribeQueue`).

@@ -11,11 +11,15 @@ export class HitCounter extends cdk.Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
+  /** the hit counter table */
+  public readonly table: dynamodb.Table;
+
   constructor(parent: cdk.Construct, id: string, props: HitCounterProps) {
     super(parent, id);
 
     const table = new dynamodb.Table(this, 'Hits');
     table.addPartitionKey({ name: 'path', type: dynamodb.AttributeType.String });
+    this.table = table;
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NodeJS810,

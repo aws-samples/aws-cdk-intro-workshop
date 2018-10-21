@@ -4,17 +4,18 @@ weight = 300
 +++
 
 Next step is to add an API Gateway in front of our function. API Gateway will
-export a public HTTP endpoint that anyone on the internet can hit.
+expose a public HTTP endpoint that anyone on the internet can hit with an HTTP
+client such as cURL or a web browser.
 
-We will use an API Gateway with [Lambda proxy
+We will use [Lambda proxy
 integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html)
-which is mounted to the root of the API. This means that any request to any URL
-path will be proxied directly to our Lambda function, and the response from the
-function will be returned back to the user.
+mounted to the root of the API. This means that any request to any URL path will
+be proxied directly to our Lambda function, and the response from the function
+will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-```s
+```shell
 $ npm i @aws-cdk/aws-apigateway
 ```
 
@@ -52,6 +53,8 @@ app.run();
 That's it. This is all you need to do in order to define an API Gateway which
 proxies all requests to an AWS Lambda function.
 
+## cdk diff
+
 Let's see what's going to happen when we deploy this:
 
 ```s
@@ -73,12 +76,16 @@ $ cdk diff
 
 That's nice. This one line of code added 12 new resources to our stack.
 
+## cdk deploy
+
 Okay, ready to deploy?
 
 ```s
 $ cdk deploy
 ...
 ```
+
+## Stack outputs
 
 When deployment is complete, you'll notice this line:
 
@@ -89,37 +96,28 @@ CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.ama
 This is a [stack output](https://awslabs.github.io/aws-cdk/cloudformation.html#outputs) that's
 automatically added by the API Gateway construct and includes the URL of the API Gateway endpoint.
 
-Let's try to hit this endpoint with `cURL`. Copy the URL and execute (your
-prefix and/or region will be different):
+## Testing your app
 
-```s
+Let's try to hit this endpoint with `cURL`. Copy the URL and execute (your
+prefix and region will likely be different):
+
+```shell
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 Hello, CDK! You've hit /
 ```
 
 If this is the output you received, your app works!
 
-{{% notice info %}}
+## What if it didn't work?
 
-To debug issues (in case, for example, that you haven't received this response),
-go to the AWS Lambda Console, open your AWS Lambda function, click
-__Monitoring__ and __View Logs in CloudWatch__. Then, click __Search Log Group__
-and scroll all the way down. These will be the latest logs of your Lambda
-function, and you'll likely see some errors.
+If you received a 500 error from API Gateway, it is likely one of two issues:
 
-Another common issue at this stage is that your function doesn't return the
-correct response to API Gateway. Make sure the response includes a `statusCode`
-and `body` attributes.
+1. The response your function returned is not what API Gateway expects. Go back and
+   make sure you function returns a response that includes a `statusCode`, `body` and `header`
+   fields (see [Write handler runtime code](./200-lambda.html)).
+2. Your function failed for some reason. To debug this, you can quickly jump to [this section](../40-hit-counter/500-logs.html)
+   to learn how to view your Lambda logs.
 
-{{% /notice %}}
-
-Try out other paths:
-
-```s
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
-Hello, CDK! Youve hit /hello/world
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/you/are/awesome
-Hello, CDK! Youve hit /you/are/awesome
-```
+---
 
 Good job! In the next chapter, we'll write our own reusable construct.

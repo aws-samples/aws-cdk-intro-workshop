@@ -1,7 +1,9 @@
 +++
-title = "AWS Account"
+title = "AWS Account and User"
 weight = 200
 +++
+
+## AWS Account for Experimentation
 
 To deploy our app, you'll need access to an AWS account. If you already have an
 account and your system is configured with credentials of an administrator user,
@@ -13,9 +15,12 @@ a company account, make sure you understand the implications and policy of
 provisioning resources into this account.
 {{% /notice %}}
 
-1. If you don't have an AWS account, you can [create a free account
-   here](https://portal.aws.amazon.com/billing/signup).
-2. Sign in to your new account
+If you don't have an AWS account, you can [create a free account
+here](https://portal.aws.amazon.com/billing/signup).
+
+## Administrator User
+
+2. Sign in to your AWS account
 3. Go to the AWS IAM console and [create a new user](https://console.aws.amazon.com/iam/home?#/users$new).
 4. Type a name for your user (e.g. `cdk-workshop`) and choose "Programmatic access".
 
@@ -33,14 +38,16 @@ provisioning resources into this account.
 
     ![](./new-user-3.png)
 
-10. Open a terminal window and use `aws configure` to set up your environment.
-    Type the __access key ID__ and __secret key__ and choose a default region
-    (you can use `us-east-1`, `eu-west-1`, `us-west-2` for example). Preferably
-    use a region that doesn't have any resources already deployed into it.
+## Configure your credentials
 
-    ```s
-    $ aws configure
-    AWS Access Key ID: <type key ID here>
-    AWS Secret Access Key: <type access key>
-    Default region name: <choose region (e.g. "us-east-1")>
-    ```
+Open a terminal window and use `aws configure` to set up your environment. Type
+the __access key ID__ and __secret key__ and choose a default region (you can
+use `us-east-1`, `eu-west-1`, `us-west-2` for example). Preferably use a region
+that doesn't have any resources already deployed into it.
+
+```s
+$ aws configure
+AWS Access Key ID: <type key ID here>
+AWS Secret Access Key: <type access key>
+Default region name: <choose region (e.g. "us-east-1")>
+```

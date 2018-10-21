@@ -3,6 +3,8 @@ title = "cdk synth"
 weight = 400
 +++
 
+## Synthesize a template from your app
+
 AWS CDK apps are effectively only a __definition__ of your infrastructure using
 code. When a CDK app is executed, they produce (or "__synthesize__" in CDK
 parlance) an AWS CloudFormation template for each stack defined in your
@@ -75,5 +77,6 @@ As you can see, this template includes four resources:
 by the toolkit to every stack. It is used by the AWS CDK team for analytics and
 to allow us to identify versions with security issues. See [Version
 Reporting](https://awslabs.github.io/aws-cdk/tools.html#version-reporting) in
-the AWS CDK User Guide for more details. {{% /notice %}}
+the AWS CDK User Guide for more details. We will omit the metadata resource in
+diff views for the rest of this workshop {{% /notice %}}
 

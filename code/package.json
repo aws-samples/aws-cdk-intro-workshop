@@ -22,6 +22,7 @@
         "@aws-cdk/aws-lambda": "^0.13.0",
         "@aws-cdk/aws-sns": "^0.13.0",
         "@aws-cdk/aws-sqs": "^0.13.0",
-        "@aws-cdk/cdk": "^0.13.0"
+        "@aws-cdk/cdk": "^0.13.0",
+        "cdk-dynamo-table-viewer": "^0.1.2"
     }
 }

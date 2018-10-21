@@ -3,19 +3,18 @@ title = "cdk deploy"
 weight = 500
 +++
 
-Okay, we've got a CloudFormation template. What's next?
-
-Let's deploy it into our account.
+Okay, we've got a CloudFormation template. What's next? __Let's deploy it into our account!__
 
 ## Bootstrapping an environment
 
-On the first time you deploy a CDK app into an AWS environment, you'll need to
-deploy a "bootstrap stack" (aka "toolkit stack") into the environment. This
-stack includes resources that facilitate in the toolkit's operation. For
-example, the stack includes an S3 bucket that is used to store templates and
-assets during the deployment process.
+The first time you deploy an AWS CDK app into an environment (account/region),
+you'll need to deploy a "bootstrap stack" into the environment. This stack
+includes resources that are needed for the toolkit's operation. For example, the
+stack includes an S3 bucket that is used to store templates and assets during
+the deployment process.
 
-Execute this command once per deployment environment (account/region):
+You can use the `cdk bootstrap` command to install the bootstrap stack into an
+environment:
 
 ```s
 $ cdk bootstrap
@@ -61,8 +60,4 @@ physical identities of our resources:
 
 ![](./cfn2.png)
 
-Which is what we expected. But still...
-
-# 🦄
-
-## Okay, I am ready for some actual coding!
+# I am ready for some actual coding!

@@ -3,7 +3,9 @@ title = "Granting permissions"
 weight = 600
 +++
 
-Let's give our Lambda's execution role permissions to read/write from our DynamoDB.
+## Allow Lambda to read/write our DynamoDB table
+
+Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `hitcounter.ts` and add the following:
 
@@ -58,7 +60,7 @@ HTTP/1.1 502 Bad Gateway
 
 # 😢
 
-Still getting those pesky 500s. Let's take another look at our CloudWatch logs (click "Refresh"):
+Still getting those pesky 500s. Let's look at our CloudWatch logs again (click "Refresh"):
 
 ```json
 {
@@ -82,7 +84,7 @@ Still getting those pesky 500s. Let's take another look at our CloudWatch logs (
 Another access denied, but this time, if you take a close look:
 
 ```
-User: X is not authorized to perform: lambda:InvokeFunction on resource: Y"
+User: <VERY-LONG-STRING> is not authorized to perform: lambda:InvokeFunction on resource: <VERY-LONG-STRING>"
 ```
 
 So it seems like our hit counter actually managed to write to the database. We can confirm by

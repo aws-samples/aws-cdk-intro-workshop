@@ -3,12 +3,16 @@ title = "cdk init"
 weight = 100
 +++
 
+## Create project directory
+
 Create an empty directory on your system:
 
 ```s
 $ mkdir cdk-workshop
 $ cd cdk-workshop
 ```
+
+## cdk init
 
 We will use `cdk init` to create a new TypeScript CDK project:
 
