@@ -671,9 +671,6 @@ hr {
 #body-inner .tabs-wrapper.ui-theme-badges .tabs-nav li.current a {
     background: #4d5257;
 }
-#body-inner pre {
-    white-space: pre-wrap;
-}
 .tabs-wrapper pre {
     margin: 1rem 0;
     border: 0;
@@ -1113,7 +1110,7 @@ pre .copy-to-clipboard:hover {
     text-align: left;
 }
 
-.language-s span[id^=code_line-]::before {
+code.language-s::before {
     content: '$ ';
     color: green;
 }

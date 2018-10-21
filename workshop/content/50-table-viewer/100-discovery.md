@@ -7,7 +7,7 @@ weight = 100
 
 Browse to the [cdk-dyanmo-table-viewer
 page](https://www.npmjs.com/package/cdk-dynamo-table-viewer) on npmjs.org and
-read the table viewer documentation.
+read the module documentation.
 
 ![](./table-viewer-npm.png)
 

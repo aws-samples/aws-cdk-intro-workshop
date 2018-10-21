@@ -8,10 +8,9 @@ Okay, we've got a CloudFormation template. What's next? __Let's deploy it into o
 ## Bootstrapping an environment
 
 The first time you deploy an AWS CDK app into an environment (account/region),
-you'll need to deploy a "bootstrap stack" into the environment. This stack
-includes resources that are needed for the toolkit's operation. For example, the
-stack includes an S3 bucket that is used to store templates and assets during
-the deployment process.
+you'll need to install a "bootstrap stack". This stack includes resources that
+are needed for the toolkit's operation. For example, the stack includes an S3
+bucket that is used to store templates and assets during the deployment process.
 
 You can use the `cdk bootstrap` command to install the bootstrap stack into an
 environment:
@@ -26,6 +25,8 @@ Then:
  ⏳  Bootstrapping environment 999999999999/us-east-1...
 ...
 ```
+
+Hopefully this command finished successfully and we can move on to deploy our app.
 
 ## Let's deploy
 
@@ -57,6 +58,14 @@ Output should look like this:
 [6/6] CREATE_COMPLETE     [AWS::CloudFormation::Stack] CdkWorkshopStack
  ✅  Deployment of stack CdkWorkshopStack completed successfully
 ```
+
+## The CloudFormation Console
+
+CDK apps are deployed through AWS CloudFormation. Each CDK stack maps 1:1 with
+CloudFormation stack.
+
+This means that you can use the AWS CloudFormation console in order to manage
+your stacks.
 
 Let's take a look at the [AWS CloudFormation
 console](https://console.aws.amazon.com/cloudformation/home).

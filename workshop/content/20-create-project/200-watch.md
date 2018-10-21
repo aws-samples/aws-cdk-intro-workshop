@@ -3,13 +3,15 @@ title = "npm run watch"
 weight = 200
 +++
 
-{{% notice info %}} This is an important step. Make sure you leave the "watch"
-terminal session open at the end of this step. {{% /notice %}}
+## Compiling your TypeScript code
 
 Since TypeScript sources need to be compiled to JavaScript, every time we make a
 modification to our source files, we would want them to be compiled to `.js`.
 
-Your project comes configured with a nice little npm script called `watch`.
+{{% notice info %}} This is an important step. Make sure you leave the "watch"
+terminal session open at the end of this step. {{% /notice %}}
+
+Your project is already configured with a nice little npm script called `watch`.
 
 ## Open new terminal window
 
@@ -22,6 +24,11 @@ From your project directory run:
 
 ```s
 cd cdk-workshop
+```
+
+And:
+
+```s
 npm run watch
 ```
 

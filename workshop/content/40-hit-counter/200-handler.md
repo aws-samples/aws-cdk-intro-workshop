@@ -3,7 +3,7 @@ title = "Hit counter handler"
 weight = 100
 +++
 
-## Write the hit counter runtime logic
+## Hit counter Lambda handler
 
 Okay, now let's write the Lambda handler code for our hit counter.
 

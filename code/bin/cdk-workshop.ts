@@ -11,7 +11,7 @@ class CdkWorkshopStack extends cdk.Stack {
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NodeJS810,
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       handler: 'hello.handler',
 
     });

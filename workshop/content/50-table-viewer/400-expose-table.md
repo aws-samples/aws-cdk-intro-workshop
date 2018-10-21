@@ -34,7 +34,7 @@ export class HitCounter extends cdk.Construct {
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NodeJS810,
       handler: 'hitcounter.handler',
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
@@ -67,7 +67,7 @@ class CdkWorkshopStack extends cdk.Stack {
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NodeJS810,
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       handler: 'hello.handler'
     });
 

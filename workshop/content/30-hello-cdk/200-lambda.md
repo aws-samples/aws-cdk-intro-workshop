@@ -3,7 +3,7 @@ title = "Hello Lambda"
 weight = 200
 +++
 
-## Write handler runtime code
+## Lambda handler code
 
 We'll start with the AWS Lambda handler code.
 
@@ -33,16 +33,13 @@ Construct Library__. The construct library is divided into __modules__, one for
 each AWS service. For example, if you want to define an AWS Lambda function, we
 will need to use the AWS Lambda construct library.
 
-{{% notice info %}}
-
-Construct libraries are code modules that contain
-"constructs", which are the basic building block of CDK apps. Apps, Stacks, Resources are all
-constructs. Later on, we'll even define our own construct. To discover and learn about AWS constructs, you can browse the [AWS Construct
+To discover and learn about AWS constructs, you can browse the [AWS Construct
 Library reference](https://awslabs.github.io/aws-cdk/reference.html).
 
-{{% /notice %}}
+![](./clib.png)
 
-Use `npm install` to install the module (and all it's dependencies) in your project:
+Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
+module and all it's dependencies into our project:
 
 ```s
 npm i @aws-cdk/aws-lambda
@@ -57,10 +54,20 @@ updated 1 package and audited 1571 packages in 5.098s
 
 > You can safely ignore any warnings from npm about your package.json file.
 
+## A few words about copying & pasting in this workshop
+
+In this workshop, we highly recommended to type CDK code instead of copying &
+pasting (there's usually not much to type). This way, you'll be able to fully
+experience what it's like to use the CDK. It's especially cool to see your IDE
+help you with auto-complete, inline documentation and type safety.
+
+![](./auto-complete.png)
+
 ## Add an AWS Lambda Function to your stack
 
 Add an `import` statement at the beginning of `bin/cdk-workshop.ts`, and a
-`lambda.Function` to your stack:
+`lambda.Function` to your stack.
+
 
 {{<highlight ts "hl_lines=2 8-13">}}
 import cdk = require('@aws-cdk/cdk');
@@ -73,7 +80,7 @@ class CdkWorkshopStack extends cdk.Stack {
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NodeJS810,      // execution environment
-      code: lambda.Code.directory('lambda'),  // code loaded from the "lambda" directory
+      code: lambda.Code.asset('lambda'),  // code loaded from the "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
 
@@ -88,40 +95,44 @@ app.run();
 A few things to notice:
 
 - Our function uses NodeJS 8.10 runtime
+- The handler code is loaded from the `lambda` directory which we created
+  earlier. Path is relative to where you execute `cdk` from, which is you
+  project root
 - The name of the handler function is `hello.handler` ("hello" is the name of
   the file and "handler" is the exported function name)
-- The code is bundled from the `lambda` directory which we created earlier (path
-  is relative to where you execute `cdk` from, which is you project root)
 
 ## A word about constructs and constructors
 
 As you can see, the class constructors of both `CdkWorkshopStack` and
-`lambda.Function` (and many other classes in the CDK) have similar function
-signatures: `(parent, id, props)`. This is because all of these classes are
-__constructs__. Constructs are the basic building block of CDK apps. They
-represent abstract "cloud components" which can be composed together into higher
-level abstractions as a tree. A construct can have child constructs, and they
-can have children, etc.
+`lambda.Function` (and many other classes in the CDK) have the signature
+`(parent, id, props)`. This is because all of these classes are __constructs__.
+Constructs are the basic building block of CDK apps. They represent abstract
+"cloud components" which can be composed together into higher level abstractions
+as a tree. A construct can have child constructs, and they can have children,
+etc.
 
 When you instantiate a construct object, you always pass the following
 arguments:
 
 1. __`parent`__: the first argument is always the parent of the construct. This
-   allows the construct to attach itself to the parent so it can consume it's
-   context. In almost all cases, you'll be defining construct as children of the
-   current context, in which you'll just want to pass `this` for this argument.
-2. __`id`__: the second argument is a __local logical identity__ of the
-   construct. It is used to calculate a unique global logical ID for every
-   resource defined within the the scope of this construct. To read more about
-   logical IDs, see the [CDK user
+   allows the construct to attach itself to the tree. In almost all cases,
+   you'll be defining constructs as children of the _current_ context, which
+   means you'll usually just want to pass `this` for the first argument. Make a
+   habit out of it.
+2. __`id`__: the second argument is the __logical identity__ of the construct.
+   It's an ID that has to be unique _within the same context_ (i.e. amongst all
+   direct children of a construct). The CDK uses this ID to calculate the
+   CloudFormation _global_ logical ID for each resource defined within this
+   scope. To read more about logical IDs, see the [CDK user
    manual](https://awslabs.github.io/aws-cdk/versions/0.8.1/logical-ids.html).
 3. __`props`__: the last (optional) argument is always a set of initialization
-   properties. You can explore the various options using your IDE's
-   auto-complete.
+   properties. Those are specific to each construct. For example, the
+   `lambda.Function` construct accepts properties like `runtime`, `code` and
+   `handler`. You can explore the various options using your IDE's auto-complete
+   or in the [online
+   documentation](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-lambda.html).
 
-    ![](./auto-complete.png)
-
-## Deploy
+## Diff
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
@@ -140,8 +151,9 @@ Output would look like this:
 As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
 also synthesized a couple of [CloudFormation
 parameters](https://awslabs.github.io/aws-cdk/cloudformation.html#parameters)
-that are used by the toolkit to propagate the location of the runtime code for
-this function.
+that are used by the toolkit to propagate the location of the handler code.
+
+## Deploy
 
 Let's deploy:
 
@@ -159,17 +171,30 @@ Let's go to the AWS Lambda Console and test our function.
 
 1. Open the [AWS Lambda
    Console](https://console.aws.amazon.com/lambda/home#/functions) (make sure
-   you are in the correct region). You should see our function:
+   you are in the correct region).
+
+    You should see our function:
+
     ![](./lambda-1.png)
+
 2. Click on the function name to go to the console.
+
 3. Click on the __Test__ button to open the __Configure test event__ dialog:
+
     ![](./lambda-2.png)
+
 4. Select __Amazon API Gateway AWS Proxy__ from the __Event template__ list.
+
 5. Enter `test` under __Event name__.
+
     ![](./lambda-3.png)
+
 6. Hit __Create__.
+
 7. Click __Test__ again and wait for the execution to complete.
+
 8. Expand __Details__ in the __Execution result__ pane and you should see our expected output:
+
     ![](./lambda-4.png)
 
 # 👏

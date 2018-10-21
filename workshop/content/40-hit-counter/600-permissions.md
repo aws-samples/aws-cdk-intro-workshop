@@ -32,7 +32,7 @@ export class HitCounter extends cdk.Construct {
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NodeJS810,
       handler: 'hitcounter.handler',
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
@@ -45,22 +45,35 @@ export class HitCounter extends cdk.Construct {
 }
 {{</highlight>}}
 
+## Deploy
+
 Save & deploy:
 
 ```s
-$ cdk deploy
+cdk deploy
 ```
+
+## Test again
 
 Okay, deployment is complete. Let's run our test again:
 
 ```s
-$ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
+curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
+```
+
+Again?
+
+```
 HTTP/1.1 502 Bad Gateway
+...
+
+{"message": "Internal server error"}
 ```
 
 # 😢
 
-Still getting those pesky 500s. Let's look at our CloudWatch logs again (click "Refresh"):
+Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
+(click "Refresh"):
 
 ```json
 {
@@ -92,7 +105,9 @@ going to the [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home):
 
 ![](./logs5.png)
 
-But, we must also give our hit counter permissions to invoke the downstream lambda function:
+But, we must also give our hit counter permissions to invoke the downstream lambda function.
+
+## Grant invoke permissions
 
 {{<highlight ts "hl_lines=33-34">}}
 import cdk = require('@aws-cdk/cdk');
@@ -117,7 +132,7 @@ export class HitCounter extends cdk.Construct {
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NodeJS810,
       handler: 'hitcounter.handler',
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
@@ -133,10 +148,17 @@ export class HitCounter extends cdk.Construct {
 }
 {{</highlight>}}
 
+## Diff
+
 You can check what this did to `cdk diff`:
 
 ```s
-$ cdk diff
+cdk diff
+```
+
+You should see something like this:
+
+```
 [~] 🛠 Updating HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A (type: AWS::IAM::Policy)
  └─ [~] .PolicyDocument:
      └─ [~] .Statement:
@@ -156,34 +178,30 @@ You can see that the following IAM statement was added to the role:
 
 Which is exactly what we wanted.
 
+## Deploy
+
 Okay... let's give this another shot:
 
 ```s
-$ cdk deploy
+cdk deploy
 ```
 
-Then,
+Then:
 
 ```s
-$ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
+curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
 Output should look like this:
 
 ```
 HTTP/1.1 200 OK
-Content-Type: text/plain
-Content-Length: 25
-Connection: keep-alive
-Date: Sat, 20 Oct 2018 19:12:33 GMT
-x-amzn-RequestId: 189366e5-d49c-11e8-a26e-9b7e6c85eb5a
-x-amz-apigw-id: PFClHG46IAMFRNg=
-X-Amzn-Trace-Id: Root=1-5bcb7e20-9fa33379adf03dae7fa6dbec;Sampled=0
-X-Cache: Miss from cloudfront
-Via: 1.1 e5740b731d03d61279af4365058ca2f2.cloudfront.net (CloudFront)
-X-Amz-Cf-Id: jx8owNdYNetO7TZ79OOx5g0IFfxuvMPX8UK0nbelg5TOZ_HITvyaOQ==
+...
 
 Hello, CDK! You've hit /
 ```
+
+> If you still get 5xx, give it a few seconds and try again. Sometimes API
+Gateway takes a little bit to "flip" the endpoint to use the new deployment.
 
 # 😲

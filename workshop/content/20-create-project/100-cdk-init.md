@@ -8,8 +8,7 @@ weight = 100
 Create an empty directory on your system:
 
 ```s
-mkdir cdk-workshop
-cd cdk-workshop
+mkdir cdk-workshop && cd cdk-workship
 ```
 
 ## cdk init
@@ -20,7 +19,9 @@ We will use `cdk init` to create a new TypeScript CDK project:
 cdk init -l typescript
 ```
 
-Output should look like this:
+Output should look like this (you can safely ignore warnings about
+initialization of a git repository, this probably means you don't have git
+installed, which is fine for this workshop):
 
 ```
 Applying project template app for typescript

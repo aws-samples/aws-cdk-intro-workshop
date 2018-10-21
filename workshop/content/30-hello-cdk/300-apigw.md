@@ -34,7 +34,7 @@ class CdkWorkshopStack extends cdk.Stack {
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NodeJS810,
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       handler: 'hello.handler'
     });
 
@@ -103,7 +103,7 @@ automatically added by the API Gateway construct and includes the URL of the API
 ## Testing your app
 
 Let's try to hit this endpoint with `cURL`. Copy the URL and execute (your
-prefix and region will likely be different):
+prefix and region will likely be different).
 
 ```s
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
@@ -115,14 +115,18 @@ Output should look like this:
 Hello, CDK! You've hit /
 ```
 
+Obviously, you can also use your web browser for this:
+
+![](./browser.png)
+
 If this is the output you received, your app works!
 
 ## What if it didn't work?
 
-If you received a 500 error from API Gateway, it is likely one of two issues:
+If you received a 5xx error from API Gateway, it is likely one of two issues:
 
 1. The response your function returned is not what API Gateway expects. Go back and
-   make sure you function returns a response that includes a `statusCode`, `body` and `header`
+   make sure your handler returns a response that includes a `statusCode`, `body` and `header`
    fields (see [Write handler runtime code](./200-lambda.html)).
 2. Your function failed for some reason. To debug this, you can quickly jump to [this section](../40-hit-counter/500-logs.html)
    to learn how to view your Lambda logs.

@@ -6,7 +6,7 @@ weight = 400
 ## Synthesize a template from your app
 
 AWS CDK apps are effectively only a __definition__ of your infrastructure using
-code. When a CDK app is executed, they produce (or "__synthesize__" in CDK
+code. When CDK apps are executed, they produce (or "__synthesize__", in CDK
 parlance) an AWS CloudFormation template for each stack defined in your
 application.
 

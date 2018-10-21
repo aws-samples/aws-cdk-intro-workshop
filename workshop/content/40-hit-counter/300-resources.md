@@ -3,12 +3,13 @@ title = "Define resources"
 weight = 300
 +++
 
-## Add resources our hit counter
+## Add resources to the hit counter construct
 
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct.
 
-As usual, we first need to install the DynamoDB construct library:
+As usual, we first need to install the DynamoDB construct library (we already
+have the Lambda library installed):
 
 ```s
 npm i @aws-cdk/aws-dynamodb
@@ -40,7 +41,7 @@ export class HitCounter extends cdk.Construct {
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NodeJS810,
       handler: 'hitcounter.handler',
-      code: lambda.Code.directory('lambda'),
+      code: lambda.Code.asset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
@@ -54,8 +55,9 @@ export class HitCounter extends cdk.Construct {
 
 This code is hopefully quite easy to understand:
 
- * We defined a DynamoDB table with `path` as the partition key.
- * We defined a Lambda function which is bound to the `hitcounter.handler` code.
+ * We defined a DynamoDB table with `path` as the partition key (every DynamoDB
+   table must have a single partition key).
+ * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
  * We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
    of our resources.
 

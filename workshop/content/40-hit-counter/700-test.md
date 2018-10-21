@@ -7,7 +7,7 @@ weight = 700
 
 Let's issue a few requests and see if our hit counter works:
 
-```s
+```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello

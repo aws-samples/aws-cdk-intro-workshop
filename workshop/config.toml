@@ -7,9 +7,6 @@ uglyurls = true
 googleAnalytics = "UA-127749520-1"
 sectionPagesMenu = "main"
 pygmentsCodeFences = true
-pygmentsUseClassic = true
-pygmentsOptions = "linespans=code_line"
-# pygmentsCodeFencesGuessSyntax = true
 pygmentsStyle = "monokai"
 
 [params]

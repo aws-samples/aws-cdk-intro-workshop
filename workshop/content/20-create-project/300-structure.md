@@ -11,6 +11,11 @@ If you use VSCode, you can just type:
 
 ```s
 cd cdk-workshop
+```
+
+And:
+
+```s
 code .
 ```
 
@@ -62,7 +67,9 @@ app.run();
 ```
 
 As you can see, our app was created with a sample CDK stack
-(`CdkWorkshopStack`).The stack includes:
+(`CdkWorkshopStack`).
+
+The stack includes:
 
 - SQS Queue (`new sqs.Queue`)
 - SNS Topic (`new sns.Topic)`
