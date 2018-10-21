@@ -10,8 +10,8 @@ Now, let's define the AWS Lambda function and the DynamoDB table in our
 
 As usual, we first need to install the DynamoDB construct library:
 
-```shell
-$ npm i @aws-cdk/aws-dynamodb
+```s
+npm i @aws-cdk/aws-dynamodb
 ```
 
 Now, go back to `bin/hitcounter.ts` and add the following code:

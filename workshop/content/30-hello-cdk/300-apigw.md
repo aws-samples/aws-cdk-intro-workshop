@@ -15,8 +15,8 @@ will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-```shell
-$ npm i @aws-cdk/aws-apigateway
+```s
+npm i @aws-cdk/aws-apigateway
 ```
 
 ## Add a LambdaRestApi construct to your stack
@@ -58,7 +58,12 @@ proxies all requests to an AWS Lambda function.
 Let's see what's going to happen when we deploy this:
 
 ```s
-$ cdk diff
+cdk diff
+```
+
+Output should look like this:
+
+```
 [+] 🆕 Creating HelloHandlerApiPermissionANYproxy90E90CD6 (type: AWS::Lambda::Permission)
 [+] 🆕 Creating HelloHandlerApiPermissionTestANYproxy9803526C (type: AWS::Lambda::Permission)
 [+] 🆕 Creating HelloHandlerApiPermissionANYAC4E141E (type: AWS::Lambda::Permission)
@@ -81,15 +86,14 @@ That's nice. This one line of code added 12 new resources to our stack.
 Okay, ready to deploy?
 
 ```s
-$ cdk deploy
-...
+cdk deploy
 ```
 
 ## Stack outputs
 
 When deployment is complete, you'll notice this line:
 
-```s
+```
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
@@ -101,8 +105,13 @@ automatically added by the API Gateway construct and includes the URL of the API
 Let's try to hit this endpoint with `cURL`. Copy the URL and execute (your
 prefix and region will likely be different):
 
-```shell
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
+```s
+curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
+```
+
+Output should look like this:
+
+```
 Hello, CDK! You've hit /
 ```
 

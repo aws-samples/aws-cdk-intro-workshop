@@ -44,8 +44,13 @@ Library reference](https://awslabs.github.io/aws-cdk/reference.html).
 
 Use `npm install` to install the module (and all it's dependencies) in your project:
 
-```shell
-$ npm i @aws-cdk/aws-lambda
+```s
+npm i @aws-cdk/aws-lambda
+```
+
+Output should look like this:
+
+```
 + @aws-cdk/aws-lambda@0.12.0
 updated 1 package and audited 1571 packages in 5.098s
 ```
@@ -121,7 +126,12 @@ arguments:
 Save your code, and let's take a quick look at the diff before we deploy:
 
 ```s
-$ cdk diff
+cdk diff
+```
+
+Output would look like this:
+
+```
 [+] Added HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
 [+] Added HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
 [+] 🆕 Creating HelloHandler2E4FBA4D (type: AWS::Lambda::Function)
@@ -136,8 +146,7 @@ this function.
 Let's deploy:
 
 ```s
-$ cdk deploy
-...
+cdk deploy
 ```
 
 You'll notice that `cdk deploy` not only deployed your CloudFormation stack, but

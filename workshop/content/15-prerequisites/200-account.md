@@ -7,7 +7,7 @@ weight = 200
 
 To deploy our app, you'll need access to an AWS account. If you already have an
 account and your system is configured with credentials of an administrator user,
-you can [move to the next step](./300_nodejs.md).
+you can [move to the next step](./300-nodejs.html).
 
 {{% notice warning %}}
 If you are using an existing account, either personal or
@@ -46,8 +46,14 @@ use `us-east-1`, `eu-west-1`, `us-west-2` for example). Preferably use a region
 that doesn't have any resources already deployed into it.
 
 ```s
-$ aws configure
-AWS Access Key ID: <type key ID here>
-AWS Secret Access Key: <type access key>
-Default region name: <choose region (e.g. "us-east-1")>
+aws configure
+```
+
+And fill in the information from the console:
+
+```
+AWS Access Key ID [None]: <type key ID here>
+AWS Secret Access Key [None]: <type access key>
+Default region name [None]: <choose region (e.g. "us-east-1", "eu-west-1")>
+Default output format [None]: <leave blank>
 ```

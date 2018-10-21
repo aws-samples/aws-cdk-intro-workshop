@@ -10,8 +10,8 @@ Now's a good time to kick off your IDE and explore our little project.
 If you use VSCode, you can just type:
 
 ```s
-$ cd cdk-workshop
-$ code .
+cd cdk-workshop
+code .
 ```
 
 ## Explore your project directory

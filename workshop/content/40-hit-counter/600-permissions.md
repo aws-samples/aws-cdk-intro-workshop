@@ -158,10 +158,19 @@ Which is exactly what we wanted.
 
 Okay... let's give this another shot:
 
-```shell
+```s
 $ cdk deploy
-...
+```
+
+Then,
+
+```s
 $ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
+```
+
+Output should look like this:
+
+```
 HTTP/1.1 200 OK
 Content-Type: text/plain
 Content-Length: 25

@@ -1113,4 +1113,9 @@ pre .copy-to-clipboard:hover {
     text-align: left;
 }
 
+.language-s span[id^=code_line-]::before {
+    content: '$ ';
+    color: green;
+}
+
 /*# sourceMappingURL=theme.css.map */

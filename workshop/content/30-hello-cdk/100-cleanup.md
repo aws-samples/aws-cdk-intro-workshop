@@ -33,7 +33,12 @@ what will happen if we run `cdk deploy` (the difference between our CDK app and
 what's currently deployed):
 
 ```s
-$ cdk diff
+cdk diff
+```
+
+Output should look like this:
+
+```
 [-] ☢️ Destroying CdkWorkshopQueue50D9D426 (type: AWS::SQS::Queue)
 [-] ☢️ Destroying CdkWorkshopQueuePolicyAF2494A5 (type: AWS::SQS::QueuePolicy)
 [-] ☢️ Destroying CdkWorkshopTopicD368A42F (type: AWS::SNS::Topic)
@@ -47,6 +52,7 @@ As expected, all of our resources are going to be brutally destroyed.
 Run `cdk deploy` and __proceed to the next section__ (no need to wait):
 
 ```s
-$ cdk deploy
-Deleting resources...
+cdk deploy
 ```
+
+You should see the resources begin deleted.

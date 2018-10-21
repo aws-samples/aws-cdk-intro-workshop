@@ -23,16 +23,18 @@ TypeScript, Java and .NET and more languages are coming soon.
 
 {{% /notice %}}
 
-So what are we going to build? Nothing too fancy... We'll spend some time
-setting up your development environment and learning a little about how to work
-with the CDK Toolkit to deploy your app to an AWS environment.
+So what are we going to build? Nothing too fancy...
 
-Then, you'll write a little "Hello, world" Lambda function and front it with a
-API Gateway.
+We'll spend some time setting up your development environment and learning a
+little about how to work with the CDK Toolkit to deploy your app to an AWS
+environment.
+
+Then, you'll write a little "Hello, world" Lambda function and front it with an
+API Gateway endpoint so users can call it via an HTTP request.
 
 Next, we'll introduce the very powerful concept of __CDK constructs__.
-Constructs allow you to bundle up a bunch of infrastructure into a reusable
-component which anyone can compose into their apps. We'll walk you through
+Constructs allow you to bundle up a bunch of infrastructure into reusable
+components which anyone can compose into their apps. We'll walk you through
 writing your own construct.
 
 Finally, we'll show you how to use a construct from an npm library in your

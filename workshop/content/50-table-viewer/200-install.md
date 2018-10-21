@@ -8,8 +8,13 @@ weight = 200
 Before you can use the table viewer in your application, you'll need to install
 the npm module:
 
-```shell
-$ npm i cdk-dynamo-table-viewer
+```s
+npm i cdk-dynamo-table-viewer
+```
+
+Output should look like this:
+
+```
 + cdk-dynamo-table-viewer@0.1.2
 added 26 packages from 8 contributors and audited 3282 packages in 8.225s
 found 0 vulnerabilities

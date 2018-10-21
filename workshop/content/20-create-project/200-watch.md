@@ -21,8 +21,13 @@ background for the duration of the workshop.
 From your project directory run:
 
 ```s
-$ cd cdk-workshop
-$ npm run watch
+cd cdk-workshop
+npm run watch
+```
+
+Then, screen will be cleared and you'll see:
+
+```
 Starting compilation in watch mode...
 Found 0 errors. Watching for file changes.
 ...

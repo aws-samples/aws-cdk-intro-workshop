@@ -142,7 +142,7 @@ new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', {
     domain: 'cdkworkshop.com',
     certificate: 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35',
     email: 'aws-cdk-workshop@amazon.com',
-    restrictToAmazonNetwork: true,
+    restrictToAmazonNetwork: false,
     restrictToAmazonNetworkWebACL: new cdk.FnImportValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
 });
 

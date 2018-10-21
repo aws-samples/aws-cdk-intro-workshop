@@ -17,7 +17,12 @@ You can use the `cdk bootstrap` command to install the bootstrap stack into an
 environment:
 
 ```s
-$ cdk bootstrap
+cdk bootstrap
+```
+
+Then:
+
+```
  ⏳  Bootstrapping environment 999999999999/us-east-1...
 ...
 ```
@@ -27,7 +32,12 @@ $ cdk bootstrap
 Use `cdk deploy` to deploy a CDK app:
 
 ```s
-$ cdk deploy
+cdk deploy
+```
+
+Output should look like this:
+
+```
 [0/6] CREATE_IN_PROGRESS  [AWS::CloudFormation::Stack] CdkWorkshopStack User Initiated
 [0/6] CREATE_IN_PROGRESS  [AWS::SNS::Topic] CdkWorkshopTopicD368A42F
 [0/6] CREATE_IN_PROGRESS  [AWS::SQS::Queue] CdkWorkshopQueue50D9D426
