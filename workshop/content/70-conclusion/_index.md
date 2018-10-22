@@ -56,7 +56,8 @@ Here are a few things you can do from here:
   [CodePipeline](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-codepipeline.html),
   [Step Functions](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-stepfunctions.html)
   and many more...
-* Read guidelines on how to [write your own constructs](https://awslabs.github.io/aws-cdk/writing-constructs.html)
+* Read guidelines on how to [write your own
+  constructs](https://awslabs.github.io/aws-cdk/writing-constructs.html)
 * Learn about [__jsii__](https://github.com/awslabs/jsii), the technology
   behind the CDK's multi-language support
 * Browse some [examples](https://github.com/awslabs/aws-cdk/tree/master/examples) on our GitHub repository

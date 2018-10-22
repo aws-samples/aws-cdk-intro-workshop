@@ -12,7 +12,7 @@ As usual, we first need to install the DynamoDB construct library (we already
 have the Lambda library installed):
 
 ```s
-npm i @aws-cdk/aws-dynamodb
+npm install @aws-cdk/aws-dynamodb
 ```
 
 Now, go back to `bin/hitcounter.ts` and add the following code:

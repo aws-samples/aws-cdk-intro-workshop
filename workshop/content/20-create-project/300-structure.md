@@ -5,19 +5,9 @@ weight = 300
 
 ## Open your IDE
 
-Now's a good time to kick off your IDE and explore our little project.
+Now's a good time to open the project in your favorite IDE and explore.
 
-If you use VSCode, you can just type:
-
-```s
-cd cdk-workshop
-```
-
-And:
-
-```s
-code .
-```
+> If you use VSCode, you can just type `code .` within the project directory.
 
 ## Explore your project directory
 

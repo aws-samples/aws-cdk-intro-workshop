@@ -40,7 +40,7 @@ writing your own construct.
 Finally, we'll show you how to use a construct from an npm library in your
 stack.
 
-By the end of this workshop, we hope you'll be able to:
+By the end of this workshop, you'll be able to:
 
 - Create new CDK applications.<br/>
 - Define your app's infrastructure using the AWS Construct Library<br/>

@@ -16,7 +16,7 @@ will be returned back to the user.
 ## Install the API Gateway construct library
 
 ```s
-npm i @aws-cdk/aws-apigateway
+npm install @aws-cdk/aws-apigateway
 ```
 
 ## Add a LambdaRestApi construct to your stack
@@ -125,9 +125,10 @@ If this is the output you received, your app works!
 
 If you received a 5xx error from API Gateway, it is likely one of two issues:
 
-1. The response your function returned is not what API Gateway expects. Go back and
-   make sure your handler returns a response that includes a `statusCode`, `body` and `header`
-   fields (see [Write handler runtime code](./200-lambda.html)).
+1. The response your function returned is not what API Gateway expects. Go back
+   and make sure your handler returns a response that includes a `statusCode`,
+   `body` and `header` fields (see [Write handler runtime
+   code](./200-lambda.html)).
 2. Your function failed for some reason. To debug this, you can quickly jump to [this section](../40-hit-counter/500-logs.html)
    to learn how to view your Lambda logs.
 

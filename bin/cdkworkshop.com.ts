@@ -8,6 +8,8 @@ import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 import s3deploy = require('@aws-cdk/aws-s3-deployment');
 import path = require('path');
 
+const contentVersion = 'v3';
+
 interface CdkWorkshopProps extends cdk.StackProps {
 
     /**
@@ -55,9 +57,12 @@ class CdkWorkshop extends cdk.Stack {
         })
 
         // Bucket to hold the static website
-        const bucket = new s3.Bucket(this, 'Bucket');
+        const bucket = new s3.Bucket(this, 'Bucket', {
+            websiteIndexDocument: 'index.html'
+        });
+
         const origin = new cloudfront.cloudformation.CloudFrontOriginAccessIdentityResource(this, "BucketOrigin", {
-            cloudFrontOriginAccessIdentityConfig: { comment: props.domain }
+            cloudFrontOriginAccessIdentityConfig: { comment: props.domain },
         })
 
         // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
@@ -71,7 +76,8 @@ class CdkWorkshop extends cdk.Stack {
         // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available
         new s3deploy.BucketDeployment(this, 'DeployWebsite', {
             source: s3deploy.Source.asset(path.join(__dirname, '..', 'workshop', 'public')),
-            destinationBucket: bucket
+            destinationBucket: bucket,
+            destinationKeyPrefix: contentVersion
         });
 
         let acl: string | undefined
@@ -86,6 +92,7 @@ class CdkWorkshop extends cdk.Stack {
             webACLId: acl,
             originConfigs: [{
                 behaviors: [{ isDefaultBehavior: true }],
+                originPath: `/${contentVersion}`,
                 s3OriginSource: {
                     s3BucketSource: bucket,
                     originAccessIdentity: origin,

@@ -42,7 +42,7 @@ Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```s
-npm i @aws-cdk/aws-lambda
+npm install @aws-cdk/aws-lambda
 ```
 
 Output should look like this:
@@ -96,8 +96,8 @@ A few things to notice:
 
 - Our function uses NodeJS 8.10 runtime
 - The handler code is loaded from the `lambda` directory which we created
-  earlier. Path is relative to where you execute `cdk` from, which is you
-  project root
+  earlier. Path is relative to where you execute `cdk` from, which is the
+  project's root directory
 - The name of the handler function is `hello.handler` ("hello" is the name of
   the file and "handler" is the exported function name)
 
@@ -119,15 +119,16 @@ arguments:
    you'll be defining constructs as children of the _current_ context, which
    means you'll usually just want to pass `this` for the first argument. Make a
    habit out of it.
-2. __`id`__: the second argument is the __logical identity__ of the construct.
-   It's an ID that has to be unique _within the same context_ (i.e. amongst all
-   direct children of a construct). The CDK uses this ID to calculate the
-   CloudFormation _global_ logical ID for each resource defined within this
-   scope. To read more about logical IDs, see the [CDK user
+2. __`id`__: the second argument is the __local identity__ of the construct.
+   It's an ID that has to be unique amongst all direct children of a construct.
+   The CDK uses this identity to calculate the CloudFormation [Logical
+   ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
+   for each resource defined within this scope. To read more about IDs in the
+   CDK, see the [CDK user
    manual](https://awslabs.github.io/aws-cdk/versions/0.8.1/logical-ids.html).
-3. __`props`__: the last (optional) argument is always a set of initialization
-   properties. Those are specific to each construct. For example, the
-   `lambda.Function` construct accepts properties like `runtime`, `code` and
+3. __`props`__: the last (sometimes optional) argument is always a set of
+   initialization properties. Those are specific to each construct. For example,
+   the `lambda.Function` construct accepts properties like `runtime`, `code` and
    `handler`. You can explore the various options using your IDE's auto-complete
    or in the [online
    documentation](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-lambda.html).
