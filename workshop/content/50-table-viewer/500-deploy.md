@@ -64,19 +64,21 @@ see something like this:
 Send a few more requests to your "hello" endpoint and monitor your hit counter
 viewer. You should see the values update in real-time.
 
+Use `curl` or your web browser to produce a few hits:
+
 ```s
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit2
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit2
+$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hoooot
+$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hoooot
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
-$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
+$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hoooot
+$ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hoooot
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 ```
 

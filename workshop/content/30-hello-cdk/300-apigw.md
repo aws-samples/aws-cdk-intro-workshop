@@ -5,7 +5,7 @@ weight = 300
 
 Next step is to add an API Gateway in front of our function. API Gateway will
 expose a public HTTP endpoint that anyone on the internet can hit with an HTTP
-client such as cURL or a web browser.
+client such as [curl](https://curl.haxx.se/) or a web browser.
 
 We will use [Lambda proxy
 integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html)
@@ -102,8 +102,13 @@ automatically added by the API Gateway construct and includes the URL of the API
 
 ## Testing your app
 
-Let's try to hit this endpoint with `cURL`. Copy the URL and execute (your
+Let's try to hit this endpoint with `curl`. Copy the URL and execute (your
 prefix and region will likely be different).
+
+{{% notice info %}}
+If you don't have [curl](https://curl.haxx.se/) installed, you can always use
+your favorite web browser to hit this URL.
+{{% /notice %}}
 
 ```s
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/

@@ -55,7 +55,8 @@ cdk deploy
 
 ## Test again
 
-Okay, deployment is complete. Let's run our test again:
+Okay, deployment is complete. Let's run our test again (either use `curl` or
+your web browser):
 
 ```s
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
@@ -186,7 +187,7 @@ Okay... let's give this another shot:
 cdk deploy
 ```
 
-Then:
+Then hit your endpoint with `curl` or with your web browser:
 
 ```s
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/

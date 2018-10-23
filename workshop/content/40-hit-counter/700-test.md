@@ -5,7 +5,8 @@ weight = 700
 
 ## Issue a few test requests
 
-Let's issue a few requests and see if our hit counter works:
+Let's issue a few requests and see if our hit counter works. You can also use
+your web browser to do that:
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
