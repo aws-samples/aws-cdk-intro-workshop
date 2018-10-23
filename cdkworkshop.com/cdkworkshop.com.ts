@@ -7,8 +7,7 @@ import { GuardDutyNotifier } from './guardduty';
 import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 import s3deploy = require('@aws-cdk/aws-s3-deployment');
 import path = require('path');
-
-const contentVersion = 'v4';
+import { hashDirectorySync } from './hash';
 
 interface CdkWorkshopProps extends cdk.StackProps {
 
@@ -78,11 +77,17 @@ class CdkWorkshop extends cdk.Stack {
         bucketPolicy.allow();
         bucket.addToResourcePolicy(bucketPolicy);
 
-        // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available
+        // Due to a bug in `BucketDeployment` (awslabs/aws-cdk#981) we must
+        // deploy each version of the content to a different prefix (it's also a
+        // good practice, but we plan to support that intrinsicly in
+        // `BucketDeployment`).
+        const contentDir = path.join(__dirname, '..', 'workshop', 'public');
+        const contentHash = hashDirectorySync(contentDir);
+
         new s3deploy.BucketDeployment(this, 'DeployWebsite', {
-            source: s3deploy.Source.asset(path.join(__dirname, '..', 'workshop', 'public')),
+            source: s3deploy.Source.asset(contentDir),
             destinationBucket: bucket,
-            destinationKeyPrefix: contentVersion
+            destinationKeyPrefix: contentHash
         });
 
         let acl: string | undefined
@@ -102,7 +107,7 @@ class CdkWorkshop extends cdk.Stack {
                     isDefaultBehavior: true,
                     maxTtlSeconds
                 }],
-                originPath: `/${contentVersion}`,
+                originPath: `/${contentHash}`,
                 s3OriginSource: {
                     s3BucketSource: bucket,
                     originAccessIdentity: origin,

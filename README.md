@@ -18,12 +18,17 @@ $ hugo server -D
 $ open http://localhost:1313/
 ```
 
-## Deployment
+## Website Infrastructure
 
-Technically you just need to run `npm run deploy` and it will build you website, build the
-CDK app that manages the S3/CloudFront distribution and deploy it via "cdk deploy", This will
-also take care of syncing your newly built website to the S3 bucket.
+The workshop is available at https://cdkworkshop.com. It's a static website
+hosted on S3 and served through CloudFront.
 
+It is implemented as a (_surprise_) CDK application under the `cdkworkshop.com`
+directory.
+
+* `npm install` - bootstrap.
+* `npm run build` and `npm run watch`
+* `npm run deploy` - build & deploy
 
 ## License Summary
 

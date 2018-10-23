@@ -3,7 +3,7 @@ languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "AWS Cloud Development Kit (AWS CDK) Workshop"
 theme = "learn"
-uglyurls = true
+uglyurls = false
 googleAnalytics = "UA-127749520-1"
 sectionPagesMenu = "main"
 pygmentsCodeFences = true
@@ -15,7 +15,7 @@ showVisitedLinks = false
 author = "Elad Ben-Israel"
 description = "AWS Cloud Development Kit (AWS CDK) Workshop"
 disableSearch = true
-disableAssetsBusting = false
+disableAssetsBusting = true
 disableLanguageSwitchingButton = true
 disableShortcutsTitle = true
 
