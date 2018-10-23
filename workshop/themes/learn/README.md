@@ -41,7 +41,7 @@ If you need old version for compatibility purpose, either download [theme source
 - Direct download way: https://github.com/matcornic/hugo-theme-learn/archive/1.1.0.zip
 - Git way:
 
-```shell
+```s
 cd themes/hugo-theme-learn
 git checkout tags/1.1.0
 ```

@@ -2,3 +2,5 @@
 *.d.ts
 node_modules
 workshop/public/**
+.DS_Store
+

@@ -1,6 +1,4 @@
-## AWS Cdk Intro Workshop
-
-Introduction to the AWS CDK - Workshop
+## Introduction to the AWS Cloud Development Kit (CDK) - Workshop
 
 ## Developer Guide
 
@@ -19,6 +17,13 @@ $ cd workshop
 $ hugo server -D
 $ open http://localhost:1313/
 ```
+
+## Deployment
+
+Technically you just need to run `npm run deploy` and it will build you website, build the
+CDK app that manages the S3/CloudFront distribution and deploy it via "cdk deploy", This will
+also take care of syncing your newly built website to the S3 bucket.
+
 
 ## License Summary
 

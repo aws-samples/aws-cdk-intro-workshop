@@ -5,6 +5,10 @@ import cloudfront = require('@aws-cdk/aws-cloudfront');
 import s3 = require('@aws-cdk/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
 import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
+import s3deploy = require('@aws-cdk/aws-s3-deployment');
+import path = require('path');
+
+const contentVersion = 'v4';
 
 interface CdkWorkshopProps extends cdk.StackProps {
 
@@ -34,6 +38,11 @@ interface CdkWorkshopProps extends cdk.StackProps {
      */
     restrictToAmazonNetworkWebACL: cdk.Token
 
+    /**
+     * If enabled, sets the max TTL to 0 in the CloudFront distribution.
+     * @default false
+     */
+    disableCache?: boolean;
 }
 
 class CdkWorkshop extends cdk.Stack {
@@ -53,9 +62,12 @@ class CdkWorkshop extends cdk.Stack {
         })
 
         // Bucket to hold the static website
-        const bucket = new s3.Bucket(this, 'Bucket');
+        const bucket = new s3.Bucket(this, 'Bucket', {
+            websiteIndexDocument: 'index.html'
+        });
+
         const origin = new cloudfront.cloudformation.CloudFrontOriginAccessIdentityResource(this, "BucketOrigin", {
-            cloudFrontOriginAccessIdentityConfig: { comment: props.domain }
+            cloudFrontOriginAccessIdentityConfig: { comment: props.domain },
         })
 
         // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
@@ -66,12 +78,19 @@ class CdkWorkshop extends cdk.Stack {
         bucketPolicy.allow();
         bucket.addToResourcePolicy(bucketPolicy);
 
-        // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available 
+        // TODO: Create BucketDeployment for syncing workshop/public/* up to S3 once construct is available
+        new s3deploy.BucketDeployment(this, 'DeployWebsite', {
+            source: s3deploy.Source.asset(path.join(__dirname, '..', 'workshop', 'public')),
+            destinationBucket: bucket,
+            destinationKeyPrefix: contentVersion
+        });
 
         let acl: string | undefined
         if (props.restrictToAmazonNetwork) {
             acl = props.restrictToAmazonNetworkWebACL.toString()
         }
+
+        const maxTtlSeconds = props.disableCache ? 0 : undefined;
 
         // CloudFront distribution
         const cdn = new cloudfront.CloudFrontWebDistribution(this, 'CloudFront', {
@@ -79,7 +98,11 @@ class CdkWorkshop extends cdk.Stack {
             priceClass: cloudfront.PriceClass.PriceClassAll,
             webACLId: acl,
             originConfigs: [{
-                behaviors: [{ isDefaultBehavior: true }],
+                behaviors: [{
+                    isDefaultBehavior: true,
+                    maxTtlSeconds
+                }],
+                originPath: `/${contentVersion}`,
                 s3OriginSource: {
                     s3BucketSource: bucket,
                     originAccessIdentity: origin,
@@ -88,7 +111,7 @@ class CdkWorkshop extends cdk.Stack {
             aliasConfiguration: {
                 names: [props.domain],
                 acmCertRef: props.certificate,
-            }
+            },
         })
 
         // DNS alias for the CloudFront distribution
@@ -136,8 +159,9 @@ new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', {
     domain: 'cdkworkshop.com',
     certificate: 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35',
     email: 'aws-cdk-workshop@amazon.com',
-    restrictToAmazonNetwork: true,
+    restrictToAmazonNetwork: false,
     restrictToAmazonNetworkWebACL: new cdk.FnImportValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
+    disableCache: true
 });
 
 app.run();

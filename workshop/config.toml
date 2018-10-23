@@ -4,38 +4,25 @@ defaultContentLanguage = "en"
 title = "AWS Cloud Development Kit (AWS CDK) Workshop"
 theme = "learn"
 uglyurls = true
-googleAnalytics = "UA-44634850-4"
+googleAnalytics = "UA-127749520-1"
 sectionPagesMenu = "main"
-#pygmentsCodeFences = true
-#pygmentsCodeFencesGuessSyntax = true
-#pygmentsStyle = "monokai"
-
-[blackfriday]
-hrefTargetBlank = true
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
 
 [params]
 themeVariant = "mine"
 showVisitedLinks = false
-author = "Paul Maddox"
+author = "Elad Ben-Israel"
 description = "AWS Cloud Development Kit (AWS CDK) Workshop"
-disableSearch = false
+disableSearch = true
 disableAssetsBusting = false
 disableLanguageSwitchingButton = true
-disableShortcutsTitle=true
-#
-
-[menu]
-  [[menu.main]]
-    identifier = "Prerequisites"
-    name = "This is the Mu track"
-    title = "Workshop using Mu"
-    url = "/mu/"
-    weight = -110
+disableShortcutsTitle = true
 
 [[menu.shortcuts]]
-name = "<i class='fab fa-twitter fa-lg'></i> @paulmaddox"
+name = "<i class='fab fa-twitter fa-lg'></i> @emeshbi"
 identifier = "mm"
-url = "https://twitter.com/intent/user?screen_name=paulmaddox"
+url = "https://twitter.com/intent/user?screen_name=emeshbi"
 weight = 1
 
 [outputs]
