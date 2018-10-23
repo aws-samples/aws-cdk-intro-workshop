@@ -7,15 +7,15 @@
         "cdkworkshop.com": "bin/cdkworkshop.com.js"
     },
     "scripts": {
-        "build": "tsc && (cd workshop && hugo)",
+        "build": "tsc && (cd ../workshop && hugo)",
         "watch": "tsc -w",
         "deploy": "npm run build && cdk deploy",
         "cdk": "cdk"
     },
     "devDependencies": {
         "@types/node": "^10.12.0",
-        "typescript": "^3.1.2",
-        "aws-cdk": "^0.13.0"
+        "aws-cdk": "^0.13.0",
+        "typescript": "^3.1.3"
     },
     "dependencies": {
         "@aws-cdk/aws-cloudfront": "^0.13.0",
