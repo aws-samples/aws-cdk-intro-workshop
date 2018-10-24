@@ -6,10 +6,9 @@ weight: 1
 
 # Welcome Developers!
 
-## Oh, hey there!
-
-Thanks for joining us! Hope you can't wait to play a little bit with this new
-thing we call the "AWS Cloud Development Kit" or in short, the AWS CDK.
+Hey there, and thanks for joining us! Hope you can't wait to play a little bit
+with this new thing we call the "AWS Cloud Development Kit" or in short, the AWS
+CDK.
 
 The AWS CDK is a new software development framework from AWS with the sole
 purpose of making it is fun and easy to define cloud infrastructure in your

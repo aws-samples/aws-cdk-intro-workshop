@@ -87,7 +87,8 @@ class CdkWorkshop extends cdk.Stack {
         new s3deploy.BucketDeployment(this, 'DeployWebsite', {
             source: s3deploy.Source.asset(contentDir),
             destinationBucket: bucket,
-            destinationKeyPrefix: contentHash
+            destinationKeyPrefix: contentHash,
+            retainOnDelete: true
         });
 
         let acl: string | undefined
