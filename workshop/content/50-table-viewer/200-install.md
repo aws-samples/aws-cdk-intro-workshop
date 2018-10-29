@@ -15,7 +15,7 @@ npm install cdk-dynamo-table-viewer
 Output should look like this:
 
 ```
-+ cdk-dynamo-table-viewer@0.1.2
++ cdk-dynamo-table-viewer@0.1.4
 added 26 packages from 8 contributors and audited 3282 packages in 8.225s
 found 0 vulnerabilities
 ```
