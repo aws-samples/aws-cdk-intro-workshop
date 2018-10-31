@@ -82,3 +82,10 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hoooot
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 ```
 
+{{% notice tip %}}
+
+**Interested in how the Table Viewer works?** It's easy to find out!
+Hold **Ctrl** (or **Command**) and click on the `TableViewer`
+identifier to navigate to its source code.
+
+{{% /notice %}}
