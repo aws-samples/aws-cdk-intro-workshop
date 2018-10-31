@@ -15,6 +15,15 @@ have the Lambda library installed):
 npm install @aws-cdk/aws-dynamodb
 ```
 
+{{% notice info %}}
+
+**Windows users**: on Windows, you will have to stop the `npm run watch` command
+that is running in the background, then run `npm install`, then start
+`npm run watch` again. Otherwise you will get an error about files being
+in use.
+
+{{% /notice %}}
+
 Now, go back to `bin/hitcounter.ts` and add the following code:
 
 {{<highlight ts "hl_lines=3 12-13 18-28">}}

@@ -12,6 +12,15 @@ the npm module:
 npm install cdk-dynamo-table-viewer
 ```
 
+{{% notice info %}}
+
+**Windows users**: on Windows, you will have to stop the `npm run watch` command
+that is running in the background, then run `npm install`, then start
+`npm run watch` again. Otherwise you will get an error about files being
+in use.
+
+{{% /notice %}}
+
 Output should look like this:
 
 ```

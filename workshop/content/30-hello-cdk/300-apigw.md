@@ -19,6 +19,15 @@ will be returned back to the user.
 npm install @aws-cdk/aws-apigateway
 ```
 
+{{% notice info %}}
+
+**Windows users**: on Windows, you will have to stop the `npm run watch` command
+that is running in the background, then run `npm install`, then start
+`npm run watch` again. Otherwise you will get an error about files being
+in use.
+
+{{% /notice %}}
+
 ## Add a LambdaRestApi construct to your stack
 
 Let's define an API endpoint and associate it with our Lambda function:
