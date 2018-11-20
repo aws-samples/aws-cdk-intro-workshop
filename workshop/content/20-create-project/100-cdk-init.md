@@ -16,7 +16,7 @@ mkdir cdk-workshop && cd cdk-workshop
 We will use `cdk init` to create a new TypeScript CDK project:
 
 ```s
-cdk init --language typescript
+cdk init sample-app --language typescript
 ```
 
 Output should look like this (you can safely ignore warnings about
