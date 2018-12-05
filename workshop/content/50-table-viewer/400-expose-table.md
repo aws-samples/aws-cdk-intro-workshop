@@ -52,7 +52,7 @@ export class HitCounter extends cdk.Construct {
 
 ## Now we can access the table from our stack
 
-Go back to `cdk-workshop.ts` and assign the `table` property of the table viewer:
+Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
 
 {{<highlight ts "hl_lines=28">}}
 import cdk = require('@aws-cdk/cdk');
@@ -61,7 +61,7 @@ import apigw = require('@aws-cdk/aws-apigateway');
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
     super(parent, name, props);
 
@@ -86,8 +86,4 @@ class CdkWorkshopStack extends cdk.Stack {
     });
   }
 }
-
-const app = new cdk.App();
-new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
 {{</highlight>}}

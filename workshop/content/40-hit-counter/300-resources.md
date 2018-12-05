@@ -24,7 +24,7 @@ in use.
 
 {{% /notice %}}
 
-Now, go back to `bin/hitcounter.ts` and add the following code:
+Now, go back to `lib/hitcounter.ts` and add the following code:
 
 {{<highlight ts "hl_lines=3 12-13 18-28">}}
 import cdk = require('@aws-cdk/cdk');

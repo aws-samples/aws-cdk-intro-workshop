@@ -37,7 +37,7 @@ import cdk = require('@aws-cdk/cdk');
 import lambda = require('@aws-cdk/aws-lambda');
 import apigw = require('@aws-cdk/aws-apigateway');
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
     super(parent, name, props);
 
@@ -53,10 +53,6 @@ class CdkWorkshopStack extends cdk.Stack {
     });
   }
 }
-
-const app = new cdk.App();
-new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
 {{</highlight>}}
 
 That's it. This is all you need to do in order to define an API Gateway which

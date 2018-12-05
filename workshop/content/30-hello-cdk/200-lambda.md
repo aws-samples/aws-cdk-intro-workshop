@@ -7,7 +7,8 @@ weight = 200
 
 We'll start with the AWS Lambda handler code.
 
-1. Create a directory `lambda` in the root of your project tree (next to `bin`).
+1. Create a directory `lambda` in the root of your project tree (next to `bin`
+   and `lib`).
 2. Add a file called `lambda/hello.js` with the following contents:
 
 ```js
@@ -74,7 +75,7 @@ help you with auto-complete, inline documentation and type safety.
 
 ## Add an AWS Lambda Function to your stack
 
-Add an `import` statement at the beginning of `bin/cdk-workshop.ts`, and a
+Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 `lambda.Function` to your stack.
 
 
@@ -82,7 +83,7 @@ Add an `import` statement at the beginning of `bin/cdk-workshop.ts`, and a
 import cdk = require('@aws-cdk/cdk');
 import lambda = require('@aws-cdk/aws-lambda');
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
     super(parent, name, props);
 
@@ -95,10 +96,6 @@ class CdkWorkshopStack extends cdk.Stack {
 
   }
 }
-
-const app = new cdk.App();
-new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
 {{</highlight>}}
 
 A few things to notice:

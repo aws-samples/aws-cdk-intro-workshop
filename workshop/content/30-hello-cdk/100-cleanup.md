@@ -5,26 +5,22 @@ weight = 100
 
 ## Delete the sample code from your stack
 
-The project created by `cdk init` includes an SQS queue, and an SNS topic. We're
+The project created by `cdk init sample-app` includes an SQS queue, and an SNS topic. We're
 not going to use them in our project, so remove them from your the
 `CdkWorkshopStack` constructor.
 
-Open `bin/cdk-workshop.ts` and clean it up. Eventually it should look like this:
+Open `lib/cdk-workshop-stack.ts` and clean it up. Eventually it should look like this:
 
 ```ts
 import cdk = require('@aws-cdk/cdk');
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
     super(parent, name, props);
 
     // nothing here!
   }
 }
-
-const app = new cdk.App();
-new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
 ```
 
 ## cdk diff

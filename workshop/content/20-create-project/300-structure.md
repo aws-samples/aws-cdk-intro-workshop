@@ -15,7 +15,10 @@ You'll see something like this:
 
 ![](./structure.png)
 
-* __`bin/cdk-workshop.ts`__ is the entrypoint of your CDK application.
+* __`lib/cdk-workshop-stack.ts`__ is where the your CDK application's main stack is defined.
+  This is the file we'll be spending most of our time in.
+* `bin/cdk-workshop.ts` is the entrypoint of the CDK application. It will load
+  the stack defined in `lib/cdk-workshop-stack.ts`.
 * `package.json` is your npm module manifest. It includes information like the
   name of your app, version, dependencies and build scripts like "watch" and
   "build" (`package-lock.json` is maintained by npm)
@@ -30,14 +33,31 @@ You'll see something like this:
 
 ## Your app's entry point
 
-Let's open up `bin/cdk-workshop.ts`:
+Let's have a quick look at `bin/cdk-workshop.ts`:
+
+```ts
+import cdk = require('@aws-cdk/cdk');
+import { CdkWorkshopStack } from '../lib/cdk-workshop-stack';
+
+const app = new cdk.App();
+new CdkWorkshopStack(app, 'CdkWorkshopStack');
+app.run();
+```
+
+This code loads and instantiate the `CdkWorkshopStack` class from the
+`lib/cdk-workshop-stack.ts` file. We won't need to look at this file anymore.
+
+## The main stack
+
+Open up `lib/cdk-workshop-stack.ts`. This is where the meat of our application
+is:
 
 ```ts
 import sns = require('@aws-cdk/aws-sns');
 import sqs = require('@aws-cdk/aws-sqs');
 import cdk = require('@aws-cdk/cdk');
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
     super(parent, name, props);
 
@@ -50,10 +70,6 @@ class CdkWorkshopStack extends cdk.Stack {
     topic.subscribeQueue(queue);
   }
 }
-
-const app = new cdk.App();
-new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
 ```
 
 As you can see, our app was created with a sample CDK stack
