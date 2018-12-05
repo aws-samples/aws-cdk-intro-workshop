@@ -124,7 +124,7 @@ class CdkWorkshop extends cdk.Stack {
         // Having to use L1 construct here as currently only TXT/NS records can be created with the L2 construct
         // https://github.com/awslabs/aws-cdk/issues/966
         new route53.cloudformation.RecordSetResource(this, 'CloudFrontDNSRecord', {
-            recordSetName: props.domain + '.',
+            name: props.domain + '.',
             hostedZoneId: zone.hostedZoneId,
             type: 'A',
             aliasTarget: {
