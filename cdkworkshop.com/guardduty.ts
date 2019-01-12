@@ -13,8 +13,8 @@ export interface GuardDutyNotifierProps {
 }
 
 export class GuardDutyNotifier extends cdk.Construct {
-    constructor(parent: cdk.Stack, name: string, props: GuardDutyNotifierProps) {
-        super(parent, name);
+    constructor(scope: cdk.Stack, id: string, props: GuardDutyNotifierProps) {
+        super(scope, id);
 
         // Enable GuardDuty in the AWS region, to detect security issues
         new guardduty.cloudformation.DetectorResource(this, "GuardDutyDetector", { enable: true })

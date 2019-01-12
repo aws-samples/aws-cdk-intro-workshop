@@ -12,13 +12,17 @@ Open a terminal session and run the following command:
 - POSIX: on some systems you may need to run this with `sudo`
 
 ```s
-npm install -g aws-cdk
+npm install -g aws-cdk@0.22.0
 ```
 
 You can check the toolkit version:
 
 ```s
 cdk --version
+0.22.0
 ```
 
-This workshop was tested using __v0.13.0__ of the AWS CDK.
+{{% notice info %}} __NOTE__: This workshop was tested with version __v0.22.0__ of the AWS CDK. Since the AWS
+CDK is still in developer preview, new versions of the AWS CDK may include
+breaking changes. Therefore, throughout the workshop, you will be instructed to
+install version 0.22.0 by using `npm install module@0.22.0`. {{% /notice %}}

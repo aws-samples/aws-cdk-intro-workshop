@@ -43,7 +43,7 @@ Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```s
-npm install @aws-cdk/aws-lambda
+npm install @aws-cdk/aws-lambda@0.22.0
 ```
 
 {{% notice info %}}
@@ -58,7 +58,7 @@ in use.
 Output should look like this:
 
 ```
-+ @aws-cdk/aws-lambda@0.12.0
++ @aws-cdk/aws-lambda@0.22.0
 updated 1 package and audited 1571 packages in 5.098s
 ```
 
@@ -84,8 +84,8 @@ import cdk = require('@aws-cdk/cdk');
 import lambda = require('@aws-cdk/aws-lambda');
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-    super(parent, name, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
@@ -111,23 +111,24 @@ A few things to notice:
 
 As you can see, the class constructors of both `CdkWorkshopStack` and
 `lambda.Function` (and many other classes in the CDK) have the signature
-`(parent, id, props)`. This is because all of these classes are __constructs__.
+`(scope, id, props)`. This is because all of these classes are __constructs__.
 Constructs are the basic building block of CDK apps. They represent abstract
 "cloud components" which can be composed together into higher level abstractions
-as a tree. A construct can have child constructs, and they can have children,
-etc.
+via scopes. Scopes can include constructs, which in turn can include other
+constructs, etc.
 
-When you instantiate a construct object, you always pass the following
-arguments:
+Constructs are always created in the scope of another construct and must always
+have an identifier which must be unique within the scope it's created.
+Therefore, construct initializers (constructors) will always have the following
+signature:
 
-1. __`parent`__: the first argument is always the parent of the construct. This
-   allows the construct to attach itself to the tree. In almost all cases,
-   you'll be defining constructs as children of the _current_ context, which
-   means you'll usually just want to pass `this` for the first argument. Make a
-   habit out of it.
+1. __`scope`__: the first argument is always the scope in which this construct
+   is created. In almost all cases, you'll be defining constructs within the
+   scope of _current_ construct, which means you'll usually just want to pass
+   `this` for the first argument. Make a habit out of it.
 2. __`id`__: the second argument is the __local identity__ of the construct.
-   It's an ID that has to be unique amongst all direct children of a construct.
-   The CDK uses this identity to calculate the CloudFormation [Logical
+   It's an ID that has to be unique amongst construct within the same scope. The
+   CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
    for each resource defined within this scope. To read more about IDs in the
    CDK, see the [CDK user

@@ -16,7 +16,7 @@ will be returned back to the user.
 ## Install the API Gateway construct library
 
 ```s
-npm install @aws-cdk/aws-apigateway
+npm install @aws-cdk/aws-apigateway@0.22.0
 ```
 
 {{% notice info %}}
@@ -38,8 +38,8 @@ import lambda = require('@aws-cdk/aws-lambda');
 import apigw = require('@aws-cdk/aws-apigateway');
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-    super(parent, name, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NodeJS810,

@@ -24,8 +24,8 @@ export class HitCounter extends cdk.Construct {
   /** the hit counter table */
   public readonly table: dynamodb.Table;
 
-  constructor(parent: cdk.Construct, id: string, props: HitCounterProps) {
-    super(parent, id);
+  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+    super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits');
     table.addPartitionKey({ name: 'path', type: dynamodb.AttributeType.String });
@@ -62,8 +62,8 @@ import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
-    super(parent, name, props);
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, name, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NodeJS810,

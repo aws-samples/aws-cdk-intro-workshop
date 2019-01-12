@@ -46,8 +46,8 @@ interface CdkWorkshopProps extends cdk.StackProps {
 
 class CdkWorkshop extends cdk.Stack {
 
-    constructor(parent: cdk.App, name: string, props: CdkWorkshopProps) {
-        super(parent, name, props);
+    constructor(scope: cdk.App, id: string, props: CdkWorkshopProps) {
+        super(scope, id, props);
 
         // Enable AWS GuardDuty in this account, and send any security findings via email
         new GuardDutyNotifier(this, "GuardDuty", {
