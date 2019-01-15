@@ -153,9 +153,28 @@ cdk diff
 Output would look like this:
 
 ```
-[+] Added HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
-[+] Added HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
-[+] 🆕 Creating HelloHandler2E4FBA4D (type: AWS::Lambda::Function)
+The CdkWorkshopStack stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+IAM Statement Changes
+┌───┬─────────────────────────────────┬────────┬────────────────┬──────────────────────────────┬───────────┐
+│   │ Resource                        │ Effect │ Action         │ Principal                    │ Condition │
+├───┼─────────────────────────────────┼────────┼────────────────┼──────────────────────────────┼───────────┤
+│ + │ ${HelloHandler/ServiceRole.Arn} │ Allow  │ sts:AssumeRole │ Service:lambda.amazonaws.com │           │
+└───┴─────────────────────────────────┴────────┴────────────────┴──────────────────────────────┴───────────┘
+IAM Policy Changes
+┌───┬─────────────────────────────┬────────────────────────────────────────────────────────────────────────────────┐
+│   │ Resource                    │ Managed Policy ARN                                                             │
+├───┼─────────────────────────────┼────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${HelloHandler/ServiceRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole │
+└───┴─────────────────────────────┴────────────────────────────────────────────────────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+
+Parameters
+[+] Parameter HelloHandler/Code/S3Bucket HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
+[+] Parameter HelloHandler/Code/S3VersionKey HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
+
+Resources
+[+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63
+[+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
 As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
