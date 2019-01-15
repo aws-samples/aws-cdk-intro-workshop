@@ -36,27 +36,56 @@ Use `cdk deploy` to deploy a CDK app:
 cdk deploy
 ```
 
-Output should look like this:
+You should see a warning like the following:
 
 ```
-[0/6] CREATE_IN_PROGRESS  [AWS::CloudFormation::Stack] CdkWorkshopStack User Initiated
-[0/6] CREATE_IN_PROGRESS  [AWS::SNS::Topic] CdkWorkshopTopicD368A42F
-[0/6] CREATE_IN_PROGRESS  [AWS::SQS::Queue] CdkWorkshopQueue50D9D426
-[0/6] CREATE_IN_PROGRESS  [AWS::CDK::Metadata] CDKMetadata
-[0/6] CREATE_IN_PROGRESS  [AWS::SNS::Topic] CdkWorkshopTopicD368A42F Resource creation Initiated
-[0/6] CREATE_IN_PROGRESS  [AWS::SQS::Queue] CdkWorkshopQueue50D9D426 Resource creation Initiated
-[1/6] CREATE_COMPLETE     [AWS::SQS::Queue] CdkWorkshopQueue50D9D426
-[1/6] CREATE_IN_PROGRESS  [AWS::CDK::Metadata] CDKMetadata Resource creation Initiated
-[2/6] CREATE_COMPLETE     [AWS::CDK::Metadata] CDKMetadata
-[3/6] CREATE_COMPLETE     [AWS::SNS::Topic] CdkWorkshopTopicD368A42F
-[3/6] CREATE_IN_PROGRESS  [AWS::SNS::Subscription] CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7
-[3/6] CREATE_IN_PROGRESS  [AWS::SQS::QueuePolicy] CdkWorkshopQueuePolicyAF2494A5
-[3/6] CREATE_IN_PROGRESS  [AWS::SQS::QueuePolicy] CdkWorkshopQueuePolicyAF2494A5 Resource creation Initiated
-[4/6] CREATE_COMPLETE     [AWS::SQS::QueuePolicy] CdkWorkshopQueuePolicyAF2494A5
-[4/6] CREATE_IN_PROGRESS  [AWS::SNS::Subscription] CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 Resource creation Initiated
-[5/6] CREATE_COMPLETE     [AWS::SNS::Subscription] CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7
-[6/6] CREATE_COMPLETE     [AWS::CloudFormation::Stack] CdkWorkshopStack
- ✅  Deployment of stack CdkWorkshopStack completed successfully
+This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
+Please confirm you intend to make the following modifications:
+
+IAM Statement Changes
+┌───┬─────────────────────────┬────────┬─────────────────┬───────────────────────────┬──────────────────────────────────────────┐
+│   │ Resource                │ Effect │ Action          │ Principal                 │ Condition                                │
+├───┼─────────────────────────┼────────┼─────────────────┼───────────────────────────┼──────────────────────────────────────────┤
+│ + │ ${CdkWorkshopQueue.Arn} │ Allow  │ sqs:SendMessage │ Service:sns.amazonaws.com │ "ArnEquals": {                           │
+│   │                         │        │                 │                           │   "aws:SourceArn": "${CdkWorkshopTopic}" │
+│   │                         │        │                 │                           │ }                                        │
+└───┴─────────────────────────┴────────┴─────────────────┴───────────────────────────┴──────────────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+
+Do you wish to deploy these changes (y/n)?
+```
+
+This is warning you that deploying the app entails some risk.
+Since we need to allow the topic to send messages to the queue,
+enter **y** to deploy the stack and create the resources.
+
+Output should look like the following, where ACCOUNT-ID is your account ID, REGION is the region in which you created the app,
+and STACK-ID is the unique identifier for your stack:
+
+```
+CdkWorkshopStack: deploying...
+CdkWorkshopStack: creating CloudFormation changeset...
+ 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426)
+ 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F)
+ 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata
+ 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426) Resource creation Initiated
+ 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F) Resource creation Initiated
+ 1/6 | 1:12:48 PM | CREATE_COMPLETE      | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426)
+ 1/6 | 1:12:51 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata Resource creation Initiated
+ 2/6 | 1:12:51 PM | CREATE_COMPLETE      | AWS::CDK::Metadata     | CDKMetadata
+ 3/6 | 1:12:59 PM | CREATE_COMPLETE      | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F)
+ 3/6 | 1:13:01 PM | CREATE_IN_PROGRESS   | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5)
+ 3/6 | 1:13:01 PM | CREATE_IN_PROGRESS   | AWS::SNS::Subscription | CdkWorkshopTopic/CdkWorkshopQueueSubscription (CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7)
+ 3/6 | 1:13:02 PM | CREATE_IN_PROGRESS   | AWS::SNS::Subscription | CdkWorkshopTopic/CdkWorkshopQueueSubscription (CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7) Resource creation Initiated
+ 3/6 | 1:13:02 PM | CREATE_IN_PROGRESS   | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5) Resource creation Initiated
+ 4/6 | 1:13:02 PM | CREATE_COMPLETE      | AWS::SNS::Subscription | CdkWorkshopTopic/CdkWorkshopQueueSubscription (CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7)
+ 5/6 | 1:13:03 PM | CREATE_COMPLETE      | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5)
+ 6/6 | 1:13:05 PM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CdkWorkshopStack
+
+ ✅  CdkWorkshopStack
+
+Stack ARN:
+arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ```
 
 ## The CloudFormation Console
