@@ -33,13 +33,24 @@ what's currently deployed):
 cdk diff
 ```
 
-Output should look like this:
+Output should look like the following:
 
 ```
-[-] ☢️ Destroying CdkWorkshopQueue50D9D426 (type: AWS::SQS::Queue)
-[-] ☢️ Destroying CdkWorkshopQueuePolicyAF2494A5 (type: AWS::SQS::QueuePolicy)
-[-] ☢️ Destroying CdkWorkshopTopicD368A42F (type: AWS::SNS::Topic)
-[-] ☢️ Destroying CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 (type: AWS::SNS::Subscription)
+IAM Statement Changes
+┌───┬─────────────────────────────────┬────────┬─────────────────┬───────────────────────────┬──────────────────────────────────────────────────┐
+│   │ Resource                        │ Effect │ Action          │ Principal                 │ Condition                                        │
+├───┼─────────────────────────────────┼────────┼─────────────────┼───────────────────────────┼──────────────────────────────────────────────────┤
+│ - │ ${CdkWorkshopQueue50D9D426.Arn} │ Allow  │ sqs:SendMessage │ Service:sns.amazonaws.com │ "ArnEquals": {                                   │
+│   │                                 │        │                 │                           │   "aws:SourceArn": "${CdkWorkshopTopicD368A42F}" │
+│   │                                 │        │                 │                           │ }                                                │
+└───┴─────────────────────────────────┴────────┴─────────────────┴───────────────────────────┴──────────────────────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+
+Resources
+[-] AWS::SQS::Queue CdkWorkshopQueue50D9D426 destroy
+[-] AWS::SQS::QueuePolicy CdkWorkshopQueuePolicyAF2494A5 destroy
+[-] AWS::SNS::Topic CdkWorkshopTopicD368A42F destroy
+[-] AWS::SNS::Subscription CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 destroy
 ```
 
 As expected, all of our resources are going to be brutally destroyed.
