@@ -7,7 +7,7 @@ weight = 100
 
 Okay, now let's write the Lambda handler code for our hit counter.
 
-Create a file under `lambda/hitcounter.js`:
+Create the file `lambda/hitcounter.js`:
 
 ```js
 const { DynamoDB, Lambda } = require('aws-sdk');
