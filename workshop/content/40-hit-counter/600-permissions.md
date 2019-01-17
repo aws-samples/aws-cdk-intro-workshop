@@ -110,7 +110,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 ## Grant invoke permissions
 
-Add the highlighted lines to `lib`/hitcounter.ts`:
+Add the highlighted lines to `lib/hitcounter.ts`:
 
 {{<highlight ts "hl_lines=33-34">}}
 import cdk = require('@aws-cdk/cdk');
