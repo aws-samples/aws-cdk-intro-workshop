@@ -7,7 +7,7 @@ weight = 600
 
 Let's give our Lambda's execution role permissions to read/write from our table.
 
-Go back to `hitcounter.ts` and add the following:
+Go back to `hitcounter.ts` and add the following highlighted lines:
 
 {{<highlight ts "hl_lines=30-31">}}
 import cdk = require('@aws-cdk/cdk');
