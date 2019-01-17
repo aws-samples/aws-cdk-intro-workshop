@@ -110,6 +110,8 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 ## Grant invoke permissions
 
+Add the highlighted lines to `lib/hitcounter.ts`:
+
 {{<highlight ts "hl_lines=33-34">}}
 import cdk = require('@aws-cdk/cdk');
 import lambda = require('@aws-cdk/aws-lambda');
@@ -151,30 +153,36 @@ export class HitCounter extends cdk.Construct {
 
 ## Diff
 
-You can check what this did to `cdk diff`:
+You can check what this did using `cdk diff`:
 
 ```s
 cdk diff
 ```
 
-You should see something like this:
+The **Resource** section should look something like this,
+which shows the IAM statement was added to the role:
 
 ```
-[~] 🛠 Updating HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A (type: AWS::IAM::Policy)
- └─ [~] .PolicyDocument:
+Resources
+[~] AWS::IAM::Policy HelloHitCounter/HitCounterHandler/ServiceRole/DefaultPolicy HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A
+ └─ [~] PolicyDocument
      └─ [~] .Statement:
-         ├─ [-] Old value: [{"Action":["dynamodb:BatchGetItem","dynamodb:GetRecords","dynamodb:GetShardIterator","dynamodb:Query","dynamodb:GetItem","dynamodb:Scan","dynamodb:BatchWriteItem","dynamodb:PutItem","dynamodb:UpdateItem","dynamodb:DeleteItem"],"Effect":"Allow","Resource":{"Fn::GetAtt":["HelloHitCounterHits7AAEBF80","Arn"]}}]
-         └─ [+] New value: [{"Action":["dynamodb:BatchGetItem","dynamodb:GetRecords","dynamodb:GetShardIterator","dynamodb:Query","dynamodb:GetItem","dynamodb:Scan","dynamodb:BatchWriteItem","dynamodb:PutItem","dynamodb:UpdateItem","dynamodb:DeleteItem"],"Effect":"Allow","Resource":{"Fn::GetAtt":["HelloHitCounterHits7AAEBF80","Arn"]}},{"Action":"lambda:InvokeFunction","Effect":"Allow","Resource":{"Fn::GetAtt":["HelloHandler2E4FBA4D","Arn"]}}]
-```
-
-You can see that the following IAM statement was added to the role:
-
-```json
-{
-  "Action":"lambda:InvokeFunction",
-  "Effect":"Allow",
-  "Resource":{"Fn::GetAtt":["HelloHandler2E4FBA4D","Arn"]}
-}
+         └─ @@ -19,5 +19,15 @@
+            [ ]         "Arn"
+            [ ]       ]
+            [ ]     }
+            [+]   },
+            [+]   {
+            [+]     "Action": "lambda:InvokeFunction",
+            [+]     "Effect": "Allow",
+            [+]     "Resource": {
+            [+]       "Fn::GetAtt": [
+            [+]         "HelloHandler2E4FBA4D",
+            [+]         "Arn"
+            [+]       ]
+            [+]     }
+            [ ]   }
+            [ ] ]
 ```
 
 Which is exactly what we wanted.
