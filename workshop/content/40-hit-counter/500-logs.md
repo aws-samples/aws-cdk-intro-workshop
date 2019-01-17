@@ -13,25 +13,25 @@ CLI](https://github.com/awslabs/aws-sam-cli) and
 [awslogs](https://github.com/jorgebastida/awslogs). In this workshop, we'll show
 you how to find your logs through the AWS console.
 
-1. Open the [AWS Lambda console](https://console.aws.amazon.com/lambda/home) (make sure you
+#. Open the [AWS Lambda console](https://console.aws.amazon.com/lambda/home) (make sure you
    are connected to the correct region).
-2. Click on the __HitCounter__ Lambda function:
+   
+#. Click on the __HitCounter__ Lambda function 
+   (the name should contain the string `CdkWorkshopStack-HelloHitCounter`):
 
     ![](./logs1.png)
 
-3. Click on __Monitoring__
+#. Click on __Monitoring__
 
     ![](./logs2.png)
 
-4. Click on __View on CloudWatch Logs__. This will open the AWS CloudWatch console.
+#. Click on __View on CloudWatch Logs__. This will open the AWS CloudWatch console.
 
     ![](./logs3.png)
 
-5. Click __Search Log Group__
-
-    ![](./logs4.png)
-
-6. Scroll all the way down, and look for an error. You'll likely see something like this:
+#. Select the most-recent log group.
+    
+#. Look for the most-recent message containing the string "errorMessage". You'll likely see something like this:
 
 
     ```json
