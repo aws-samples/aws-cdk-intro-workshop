@@ -18,11 +18,17 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
 
 ## Open DynamoDB console
 
-1. Now, go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home)
-2. Open our table and select "Items"
+#. Go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home).
+#. Make sure you are in the region where you created the table.
+#. Select `Tables` in the navigation pane and select the table that starts with `CdkWorkdShopStack-HelloHitCounterHits`.
+#. Open the table and select "Items".
+#. You should see how many hits you got for each path.
 
     ![](./dynamo1.png)
 
+#. Try hitting a new path and refresh the Items view.
+   You should see a new item with a `hits` count of one.
+   
 ## Good job!
 
 The cool thing about our `HitCounter` is that it's quite useful. It basically
@@ -36,6 +42,6 @@ their CDK apps.
 
 -----
 
-In the next chapter we will be __consuming__ a construct library published to
-npm, which will allow us to view the contents of our hit counter table from any
+In the next chapter we __consume__ a construct library published to
+npm, which enables us to view the contents of our hit counter table from any
 browser.
