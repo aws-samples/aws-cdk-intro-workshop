@@ -15,22 +15,22 @@ you how to find your logs through the AWS console.
 
 #. Open the [AWS Lambda console](https://console.aws.amazon.com/lambda/home) (make sure you
    are connected to the correct region).
-   
-#. Click on the __HitCounter__ Lambda function 
+
+#. Click on the __HitCounter__ Lambda function
    (the name should contain the string `CdkWorkshopStack-HelloHitCounter`):
 
-    ![](./logs1.png)
+![](./logs1.png)
 
 #. Click on __Monitoring__
 
-    ![](./logs2.png)
+![](./logs2.png)
 
 #. Click on __View on CloudWatch Logs__. This will open the AWS CloudWatch console.
 
-    ![](./logs3.png)
+![](./logs3.png)
 
 #. Select the most-recent log group.
-    
+
 #. Look for the most-recent message containing the string "errorMessage". You'll likely see something like this:
 
 
