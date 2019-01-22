@@ -17,7 +17,7 @@ export class GuardDutyNotifier extends cdk.Construct {
         super(scope, id);
 
         // Enable GuardDuty in the AWS region, to detect security issues
-        new guardduty.cloudformation.DetectorResource(this, "GuardDutyDetector", { enable: true })
+        new guardduty.CfnDetector(this, "GuardDutyDetector", { enable: true })
 
         // Configure GuardDuty to email any security findings
         const guardDutyTopic = new sns.Topic(this, "GuardDutyNotificationTopic");

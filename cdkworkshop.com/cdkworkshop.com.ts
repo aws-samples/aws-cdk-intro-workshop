@@ -27,7 +27,7 @@ interface CdkWorkshopProps extends cdk.StackProps {
     email: string
 
     /**
-     * If true, AWS WAF will be deployed in front of the workshop CloudFront 
+     * If true, AWS WAF will be deployed in front of the workshop CloudFront
      * distribution, with a ruleset to only allow access from the Amazon corporate network
      */
     restrictToAmazonNetwork: boolean
@@ -35,7 +35,7 @@ interface CdkWorkshopProps extends cdk.StackProps {
     /**
      * The ARN of the AWS WAF WebACL that restricts access to the Amazon corporate network (should be deployed separately)
      */
-    restrictToAmazonNetworkWebACL: cdk.Token
+    restrictToAmazonNetworkWebACL: string
 
     /**
      * If enabled, sets the max TTL to 0 in the CloudFront distribution.
@@ -65,7 +65,7 @@ class CdkWorkshop extends cdk.Stack {
             websiteIndexDocument: 'index.html'
         });
 
-        const origin = new cloudfront.cloudformation.CloudFrontOriginAccessIdentityResource(this, "BucketOrigin", {
+        const origin = new cloudfront.CfnCloudFrontOriginAccessIdentity(this, "BucketOrigin", {
             cloudFrontOriginAccessIdentityConfig: { comment: props.domain },
         })
 
@@ -123,7 +123,7 @@ class CdkWorkshop extends cdk.Stack {
         // DNS alias for the CloudFront distribution
         // Having to use L1 construct here as currently only TXT/NS records can be created with the L2 construct
         // https://github.com/awslabs/aws-cdk/issues/966
-        new route53.cloudformation.RecordSetResource(this, 'CloudFrontDNSRecord', {
+        new route53.CfnRecordSet(this, 'CloudFrontDNSRecord', {
             name: props.domain + '.',
             hostedZoneId: zone.hostedZoneId,
             type: 'A',
@@ -150,10 +150,12 @@ class CdkWorkshop extends cdk.Stack {
             value: props.certificate,
         })
 
-        new cdk.Output(this, 'Nameservers', {
-            description: 'Nameservers for DNS zone',
-            value: new cdk.FnJoin(', ', zone.nameServers.resolve())
-        })
+        if (zone.hostedZoneNameServers) {
+            new cdk.Output(this, 'Nameservers', {
+                description: 'Nameservers for DNS zone',
+                value: cdk.Fn.join(', ', zone.hostedZoneNameServers)
+            })
+        }
 
     }
 }
@@ -166,7 +168,7 @@ new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', {
     certificate: 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35',
     email: 'aws-cdk-workshop@amazon.com',
     restrictToAmazonNetwork: false,
-    restrictToAmazonNetworkWebACL: new cdk.FnImportValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
+    restrictToAmazonNetworkWebACL: cdk.Fn.importValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
     disableCache: true
 });
 
