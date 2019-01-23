@@ -42,7 +42,7 @@ Library reference](https://awslabs.github.io/aws-cdk/reference.html).
 Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
-```s
+```console
 npm install @aws-cdk/aws-lambda@0.22.0
 ```
 
@@ -91,7 +91,7 @@ export class CdkWorkshopStack extends cdk.Stack {
 
 A few things to notice:
 
-- Once you save *cdk-workspho-stack-ts*, you should see an error message in the 
+- Once you save *cdk-workspho-stack-ts*, you should see an error message in the
   `npm run watch` window that hello is declared but never use. Cool huh?
 - Our function uses NodeJS 8.10 runtime
 - The handler code is loaded from the `lambda` directory which we created
@@ -137,7 +137,7 @@ signature:
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
-```s
+```console
 cdk diff
 ```
 
@@ -177,7 +177,7 @@ that are used by the toolkit to propagate the location of the handler code.
 
 Let's deploy:
 
-```s
+```console
 cdk deploy
 ```
 

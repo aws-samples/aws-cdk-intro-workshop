@@ -29,7 +29,7 @@ Now, that we modified our stack's contents, we can ask the toolkit to show us
 what will happen if we run `cdk deploy` (the difference between our CDK app and
 what's currently deployed):
 
-```s
+```console
 cdk diff
 ```
 
@@ -59,7 +59,7 @@ As expected, all of our resources are going to be brutally destroyed.
 
 Run `cdk deploy` and __proceed to the next section__ (no need to wait):
 
-```s
+```console
 cdk deploy
 ```
 

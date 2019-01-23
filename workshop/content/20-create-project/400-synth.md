@@ -13,7 +13,7 @@ application.
 To synthesize a CDK app, use the `cdk synth` command. Let's check out the
 template synthesized from the sample app:
 
-```s
+```console
 cdk synth
 ```
 

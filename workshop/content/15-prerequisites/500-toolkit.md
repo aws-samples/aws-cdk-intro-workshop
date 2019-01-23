@@ -11,14 +11,14 @@ Open a terminal session and run the following command:
 - Windows: you'll need to run this as an Administrator
 - POSIX: on some systems you may need to run this with `sudo`
 
-```s
+```console
 npm install -g aws-cdk@0.22.0
 ```
 
 You can check the toolkit version:
 
-```s
-cdk --version
+```console
+$ cdk --version
 0.22.0
 ```
 

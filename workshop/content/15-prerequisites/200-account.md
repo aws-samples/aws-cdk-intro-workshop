@@ -45,7 +45,7 @@ the __access key ID__ and __secret key__ and choose a default region (you can
 use `us-east-1`, `eu-west-1`, `us-west-2` for example). Preferably use a region
 that doesn't have any resources already deployed into it.
 
-```s
+```console
 aws configure
 ```
 
