@@ -120,17 +120,13 @@ class CdkWorkshop extends cdk.Stack {
             },
         })
 
+        // TODO: Model dependency from CloudFront Web Distribution on S3 Bucket Deployment
+
         // DNS alias for the CloudFront distribution
-        // Having to use L1 construct here as currently only TXT/NS records can be created with the L2 construct
-        // https://github.com/awslabs/aws-cdk/issues/966
-        new route53.CfnRecordSet(this, 'CloudFrontDNSRecord', {
-            name: props.domain + '.',
-            hostedZoneId: zone.hostedZoneId,
-            type: 'A',
-            aliasTarget: {
-                hostedZoneId: cdn.aliasHostedZoneId, // Always used for CloudFront in any region
-                dnsName: cdn.domainName,
-            },
+        new route53.AliasRecord(this, 'CloudFrontDNSRecord', {
+            recordName: props.domain + '.',
+            zone,
+            target: cdn,
         });
 
         // Configure Outputs
