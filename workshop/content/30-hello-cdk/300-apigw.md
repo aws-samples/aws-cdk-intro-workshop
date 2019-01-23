@@ -15,7 +15,7 @@ will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-console
+```console
 npm install @aws-cdk/aws-apigateway@0.22.0
 ```
 
