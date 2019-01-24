@@ -22,13 +22,13 @@ background for the duration of the workshop.
 
 From your project directory run:
 
-```s
+```console
 cd cdk-workshop
 ```
 
 And:
 
-```s
+```console
 npm run watch
 ```
 

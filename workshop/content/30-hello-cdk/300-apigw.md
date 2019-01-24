@@ -15,7 +15,7 @@ will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-```s
+```console
 npm install @aws-cdk/aws-apigateway@0.22.0
 ```
 
@@ -62,7 +62,7 @@ proxies all requests to an AWS Lambda function.
 
 Let's see what's going to happen when we deploy this:
 
-```s
+```console
 cdk diff
 ```
 
@@ -90,7 +90,7 @@ That's nice. This one line of code added 12 new resources to our stack.
 
 Okay, ready to deploy?
 
-```s
+```console
 cdk deploy
 ```
 
@@ -115,7 +115,7 @@ If you don't have [curl](https://curl.haxx.se/) installed, you can always use
 your favorite web browser to hit this URL.
 {{% /notice %}}
 
-```s
+```console
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
