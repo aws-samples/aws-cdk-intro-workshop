@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Amazon.CDK.AWS.APIGateway" Version="0.24.1" />
+      <PackageReference Include="Amazon.CDK.AWS.DynamoDB" Version="0.24.1" />
+      <PackageReference Include="Amazon.CDK.AWS.Lambda" Version="0.24.1" />
+    </ItemGroup>
+
+</Project>
