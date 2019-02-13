@@ -20,13 +20,20 @@ public class HitCounter extends Construct {
     super(scope, id);
 
     this.table = new Table(this, "Hits");
-    this.table.addPartitionKey(Attribute.builder().withName("path").withType(AttributeType.String).build());
+    this.table.addPartitionKey(Attribute.builder()
+        .withName("path")
+        .withType(AttributeType.String)
+        .build());
 
     Map<String, Object> environment = new HashMap<>();
     environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
     environment.put("HITS_TABLE_NAME", this.table.getTableName());
-    this.handler = new Function(this, "HitCounterHandler", FunctionProps.builder().withRuntime(Runtime.NODE_J_S810)
-        .withHandler("hitcounter.handler").withCode(Code.asset("lambda")).withEnvironment(environment).build());
+    this.handler = new Function(this, "HitCounterHandler", FunctionProps.builder()
+        .withRuntime(Runtime.NODE_J_S810)
+        .withHandler("hitcounter.handler")
+        .withCode(Code.asset("lambda"))
+        .withEnvironment(environment)
+        .build());
 
     // grant the lambda role read/write permissions to our table
     this.table.grantReadWriteData(this.handler.getRole());
