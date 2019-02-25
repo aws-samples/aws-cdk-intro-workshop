@@ -49,6 +49,8 @@ class CdkWorkshop extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props: CdkWorkshopProps) {
         super(scope, id, props);
 
+        this.renameLogical('CloudFrontDNSRecord46217411', 'CloudFrontDNSRecord');
+
         // Enable AWS GuardDuty in this account, and send any security findings via email
         new GuardDutyNotifier(this, "GuardDuty", {
             environmentName: props.domain,
