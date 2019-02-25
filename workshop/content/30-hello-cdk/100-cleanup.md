@@ -63,4 +63,4 @@ Run `cdk deploy` and __proceed to the next section__ (no need to wait):
 cdk deploy
 ```
 
-You should see the resources begin deleted.
+You should see the resources being deleted.
