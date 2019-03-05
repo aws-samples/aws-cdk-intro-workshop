@@ -39,6 +39,16 @@ writing your own construct.
 Finally, we'll show you how to use a construct from an npm library in your
 stack.
 
+## Quarterly Results {.tabset}
+
+### By Product
+
+(by product tab content)
+
+### By Region
+
+(by region tab content)
+
 By the end of this workshop, you'll be able to:
 
 - Create new CDK applications.<br/>
@@ -46,6 +56,16 @@ By the end of this workshop, you'll be able to:
 - Deploy your CDK apps to your AWS account<br/>
 - Define your own reusable constructs<br/>
 - Consume constructs published by other people<br/>
+
+## Yearly Results {.tabset}
+
+### By Product
+
+(by product tab content)
+
+### By Region
+
+(by region tab content)
 
 ## See Also
 
