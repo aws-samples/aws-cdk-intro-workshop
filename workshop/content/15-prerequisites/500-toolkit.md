@@ -26,3 +26,7 @@ $ cdk --version
 CDK is still in developer preview, new versions of the AWS CDK may include
 breaking changes. Therefore, throughout the workshop, you will be instructed to
 install version 0.22.0 by using `npm install module@0.22.0`. {{% /notice %}}
+
+## See Also
+
+[Installing and Configuring the AWS CDK](https://docs.aws.amazon.com/CDK/latest/userguide/install_config.html)
