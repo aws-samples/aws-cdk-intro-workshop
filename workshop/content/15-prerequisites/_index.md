@@ -14,3 +14,7 @@ You can skip any of these steps if you have these tools already installed on
 your machine.
 
 Click on the arrow to the right to continue to the first step.
+
+## See Also
+
+- [Prerequisites in the AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide/install_config.html#install_config_prerequisites)

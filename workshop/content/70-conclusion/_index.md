@@ -31,22 +31,18 @@ Here are a few things you can do from here:
   thing you've built and try to design a beautiful API for it. Share it with the
   community and let us know about it. We'll be curating a list of constructs,
   and would love to list yours.
-* [Get started](https://awslabs.github.io/aws-cdk/getting-started.html) with the
-  CDK in one of the supported languages: Java, .NET, JavaScript and TypeScript
+* Create a simple app in the [Hello World Tutorial](https://docs.aws.amazon.com/CDK/latest/userguide/hello_world_tutorial.html)
+  with the CDK in one of the supported languages: Java, .NET, JavaScript and TypeScript
 * Dive deeper into [CDK
-  Concepts](https://awslabs.github.io/aws-cdk/concepts.html):
-  [Constructs](https://awslabs.github.io/aws-cdk/constructs.html),
-  [Stacks](https://awslabs.github.io/aws-cdk/stacks.html),
-  [Logical IDs](https://awslabs.github.io/aws-cdk/logical-ids.html),
-  [Environments](https://awslabs.github.io/aws-cdk/environments.html),
-  [Apps](https://awslabs.github.io/aws-cdk/apps.html),
-  [Passing in Values](https://awslabs.github.io/aws-cdk/passing-in-data.html),
-  [Environmental Context](https://awslabs.github.io/aws-cdk/context.html),
-  [Assets](https://awslabs.github.io/aws-cdk/assets.html),
-  [Applets](https://awslabs.github.io/aws-cdk/applets.html)
+  Concepts](https://docs.aws.amazon.com/CDK/latest/userguide/concepts.html):
+  [Constructs](https://docs.aws.amazon.com/CDK/latest/userguide/constructs.html),
+  [Apps and Stacks](https://docs.aws.amazon.com/CDK/latest/userguide/apps_and_stacks.html),
+  [Logical IDs](https://docs.aws.amazon.com/CDK/latest/userguide/logical_ids.html),
+  [Environments and Context](https://docs.aws.amazon.com/CDK/latest/userguide/environments_and_context.html),
+  [Assets](https://docs.aws.amazon.com/CDK/latest/userguide/assets.html)
 * Explore the [AWS Construct
-  Library](https://awslabs.github.io/aws-cdk/aws-construct-lib.html) and the
-  [reference documentation](https://awslabs.github.io/aws-cdk/reference.html)
+  Library](https://docs.aws.amazon.com/CDK/latest/userguide/aws_construct_lib.html) and the
+  [reference documentation](https://awslabs.github.io/aws-cdk/)
   which already contains constructs for many AWS resources such as
   [EC2](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-ec2.html),
   [AutoScaling](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-autoscaling.html),
@@ -57,10 +53,10 @@ Here are a few things you can do from here:
   [Step Functions](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-stepfunctions.html)
   and many more...
 * Read guidelines on how to [write your own
-  constructs](https://awslabs.github.io/aws-cdk/writing-constructs.html)
+  constructs](https://docs.aws.amazon.com/CDK/latest/userguide/writing_constructs.html)
 * Learn about [__jsii__](https://github.com/awslabs/jsii), the technology
   behind the CDK's multi-language support
-* Browse some [examples](https://github.com/awslabs/aws-cdk/tree/master/examples) on our GitHub repository
+* Browse some [examples](https://github.com/aws-samples/aws-cdk-examples) on our GitHub repository
 
 -----
 

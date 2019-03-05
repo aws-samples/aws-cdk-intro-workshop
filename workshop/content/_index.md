@@ -47,4 +47,9 @@ By the end of this workshop, you'll be able to:
 - Define your own reusable constructs<br/>
 - Consume constructs published by other people<br/>
 
+## See Also
+
+- [AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide)
+- [AWS CDK Reference](https://awslabs.github.io/aws-cdk/)
+
 ![](images/cdk-logo.png)
