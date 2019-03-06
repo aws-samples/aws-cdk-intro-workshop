@@ -12,3 +12,7 @@ backend, and it will count how many requests were issued to each URL path. It
 will store this in a DynamoDB table.
 
 ![](images/hit-counter.png)
+
+## See Also
+
+- [Writing Constructs in the AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide/writing_constructs.html)
