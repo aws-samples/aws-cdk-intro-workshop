@@ -6,7 +6,7 @@ chapter = true
 
 # Clean up your stack
 
-To avoid unexpected chargers to your account, make sure you clean up your CDK
+To avoid unexpected charges to your account, make sure you clean up your CDK
 stack.
 
 You can either delete the stack through the AWS CloudFormation console or use
