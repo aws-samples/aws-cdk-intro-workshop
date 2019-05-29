@@ -35,7 +35,7 @@ each AWS service. For example, if you want to define an AWS Lambda function, we
 will need to use the AWS Lambda construct library.
 
 To discover and learn about AWS constructs, you can browse the [AWS Construct
-Library reference](https://awslabs.github.io/aws-cdk/reference.html).
+Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html).
 
 ![](./clib.png)
 
