@@ -1,6 +1,6 @@
 package com.myorg;
 
-import software.amazon.awscdk.App;
+import software.amazon.awscdk.core.App;
 
 public class CdkWorkshop {
     public static void main(final String argv[]) {
@@ -8,6 +8,6 @@ public class CdkWorkshop {
 
         new CdkWorkshopStack(app, "CdkWorkshopStack");
 
-        app.run();
+        app.synth();
     }
 }

@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import apigw = require('@aws-cdk/aws-apigateway');
 import { HitCounter } from './hitcounter';
-import { TableViewer } from 'cdk-dynamo-table-viewer';
+// import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, is: string, props?: cdk.StackProps) {
     super(scope, is, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NodeJS810,
+      runtime: lambda.Runtime.NODEJS_8_10,
       code: lambda.Code.asset('lambda'),
       handler: 'hello.handler',
 
@@ -25,14 +25,14 @@ class CdkWorkshopStack extends cdk.Stack {
       handler: helloWithCounter.handler
     });
 
-    new TableViewer(this, 'ViewHitCounter', {
-      title: 'Hello Hits',
-      table: helloWithCounter.table,
-      sortBy: '-hits'
-    });
+    // new TableViewer(this, 'ViewHitCounter', {
+    //   title: 'Hello Hits',
+    //   table: helloWithCounter.table,
+    //   sortBy: '-hits'
+    // });
   }
 }
 
 const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
+app.synth();

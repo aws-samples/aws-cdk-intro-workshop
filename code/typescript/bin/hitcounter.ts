@@ -1,4 +1,4 @@
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import dynamodb = require('@aws-cdk/aws-dynamodb');
 
@@ -17,12 +17,13 @@ export class HitCounter extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, 'Hits');
-    table.addPartitionKey({ name: 'path', type: dynamodb.AttributeType.String });
+    const table = new dynamodb.Table(this, 'Hits', {
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
+    });
     this.table = table;
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NodeJS810,
+      runtime: lambda.Runtime.NODEJS_8_10,
       handler: 'hitcounter.handler',
       code: lambda.Code.asset('lambda'),
       environment: {
@@ -32,9 +33,9 @@ export class HitCounter extends cdk.Construct {
     });
 
     // grant the lambda role read/write permissions to our table
-    table.grantReadWriteData(this.handler.role);
+    table.grantReadWriteData(this.handler);
 
     // grant the lambda role invoke permissions to the downstream function
-    props.downstream.grantInvoke(this.handler.role);
+    props.downstream.grantInvoke(this.handler);
   }
 }

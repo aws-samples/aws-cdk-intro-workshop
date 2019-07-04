@@ -1,10 +1,10 @@
 package com.myorg;
 
-import software.amazon.awscdk.App;
-import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.StackProps;
-import software.amazon.awscdk.samples.tableviewer.TableViewer;
-import software.amazon.awscdk.samples.tableviewer.TableViewerProps;
+import software.amazon.awscdk.core.App;
+import software.amazon.awscdk.core.Stack;
+import software.amazon.awscdk.core.StackProps;
+// import software.amazon.awscdk.samples.tableviewer.TableViewer;
+// import software.amazon.awscdk.samples.tableviewer.TableViewerProps;
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.apigateway.LambdaRestApiProps;
 import software.amazon.awscdk.services.lambda.Code;
@@ -21,7 +21,7 @@ public class CdkWorkshopStack extends Stack {
         super(parent, name, props);
 
         Function hello = new Function(this, "HelloHandler", FunctionProps.builder()
-                .withRuntime(Runtime.NODE_J_S810)
+                .withRuntime(Runtime.NODEJS_8_10)
                 .withCode(Code.asset("lambda"))
                 .withHandler("hello.handler")
                 .build());
@@ -33,10 +33,10 @@ public class CdkWorkshopStack extends Stack {
                 .withHandler(helloWithCounter.getHandler())
                 .build());
 
-        new TableViewer(this, "ViewHitCounter", TableViewerProps.builder()
-                .withTitle("Hello Hits")
-                .withTable(helloWithCounter.getTable())
-                .withSortBy("-hits")
-                .build());
+        // new TableViewer(this, "ViewHitCounter", TableViewerProps.builder()
+        //         .withTitle("Hello Hits")
+        //         .withTable(helloWithCounter.getTable())
+        //         .withSortBy("-hits")
+        //         .build());
     }
 }

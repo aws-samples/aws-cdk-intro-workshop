@@ -14,15 +14,15 @@
     "devDependencies": {
         "@types/node": "^10.12.18",
         "typescript": "^3.2.2",
-        "aws-cdk": "^0.22.0"
+        "aws-cdk": "^0.36.2"
     },
     "dependencies": {
-        "@aws-cdk/aws-apigateway": "^0.22.0",
-        "@aws-cdk/aws-dynamodb": "^0.22.0",
-        "@aws-cdk/aws-lambda": "^0.22.0",
-        "@aws-cdk/aws-sns": "^0.22.0",
-        "@aws-cdk/aws-sqs": "^0.22.0",
-        "@aws-cdk/cdk": "^0.22.0",
-        "cdk-dynamo-table-viewer": "^0.1.12"
+        "@aws-cdk/aws-apigateway": "^0.36.2",
+        "@aws-cdk/aws-dynamodb": "^0.36.2",
+        "@aws-cdk/aws-lambda": "^0.36.2",
+        "@aws-cdk/aws-sns": "^0.36.2",
+        "@aws-cdk/aws-sqs": "^0.36.2",
+        "@aws-cdk/core": "^0.36.2",
+        "@aws-cdk/cx-api": "^0.36.2"
     }
 }
