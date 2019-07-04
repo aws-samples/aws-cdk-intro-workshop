@@ -36,12 +36,11 @@ You'll see something like this:
 Let's have a quick look at `bin/cdk-workshop.ts`:
 
 ```ts
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import { CdkWorkshopStack } from '../lib/cdk-workshop-stack';
 
 const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.run();
 ```
 
 This code loads and instantiate the `CdkWorkshopStack` class from the
@@ -54,20 +53,21 @@ is:
 
 ```ts
 import sns = require('@aws-cdk/aws-sns');
+import subs = require('@aws-cdk/aws-sns-subscriptions');
 import sqs = require('@aws-cdk/aws-sqs');
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const queue = new sqs.Queue(this, 'CdkWorkshopQueue', {
-      visibilityTimeoutSec: 300
+      visibilityTimeoutSec: cdk.Duration.seconds(300)
     });
 
     const topic = new sns.Topic(this, 'CdkWorkshopTopic');
 
-    topic.subscribeQueue(queue);
+    topic.addSubscription(new subs.SqsSubscription(queue));
   }
 }
 ```

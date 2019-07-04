@@ -12,7 +12,7 @@ As usual, we first need to install the DynamoDB construct library (we already
 have the Lambda library installed):
 
 ```console
-npm install @aws-cdk/aws-dynamodb@0.22.0
+npm install @aws-cdk/aws-dynamodb@{{% cdkversion %}}
 ```
 
 {{% notice info %}}
@@ -27,7 +27,7 @@ in use.
 Now, go back to `lib/hitcounter.ts` and add the following highlighted code:
 
 {{<highlight ts "hl_lines=3 12-13 18-29">}}
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import dynamodb = require('@aws-cdk/aws-dynamodb');
 
@@ -44,11 +44,12 @@ export class HitCounter extends cdk.Construct {
   constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, 'Hits');
-    table.addPartitionKey({ name: 'path', type: dynamodb.AttributeType.String });
+    const table = new dynamodb.Table(this, 'Hits', {
+        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
+    });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NodeJS810,
+      runtime: lambda.Runtime.NODEJS_8_10,
       handler: 'hitcounter.handler',
       code: lambda.Code.asset('lambda'),
       environment: {
