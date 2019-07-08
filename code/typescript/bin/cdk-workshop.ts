@@ -35,4 +35,3 @@ class CdkWorkshopStack extends cdk.Stack {
 
 const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
-app.synth();
