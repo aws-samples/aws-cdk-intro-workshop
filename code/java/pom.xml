@@ -39,34 +39,34 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>0.36.2.DEVPREVIEW</version>
+            <version>0.37.0.DEVPREVIEW</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
-            <version>0.36.2.DEVPREVIEW</version>
+            <version>0.37.0.DEVPREVIEW</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>0.36.2.DEVPREVIEW</version>
+            <version>0.37.0.DEVPREVIEW</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>lambda</artifactId>
-            <version>0.36.2.DEVPREVIEW</version>
+            <version>0.37.0.DEVPREVIEW</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>sns</artifactId>
-            <version>0.36.2.DEVPREVIEW</version>
+            <version>0.37.0.DEVPREVIEW</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>sqs</artifactId>
-            <version>0.36.2.DEVPREVIEW</version>
+            <version>0.37.0.DEVPREVIEW</version>
         </dependency>
         <!-- <dependency>
             <groupId>software.amazon.awscdk.samples</groupId>

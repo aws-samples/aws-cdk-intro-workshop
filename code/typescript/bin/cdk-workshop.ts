@@ -3,7 +3,7 @@ import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import apigw = require('@aws-cdk/aws-apigateway');
 import { HitCounter } from './hitcounter';
-// import { TableViewer } from 'cdk-dynamo-table-viewer';
+import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, is: string, props?: cdk.StackProps) {
@@ -25,11 +25,11 @@ class CdkWorkshopStack extends cdk.Stack {
       handler: helloWithCounter.handler
     });
 
-    // new TableViewer(this, 'ViewHitCounter', {
-    //   title: 'Hello Hits',
-    //   table: helloWithCounter.table,
-    //   sortBy: '-hits'
-    // });
+    new TableViewer(this, 'ViewHitCounter', {
+      title: 'Hello Hits',
+      table: helloWithCounter.table,
+      sortBy: '-hits'
+    });
   }
 }
 
