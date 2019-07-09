@@ -21,49 +21,54 @@ Will output the following CloudFormation template:
 
 ```yaml
 Resources:
-    CdkWorkshopQueue50D9D426:
-        Type: 'AWS::SQS::Queue'
-        Properties:
-            VisibilityTimeout: 300
-    CdkWorkshopQueuePolicyAF2494A5:
-        Type: 'AWS::SQS::QueuePolicy'
-        Properties:
-            PolicyDocument:
-                Statement:
-                    -
-                        Action: 'sqs:SendMessage'
-                        Condition:
-                            ArnEquals:
-                                'aws:SourceArn':
-                                    Ref: CdkWorkshopTopicD368A42F
-                        Effect: Allow
-                        Principal:
-                            Service: sns.amazonaws.com
-                        Resource:
-                            'Fn::GetAtt':
-                                - CdkWorkshopQueue50D9D426
-                                - Arn
-                Version: '2012-10-17'
-            Queues:
-                -
-                    Ref: CdkWorkshopQueue50D9D426
-    CdkWorkshopTopicD368A42F:
-        Type: 'AWS::SNS::Topic'
-    CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7:
-        Type: 'AWS::SNS::Subscription'
-        Properties:
-            Endpoint:
-                'Fn::GetAtt':
-                    - CdkWorkshopQueue50D9D426
-                    - Arn
-            Protocol: sqs
-            TopicArn:
-                Ref: CdkWorkshopTopicD368A42F
-    CDKMetadata:
-        Type: 'AWS::CDK::Metadata'
-        Properties:
-            Modules: >-
-                @aws-cdk/aws-cloudwatch=0.13.0,@aws-cdk/aws-iam=0.13.0,@aws-cdk/aws-kms=0.13.0,@aws-cdk/aws-s3-notifications=0.13.0,@aws-cdk/aws-sns=0.13.0,@aws-cdk/aws-sqs=0.13.0,@aws-cdk/cdk=0.13.0,@aws-cdk/cx-api=0.13.0,cdk-workshop=0.1.0
+  CdkWorkshopQueue50D9D426:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 300
+    Metadata:
+      aws:cdk:path: CdkWorkshopStack/CdkWorkshopQueue/Resource
+  CdkWorkshopQueuePolicyAF2494A5:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: sqs:SendMessage
+            Condition:
+              ArnEquals:
+                aws:SourceArn:
+                  Ref: CdkWorkshopTopicD368A42F
+            Effect: Allow
+            Principal:
+              Service: sns.amazonaws.com
+            Resource:
+              Fn::GetAtt:
+                - CdkWorkshopQueue50D9D426
+                - Arn
+        Version: "2012-10-17"
+      Queues:
+        - Ref: CdkWorkshopQueue50D9D426
+    Metadata:
+      aws:cdk:path: CdkWorkshopStack/CdkWorkshopQueue/Policy/Resource
+  CdkWorkshopQueueCdkWorkshopStackCdkWorkshopTopicD7BE96438B5AD106:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: sqs
+      TopicArn:
+        Ref: CdkWorkshopTopicD368A42F
+      Endpoint:
+        Fn::GetAtt:
+          - CdkWorkshopQueue50D9D426
+          - Arn
+    Metadata:
+      aws:cdk:path: CdkWorkshopStack/CdkWorkshopQueue/CdkWorkshopStackCdkWorkshopTopicD7BE9643/Resource
+  CdkWorkshopTopicD368A42F:
+    Type: AWS::SNS::Topic
+    Metadata:
+      aws:cdk:path: CdkWorkshopStack/CdkWorkshopTopic/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=0.36.2,@aws-cdk/aws-cloudwatch=0.36.2,@aws-cdk/aws-iam=0.36.2,@aws-cdk/aws-kms=0.36.2,@aws-cdk/aws-sns=0.36.2,@aws-cdk/aws-sns-subscriptions=0.36.2,@aws-cdk/aws-sqs=0.36.2,@aws-cdk/core=0.36.2,@aws-cdk/cx-api=0.36.2,@aws-cdk/region-info=0.36.2,jsii-runtime=node.js/v10.15.3
 ```
 
 As you can see, this template includes four resources:

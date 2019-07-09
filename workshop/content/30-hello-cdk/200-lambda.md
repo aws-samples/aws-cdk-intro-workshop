@@ -43,13 +43,13 @@ Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```console
-npm install @aws-cdk/aws-lambda@0.22.0
+npm install @aws-cdk/aws-lambda@{{% cdkversion %}}
 ```
 
 Output should look like this:
 
 ```
-+ @aws-cdk/aws-lambda@0.22.0
++ @aws-cdk/aws-lambda@{{% cdkversion %}}
 updated 1 package and audited 1571 packages in 5.098s
 ```
 
@@ -71,7 +71,7 @@ Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 
 
 {{<highlight ts "hl_lines=2 8-13">}}
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 
 export class CdkWorkshopStack extends cdk.Stack {
@@ -80,7 +80,7 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NodeJS810,      // execution environment
+      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
       code: lambda.Code.asset('lambda'),  // code loaded from the "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
@@ -125,13 +125,13 @@ signature:
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
    for each resource defined within this scope. To read more about IDs in the
    CDK, see the [CDK user
-   manual](https://awslabs.github.io/aws-cdk/versions/0.8.1/logical-ids.html).
+   manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
 3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
    the `lambda.Function` construct accepts properties like `runtime`, `code` and
    `handler`. You can explore the various options using your IDE's auto-complete
    or in the [online
-   documentation](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-lambda.html).
+   documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html).
 
 ## Diff
 

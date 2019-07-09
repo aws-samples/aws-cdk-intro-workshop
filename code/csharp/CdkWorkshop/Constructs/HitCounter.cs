@@ -16,17 +16,17 @@ namespace CdkWorkshop.Constructs
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
-            var table = new Table(this, "Hits", new TableProps());
-            table.AddPartitionKey(new Attribute
-            {
-                Name = "path",
-                Type = AttributeType.String
+            var table = new Table(this, "Hits", new TableProps {
+                PartitionKey = new Attribute {
+                    Name = "path",
+                    Type = AttributeType.STRING,
+                }
             });
 
             Handler = new Function(this, "HitConterHandler", new FunctionProps
             {
-                Runtime = Runtime.DotNetCore21,
-                Timeout = 60,
+                Runtime = Runtime.DOTNET_CORE_2_1,
+                Timeout = Duration.Seconds(30),
                 Code = Code.Asset("./HitCounterFunction/src/HitCounterFunction/bin/Debug/netcoreapp2.1"),
                 Handler = "HitCounterFunction::HitCounterFunction.Function::FunctionHandler",
                 Environment = new Dictionary<string, object>

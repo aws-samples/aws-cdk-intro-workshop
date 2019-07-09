@@ -6,9 +6,9 @@ namespace CdkWorkshop
     {
         public static void Main(string[] args)
         {
-            var app = new App();
+            var app = new App(null);
             new CdkWorkshopStack(app, "CdkWorkshopStack", new StackProps());
-            app.Run();
+            app.Synth();
         }
     }
 }

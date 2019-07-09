@@ -11,8 +11,8 @@ namespace CdkWorkshop
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.DotNetCore21,
-                Timeout = 5,
+                Runtime = Runtime.DOTNET_CORE_2_1,
+                Timeout = Duration.Seconds(5),
                 Code = Code.Asset(
                     "./HelloHandlerFunction/src/HelloHandlerFunction/bin/Debug/netcoreapp2.1"),
                 Handler = "HelloHandlerFunction::HelloHandlerFunction.Function::FunctionHandler"

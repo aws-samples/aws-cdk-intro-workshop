@@ -3,10 +3,11 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.Construct;
+import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
 import software.amazon.awscdk.services.dynamodb.Table;
+import software.amazon.awscdk.services.dynamodb.TableProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
 import software.amazon.awscdk.services.lambda.FunctionProps;
@@ -19,17 +20,20 @@ public class HitCounter extends Construct {
   public HitCounter(Construct scope, String id, HitCounterProps props) {
     super(scope, id);
 
-    this.table = new Table(this, "Hits");
-    this.table.addPartitionKey(Attribute.builder()
-        .withName("path")
-        .withType(AttributeType.String)
-        .build());
+    this.table = new Table(this, "Hits", TableProps.builder()
+      .withPartitionKey(Attribute.builder()
+          .withName("path")
+          .withType(AttributeType.STRING)
+          .build()
+      )
+      .build()
+    );
 
     Map<String, Object> environment = new HashMap<>();
     environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
     environment.put("HITS_TABLE_NAME", this.table.getTableName());
     this.handler = new Function(this, "HitCounterHandler", FunctionProps.builder()
-        .withRuntime(Runtime.NODE_J_S810)
+        .withRuntime(Runtime.NODEJS_8_10)
         .withHandler("hitcounter.handler")
         .withCode(Code.asset("lambda"))
         .withEnvironment(environment)
