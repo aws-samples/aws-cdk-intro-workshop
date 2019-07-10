@@ -49,7 +49,7 @@ npm install @aws-cdk/aws-lambda
 Output should look like this:
 
 ```
-+ @aws-cdk/aws-lambda@00.00.00
++ @aws-cdk/aws-lambda@{{% cdkversion %}}
 updated 1 package and audited 1571 packages in 5.098s
 ```
 
