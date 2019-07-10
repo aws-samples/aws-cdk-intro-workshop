@@ -23,7 +23,25 @@ disableShortcutsTitle = true
 name = "<i class='fab fa-twitter fa-lg'></i> @emeshbi"
 identifier = "mm"
 url = "https://twitter.com/intent/user?screen_name=emeshbi"
+weight = 4
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-github fa-lg'></i> github"
+identifier = "gh"
+url = "https://github.com/awslabs/aws-cdk"
 weight = 1
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-stack-overflow fa-lg'></i> stack-overflow"
+identifier = "so"
+url = "https://stackoverflow.com/questions/tagged/aws-cdk"
+weight = 2
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-gitter fa-lg'></i> gitter"
+identifier = "gt"
+url = "https://github.com/awslabs/aws-cdk"
+weight = 3
 
 [outputs]
 home = [ "HTML", "AMP", "RSS", "JSON"]

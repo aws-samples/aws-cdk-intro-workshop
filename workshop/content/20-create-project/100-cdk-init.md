@@ -28,8 +28,8 @@ Applying project template app for typescript
 Initializing a new git repository...
 Executing npm install...
 npm notice created a lockfile as package-lock.json. You should commit this file.
-npm WARN dry-run-1@0.1.0 No repository field.
-npm WARN dry-run-1@0.1.0 No license field.
+npm WARN tst@0.1.0 No repository field.
+npm WARN tst@0.1.0 No license field.
 
 # Useful commands
 

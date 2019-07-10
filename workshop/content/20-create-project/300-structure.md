@@ -62,7 +62,7 @@ export class CdkWorkshopStack extends cdk.Stack {
     super(scope, id, props);
 
     const queue = new sqs.Queue(this, 'CdkWorkshopQueue', {
-      visibilityTimeoutSec: cdk.Duration.seconds(300)
+      visibilityTimeout: cdk.Duration.seconds(300)
     });
 
     const topic = new sns.Topic(this, 'CdkWorkshopTopic');
@@ -78,5 +78,5 @@ As you can see, our app was created with a sample CDK stack
 The stack includes:
 
 - SQS Queue (`new sqs.Queue`)
-- SNS Topic (`new sns.Topic)`
-- Subscribes the queue to receive any messages published to the topic (`subscribeQueue`).
+- SNS Topic (`new sns.Topic`)
+- Subscribes the queue to receive any messages published to the topic (`topic.addSubscription`)

@@ -43,13 +43,13 @@ Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```console
-npm install @aws-cdk/aws-lambda@{{% cdkversion %}}
+npm install @aws-cdk/aws-lambda
 ```
 
 Output should look like this:
 
 ```
-+ @aws-cdk/aws-lambda@{{% cdkversion %}}
++ @aws-cdk/aws-lambda@00.00.00
 updated 1 package and audited 1571 packages in 5.098s
 ```
 
@@ -84,14 +84,13 @@ export class CdkWorkshopStack extends cdk.Stack {
       code: lambda.Code.asset('lambda'),  // code loaded from the "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
-
   }
 }
 {{</highlight>}}
 
 A few things to notice:
 
-- Once you save *cdk-workspho-stack-ts*, you should see an error message in the
+- Once you save *cdk-workshop-stack.ts*, you should see an error message in the
   `npm run watch` window that hello is declared but never use. Cool huh?
 - Our function uses NodeJS 8.10 runtime
 - The handler code is loaded from the `lambda` directory which we created
@@ -123,9 +122,8 @@ signature:
    It's an ID that has to be unique amongst construct within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
-   for each resource defined within this scope. To read more about IDs in the
-   CDK, see the [CDK user
-   manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
+   for each resource defined within this scope. _To read more about IDs in the
+   CDK, see the [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)._
 3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
    the `lambda.Function` construct accepts properties like `runtime`, `code` and
@@ -162,6 +160,7 @@ IAM Policy Changes
 Parameters
 [+] Parameter HelloHandler/Code/S3Bucket HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
 [+] Parameter HelloHandler/Code/S3VersionKey HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
+[+] Parameter HelloHandler/Code/ArtifactHash HelloHandlerCodeArtifactHash5DF4E4B6: {"Type":"String","Description":"Artifact hash for asset \"CdkWorkshopStack/HelloHandler/Code\""}
 
 Resources
 [+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63
@@ -170,7 +169,7 @@ Resources
 
 As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
 also synthesized a couple of [CloudFormation
-parameters](https://awslabs.github.io/aws-cdk/cloudformation.html#parameters)
+parameters](https://docs.aws.amazon.com/cdk/latest/guide/get_cfn_param.html)
 that are used by the toolkit to propagate the location of the handler code.
 
 ## Deploy

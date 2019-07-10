@@ -37,20 +37,21 @@ Here are a few things you can do from here:
   Concepts](https://docs.aws.amazon.com/CDK/latest/userguide/concepts.html):
   [Constructs](https://docs.aws.amazon.com/CDK/latest/userguide/constructs.html),
   [Apps and Stacks](https://docs.aws.amazon.com/CDK/latest/userguide/apps_and_stacks.html),
-  [Logical IDs](https://docs.aws.amazon.com/CDK/latest/userguide/logical_ids.html),
-  [Environments and Context](https://docs.aws.amazon.com/CDK/latest/userguide/environments_and_context.html),
-  [Assets](https://docs.aws.amazon.com/CDK/latest/userguide/assets.html)
+  [Logical IDs](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids),
+  [Environments](https://docs.aws.amazon.com/cdk/latest/guide/apps_and_stacks.html#environments),
+  [Contexts](https://docs.aws.amazon.com/cdk/latest/guide/context.html),
+  and [Assets](https://docs.aws.amazon.com/CDK/latest/userguide/assets.html)
 * Explore the [AWS Construct
   Library](https://docs.aws.amazon.com/CDK/latest/userguide/aws_construct_lib.html) and the
-  [reference documentation](https://awslabs.github.io/aws-cdk/)
+  [reference documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
   which already contains constructs for many AWS resources such as
-  [EC2](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-ec2.html),
-  [AutoScaling](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-autoscaling.html),
-  [S3](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-s3.html),
-  [SNS](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-sns.html),
-  [SQS](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-sqs.html),
-  [CodePipeline](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-codepipeline.html),
-  [Step Functions](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-stepfunctions.html)
+  [EC2](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-ec2-readme.html),
+  [AutoScaling](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-autoscaling-readme.html),
+  [S3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html),
+  [SNS](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-sns-readme.html),
+  [SQS](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-sqs-readme.html),
+  [CodePipeline](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-codepipeline-readme.html),
+  [Step Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-stepfunctions-readme.html)
   and many more...
 * Read guidelines on how to [write your own
   constructs](https://docs.aws.amazon.com/CDK/latest/userguide/writing_constructs.html)
