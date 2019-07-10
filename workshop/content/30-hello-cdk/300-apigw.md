@@ -16,7 +16,7 @@ will be returned back to the user.
 ## Install the API Gateway construct library
 
 ```console
-npm install @aws-cdk/aws-apigateway@0.22.0
+npm install @aws-cdk/aws-apigateway
 ```
 
 {{% notice info %}}
@@ -33,7 +33,7 @@ in use.
 Let's define an API endpoint and associate it with our Lambda function:
 
 {{<highlight ts "hl_lines=3 15-18">}}
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import apigw = require('@aws-cdk/aws-apigateway');
 
@@ -42,7 +42,7 @@ export class CdkWorkshopStack extends cdk.Stack {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NodeJS810,
+      runtime: lambda.Runtime.NODEJS_8_10,
       code: lambda.Code.asset('lambda'),
       handler: 'hello.handler'
     });
@@ -69,19 +69,69 @@ cdk diff
 Output should look like this:
 
 ```
-[+] 🆕 Creating HelloHandlerApiPermissionANYproxy90E90CD6 (type: AWS::Lambda::Permission)
-[+] 🆕 Creating HelloHandlerApiPermissionTestANYproxy9803526C (type: AWS::Lambda::Permission)
-[+] 🆕 Creating HelloHandlerApiPermissionANYAC4E141E (type: AWS::Lambda::Permission)
-[+] 🆕 Creating HelloHandlerApiPermissionTestANYDDD56D72 (type: AWS::Lambda::Permission)
-[+] 🆕 Creating EndpointEEF1FD8F (type: AWS::ApiGateway::RestApi)
-[+] 🆕 Creating EndpointDeployment318525DA74d07276aabd2917b81309217a397827 (type: AWS::ApiGateway::Deployment)
-[+] 🆕 Creating EndpointDeploymentStageprodB78BEEA0 (type: AWS::ApiGateway::Stage)
-[+] 🆕 Creating EndpointCloudWatchRoleC3C64E0F (type: AWS::IAM::Role)
-[+] 🆕 Creating EndpointAccountB8304247 (type: AWS::ApiGateway::Account)
-[+] 🆕 Creating Endpointproxy39E2174E (type: AWS::ApiGateway::Resource)
-[+] 🆕 Creating EndpointproxyANYC09721C5 (type: AWS::ApiGateway::Method)
-[+] 🆕 Creating EndpointANY485C938B (type: AWS::ApiGateway::Method)
-[+] Added Endpoint8024A810: {"Value":{"Fn::Join":["",["https://",{"Ref":"EndpointEEF1FD8F"},".execute-api.",{"Ref":"AWS::Region"},".amazonaws.com/",{"Ref":"EndpointDeploymentStageprodB78BEEA0"},"/"]]},"Export":{"Name":"CdkWorkshopStack:Endpoint8024A810"}}
+IAM Statement Changes
+┌───┬───────────────────────────┬────────┬───────────────────────────┬───────────────────────────┬─────────────────────────────┐
+│   │ Resource                  │ Effect │ Action                    │ Principal                 │ Condition                   │
+├───┼───────────────────────────┼────────┼───────────────────────────┼───────────────────────────┼─────────────────────────────┤
+│ + │ ${Endpoint/CloudWatchRole │ Allow  │ sts:AssumeRole            │ Service:apigateway.${AWS: │                             │
+│   │ .Arn}                     │        │                           │ :URLSuffix}               │                             │
+├───┼───────────────────────────┼────────┼───────────────────────────┼───────────────────────────┼─────────────────────────────┤
+│ + │ ${HelloHandler.Arn}       │ Allow  │ lambda:InvokeFunction     │ Service:apigateway.amazon │ "ArnLike": {                │
+│   │                           │        │                           │ aws.com                   │   "AWS:SourceArn": "arn:${A │
+│   │                           │        │                           │                           │ WS::Partition}:execute-api: │
+│   │                           │        │                           │                           │ ${AWS::Region}:${AWS::Accou │
+│   │                           │        │                           │                           │ ntId}:${EndpointEEF1FD8F}/$ │
+│   │                           │        │                           │                           │ {Endpoint/DeploymentStage.p │
+│   │                           │        │                           │                           │ rod}/*/"                    │
+│   │                           │        │                           │                           │ }                           │
+│ + │ ${HelloHandler.Arn}       │ Allow  │ lambda:InvokeFunction     │ Service:apigateway.amazon │ "ArnLike": {                │
+│   │                           │        │                           │ aws.com                   │   "AWS:SourceArn": "arn:${A │
+│   │                           │        │                           │                           │ WS::Partition}:execute-api: │
+│   │                           │        │                           │                           │ ${AWS::Region}:${AWS::Accou │
+│   │                           │        │                           │                           │ ntId}:${EndpointEEF1FD8F}/t │
+│   │                           │        │                           │                           │ est-invoke-stage/*/"        │
+│   │                           │        │                           │                           │ }                           │
+│ + │ ${HelloHandler.Arn}       │ Allow  │ lambda:InvokeFunction     │ Service:apigateway.amazon │ "ArnLike": {                │
+│   │                           │        │                           │ aws.com                   │   "AWS:SourceArn": "arn:${A │
+│   │                           │        │                           │                           │ WS::Partition}:execute-api: │
+│   │                           │        │                           │                           │ ${AWS::Region}:${AWS::Accou │
+│   │                           │        │                           │                           │ ntId}:${EndpointEEF1FD8F}/$ │
+│   │                           │        │                           │                           │ {Endpoint/DeploymentStage.p │
+│   │                           │        │                           │                           │ rod}/*/{proxy+}"            │
+│   │                           │        │                           │                           │ }                           │
+│ + │ ${HelloHandler.Arn}       │ Allow  │ lambda:InvokeFunction     │ Service:apigateway.amazon │ "ArnLike": {                │
+│   │                           │        │                           │ aws.com                   │   "AWS:SourceArn": "arn:${A │
+│   │                           │        │                           │                           │ WS::Partition}:execute-api: │
+│   │                           │        │                           │                           │ ${AWS::Region}:${AWS::Accou │
+│   │                           │        │                           │                           │ ntId}:${EndpointEEF1FD8F}/t │
+│   │                           │        │                           │                           │ est-invoke-stage/*/{proxy+} │
+│   │                           │        │                           │                           │ "                           │
+│   │                           │        │                           │                           │ }                           │
+└───┴───────────────────────────┴────────┴───────────────────────────┴───────────────────────────┴─────────────────────────────┘
+IAM Policy Changes
+┌───┬────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────────┐
+│   │ Resource                   │ Managed Policy ARN                                                                      │
+├───┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${Endpoint/CloudWatchRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs │
+└───┴────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+
+Resources
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY.. HelloHandlerApiPermissionANYAC4E141E
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY.. HelloHandlerApiPermissionTestANYDDD56D72
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY..{proxy+} HelloHandlerApiPermissionANYproxy90E90CD6
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY..{proxy+} HelloHandlerApiPermissionTestANYproxy9803526C
+[+] AWS::ApiGateway::RestApi Endpoint EndpointEEF1FD8F
+[+] AWS::ApiGateway::Deployment Endpoint/Deployment EndpointDeployment318525DA37c0e38727e25b4317827bf43e918fbf
+[+] AWS::ApiGateway::Stage Endpoint/DeploymentStage.prod EndpointDeploymentStageprodB78BEEA0
+[+] AWS::IAM::Role Endpoint/CloudWatchRole EndpointCloudWatchRoleC3C64E0F
+[+] AWS::ApiGateway::Account Endpoint/Account EndpointAccountB8304247
+[+] AWS::ApiGateway::Resource Endpoint/Default/{proxy+} Endpointproxy39E2174E
+[+] AWS::ApiGateway::Method Endpoint/Default/{proxy+}/ANY EndpointproxyANYC09721C5
+[+] AWS::ApiGateway::Method Endpoint/Default/ANY EndpointANY485C938B
+
+Outputs
+[+] Output Endpoint/Endpoint Endpoint8024A810: {"Value":{"Fn::Join":["",["https://",{"Ref":"EndpointEEF1FD8F"},".execute-api.",{"Ref":"AWS::Region"},".",{"Ref":"AWS::URLSuffix"},"/",{"Ref":"EndpointDeploymentStageprodB78BEEA0"},"/"]]}}
 ```
 
 That's nice. This one line of code added 12 new resources to our stack.
@@ -125,7 +175,7 @@ Output should look like this:
 Hello, CDK! You've hit /
 ```
 
-Obviously, you can also use your web browser for this:
+You can also use your web browser for this:
 
 ![](./browser.png)
 

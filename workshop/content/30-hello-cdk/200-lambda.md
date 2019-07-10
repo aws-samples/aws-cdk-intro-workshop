@@ -43,13 +43,13 @@ Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```console
-npm install @aws-cdk/aws-lambda@0.22.0
+npm install @aws-cdk/aws-lambda
 ```
 
 Output should look like this:
 
 ```
-+ @aws-cdk/aws-lambda@0.22.0
++ @aws-cdk/aws-lambda@00.00.00
 updated 1 package and audited 1571 packages in 5.098s
 ```
 
@@ -71,7 +71,7 @@ Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 
 
 {{<highlight ts "hl_lines=2 8-13">}}
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 
 export class CdkWorkshopStack extends cdk.Stack {
@@ -80,18 +80,17 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NodeJS810,      // execution environment
+      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
       code: lambda.Code.asset('lambda'),  // code loaded from the "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
-
   }
 }
 {{</highlight>}}
 
 A few things to notice:
 
-- Once you save *cdk-workspho-stack-ts*, you should see an error message in the
+- Once you save *cdk-workshop-stack.ts*, you should see an error message in the
   `npm run watch` window that hello is declared but never use. Cool huh?
 - Our function uses NodeJS 8.10 runtime
 - The handler code is loaded from the `lambda` directory which we created
@@ -161,6 +160,7 @@ IAM Policy Changes
 Parameters
 [+] Parameter HelloHandler/Code/S3Bucket HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
 [+] Parameter HelloHandler/Code/S3VersionKey HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
+[+] Parameter HelloHandler/Code/ArtifactHash HelloHandlerCodeArtifactHash5DF4E4B6: {"Type":"String","Description":"Artifact hash for asset \"CdkWorkshopStack/HelloHandler/Code\""}
 
 Resources
 [+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63

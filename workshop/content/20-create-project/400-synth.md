@@ -63,7 +63,7 @@ Resources:
         Type: 'AWS::CDK::Metadata'
         Properties:
             Modules: >-
-                @aws-cdk/aws-cloudwatch=0.13.0,@aws-cdk/aws-iam=0.13.0,@aws-cdk/aws-kms=0.13.0,@aws-cdk/aws-s3-notifications=0.13.0,@aws-cdk/aws-sns=0.13.0,@aws-cdk/aws-sqs=0.13.0,@aws-cdk/cdk=0.13.0,@aws-cdk/cx-api=0.13.0,cdk-workshop=0.1.0
+                aws-cdk=0.39.0,jsii-runtime=node.js/v12.2.0
 ```
 
 As you can see, this template includes four resources:
@@ -75,8 +75,7 @@ As you can see, this template includes four resources:
 
 {{% notice info %}} The **AWS::CDK::Metadata** resource is automatically added
 by the toolkit to every stack. It is used by the AWS CDK team for analytics and
-to allow us to identify versions with security issues. See [Version
-Reporting](https://awslabs.github.io/aws-cdk/tools.html#version-reporting) in
+to allow us to identify versions with security issues. See [Version Reporting](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) in
 the AWS CDK User Guide for more details. We will omit the metadata resource in
 diff views for the rest of this workshop {{% /notice %}}
 

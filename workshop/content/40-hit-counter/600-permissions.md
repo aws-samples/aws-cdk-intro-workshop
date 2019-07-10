@@ -10,7 +10,7 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 Go back to `hitcounter.ts` and add the following highlighted lines:
 
 {{<highlight ts "hl_lines=30-31">}}
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import dynamodb = require('@aws-cdk/aws-dynamodb');
 
@@ -30,7 +30,7 @@ export class HitCounter extends cdk.Construct {
     table.addPartitionKey({ name: 'path', type: dynamodb.AttributeType.String });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NodeJS810,
+      runtime: lambda.Runtime.NODEJS_8_10,
       handler: 'hitcounter.handler',
       code: lambda.Code.asset('lambda'),
       environment: {
@@ -40,7 +40,7 @@ export class HitCounter extends cdk.Construct {
     });
 
     // grant the lambda role read/write permissions to our table
-    table.grantReadWriteData(this.handler.role);
+    table.grantReadWriteData(this.handler);
   }
 }
 {{</highlight>}}
@@ -113,7 +113,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 Add the highlighted lines to `lib/hitcounter.ts`:
 
 {{<highlight ts "hl_lines=33-34">}}
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import dynamodb = require('@aws-cdk/aws-dynamodb');
 
@@ -133,7 +133,7 @@ export class HitCounter extends cdk.Construct {
     table.addPartitionKey({ name: 'path', type: dynamodb.AttributeType.String });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NodeJS810,
+      runtime: lambda.Runtime.NODEJS_8_10,
       handler: 'hitcounter.handler',
       code: lambda.Code.asset('lambda'),
       environment: {
@@ -143,10 +143,10 @@ export class HitCounter extends cdk.Construct {
     });
 
     // grant the lambda role read/write permissions to our table
-    table.grantReadWriteData(this.handler.role);
+    table.grantReadWriteData(this.handler);
 
     // grant the lambda role invoke permissions to the downstream function
-    props.downstream.grantInvoke(this.handler.role);
+    props.downstream.grantInvoke(this.handler);
   }
 }
 {{</highlight>}}
