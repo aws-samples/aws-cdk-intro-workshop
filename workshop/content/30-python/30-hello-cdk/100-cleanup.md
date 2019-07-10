@@ -7,14 +7,14 @@ weight = 100
 
 The project created by `cdk init sample-app` includes an SQS queue, an SNS
 topic, some S3 buckets, and an IAM user. We're not going to use them in our
-project, so remove them from your the `MyStack` constructor.
+project, so remove them from the `MyStack` constructor.
 
 Open `hello/hello_stack.py` and clean it up. Eventually it should look like
 this:
 
 ```python
 from aws_cdk import (
-    core
+    core,
 )
 
 

@@ -23,29 +23,30 @@ pip install aws-cdk.aws_apigateway
 
 Let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=3 15-18">}}
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
-import apigw = require('@aws-cdk/aws-apigateway');
+{{<highlight ts "hl_lines=3 20-23">}}
+from aws_cdk import (
+    aws_lambda as _lambda,
+    aws_apigateway as apigw,
+    core,
+)
 
-export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
 
-    // defines an AWS Lambda resource
-    const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,
-      code: lambda.Code.asset('lambda'),
-      handler: 'hello.handler'
-    });
+class MyStack(core.Stack):
 
-    // defines an API Gateway REST API resource backed by our "hello" function.
-    new apigw.LambdaRestApi(this, 'Endpoint', {
-      handler: hello
-    });
+    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
 
-  }
-}
+        hello = _lambda.Function(
+            self, 'HelloHandler',
+            runtime=_lambda.Runtime.PYTHON_3_7,
+            code=_lambda.Code.asset('lambda'),
+            handler='hello.handler',
+        )
+
+        apigw.LambdaRestApi(
+            self, 'Endpoint',
+            handler=hello,
+        )
 {{</highlight>}}
 
 That's it. This is all you need to do in order to define an API Gateway which

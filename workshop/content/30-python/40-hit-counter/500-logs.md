@@ -33,7 +33,7 @@ you how to find your logs through the AWS console.
 
    ```json
    {
-       "errorMessage": "User: arn:aws:sts::585695036304:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:us-east-1:585695036304:table/CdkWorkshopStack-HelloHitCounterHits7AAEBF80-1DZVT3W84LJKB",
+       "errorMessage": "User: arn:aws:sts::585695036304:assumed-role/hello-cdk-1-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/hello-cdk-1-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:us-east-1:585695036304:table/hello-cdk-1-HelloHitCounterHits7AAEBF80-1DZVT3W84LJKB",
        "errorType": "AccessDeniedException",
        "stackTrace": [
            "Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:48:27)",

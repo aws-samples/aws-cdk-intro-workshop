@@ -28,7 +28,7 @@ We can then synthesize one of the stacks:
 $ cdk synth hello-cdk-1
 ```
 
-Will output the following CloudFormation template:
+This will output the following CloudFormation template:
 
 ```yaml
 Resources:

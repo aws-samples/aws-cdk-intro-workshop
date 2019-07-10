@@ -15,7 +15,7 @@ We'll start with the AWS Lambda handler code.
 import json
 
 
-def handler(event):
+def handler(event, context):
     print('request: {}'.format(json.dumps(event)))
     return {
         'statusCode': 200,
@@ -122,7 +122,7 @@ signature:
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
    for each resource defined within this scope. _To read more about IDs in the
    CDK, see the [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)._
-3. __**kwargs__: the last (sometimes optional) arguments is always a set of
+3. __`kwargs`__: the last (sometimes optional) arguments is always a set of
    initialization arguments. Those are specific to each construct. For example,
    the `lambda.Function` construct accepts arguments like `runtime`, `code` and
    `handler`. You can explore the various options using your IDE's auto-complete

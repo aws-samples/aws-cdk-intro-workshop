@@ -47,7 +47,7 @@ MyStack(app, "hello-cdk-2", env={'region': 'us-west-2'})
 app.synth()
 ```
 
-This code loads and instantiate the `MyStack` class from the
+This code loads and instantiates two instances of the `MyStack` class from 
 `hello/hello_stack.py` file. We won't need to look at this file anymore.
 
 ## The main stack
@@ -89,10 +89,10 @@ class MyStack(core.Stack):
         hello.grant_read(user)
 ```
 
-As you can see, our app was created with a sample CDK stack
+As you can see, our app was created with two instances of our sample CDK stack
 (`HelloStack`).
 
-The stack includes:
+The stacks includes:
 
 - SQS Queue (`new sqs.Queue`)
 - SNS Topic (`new sns.Topic`)

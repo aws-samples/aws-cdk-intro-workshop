@@ -23,7 +23,7 @@ Output should look like this (you can safely ignore warnings about
 initialization of a git repository, this probably means you don't have git
 installed, which is fine for this workshop):
 
-```
+```console
 Applying project template sample-app for python
 Initializing a new git repository...
 Executing Creating virtualenv...
