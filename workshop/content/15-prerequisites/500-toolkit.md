@@ -19,5 +19,5 @@ You can check the toolkit version:
 
 ```console
 $ cdk --version
-0.39.0
+{{% cdkversion %}}
 ```

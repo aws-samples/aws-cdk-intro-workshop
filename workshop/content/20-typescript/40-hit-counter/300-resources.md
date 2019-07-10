@@ -26,8 +26,8 @@ in use.
 
 Now, go back to `lib/hitcounter.ts` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=3 12-13 18-30">}}
-import cdk = require('@aws-cdk/cdk');
+{{<highlight ts "hl_lines=3 12-13 18-29">}}
+import cdk = require('@aws-cdk/core');
 import lambda = require('@aws-cdk/aws-lambda');
 import dynamodb = require('@aws-cdk/aws-dynamodb');
 

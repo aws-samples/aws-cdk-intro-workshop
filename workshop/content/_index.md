@@ -16,9 +16,9 @@ favorite programming language and deploy it using AWS CloudFormation.
 
 {{% notice info %}}
 
-In this workshop we are going to use TypeScript and JavaScript as our
-programming languages, but the AWS CDK is currently supported in JavaScript,
-TypeScript, Java and .NET and more languages are coming soon.
+AWS CDK is currently supported in JavaScript, TypeScript, Python, Java, and
+.NET.  However, at this point the workshop is available in TypeScript and
+Python only.  Workshops tailored to more languages will be coming soon.
 
 {{% /notice %}}
 
