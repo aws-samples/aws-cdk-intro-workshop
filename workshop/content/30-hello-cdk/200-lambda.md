@@ -123,15 +123,14 @@ signature:
    It's an ID that has to be unique amongst construct within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
-   for each resource defined within this scope. To read more about IDs in the
-   CDK, see the [CDK user
-   manual](https://awslabs.github.io/aws-cdk/versions/0.8.1/logical-ids.html).
+   for each resource defined within this scope. _To read more about IDs in the
+   CDK, see the [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)._
 3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
    the `lambda.Function` construct accepts properties like `runtime`, `code` and
    `handler`. You can explore the various options using your IDE's auto-complete
    or in the [online
-   documentation](https://awslabs.github.io/aws-cdk/refs/_aws-cdk_aws-lambda.html).
+   documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html).
 
 ## Diff
 
@@ -170,7 +169,7 @@ Resources
 
 As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
 also synthesized a couple of [CloudFormation
-parameters](https://awslabs.github.io/aws-cdk/cloudformation.html#parameters)
+parameters](https://docs.aws.amazon.com/cdk/latest/guide/get_cfn_param.html)
 that are used by the toolkit to propagate the location of the handler code.
 
 ## Deploy

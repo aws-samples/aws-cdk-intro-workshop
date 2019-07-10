@@ -102,7 +102,7 @@ When deployment is complete, you'll notice this line:
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-This is a [stack output](https://awslabs.github.io/aws-cdk/cloudformation.html#outputs) that's
+This is a [stack output](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) that's
 automatically added by the API Gateway construct and includes the URL of the API Gateway endpoint.
 
 ## Testing your app
