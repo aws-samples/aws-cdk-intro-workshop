@@ -43,7 +43,7 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 
 ![](./clib.png)
 
-Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
+Okay, let's use `pip install` to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```console

@@ -15,7 +15,7 @@ have the Lambda library installed):
 pip install aws_cdk.aws_dynamodb
 ```
 
-Now, go back to `lib/hitcounter.ts` and add the following highlighted code:
+Now, go back to `hello/hitcounter.py` and add the following highlighted code:
 
 {{<highlight ts "hl_lines=3 16-19 21-29">}}
 from aws_cdk import (
@@ -33,7 +33,7 @@ class HitCounter(core.Construct):
     def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        table = new ddb.Table(
+        table = ddb.Table(
             self, 'Hits',
             partition_key={'name': 'path', 'type': ddb.AttributeType.STRING}
         )

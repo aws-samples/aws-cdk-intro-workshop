@@ -52,7 +52,7 @@ This code loads and instantiates two instances of the `MyStack` class from
 
 ## The main stack
 
-Open up `hello/hello_stack.ts`. This is where the meat of our application
+Open up `hello/hello_stack.py`. This is where the meat of our application
 is:
 
 ```python
