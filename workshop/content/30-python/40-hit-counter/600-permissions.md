@@ -7,7 +7,7 @@ weight = 600
 
 Let's give our Lambda's execution role permissions to read/write from our table.
 
-Go back to `hitcounter.ts` and add the following highlighted lines:
+Go back to `hitcounter.py` and add the following highlighted lines:
 
 {{<highlight python "hl_lines=32">}}
 from aws_cdk import (
@@ -109,7 +109,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 ## Grant invoke permissions
 
-Add the highlighted lines to `lib/hitcounter.ts`:
+Add the highlighted lines to `hello/hitcounter.py`:
 
 {{<highlight ts "hl_lines=33-34">}}
 from aws_cdk import (
