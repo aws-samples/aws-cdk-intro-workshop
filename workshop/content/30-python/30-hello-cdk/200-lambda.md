@@ -61,7 +61,7 @@ help you with auto-complete, inline documentation and type safety.
 
 ## Add an AWS Lambda Function to your stack
 
-Add an `import` statement at the beginning of `lib/cdk-workshop-stack.py`, and a
+Add an `import` statement at the beginning of `hello/hello_stack.py`, and a
 `lambda.Function` to your stack.
 
 
