@@ -47,7 +47,7 @@ Okay, let's use `pip install` to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```console
-pip install aws-cdk.aws_lambda
+pip install aws-cdk.aws-lambda
 ```
 
 ## A few words about copying & pasting in this workshop
