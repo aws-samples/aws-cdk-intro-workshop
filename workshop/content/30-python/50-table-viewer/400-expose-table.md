@@ -7,7 +7,7 @@ weight = 400
 
 Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
 
-{{<highlight python "hl_lines=13-15">}}
+{{<highlight python "hl_lines=13-15 20 32 36">}}
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
