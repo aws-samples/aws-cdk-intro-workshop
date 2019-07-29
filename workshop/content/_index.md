@@ -50,6 +50,6 @@ By the end of this workshop, you'll be able to:
 ## See Also
 
 - [AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide)
-- [AWS CDK Reference](https://awslabs.github.io/aws-cdk/)
+- [AWS CDK Reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
 
 ![](images/cdk-logo.png)
