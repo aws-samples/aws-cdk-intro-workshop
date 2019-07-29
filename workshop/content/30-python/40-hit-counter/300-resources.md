@@ -8,13 +8,6 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct.
 
-As usual, we first need to install the DynamoDB construct library (we already
-have the Lambda library installed):
-
-```console
-pip install aws_cdk.aws_dynamodb
-```
-
 Now, go back to `hello/hitcounter.py` and add the following highlighted code:
 
 {{<highlight ts "hl_lines=3 16-19 21-29">}}
@@ -38,7 +31,7 @@ class HitCounter(core.Construct):
             partition_key={'name': 'path', 'type': ddb.AttributeType.STRING}
         )
 
-        self._handler = _lambda.Function(
+        self.handler = _lambda.Function(
             self, 'HitCountHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
             handler='hitcount.handler',
