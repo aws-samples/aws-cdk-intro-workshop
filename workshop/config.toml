@@ -40,7 +40,7 @@ weight = 2
 [[menu.shortcuts]]
 name = "<i class='fab fa-gitter fa-lg'></i> gitter"
 identifier = "gt"
-url = "https://github.com/awslabs/aws-cdk"
+url = "https://gitter.im/awslabs/aws-cdk"
 weight = 3
 
 [outputs]
