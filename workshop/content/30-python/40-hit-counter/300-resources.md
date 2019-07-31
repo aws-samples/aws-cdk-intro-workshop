@@ -31,7 +31,7 @@ class HitCounter(core.Construct):
             partition_key={'name': 'path', 'type': ddb.AttributeType.STRING}
         )
 
-        self.handler = _lambda.Function(
+        self._handler = _lambda.Function(
             self, 'HitCountHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
             handler='hitcount.handler',
