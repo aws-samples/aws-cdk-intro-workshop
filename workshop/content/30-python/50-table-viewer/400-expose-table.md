@@ -5,7 +5,7 @@ weight = 400
 
 ## Add a table property to our hit counter
 
-Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
+Edit `hitcounter.py` and modify it as such `table` is exposed as a public property.
 
 {{<highlight python "hl_lines=13-15 20 32 36">}}
 from aws_cdk import (
@@ -49,7 +49,7 @@ class HitCounter(core.Construct):
 
 ## Now we can access the table from our stack
 
-Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
+Go back to `hello-stack.py` and assign the `table` property of the table viewer:
 
 {{<highlight python "hl_lines=37">}}
 from aws_cdk import (
