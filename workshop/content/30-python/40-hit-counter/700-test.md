@@ -35,13 +35,13 @@ The cool thing about our `HitCounter` is that it's quite useful. It basically
 allows anyone to "attach" it to any Lambda function that serves as an API
 Gateway proxy backend and it will log hits to this API.
 
-Since our hit counter is a simple JavaScript class, you could package it into an
-npm module and publish it to [npmjs.org](http://npmjs.org/), which is the
-JavaScript package manager. Then, anyone could `npm install` it and add it to
+Since our hit counter is a simple Python class, you could package it into a
+pip module and publish it to [PyPi](http://pypi.org/), which is the
+Python package manager. Then, anyone could `pip install` it and add it to
 their CDK apps.
 
 -----
 
 In the next chapter we __consume__ a construct library published to
-npm, which enables us to view the contents of our hit counter table from any
+pip, which enables us to view the contents of our hit counter table from any
 browser.
