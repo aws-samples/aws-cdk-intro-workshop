@@ -43,11 +43,11 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 
 ![](./clib.png)
 
-Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
+Okay, let's use `pip install` to install the AWS Lambda
 module and all it's dependencies into our project:
 
 ```console
-pip install aws-cdk.aws_lambda
+pip install aws-cdk.aws-lambda
 ```
 
 ## A few words about copying & pasting in this workshop
@@ -61,7 +61,7 @@ help you with auto-complete, inline documentation and type safety.
 
 ## Add an AWS Lambda Function to your stack
 
-Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
+Add an `import` statement at the beginning of `hello/hello_stack.py`, and a
 `lambda.Function` to your stack.
 
 

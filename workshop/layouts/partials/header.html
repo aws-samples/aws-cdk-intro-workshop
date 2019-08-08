@@ -3,10 +3,10 @@
 <html lang="{{ .Page.Language | default "en" }}" class="js csstransforms3d">
   <head>
     <meta charset="utf-8">
-    <meta property="og:title" content="EKSworkshop.com" />
+    <meta property="og:title" content="cdkworkshop.com" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://eksworkshop.com" />
-    <meta property="og:image" content="https://eksworkshop.com/images/3-service-animated.gif" />
+    <meta property="og:url" content="https://cdkworkshop.com" />
+    <meta property="og:image" content="https://cdkworkshop.com/images/new-cdk-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     {{ .Hugo.Generator }}
     {{ partial "meta.html" . }}
@@ -76,7 +76,7 @@
                   <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
                   {{ end }}
                   <span class="links">
-                    {{ template "breadcrumb" dict "page" . "value" .Title }}   
+                    {{ template "breadcrumb" dict "page" . "value" .Title }}
                   </span>
                 </div>
                 {{ if $toc }}
@@ -98,7 +98,7 @@
           {{$parent := .page.Parent }}
           {{ if $parent }}
             {{ $value := (printf "<a href='%s'>%s</a> > %s" $parent.URL $parent.Title .value) }}
-            {{ template "breadcrumb" dict "page" $parent "value" $value }} 
+            {{ template "breadcrumb" dict "page" $parent "value" $value }}
           {{else}}
             {{.value|safeHTML}}
           {{end}}

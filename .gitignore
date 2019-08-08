@@ -6,3 +6,4 @@ workshop/public/**
 obj/
 cdk.out/
 bin/
+*~
