@@ -15,7 +15,7 @@ template synthesized from the sample app.  Because our app includes two stacks
 we need to tell the ``cdk synth`` command which stack we want to synthesize.
 You can get a list of available stacks:
 
-```console
+```
 $ cdk ls
 hello-cdk-1
 hello-cdk-2
@@ -24,7 +24,7 @@ $
 
 We can then synthesize one of the stacks:
 
-```console
+```
 $ cdk synth hello-cdk-1
 ```
 

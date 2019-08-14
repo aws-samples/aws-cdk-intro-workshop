@@ -11,7 +11,7 @@ Now, let's define the AWS Lambda function and the DynamoDB table in our
 As usual, we first need to install the DynamoDB construct library (we already
 have the Lambda library installed):
 
-```console
+```
 npm install @aws-cdk/aws-dynamodb
 ```
 

@@ -7,7 +7,7 @@ weight = 100
 
 Create an empty directory on your system:
 
-```console
+```
 mkdir cdk-workshop && cd cdk-workshop
 ```
 
@@ -15,7 +15,7 @@ mkdir cdk-workshop && cd cdk-workshop
 
 We will use `cdk init` to create a new TypeScript CDK project:
 
-```console
+```
 cdk init sample-app --language typescript
 ```
 

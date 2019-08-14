@@ -42,7 +42,7 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
-```console
+```
 npm install @aws-cdk/aws-lambda
 ```
 
@@ -135,7 +135,7 @@ signature:
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
-```console
+```
 cdk diff
 ```
 
@@ -176,7 +176,7 @@ that are used by the toolkit to propagate the location of the handler code.
 
 Let's deploy:
 
-```console
+```
 cdk deploy
 ```
 
