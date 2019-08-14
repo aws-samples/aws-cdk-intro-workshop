@@ -21,7 +21,8 @@ pip install aws-cdk.aws_apigateway
 
 ## Add a LambdaRestApi construct to your stack
 
-Let's define an API endpoint and associate it with our Lambda function:
+Let's define an API endpoint and associate it with our Lambda function. Add this code to `hello_stack.py` (which you should
+still have open from the last step):
 
 {{<highlight ts "hl_lines=3 20-23">}}
 from aws_cdk import (
