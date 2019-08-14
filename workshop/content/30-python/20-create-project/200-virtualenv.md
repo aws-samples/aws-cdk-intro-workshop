@@ -24,7 +24,7 @@ source .env/bin/activate
 One a Windows platform, you would use this:
 
 ```console
-.env/Scripts/activate.bat
+.env\Scripts\activate.bat
 ```
 
 Now that the virtual environment is activated, you can safely install the
