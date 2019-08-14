@@ -7,7 +7,7 @@ weight = 600
 
 Let's give our Lambda's execution role permissions to read/write from our table.
 
-Go back to `hitcounter.py` and add the following highlighted lines:
+Go back to `hitcounter.py` and add the following highlighted line:
 
 {{<highlight python "hl_lines=32">}}
 from aws_cdk import (
