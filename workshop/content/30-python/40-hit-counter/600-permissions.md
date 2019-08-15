@@ -7,7 +7,7 @@ weight = 600
 
 Let's give our Lambda's execution role permissions to read/write from our table.
 
-Go back to `hitcounter.py` and add the following highlighted lines:
+Go back to `hitcounter.py` and add the following highlighted line:
 
 {{<highlight python "hl_lines=32">}}
 from aws_cdk import (
@@ -111,7 +111,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `hello/hitcounter.py`:
 
-{{<highlight ts "hl_lines=33-34">}}
+{{<highlight python "hl_lines=33-34">}}
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
