@@ -12,7 +12,7 @@ the python module:
 pip install cdk-dynamo-table-viewer
 ```
 
-Output should look like this:
+The last two lines of the output (there's a lot of it) should look like this:
 
 ```
 Installing collected packages: cdk-dynamo-table-viewer
