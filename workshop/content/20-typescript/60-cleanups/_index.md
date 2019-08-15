@@ -12,7 +12,7 @@ stack.
 You can either delete the stack through the AWS CloudFormation console or use
 `cdk destroy`:
 
-```console
+```
 cdk destroy
 ```
 

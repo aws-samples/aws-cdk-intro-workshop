@@ -7,7 +7,7 @@ weight = 100
 
 Create an empty directory on your system:
 
-```console
+```
 mkdir cdk-workshop && cd cdk-workshop
 ```
 
@@ -15,7 +15,7 @@ mkdir cdk-workshop && cd cdk-workshop
 
 We will use `cdk init` to create a new Python CDK project:
 
-```console
+```
 cdk init sample-app --language python
 ```
 
@@ -23,7 +23,7 @@ Output should look like this (you can safely ignore warnings about
 initialization of a git repository, this probably means you don't have git
 installed, which is fine for this workshop):
 
-```console
+```
 Applying project template sample-app for python
 Initializing a new git repository...
 Executing Creating virtualenv...

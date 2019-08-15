@@ -51,7 +51,7 @@ export class HitCounter extends cdk.Construct {
 
 Save & deploy:
 
-```console
+```
 cdk deploy
 ```
 
@@ -60,7 +60,7 @@ cdk deploy
 Okay, deployment is complete. Let's run our test again (either use `curl` or
 your web browser):
 
-```console
+```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
@@ -159,7 +159,7 @@ export class HitCounter extends cdk.Construct {
 
 You can check what this did using `cdk diff`:
 
-```console
+```
 cdk diff
 ```
 
@@ -195,13 +195,13 @@ Which is exactly what we wanted.
 
 Okay... let's give this another shot:
 
-```console
+```
 cdk deploy
 ```
 
 Then hit your endpoint with `curl` or with your web browser:
 
-```console
+```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 

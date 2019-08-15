@@ -46,7 +46,7 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 Okay, let's use `pip install` to install the AWS Lambda
 module and all it's dependencies into our project:
 
-```console
+```
 pip install aws-cdk.aws-lambda
 ```
 
@@ -133,7 +133,7 @@ signature:
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
-```console
+```
 cdk diff hello-cdk-1
 ```
 
@@ -176,7 +176,7 @@ that are used by the toolkit to propagate the location of the handler code.
 
 Let's deploy:
 
-```console
+```
 cdk deploy hello-cdk-1
 ```
 
