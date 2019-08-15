@@ -23,7 +23,7 @@ pip install aws-cdk.aws_apigateway
 
 Let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=3 20-23">}}
+{{<highlight python "hl_lines=3 20-23">}}
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_apigateway as apigw,
