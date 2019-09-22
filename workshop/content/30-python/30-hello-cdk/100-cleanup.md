@@ -27,7 +27,8 @@ class MyStack(core.Stack):
 ```
 
 While you are at it, you can also safely delete the `hello/hello_construct.py`
-file as we won't be needing that anymore, either.
+file as we won't be needing that anymore, either.  Ensure the `from hello_construct import HelloConstruct`
+is also removed from `hello/hello_stack.py` after deleteing the file.
 
 ## cdk diff
 
