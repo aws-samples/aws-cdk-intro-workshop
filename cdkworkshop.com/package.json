@@ -14,17 +14,23 @@
     },
     "devDependencies": {
         "@types/node": "^10.14.19",
-        "aws-cdk": "^0.22.0",
+        "aws-cdk": "^1.10.0",
         "typescript": "^3.6.3"
     },
     "dependencies": {
-        "@aws-cdk/aws-cloudfront": "^0.22.0",
-        "@aws-cdk/aws-events": "^0.22.0",
-        "@aws-cdk/aws-guardduty": "^0.22.0",
-        "@aws-cdk/aws-route53": "^0.22.0",
-        "@aws-cdk/aws-s3": "^0.22.0",
-        "@aws-cdk/aws-s3-deployment": "^0.22.0",
-        "@aws-cdk/aws-sns": "^0.22.0",
-        "@aws-cdk/cdk": "^0.22.0"
+        "@aws-cdk/aws-cloudfront": "^1.10.0",
+        "@aws-cdk/aws-events": "^1.10.0",
+        "@aws-cdk/aws-events-targets": "^1.10.0",
+        "@aws-cdk/aws-guardduty": "^1.10.0",
+        "@aws-cdk/aws-route53": "^1.10.0",
+        "@aws-cdk/aws-route53-targets": "^1.10.0",
+        "@aws-cdk/aws-s3": "^1.10.0",
+        "@aws-cdk/aws-s3-deployment": "^1.10.0",
+        "@aws-cdk/aws-sns": "^1.10.0",
+        "@aws-cdk/aws-sns-subscriptions": "^1.10.0",
+        "@aws-cdk/core": "^1.10.0"
+    },
+    "engines": {
+        "node": ">= 10.0.0"
     }
 }
