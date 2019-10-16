@@ -11,12 +11,13 @@ We'll start with the AWS Lambda handler code.
    and `lib`).
 2. Add a file called `lambda/hello.js` with the following contents:
 
+---
 ```js
 exports.handler = async function(event) {
-  console.log('request:', JSON.stringify(event, undefined, 2));
+  console.log("request:", JSON.stringify(event, undefined, 2));
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'text/plain' },
+    headers: { "Content-Type": "text/plain" },
     body: `Hello, CDK! You've hit ${event.path}\n`
   };
 };
