@@ -32,9 +32,8 @@ is also removed from `hello/hello_stack.py` after deleteing the file.
 
 ## cdk diff
 
-Now, that we modified our stack's contents, we can ask the toolkit to show us
-what will happen if we run `cdk deploy` (the difference between our CDK app and
-what's currently deployed):
+Now that we modified our stack's contents, we can ask the toolkit to show us the difference between our CDK app and
+what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
 
 ```
 cdk diff hello-cdk-1

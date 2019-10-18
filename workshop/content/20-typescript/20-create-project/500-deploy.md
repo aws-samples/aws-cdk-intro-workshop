@@ -99,7 +99,7 @@ your stacks.
 Let's take a look at the [AWS CloudFormation
 console](https://console.aws.amazon.com/cloudformation/home).
 
-You will likely see something like this:
+You will likely see something like this (if you don't, make sure you are in the correct region):
 
 ![](./cfn1.png)
 
