@@ -7,7 +7,7 @@ weight = 600
 
 Let's give our Lambda's execution role permissions to read/write from our table.
 
-Go back to `hitcounter.py` and add the following highlighted lines:
+Go back to `hitcounter.py` and add the following highlighted line:
 
 {{<highlight python "hl_lines=32">}}
 from aws_cdk import (
@@ -48,7 +48,7 @@ class HitCounter(core.Construct):
 
 Save & deploy:
 
-```console
+```
 cdk deploy hello-cdk-1
 ```
 
@@ -57,7 +57,7 @@ cdk deploy hello-cdk-1
 Okay, deployment is complete. Let's run our test again (either use `curl` or
 your web browser):
 
-```console
+```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
@@ -111,7 +111,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `hello/hitcounter.py`:
 
-{{<highlight ts "hl_lines=33-34">}}
+{{<highlight python "hl_lines=33-34">}}
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
@@ -151,7 +151,7 @@ class HitCounter(core.Construct):
 
 You can check what this did using `cdk diff`:
 
-```console
+```
 cdk diff hello-cdk-1
 ```
 
@@ -199,13 +199,13 @@ Which is exactly what we wanted.
 
 Okay... let's give this another shot:
 
-```console
+```
 cdk deploy hello-cdk-1
 ```
 
 Then hit your endpoint with `curl` or with your web browser:
 
-```console
+```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 

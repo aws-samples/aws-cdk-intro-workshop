@@ -13,7 +13,7 @@ The AWS CDK uses Node.js (>= 8.12.0).
 
 * If you already have Node.js installed, verify that you have a compatible version:
 
-    ```console
+    ```
     node --version
     ```
 

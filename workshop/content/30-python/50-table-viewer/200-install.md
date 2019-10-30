@@ -8,11 +8,11 @@ weight = 200
 Before you can use the table viewer in your application, you'll need to install
 the python module:
 
-```console
+```
 pip install cdk-dynamo-table-viewer
 ```
 
-Output should look like this:
+The last two lines of the output (there's a lot of it) should look like this:
 
 ```
 Installing collected packages: cdk-dynamo-table-viewer

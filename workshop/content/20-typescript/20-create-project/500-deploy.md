@@ -15,7 +15,7 @@ bucket that is used to store templates and assets during the deployment process.
 You can use the `cdk bootstrap` command to install the bootstrap stack into an
 environment:
 
-```console
+```
 cdk bootstrap
 ```
 
@@ -32,7 +32,7 @@ Hopefully this command finished successfully and we can move on to deploy our ap
 
 Use `cdk deploy` to deploy a CDK app:
 
-```console
+```
 cdk deploy
 ```
 
@@ -99,7 +99,7 @@ your stacks.
 Let's take a look at the [AWS CloudFormation
 console](https://console.aws.amazon.com/cloudformation/home).
 
-You will likely see something like this:
+You will likely see something like this (if you don't, make sure you are in the correct region):
 
 ![](./cfn1.png)
 

@@ -15,15 +15,16 @@ will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-```console
+```
 pip install aws-cdk.aws_apigateway
 ```
 
 ## Add a LambdaRestApi construct to your stack
 
-Let's define an API endpoint and associate it with our Lambda function:
+Let's define an API endpoint and associate it with our Lambda function. Add this code to `hello_stack.py` (which you should
+still have open from the last step):
 
-{{<highlight ts "hl_lines=3 20-23">}}
+{{<highlight python "hl_lines=3 20-23">}}
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_apigateway as apigw,
@@ -36,7 +37,7 @@ class MyStack(core.Stack):
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        hello = _lambda.Function(
+        my_lambda = _lambda.Function(
             self, 'HelloHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
             code=_lambda.Code.asset('lambda'),
@@ -45,7 +46,7 @@ class MyStack(core.Stack):
 
         apigw.LambdaRestApi(
             self, 'Endpoint',
-            handler=hello,
+            handler=my_lambda,
         )
 {{</highlight>}}
 
@@ -56,7 +57,7 @@ proxies all requests to an AWS Lambda function.
 
 Let's see what's going to happen when we deploy this:
 
-```console
+```
 cdk diff hello-cdk-1
 ```
 
@@ -139,7 +140,7 @@ That's nice. This one line of code added 12 new resources to our stack.
 
 Okay, ready to deploy?
 
-```console
+```
 cdk deploy hello-cdk-1
 ```
 
@@ -164,7 +165,7 @@ If you don't have [curl](https://curl.haxx.se/) installed, you can always use
 your favorite web browser to hit this URL.
 {{% /notice %}}
 
-```console
+```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 

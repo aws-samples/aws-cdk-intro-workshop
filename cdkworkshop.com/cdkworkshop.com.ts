@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import route53 = require('@aws-cdk/aws-route53');
+import route53Targets = require('@aws-cdk/aws-route53-targets');
 import cloudfront = require('@aws-cdk/aws-cloudfront');
 import s3 = require('@aws-cdk/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
@@ -49,7 +50,7 @@ class CdkWorkshop extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props: CdkWorkshopProps) {
         super(scope, id, props);
 
-        this.renameLogical('CloudFrontDNSRecord46217411', 'CloudFrontDNSRecord');
+        this.renameLogicalId('CloudFrontDNSRecord46217411', 'CloudFrontDNSRecord');
 
         // Enable AWS GuardDuty in this account, and send any security findings via email
         new GuardDutyNotifier(this, "GuardDuty", {
@@ -69,14 +70,14 @@ class CdkWorkshop extends cdk.Stack {
 
         const origin = new cloudfront.CfnCloudFrontOriginAccessIdentity(this, "BucketOrigin", {
             cloudFrontOriginAccessIdentityConfig: { comment: props.domain },
-        })
+        });
 
         // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
-        const bucketPolicy = new PolicyStatement()
-        bucketPolicy.addPrincipal(new CanonicalUserPrincipal(origin.cloudFrontOriginAccessIdentityS3CanonicalUserId));
-        bucketPolicy.addAction("s3:GetObject");
-        bucketPolicy.addResource(bucket.bucketArn + "/*");
-        bucketPolicy.allow();
+        const bucketPolicy = new PolicyStatement({
+            principals: [new CanonicalUserPrincipal(origin.attrS3CanonicalUserId)],
+            actions: ['s3:GetObject'],
+            resources: [bucket.arnForObjects('*')],
+        })
         bucket.addToResourcePolicy(bucketPolicy);
 
         // Due to a bug in `BucketDeployment` (awslabs/aws-cdk#981) we must
@@ -87,7 +88,9 @@ class CdkWorkshop extends cdk.Stack {
         const contentHash = hashDirectorySync(contentDir);
 
         new s3deploy.BucketDeployment(this, 'DeployWebsite', {
-            source: s3deploy.Source.asset(contentDir),
+            sources: [
+                s3deploy.Source.asset(contentDir)
+            ],
             destinationBucket: bucket,
             destinationKeyPrefix: contentHash,
             retainOnDelete: true
@@ -98,22 +101,22 @@ class CdkWorkshop extends cdk.Stack {
             acl = props.restrictToAmazonNetworkWebACL.toString()
         }
 
-        const maxTtlSeconds = props.disableCache ? 0 : undefined;
+        const maxTtl = props.disableCache ? cdk.Duration.seconds(0) : undefined;
 
         // CloudFront distribution
         const cdn = new cloudfront.CloudFrontWebDistribution(this, 'CloudFront', {
-            viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.RedirectToHTTPS,
-            priceClass: cloudfront.PriceClass.PriceClassAll,
+            viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+            priceClass: cloudfront.PriceClass.PRICE_CLASS_ALL,
             webACLId: acl,
             originConfigs: [{
                 behaviors: [{
                     isDefaultBehavior: true,
-                    maxTtlSeconds
+                    maxTtl
                 }],
                 originPath: `/${contentHash}`,
                 s3OriginSource: {
                     s3BucketSource: bucket,
-                    originAccessIdentity: origin,
+                    originAccessIdentityId: origin.ref,
                 }
             }],
             aliasConfiguration: {
@@ -125,31 +128,31 @@ class CdkWorkshop extends cdk.Stack {
         // TODO: Model dependency from CloudFront Web Distribution on S3 Bucket Deployment
 
         // DNS alias for the CloudFront distribution
-        new route53.AliasRecord(this, 'CloudFrontDNSRecord', {
+        new route53.ARecord(this, 'CloudFrontDNSRecord', {
             recordName: props.domain + '.',
             zone,
-            target: cdn,
+            target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(cdn)),
         });
 
         // Configure Outputs
 
-        new cdk.Output(this, 'URL', {
+        new cdk.CfnOutput(this, 'URL', {
             description: 'The URL of the workshop',
             value: 'https://' + props.domain,
         })
 
-        new cdk.Output(this, 'CloudFrontURL', {
+        new cdk.CfnOutput(this, 'CloudFrontURL', {
             description: 'The CloudFront distribution URL',
             value: 'https://' + cdn.domainName,
         })
 
-        new cdk.Output(this, 'CertificateArn', {
+        new cdk.CfnOutput(this, 'CertificateArn', {
             description: 'The SSL certificate ARN',
             value: props.certificate,
         })
 
         if (zone.hostedZoneNameServers) {
-            new cdk.Output(this, 'Nameservers', {
+            new cdk.CfnOutput(this, 'Nameservers', {
                 description: 'Nameservers for DNS zone',
                 value: cdk.Fn.join(', ', zone.hostedZoneNameServers)
             })
@@ -170,4 +173,4 @@ new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', {
     disableCache: true
 });
 
-app.run();
+app.synth();

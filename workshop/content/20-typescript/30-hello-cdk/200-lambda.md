@@ -11,12 +11,13 @@ We'll start with the AWS Lambda handler code.
    and `lib`).
 2. Add a file called `lambda/hello.js` with the following contents:
 
+---
 ```js
 exports.handler = async function(event) {
-  console.log('request:', JSON.stringify(event, undefined, 2));
+  console.log("request:", JSON.stringify(event, undefined, 2));
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'text/plain' },
+    headers: { "Content-Type": "text/plain" },
     body: `Hello, CDK! You've hit ${event.path}\n`
   };
 };
@@ -42,7 +43,7 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
 module and all it's dependencies into our project:
 
-```console
+```
 npm install @aws-cdk/aws-lambda
 ```
 
@@ -135,7 +136,7 @@ signature:
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
-```console
+```
 cdk diff
 ```
 
@@ -176,7 +177,7 @@ that are used by the toolkit to propagate the location of the handler code.
 
 Let's deploy:
 
-```console
+```
 cdk deploy
 ```
 

@@ -1,7 +1,9 @@
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import guardduty = require('@aws-cdk/aws-guardduty');
 import events = require('@aws-cdk/aws-events');
+import eventTargets = require('@aws-cdk/aws-events-targets');
 import sns = require('@aws-cdk/aws-sns');
+import sqsTargets = require('@aws-cdk/aws-sns-subscriptions');
 
 export interface GuardDutyNotifierProps {
 
@@ -21,8 +23,8 @@ export class GuardDutyNotifier extends cdk.Construct {
 
         // Configure GuardDuty to email any security findings
         const guardDutyTopic = new sns.Topic(this, "GuardDutyNotificationTopic");
-        guardDutyTopic.subscribeEmail("GuardDutyNotificationSubscription", props.email);
-        const eventRule = new events.EventRule(this, "GuardDutyEventRule", {
+        guardDutyTopic.addSubscription(new sqsTargets.EmailSubscription(props.email));
+        const eventRule = new events.Rule(this, "GuardDutyEventRule", {
             eventPattern: {
                 source: ["aws.guardduty"],
                 detailType: ["GuardDuty Finding"],
@@ -30,13 +32,9 @@ export class GuardDutyNotifier extends cdk.Construct {
         })
 
         // Format the GuardDuty findings emails (rather than just a large splodge of JSON)
-        eventRule.addTarget(guardDutyTopic, {
-            pathsMap: {
-                "region": "$.region",
-                "type": "$.detail.type",
-            },
-            textTemplate: "WARNING: AWS GuardDuty has discovered a <type> security issue for " + props.environmentName + " (<region>). Please go to https://<region>.console.aws.amazon.com/guardduty/ to find out more details.",
-        })
+        eventRule.addTarget(new eventTargets.SnsTopic(guardDutyTopic, {
+            message: events.RuleTargetInput.fromText(`WARNING: AWS GuardDuty has discovered a ${events.EventField.fromPath('$.detail.type')} security issue for ${props.environmentName} (${events.EventField.fromPath('$.region')}). Please go to https://${events.EventField.fromPath('$.region')}.console.aws.amazon.com/guardduty/ to find out more details.`)
+        }));
 
     }
 }
