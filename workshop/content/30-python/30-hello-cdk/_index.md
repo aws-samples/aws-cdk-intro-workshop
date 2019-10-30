@@ -13,6 +13,6 @@ Gateway endpoint in front of it.
 Users will be able to hit any URL in the endpoint and they'll receive a
 heartwarming greeting from our function.
 
-![](images/hello-arch.png)
+![](/images/hello-arch.png)
 
 First, let's clean up the sample code.

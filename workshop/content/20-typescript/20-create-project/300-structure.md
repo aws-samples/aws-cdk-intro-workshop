@@ -15,7 +15,7 @@ You'll see something like this:
 
 ![](./structure.png)
 
-* __`lib/cdk-workshop-stack.ts`__ is where the your CDK application's main stack is defined.
+* __`lib/cdk-workshop-stack.ts`__ is where your CDK application's main stack is defined.
   This is the file we'll be spending most of our time in.
 * `bin/cdk-workshop.ts` is the entrypoint of the CDK application. It will load
   the stack defined in `lib/cdk-workshop-stack.ts`.

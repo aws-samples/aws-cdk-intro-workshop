@@ -23,7 +23,7 @@ you how to find your logs through the AWS console.
 3. Click on __Monitoring__
     ![](./logs2.png)
 
-4. Click on __View on CloudWatch Logs__. This will open the AWS CloudWatch console.
+4. Click on __View logs in CoudWatch__. This will open the AWS CloudWatch console.
     ![](./logs3.png)
 
 5. Select the most-recent log group.
