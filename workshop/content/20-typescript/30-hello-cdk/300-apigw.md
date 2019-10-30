@@ -30,7 +30,7 @@ in use.
 
 ## Add a LambdaRestApi construct to your stack
 
-Let's define an API endpoint and associate it with our Lambda function:
+Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
 {{<highlight ts "hl_lines=3 15-18">}}
 import cdk = require('@aws-cdk/core');
