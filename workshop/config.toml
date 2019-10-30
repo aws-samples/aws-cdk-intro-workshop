@@ -20,12 +20,6 @@ disableLanguageSwitchingButton = true
 disableShortcutsTitle = true
 
 [[menu.shortcuts]]
-name = "<i class='fab fa-twitter fa-lg'></i> @emeshbi"
-identifier = "mm"
-url = "https://twitter.com/intent/user?screen_name=emeshbi"
-weight = 4
-
-[[menu.shortcuts]]
 name = "<i class='fab fa-github fa-lg'></i> github"
 identifier = "gh"
 url = "https://github.com/awslabs/aws-cdk"
@@ -42,6 +36,18 @@ name = "<i class='fab fa-gitter fa-lg'></i> gitter"
 identifier = "gt"
 url = "https://gitter.im/awslabs/aws-cdk"
 weight = 3
+
+[[menu.shortcuts]]
+name = "<i class='fas fa-comment-dots'></i> submit feedback"
+identifier = "fb"
+url = "https://github.com/aws-samples/aws-cdk-intro-workshop/issues/new/choose"
+weight = 4
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-twitter fa-lg'></i> @emeshbi"
+identifier = "mm"
+url = "https://twitter.com/intent/user?screen_name=emeshbi"
+weight = 5
 
 [outputs]
 home = [ "HTML", "AMP", "RSS", "JSON"]
