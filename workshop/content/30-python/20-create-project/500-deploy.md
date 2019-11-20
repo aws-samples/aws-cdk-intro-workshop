@@ -124,7 +124,7 @@ and STACK-ID is the unique identifier for your stack:
  ✅  hello-cdk-1
 
 Stack ARN:
-arn:aws:cloudformation:us-east-2:198874812771:stack/hello-cdk-1/e2ee3220-a316-11e9-899b-02278d0d93fc
+arn:aws:cloudformation:us-east-2:************:stack/hello-cdk-1/********-****-****-****-************
 ```
 
 ## The CloudFormation Console
