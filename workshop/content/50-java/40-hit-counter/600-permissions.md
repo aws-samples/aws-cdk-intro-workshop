@@ -9,64 +9,54 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `~/HitCounter.java` and add the following highlighted lines:
 
-{{<highlight java "hl_lines=42-43">}}
+{{<highlight java "hl_lines=39-40">}}
 package com.myorg;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import software.amazon.awscdk.core.Construct;
+
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
 import software.amazon.awscdk.services.dynamodb.Table;
-import software.amazon.awscdk.services.dynamodb.TableProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 
 public class HitCounter extends Construct {
     private final Function handler;
-    private final Table table;
 
-    public HitCounter(Construct scope, String id, HitCounterProps props) {
+    public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
         super(scope, id);
 
-        this.table = new Table(this, "Hits", TableProps.builder()
+        final Table table = Table.Builder.create(this, "Hits")
             .partitionKey(Attribute.builder()
                 .name("path")
                 .type(AttributeType.STRING)
-                .build()
-            )
-            .build()
-        );
+                .build())
+            .build();
 
-        Map<String, String> environment = new HashMap<>();
+        final Map<String, String> environment = new HashMap<>();
         environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
-        environment.put("HITS_TABLE_NAME", this.table.getTableName());
-        this.handler = new Function(this, "HitCounterHandler", FunctionProps.builder()
+        environment.put("HITS_TABLE_NAME", table.getTableName());
+
+        this.handler = Function.Builder.create(this, "HitCounterHandler")
             .runtime(Runtime.NODEJS_10_X)
             .handler("hitcounter.handler")
             .code(Code.fromAsset("lambda"))
             .environment(environment)
-            .build());
+            .build();
 
-        // Grants the lambda role read/write permissions to our table
-        this.table.grantReadWriteData(this.handler.getRole());
+        // Grants the lambda function read/write permissions to our table
+        table.grantReadWriteData(this.handler);
     }
 
     /**
-    * @return the counter function
-    */
+     * @return the counter definition
+     */
     public Function getHandler() {
-        return handler;
-    }
-
-    /**
-    * @return the hit counter table
-    */
-    public Table getTable() {
-        return this.table;
+        return this.handler;
     }
 }
 {{</highlight>}}
@@ -139,67 +129,57 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `src/CdkWorkshop/HitCounter.cs`:
 
-{{<highlight java "hl_lines=45-46">}}
+{{<highlight java "hl_lines=42-43">}}
 package com.myorg;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import software.amazon.awscdk.core.Construct;
+
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
 import software.amazon.awscdk.services.dynamodb.Table;
-import software.amazon.awscdk.services.dynamodb.TableProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 
 public class HitCounter extends Construct {
     private final Function handler;
-    private final Table table;
 
-    public HitCounter(Construct scope, String id, HitCounterProps props) {
+    public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
         super(scope, id);
 
-        this.table = new Table(this, "Hits", TableProps.builder()
+        final Table table = Table.Builder.create(this, "Hits")
             .partitionKey(Attribute.builder()
                 .name("path")
                 .type(AttributeType.STRING)
-                .build()
-            )
-            .build()
-        );
+                .build())
+            .build();
 
-        Map<String, String> environment = new HashMap<>();
+        final Map<String, String> environment = new HashMap<>();
         environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
-        environment.put("HITS_TABLE_NAME", this.table.getTableName());
-        this.handler = new Function(this, "HitCounterHandler", FunctionProps.builder()
+        environment.put("HITS_TABLE_NAME", table.getTableName());
+
+        this.handler = Function.Builder.create(this, "HitCounterHandler")
             .runtime(Runtime.NODEJS_10_X)
             .handler("hitcounter.handler")
             .code(Code.fromAsset("lambda"))
             .environment(environment)
-            .build());
+            .build();
 
-        // Grants the lambda role read/write permissions to our table
-        this.table.grantReadWriteData(this.handler.getRole());
+        // Grants the lambda function read/write permissions to our table
+        table.grantReadWriteData(this.handler);
 
-        // Grants the lambda role invoke permissions to the downstream function
-        props.getDownstream().grantInvoke(this.handler.getRole());
+        // Grants the lambda function invoke permissions to the downstream function
+        props.getDownstream().grantInvoke(this.handler);
     }
 
     /**
-    * @return the counter function
-    */
+     * @return the counter definition
+     */
     public Function getHandler() {
-        return handler;
-    }
-
-    /**
-    * @return the hit counter table
-    */
-    public Table getTable() {
-        return this.table;
+        return this.handler;
     }
 }
 {{</highlight>}}
