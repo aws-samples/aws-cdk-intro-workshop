@@ -35,7 +35,7 @@ namespace CdkWorkshop
         public CdkWorkshopStack(Construct parent, string id, IStackProps props) : base(parent, id, props)
         {
             // Defines a new lambda resource
-            var hello = new Function(this, "HelloHandler", new FunctionProps()
+            var hello = new Function(this, "HelloHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
@@ -43,7 +43,7 @@ namespace CdkWorkshop
             });
 
             // defines an API Gateway REST API resource backed by our "hello" function.
-            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps()
+            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps
             {
                 Handler = hello
             });

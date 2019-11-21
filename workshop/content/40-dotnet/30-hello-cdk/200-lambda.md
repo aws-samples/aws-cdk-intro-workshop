@@ -77,7 +77,7 @@ namespace CdkWorkshop
         public CdkWorkshopStack(Construct scope, string id, IStackProps props) : base(scope, id, props)
         {
             // Defines a new lambda resource
-            var hello = new Function(this, "HelloHandler", new FunctionProps()
+            var hello = new Function(this, "HelloHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
