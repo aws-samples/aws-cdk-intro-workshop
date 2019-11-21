@@ -17,7 +17,7 @@ dotnet add package Amazon.CDK.AWS.DynamoDB
 
 Now, go back to `src/CdkWorkshop/HitCounter.cs` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=2 4 16 20-39">}}
+{{<highlight csharp "hl_lines=2 4 16 20-39">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.DynamoDB;
 using Amazon.CDK.AWS.Lambda;

@@ -64,7 +64,7 @@ namespace CdkWorkshop
 
 Go back to `CdkWorkshop.cs` and assign the `Table` property of the table viewer:
 
-{{<highlight ts "hl_lines=36">}}
+{{<highlight csharp "hl_lines=36">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Lambda;
