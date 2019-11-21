@@ -164,6 +164,7 @@ That's nice. This one line of code added 12 new resources to our stack.
 Okay, ready to deploy?
 
 ```
+mvn package
 cdk deploy
 ```
 

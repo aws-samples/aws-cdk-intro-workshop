@@ -70,6 +70,7 @@ As expected, all of our resources are going to be brutally destroyed.
 Run `cdk deploy` and __proceed to the next section__ (no need to wait):
 
 ```
+mvn package
 cdk deploy
 ```
 

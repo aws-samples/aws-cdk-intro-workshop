@@ -198,6 +198,7 @@ that are used by the toolkit to propagate the location of the handler code.
 Let's deploy:
 
 ```
+mvn package
 cdk deploy
 ```
 

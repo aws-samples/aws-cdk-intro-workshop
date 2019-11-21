@@ -30,9 +30,10 @@ Hopefully this command finished successfully and we can move on to deploy our ap
 
 ## Let's deploy
 
-Use `cdk deploy` to deploy a CDK app:
+Use `mvn package` to compile the code, then `cdk deploy` to deploy a CDK app:
 
 ```
+mvn package
 cdk deploy
 ```
 

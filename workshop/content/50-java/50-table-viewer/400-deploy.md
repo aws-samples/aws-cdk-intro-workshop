@@ -44,6 +44,8 @@ trust  {{% /notice %}}
 ### cdk deploy
 
 ```
+$ mvn package
+...
 $ cdk deploy
 ...
 CdkWorkshopStack.ViewHitCounterViewerEndpointCA1B1E4B = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/

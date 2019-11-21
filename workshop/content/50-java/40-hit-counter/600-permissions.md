@@ -31,7 +31,7 @@ public class HitCounter extends Construct {
 
     public HitCounter(Construct scope, String id, HitCounterProps props) {
         super(scope, id);
-        
+
         this.table = new Table(this, "Hits", TableProps.builder()
             .partitionKey(Attribute.builder()
                 .name("path")
@@ -76,6 +76,7 @@ public class HitCounter extends Construct {
 Save & deploy:
 
 ```
+mvn package
 cdk deploy
 ```
 
@@ -160,7 +161,7 @@ public class HitCounter extends Construct {
 
     public HitCounter(Construct scope, String id, HitCounterProps props) {
         super(scope, id);
-        
+
         this.table = new Table(this, "Hits", TableProps.builder()
             .partitionKey(Attribute.builder()
                 .name("path")
@@ -254,6 +255,7 @@ Which is exactly what we wanted.
 Okay... let's give this another shot:
 
 ```
+mvn package
 cdk deploy
 ```
 
