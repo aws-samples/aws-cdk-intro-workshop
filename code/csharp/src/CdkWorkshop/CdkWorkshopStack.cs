@@ -1,21 +1,20 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Lambda;
-using CdkWorkshop.Constructs;
+using Eladb.DynamoTableViewer;
 
 namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(App scope, string name, IStackProps props = null) : base(scope, name, props)
+        // Defines a new lambda resource
+        public CdkWorkshopStack(Construct parent, string id, IStackProps props = null) : base(parent, id, props)
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.DOTNET_CORE_2_1,
-                Timeout = Duration.Seconds(5),
-                Code = Code.Asset(
-                    "./HelloHandlerFunction/src/HelloHandlerFunction/bin/Debug/netcoreapp2.1"),
-                Handler = "HelloHandlerFunction::HelloHandlerFunction.Function::FunctionHandler"
+                Runtime = Runtime.NODEJS_10_X,
+                Code = Code.FromAsset("lambda"),
+                Handler = "hello.handler"
             });
 
             var helloWithCounter = new HitCounter(this, "HelloHitCounter", new HitCounterProps
@@ -26,6 +25,12 @@ namespace CdkWorkshop
             new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps
             {
                 Handler = helloWithCounter.Handler
+            });
+
+            new TableViewer(this, "ViewerHitCount", new TableViewerProps
+            {
+                Title = "Hello Hits",
+                Table = helloWithCounter.Table
             });
         }
     }

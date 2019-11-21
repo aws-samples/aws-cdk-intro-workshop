@@ -35,7 +35,7 @@ namespace CdkWorkshop
     {
         public readonly Function Handler;
 
-        public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id, props)
+        public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
             var table = new Table(this, "Hits", new TableProps
             {
