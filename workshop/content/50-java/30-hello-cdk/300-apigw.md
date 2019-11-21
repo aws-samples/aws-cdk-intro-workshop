@@ -43,7 +43,7 @@ will be returned back to the user.
 
 Going back to `~/CdkWorkshopStack.java`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=6-7 28-31">}}
+{{<highlight java "hl_lines=6-7 28-31">}}
 package com.myorg;
 
 import software.amazon.awscdk.core.Construct;
