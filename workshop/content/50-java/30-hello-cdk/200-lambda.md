@@ -77,7 +77,7 @@ help you with auto-complete, inline documentation and type safety.
 
 ## Add an AWS Lambda Function to your stack
 
-Add an `import` statement at the beginning of `~/CdkWorkshopStack.java`, and a
+Add the `import` statements at the beginning of `~/CdkWorkshopStack.java`, and a
 `Function` to your stack.
 
 
@@ -87,9 +87,9 @@ package com.myorg;
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
+
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 
 public class CdkWorkshopStack extends Stack {
@@ -101,13 +101,14 @@ public class CdkWorkshopStack extends Stack {
         super(parent, id, props);
 
         // Defines a new lambda resource
-        Function hello = new Function(this, "HelloHandler", FunctionProps.builder()
-                .runtime(Runtime.NODEJS_10_X) // execution environment
-                .code(Code.fromAsset("lambda")) // code loaded from the "lambda" directory
-                .handler("hello.handler") // file is "hello", function is "handler"
-                .build());
+        final Function hello = Function.Builder.create(this, "HelloHandler")
+            .runtime(Runtime.NODEJS_10_X)    // execution environment
+            .code(Code.fromAsset("lambda"))  // code loaded from the "lambda" directory
+            .handler("hello.handler")        // file is "hello", function is "handler"
+            .build();
     }
 }
+
 {{</highlight>}}
 
 A few things to notice:

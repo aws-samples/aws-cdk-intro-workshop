@@ -35,8 +35,8 @@ package com.myorg;
 
 import software.amazon.awscdk.core.App;
 
-public class CdkWorkshopApp {
-    public static void main(final String argv[]) {
+public final class CdkWorkshopApp {
+    public static void main(final String args[]) {
         App app = new App();
 
         new CdkWorkshopStack(app, "CdkWorkshopStack");
@@ -62,10 +62,8 @@ import software.amazon.awscdk.core.Duration;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
 import software.amazon.awscdk.services.sns.Topic;
-import software.amazon.awscdk.services.sns.TopicProps;
 import software.amazon.awscdk.services.sns.subscriptions.SqsSubscription;
 import software.amazon.awscdk.services.sqs.Queue;
-import software.amazon.awscdk.services.sqs.QueueProps;
 
 public class CdkWorkshopStack extends Stack {
     public CdkWorkshopStack(final Construct parent, final String id) {
@@ -75,13 +73,13 @@ public class CdkWorkshopStack extends Stack {
     public CdkWorkshopStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
-        Queue queue = new Queue(this, "CdkWorkshopQueue", QueueProps.builder()
+        final Queue queue = Queue.Builder.create(this, "CdkWorkshopQueue")
                 .visibilityTimeout(Duration.seconds(300))
-                .build());
+                .build();
 
-        Topic topic = new Topic(this, "CdkWorkshopTopic", TopicProps.builder()
+        final Topic topic = Topic.Builder.create(this, "CdkWorkshopTopic")
             .displayName("My First Topic Yeah")
-            .build());
+            .build();
 
         topic.addSubscription(new SqsSubscription(queue));
     }
