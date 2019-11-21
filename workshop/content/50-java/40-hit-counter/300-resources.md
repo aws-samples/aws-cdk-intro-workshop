@@ -65,7 +65,7 @@ public class HitCounter extends Construct {
     public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
         super(scope, id);
 
-        final Table table = Table.Builder.create(this, "Hits")
+        this.table = Table.Builder.create(this, "Hits")
             .partitionKey(Attribute.builder()
                 .name("path")
                 .type(AttributeType.STRING)
@@ -74,7 +74,7 @@ public class HitCounter extends Construct {
 
         final Map<String, String> environment = new HashMap<>();
         environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
-        environment.put("HITS_TABLE_NAME", table.getTableName());
+        environment.put("HITS_TABLE_NAME", this.table.getTableName());
 
         this.handler = Function.Builder.create(this, "HitCounterHandler")
             .runtime(Runtime.NODEJS_10_X)
