@@ -1,5 +1,5 @@
 +++
-title = ".NET Workshop"
+title = "Java Workshop"
 chapter = true
 weight = 40
 +++
