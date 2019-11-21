@@ -50,11 +50,11 @@ namespace CdkWorkshop
             {
                 Runtime = Runtime.NODEJS_10_X,
                 Handler = "hitcounter.handler",
-                Code = Code.Asset("lambda"),
+                Code = Code.FromAsset("lambda"),
                 Environment = new Dictionary<string, string>
                 {
-                    {"DOWNSTREAM_FUNCTION_NAME", props.Downstream.FunctionName},
-                    {"HITS_TABLE_NAME", table.TableName}
+                    ["DOWNSTREAM_FUNCTION_NAME"] = props.Downstream.FunctionName,
+                    ["HITS_TABLE_NAME"] = table.TableName
                 }
             });
         }
