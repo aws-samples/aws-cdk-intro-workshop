@@ -157,6 +157,7 @@ signature:
 Save your code, and let's take a quick look at the diff before we deploy:
 
 ```
+mvn package
 cdk diff
 ```
 
@@ -198,7 +199,6 @@ that are used by the toolkit to propagate the location of the handler code.
 Let's deploy:
 
 ```
-mvn package
 cdk deploy
 ```
 

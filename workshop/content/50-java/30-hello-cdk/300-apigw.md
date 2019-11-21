@@ -86,6 +86,7 @@ proxies all requests to an AWS Lambda function.
 Let's see what's going to happen when we deploy this:
 
 ```
+mvn package
 cdk diff
 ```
 
@@ -164,7 +165,6 @@ That's nice. This one line of code added 12 new resources to our stack.
 Okay, ready to deploy?
 
 ```
-mvn package
 cdk deploy
 ```
 

@@ -43,7 +43,7 @@ have the Lambda library installed):
 
 Now, go back to `~/HitCounter.java` and add the following highlighted code:
 
-{{<highlight java "hl_lines=3-4 8-13 16 21-37 40-45">}}
+{{<highlight java "hl_lines=3-4 8-13 16-17 22-38 41-53">}}
 package com.myorg;
 
 import java.util.HashMap;
@@ -60,6 +60,7 @@ import software.amazon.awscdk.services.lambda.Runtime;
 
 public class HitCounter extends Construct {
     private final Function handler;
+    private final Table table;
 
     public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
         super(scope, id);
@@ -88,6 +89,13 @@ public class HitCounter extends Construct {
      */
     public Function getHandler() {
         return this.handler;
+    }
+
+    /**
+     * @return the counter table
+     */
+    public Table getTable() {
+        return this.table;
     }
 }
 {{</highlight>}}

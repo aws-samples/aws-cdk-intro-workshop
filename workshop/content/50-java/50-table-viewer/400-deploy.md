@@ -9,6 +9,8 @@ Before we deploy, let's take a look at what will happen when we deploy our app
 (this is just the `Resources` section of the output):
 
 ```
+$ mvn package
+...
 $ cdk diff
 Resources
 [+] AWS::IAM::Role ViewHitCounter/Rendered/ServiceRole ViewHitCounterRenderedServiceRole254DB4EA
@@ -44,8 +46,6 @@ trust  {{% /notice %}}
 ### cdk deploy
 
 ```
-$ mvn package
-...
 $ cdk deploy
 ...
 CdkWorkshopStack.ViewHitCounterViewerEndpointCA1B1E4B = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/

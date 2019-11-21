@@ -14,31 +14,31 @@ Before you can use the table viewer in your application, you'll need to add the 
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>1.17.1.DEVPREVIEW</version>
+            <version>VERSION</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>1.17.1.DEVPREVIEW</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
-            <version>1.17.1.DEVPREVIEW</version>
+            <version>VERSION</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>1.17.1.DEVPREVIEW</version>
+            <version>VERSION</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>lambda</artifactId>
+            <version>VERSION</version>
         </dependency>
 
         <!-- Additional Construct Libraries -->
         <dependency>
             <groupId>com.github.eladb</groupId>
             <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>3.0.6</version>
+            <version>[3.0.6,4)</version>
         </dependency>
     </dependencies>
 ...

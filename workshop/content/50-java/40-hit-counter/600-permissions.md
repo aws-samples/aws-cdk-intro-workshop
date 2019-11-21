@@ -189,6 +189,7 @@ public class HitCounter extends Construct {
 You can check what this did using `cdk diff`:
 
 ```
+mvn package
 cdk diff
 ```
 
@@ -235,7 +236,6 @@ Which is exactly what we wanted.
 Okay... let's give this another shot:
 
 ```
-mvn package
 cdk deploy
 ```
 
