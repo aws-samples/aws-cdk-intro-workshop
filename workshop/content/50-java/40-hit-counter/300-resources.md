@@ -11,7 +11,7 @@ Now, let's define the AWS Lambda function and the DynamoDB table in our
 As usual, we first need to install the DynamoDB construct library (we already
 have the Lambda library installed):
 
-{{<highlight xml "hl_lines=21-25">}}
+{{<highlight xml "hl_lines=16-20">}}
 ...
     <dependencies>
         <!-- AWS Cloud Development Kit -->
@@ -24,11 +24,6 @@ have the Lambda library installed):
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>VERSION</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
             <version>VERSION</version>
         </dependency>
@@ -37,67 +32,62 @@ have the Lambda library installed):
             <artifactId>dynamodb</artifactId>
             <version>VERSION</version>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>lambda</artifactId>
+            <version>VERSION</version>
+        </dependency>
     </dependencies>
 ...
 {{</highlight>}}
 
 Now, go back to `~/HitCounter.java` and add the following highlighted code:
 
-{{<highlight java "hl_lines=3-4 7-14 17-55">}}
+{{<highlight java "hl_lines=3-4 8-13 16 21-37 40-45">}}
 package com.myorg;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import software.amazon.awscdk.core.Construct;
+
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
 import software.amazon.awscdk.services.dynamodb.Table;
-import software.amazon.awscdk.services.dynamodb.TableProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 
 public class HitCounter extends Construct {
     private final Function handler;
-    private final Table table;
 
-    public HitCounter(Construct scope, String id, HitCounterProps props) {
+    public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
         super(scope, id);
 
-        this.table = new Table(this, "Hits", TableProps.builder()
+        final Table table = Table.Builder.create(this, "Hits")
             .partitionKey(Attribute.builder()
                 .name("path")
                 .type(AttributeType.STRING)
-                .build()
-            )
-            .build()
-        );
+                .build())
+            .build();
 
-        Map<String, String> environment = new HashMap<>();
+        final Map<String, String> environment = new HashMap<>();
         environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
-        environment.put("HITS_TABLE_NAME", this.table.getTableName());
-        this.handler = new Function(this, "HitCounterHandler", FunctionProps.builder()
+        environment.put("HITS_TABLE_NAME", table.getTableName());
+
+        this.handler = Function.Builder.create(this, "HitCounterHandler")
             .runtime(Runtime.NODEJS_10_X)
             .handler("hitcounter.handler")
             .code(Code.fromAsset("lambda"))
             .environment(environment)
-            .build());
+            .build();
     }
 
     /**
-    * @return the counter function
-    */
+     * @return the counter definition
+     */
     public Function getHandler() {
-        return handler;
-    }
-
-    /**
-    * @return the hit counter table
-    */
-    public Table getTable() {
-        return this.table;
+        return this.handler;
     }
 }
 {{</highlight>}}
