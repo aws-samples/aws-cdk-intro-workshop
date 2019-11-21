@@ -18,7 +18,7 @@ namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(Construct scope, string id, IStackProps props) : base(scope, id, props)
+        public CdkWorkshopStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
             // Nothing here!
         }

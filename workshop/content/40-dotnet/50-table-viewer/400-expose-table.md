@@ -9,8 +9,8 @@ Edit `src/CdkWorkshop/HitCounter.cs` and modify it so that `table` is exposed as
 
 {{<highlight csharp "hl_lines=17 29">}}
 using Amazon.CDK;
-using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.DynamoDB;
+using Amazon.CDK.AWS.Lambda;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
@@ -28,7 +28,7 @@ namespace CdkWorkshop
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
-            var table = new Table(this, "Hits", new TableProps()
+            var table = new Table(this, "Hits", new TableProps
             {
                 PartitionKey = new Attribute()
                 {
@@ -37,16 +37,16 @@ namespace CdkWorkshop
                 }
             });
             Table = table;
-            
-            Handler = new Function(this, "HitCounterHandler", new FunctionProps()
+
+            Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X,
                 Handler = "hitcounter.handler",
                 Code = Code.FromAsset("lambda"),
-                Environment = new Dictionary<string, string>()
+                Environment = new Dictionary<string, string>
                 {
-                    {"DOWNSTREAM_FUNCTION_NAME", props.Downstream.FunctionName},
-                    {"HITS_TABLE_NAME", table.TableName}
+                    ["DOWNSTREAM_FUNCTION_NAME"] = props.Downstream.FunctionName,
+                    ["HITS_TABLE_NAME"] = table.TableName
                 }
             });
 
@@ -66,18 +66,18 @@ Go back to `CdkWorkshop.cs` and assign the `Table` property of the table viewer:
 
 {{<highlight ts "hl_lines=36">}}
 using Amazon.CDK;
-using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.APIGateway;
+using Amazon.CDK.AWS.Lambda;
 using Eladb.DynamoTableViewer;
 
 namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(Construct scope, string id, IStackProps props) : base(scope, id, props)
+        public CdkWorkshopStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
             // Defines a new lambda resource
-            var hello = new Function(this, "HelloHandler", new FunctionProps()
+            var hello = new Function(this, "HelloHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
@@ -85,19 +85,19 @@ namespace CdkWorkshop
             });
 
             // Defines out HitCounter resource
-            var helloWithCounter = new HitCounter(this, "HelloHitCounter", new HitCounterProps()
+            var helloWithCounter = new HitCounter(this, "HelloHitCounter", new HitCounterProps
             {
                 Downstream = hello
             });
 
             // Defines an API Gateway REST API resource backed by our "hello" function.
-            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps()
+            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps
             {
                 Handler = helloWithCounter.Handler
             });
 
             // Defines a new TableViewer resource
-            new TableViewer(this, "ViewerHitCount", new TableViewerProps()
+            new TableViewer(this, "ViewerHitCount", new TableViewerProps
             {
                 Title = "Hello Hits",
                 Table = helloWithCounter.Table

@@ -7,7 +7,7 @@ namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(App scope, string name, IStackProps props) : base(scope, name, props)
+        public CdkWorkshopStack(App scope, string name, IStackProps props = null) : base(scope, name, props)
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
