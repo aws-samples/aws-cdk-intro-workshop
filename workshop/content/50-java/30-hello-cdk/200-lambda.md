@@ -81,7 +81,7 @@ Add the `import` statements at the beginning of `~/CdkWorkshopStack.java`, and a
 `Function` to your stack.
 
 
-{{<highlight java "hl_lines=6-9 19-24">}}
+{{<highlight java "hl_lines=7-9 19-24">}}
 package com.myorg;
 
 import software.amazon.awscdk.core.Construct;

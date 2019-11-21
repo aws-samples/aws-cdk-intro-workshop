@@ -18,24 +18,24 @@ have the Lambda library installed):
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>*.*.*</version>
+            <version>VERSION</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>lambda</artifactId>
-            <version>*.*.*</version>
+            <version>VERSION</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
-            <version>*.*.*</version>
+            <version>VERSION</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>*.*.*</version>
+            <version>VERSION</version>
         </dependency>
     </dependencies>
 ...
@@ -65,7 +65,7 @@ public class HitCounter extends Construct {
 
     public HitCounter(Construct scope, String id, HitCounterProps props) {
         super(scope, id);
-        
+
         this.table = new Table(this, "Hits", TableProps.builder()
             .partitionKey(Attribute.builder()
                 .name("path")

@@ -14,26 +14,26 @@ be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
 ## Install the API Gateway construct library
-{{<highlight xml "hl_lines=16-20">}}
+{{<highlight xml "hl_lines=11-15">}}
 ...
     <dependencies>
         <!-- AWS Cloud Development Kit -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>*.*.*</version>
+            <version>VERSION</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>*.*.*</version>
+            <artifactId>apigateway</artifactId>
+            <version>VERSION</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
-            <artifactId>apigateway</artifactId>
-            <version>*.*.*</version>
+            <artifactId>lambda</artifactId>
+            <version>VERSION</version>
         </dependency>
     </dependencies>
 ...
@@ -43,17 +43,16 @@ will be returned back to the user.
 
 Going back to `~/CdkWorkshopStack.java`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight java "hl_lines=6-7 28-31">}}
+{{<highlight java "hl_lines=7 27-30">}}
 package com.myorg;
 
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
+
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
-import software.amazon.awscdk.services.apigateway.LambdaRestApiProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 
 public class CdkWorkshopStack extends Stack {
@@ -65,16 +64,16 @@ public class CdkWorkshopStack extends Stack {
         super(parent, id, props);
 
         // Defines a new lambda resource
-        Function hello = new Function(this, "HelloHandler", FunctionProps.builder()
-                .runtime(Runtime.NODEJS_10_X) // execution environment
-                .code(Code.fromAsset("lambda")) // code loaded from the "lambda" directory
-                .handler("hello.handler") // file is "hello", function is "handler"
-                .build());
+        final Function hello = Function.Builder.create(this, "HelloHandler")
+            .runtime(Runtime.NODEJS_10_X)    // execution environment
+            .code(Code.fromAsset("lambda"))  // code loaded from the "lambda" directory
+            .handler("hello.handler")        // file is "hello", function is "handler"
+            .build();
 
-        // Defines an API Gateway REST API resource backed by our "hello" function.
-        new LambdaRestApi(this, "Endpoint", LambdaRestApiProps.builder()
-                .handler(hello)
-                .build());
+        // Defines an API Gateway REST API resource backed by our "hello" function
+        LambdaRestApi.Builder.create(this, "Endpoint")
+            .handler(hello)
+            .build();
     }
 }
 {{</highlight>}}
