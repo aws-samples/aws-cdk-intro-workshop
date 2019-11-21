@@ -23,7 +23,7 @@ dotnet add package Amazon.CDK.AWS.APIGateway
 
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=3 19-23">}}
+{{<highlight csharp "hl_lines=3 19-23">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.APIGateway;
