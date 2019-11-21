@@ -25,10 +25,10 @@ using System.Collections.Generic;
 
 namespace CdkWorkshop
 {
-    public interface HitCounterProps
+    public class HitCounterProps
     {
         // The function for which we want to count url hits
-        IFunction Downstream { get; set; }
+        public IFunction Downstream { get; set; }
     }
 
     public class HitCounter : Construct
