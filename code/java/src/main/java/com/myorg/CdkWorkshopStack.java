@@ -1,42 +1,45 @@
 package com.myorg;
 
-import software.amazon.awscdk.core.App;
+import com.github.eladb.dynamotableviewer.TableViewer;
+
+import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
-// import software.amazon.awscdk.samples.tableviewer.TableViewer;
-// import software.amazon.awscdk.samples.tableviewer.TableViewerProps;
+
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
-import software.amazon.awscdk.services.apigateway.LambdaRestApiProps;
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.FunctionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 
 public class CdkWorkshopStack extends Stack {
-    public CdkWorkshopStack(final App parent, final String name) {
-        this(parent, name, null);
+    public CdkWorkshopStack(final Construct parent, final String id) {
+        this(parent, id, null);
     }
 
-    public CdkWorkshopStack(final App parent, final String name, final StackProps props) {
-        super(parent, name, props);
+    public CdkWorkshopStack(final Construct parent, final String id, final StackProps props) {
+        super(parent, id, props);
 
-        Function hello = new Function(this, "HelloHandler", FunctionProps.builder()
-                .withRuntime(Runtime.NODEJS_8_10)
-                .withCode(Code.asset("lambda"))
-                .withHandler("hello.handler")
-                .build());
-        HitCounter helloWithCounter = new HitCounter(this, "HelloHitCounter", HitCounterProps.builder()
-                .withDownstream(hello)
-                .build());
+        // Defines a new lambda resource
+        final Function hello = Function.Builder.create(this, "HelloHandler")
+            .runtime(Runtime.NODEJS_10_X)    // execution environment
+            .code(Code.fromAsset("lambda"))  // code loaded from the "lambda" directory
+            .handler("hello.handler")        // file is "hello", function is "handler"
+            .build();
 
-        new LambdaRestApi(this, "Endpoint", LambdaRestApiProps.builder()
-                .withHandler(helloWithCounter.getHandler())
-                .build());
+        // Defines our hitcounter resource
+        final HitCounter helloWithCounter = new HitCounter(this, "HelloHitCounter", HitCounterProps.builder()
+            .downstream(hello)
+            .build());
 
-        // new TableViewer(this, "ViewHitCounter", TableViewerProps.builder()
-        //         .withTitle("Hello Hits")
-        //         .withTable(helloWithCounter.getTable())
-        //         .withSortBy("-hits")
-        //         .build());
+        // Defines an API Gateway REST API resource backed by our "hello" function
+        LambdaRestApi.Builder.create(this, "Endpoint")
+            .handler(helloWithCounter.getHandler())
+            .build();
+
+        // Defines a viewer for the HitCounts table
+        TableViewer.Builder.create(this, "ViewerHitCount")
+            .title("Hello Hits")
+            .table(helloWithCounter.getTable())
+            .build();
     }
 }
