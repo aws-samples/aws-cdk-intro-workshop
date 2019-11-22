@@ -27,7 +27,7 @@ hit [url path]"__. The function's output also includes the HTTP status code and
 HTTP headers. These are used by API Gateway to formulate the HTTP response to
 the user.
 
-{{% notice info %}} This lambda is provided in Javascript. For more information on writing lambda functions in Javascript or C#, please refer to the AWS Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) {{% /notice %}}
+{{% notice info %}} This lambda is provided in Javascript. For more information on writing lambda functions in your language of choice, please refer to the AWS Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) {{% /notice %}}
 
 ## Install the AWS Lambda construct library
 
@@ -74,7 +74,7 @@ namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
+        public CdkWorkshopStack(Construct scope, string id) : base(scope, id)
         {
             // Defines a new lambda resource
             var hello = new Function(this, "HelloHandler", new FunctionProps
@@ -99,13 +99,12 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of both `CdkWorkshopStack` and
-`Function` (and many other classes in the CDK) have the signature
-`(scope, id, props)`. This is because all of these classes are __constructs__.
-Constructs are the basic building block of CDK apps. They represent abstract
-"cloud components" which can be composed together into higher level abstractions
-via scopes. Scopes can include constructs, which in turn can include other
-constructs, etc.
+As you can see, the class constructors of `Function` (and many other classes 
+in the CDK) have the signature `(scope, id, props)`. This is because all of 
+these classes are __constructs__. Constructs are the basic building block of CDK 
+apps. They represent abstract "cloud components" which can be composed together 
+into higher level abstractions via scopes. Scopes can include constructs, which 
+in turn can include other constructs, etc.
 
 Constructs are always created in the scope of another construct and must always
 have an identifier which must be unique within the scope it's created.

@@ -15,6 +15,10 @@ template synthesized from the sample app.  Because our app includes two stacks
 we need to tell the ``cdk synth`` command which stack we want to synthesize.
 You can get a list of available stacks:
 
+{{% notice info %}} The **CDK CLI** requires you to be in the same directory 
+as your `cdk.json` file. If you have changed directories in your terminal, 
+please navigate back now.{{% /notice %}}
+
 ```
 $ cdk ls
 hello-cdk-1

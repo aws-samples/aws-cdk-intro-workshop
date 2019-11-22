@@ -33,7 +33,7 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public readonly Function Handler;
+        public Function Handler { get; }
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {

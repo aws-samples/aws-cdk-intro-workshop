@@ -8,6 +8,10 @@ weight = 300
 Now's a good time to open the project in your favorite IDE and explore.
 
 > If you use VSCode, you can just type `code .` within the project directory.
+> 
+> You may see a notification saying `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?` 
+> 
+> This can be ignored for our purposes.
 
 ## Explore your project directory
 
@@ -15,15 +19,13 @@ You'll see something like this:
 
 ![](./structure.png)
 
-//TODO
-
 * `src/CdkWorkshop/Program.cs` is the entrypoint for the CDK application it will load the stack defined in `src/CdkWorkshop/CdkWorkshopStack.cs`
 * `src/CdkWorkshop/CdkWorkshopStack.cs` is where your CDK application's main stack is defined. This is the file we'll be spending most of our time in.
 * `cdk.json` tells the toolkit how to run your app. In our case it will be `"dotnet run -p src/CdkWorkshop/CdkWorkshop.csproj"`
 * `src/CdkWorkshop/CdkWorkshop.csproj` is the C# project file. It is an xml file and contains information on references. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
 * `src/CdkWorkshop/GlobalSuppressions.cs` disables the Roslyn analyzer for `RECS0026:Possible unassigned object created by 'new'` as this generates many false positives with CDK.
 * `src/CdkWorkshop.sln` is the C# solution file that provides build information. You should not need to interface with this file.
-* `.gitignore` and `.npmignore` tell git and npm which files to include/exclude
+* `.gitignore` tell git and npm which files to include/exclude
   from source control and when publishing this module to the package manager.
 * The `src/CdkWorkshop/bin` and `src/CdkWorkshop/obj` folders are the build folders for the project and can be ignored.
 
@@ -40,7 +42,7 @@ namespace CdkWorkshop
     {
         static void Main(string[] args)
         {
-            var app = new App(null);
+            var app = new App();
             new CdkWorkshopStack(app, "CdkWorkshopStack");
 
             app.Synth();
@@ -67,7 +69,7 @@ namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(Construct parent, string id, IStackProps props = null) : base(parent, id, props)
+        public CdkWorkshopStack(Construct scope, string id) : base(scope, id)
         {
              // The CDK includes built-in constructs for most resource types, such as Queues and Topics.
             var queue = new Queue(this, "CdkWorkshopQueue", new QueueProps

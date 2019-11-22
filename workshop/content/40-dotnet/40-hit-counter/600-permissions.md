@@ -25,28 +25,28 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public readonly IFunction Handler;
+        public IFunction Handler { get; };
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
-            var table = new Table(this, "Hits", new TableProps()
+            var table = new Table(this, "Hits", new TableProps
             {
-                PartitionKey = new Attribute()
+                PartitionKey = new Attribute
                 {
                     Name = "path",
                     Type = AttributeType.STRING
                 }
             });
 
-            Handler = new Function(this, "HitCounterHandler", new FunctionProps()
+            Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X,
                 Handler = "hitcounter.handler",
                 Code = Code.FromAsset("lambda"),
-                Environment = new Dictionary<string, string>()
+                Environment = new Dictionary<string, string>
                 {
-                    {"DOWNSTREAM_FUNCTION_NAME", props.Downstream.FunctionName},
-                    {"HITS_TABLE_NAME", table.TableName}
+                    ["DOWNSTREAM_FUNCTION_NAME"] = props.Downstream.FunctionName,
+                    ["HITS_TABLE_NAME"] = table.TableName
                 }
             });
 
@@ -140,28 +140,28 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public readonly IFunction Handler;
+        public IFunction Handler { get; };
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
-            var table = new Table(this, "Hits", new TableProps()
+            var table = new Table(this, "Hits", new TableProps
             {
-                PartitionKey = new Attribute()
+                PartitionKey = new Attribute
                 {
                     Name = "path",
                     Type = AttributeType.STRING
                 }
             });
 
-            Handler = new Function(this, "HitCounterHandler", new FunctionProps()
+            Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X,
                 Handler = "hitcounter.handler",
                 Code = Code.FromAsset("lambda"),
-                Environment = new Dictionary<string, string>()
+                Environment = new Dictionary<string, string>
                 {
-                    {"DOWNSTREAM_FUNCTION_NAME", props.Downstream.FunctionName},
-                    {"HITS_TABLE_NAME", table.TableName}
+                    ["DOWNSTREAM_FUNCTION_NAME"] = props.Downstream.FunctionName,
+                    ["HITS_TABLE_NAME"] = table.TableName
                 }
             });
 

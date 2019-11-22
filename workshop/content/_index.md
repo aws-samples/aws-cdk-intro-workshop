@@ -28,7 +28,7 @@ Constructs allow you to bundle up a bunch of infrastructure into reusable
 components which anyone can compose into their apps. We'll walk you through
 writing your own construct.
 
-Finally, we'll show you how to use a construct from an npm library in your
+Finally, we'll show you how to use a construct from a pre-packaged library in your
 stack.
 
 By the end of this workshop, you'll be able to:
