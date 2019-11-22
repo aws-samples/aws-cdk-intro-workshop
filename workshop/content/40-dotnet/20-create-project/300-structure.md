@@ -25,7 +25,7 @@ You'll see something like this:
 * `src/CdkWorkshop/CdkWorkshop.csproj` is the C# project file. It is an xml file and contains information on references. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
 * `src/CdkWorkshop/GlobalSuppressions.cs` disables the Roslyn analyzer for `RECS0026:Possible unassigned object created by 'new'` as this generates many false positives with CDK.
 * `src/CdkWorkshop.sln` is the C# solution file that provides build information. You should not need to interface with this file.
-* `.gitignore` tell git and npm which files to include/exclude
+* `.gitignore` tells git which files to include/exclude
   from source control and when publishing this module to the package manager.
 * The `src/CdkWorkshop/bin` and `src/CdkWorkshop/obj` folders are the build folders for the project and can be ignored.
 
