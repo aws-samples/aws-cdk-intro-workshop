@@ -69,7 +69,7 @@ namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(Construct scope, string id) : base(scope, id)
+        public CdkWorkshopStack(Construct scope, string id, StackProps props = null) : base(scope, id, props)
         {
              // The CDK includes built-in constructs for most resource types, such as Queues and Topics.
             var queue = new Queue(this, "CdkWorkshopQueue", new QueueProps
