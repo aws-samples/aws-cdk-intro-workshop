@@ -22,8 +22,7 @@ You'll see something like this:
   `"mvn -q exec:java"`
 * `pom.xml` is the Maven project file. It is an xml file and contains information on build properties, dependencies, and app information. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
 * `test/java/com/myorg/CdkWorkshopStackTest.java` Is a build test that is run againt the Java application on build and will indicated success or failure in the terminal. We will not be using this for the purposes of the workshop.
-* `.gitignore` tell git and npm which files to include/exclude
-  from source control and when publishing this module to the package manager.
+* `.gitignore` tells git which files to include/exclude from source control.
 * `.classpath`, `.project`, `.settings/`, and `target/` files/folders are automated Java/Maven project files. These should be ignored.
 
 ## Your app's entry point
