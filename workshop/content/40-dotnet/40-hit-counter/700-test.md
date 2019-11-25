@@ -39,3 +39,9 @@ Since our hit counter is a simple C# class, you could package it into an
 Nuget package and publish it to [nuget.org](https://www.nuget.org/), which is the
 C# package manager. Then, anyone could `dotnet add package __` it and add it to
 their CDK apps.
+
+-----
+
+In the next chapter we __consume__ a construct library published to
+Nuget, which enables us to view the contents of our hit counter table from any
+browser.

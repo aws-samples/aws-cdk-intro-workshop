@@ -13,6 +13,10 @@ application.
 To synthesize a CDK app, use the `cdk synth` command. Let's check out the
 template synthesized from the sample app:
 
+{{% notice info %}} The **CDK CLI** requires you to be in the same directory 
+as your `cdk.json` file. If you have changed directories in your terminal, 
+please navigate back now.{{% /notice %}}
+
 ```
 cdk synth
 ```
@@ -68,10 +72,11 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=1.16.3,jsii-runtime=DotNet/3.0.0/.NETCoreApp,Version=v3.0/1.0.0.0
+      Modules: aws-cdk=1.17.1,@aws-cdk/assets=1.17.1,@aws-cdk/aws-cloudwatch=1.17.1,@aws-cdk/aws-ec2=1.17.1,@aws-cdk/aws-events=1.17.1,@aws-cdk/aws-iam=1.17.1,@aws-cdk/aws-kms=1.17.1,@aws-cdk/aws-lambda=1.17.1,@aws-cdk/aws-logs=1.17.1,@aws-cdk/aws-s3=1.17.1,@aws-cdk/aws-s3-assets=1.17.1,@aws-cdk/aws-sns=1.17.1,@aws-cdk/aws-sns-subscriptions=1.17.1,@aws-cdk/aws-sqs=1.17.1,@aws-cdk/aws-ssm=1.17.1,@aws-cdk/core=1.17.1,@aws-cdk/cx-api=1.17.1,@aws-cdk/region-info=1.17.1,jsii-runtime=DotNet/3.0.0/.NETCoreApp,Version=v3.0/1.0.0.0
     Condition: CDKMetadataAvailable
 Conditions:
   CDKMetadataAvailable:
+    ...
 ...
 ```
 

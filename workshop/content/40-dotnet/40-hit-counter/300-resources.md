@@ -12,49 +12,49 @@ As usual, we first need to install the DynamoDB construct library (we already
 have the Lambda library installed):
 
 ```
-dotnet add package Amazon.CDK.AWS.Dynamodb
+dotnet add package Amazon.CDK.AWS.DynamoDB
 ```
 
 Now, go back to `src/CdkWorkshop/HitCounter.cs` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=3-4 16 20-39">}}
+{{<highlight csharp "hl_lines=2 4 16 20-39">}}
 using Amazon.CDK;
-using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.DynamoDB;
+using Amazon.CDK.AWS.Lambda;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
 {
-    public interface HitCounterProps
+    public class HitCounterProps
     {
         // The function for which we want to count url hits
-        IFunction Downstream { get; set; }
+        public IFunction Downstream { get; set; }
     }
 
     public class HitCounter : Construct
     {
-        public readonly Function Handler;
+        public Function Handler { get; }
 
-        public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id, props)
+        public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
-            var table = new Table(this, "Hits", new TableProps()
+            var table = new Table(this, "Hits", new TableProps
             {
-                PartitionKey = new Attribute()
+                PartitionKey = new Attribute
                 {
                     Name = "path",
                     Type = AttributeType.STRING
                 }
             });
 
-            Handler = new Function(this, "HitCounterHandler", new FunctionProps()
+            Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X,
                 Handler = "hitcounter.handler",
-                Code = Code.Asset("lambda"),
-                Environment = new Dictionary<string, string>()
+                Code = Code.FromAsset("lambda"),
+                Environment = new Dictionary<string, string>
                 {
-                    {"DOWNSTREAM_FUNCTION_NAME", props.Downstream.FunctionName},
-                    {"HITS_TABLE_NAME", table.TableName}
+                    ["DOWNSTREAM_FUNCTION_NAME"] = props.Downstream.FunctionName,
+                    ["HITS_TABLE_NAME"] = table.TableName
                 }
             });
         }

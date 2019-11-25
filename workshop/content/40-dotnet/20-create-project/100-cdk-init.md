@@ -24,20 +24,19 @@ initialization of a git repository, this probably means you don't have git
 installed, which is fine for this workshop):
 
 ```
-Applying project template app for csharp
-Project `HelloCdk/HelloCdk.csproj` added to the solution.
+Applying project template sample-app for csharp
+Projet 'CdkWorkshop/CdkWorkshop.csproj' ajouté à la solution.
 Initializing a new git repository...
+# Welcome to your CDK C# project!
 
-# CDK HelloWorld 
+You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`CdkWorkshopStack`)
+which contains an Amazon SNS topic that is subscribed to an Amazon SQS queue.
 
-Welcome to your CDK .NET project!
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-You should explore the contents of this template. It demonstrates a CDK app with one instance of
-a stack (`CdkWorkshopStack`).
+It uses the [.NET Core CLI](https://docs.microsoft.com/dotnet/articles/core/) to compile and execute your project.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app. It uses the `dotnet` CLI to do this.
-
-# Useful commands
+## Useful commands
 
 * `dotnet build src` compile this app
 * `cdk ls`           list all stacks in the app

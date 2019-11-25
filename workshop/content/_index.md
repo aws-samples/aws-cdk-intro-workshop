@@ -14,14 +14,6 @@ The AWS CDK is a new software development framework from AWS with the sole
 purpose of making it fun and easy to define cloud infrastructure in your
 favorite programming language and deploy it using AWS CloudFormation.
 
-{{% notice info %}}
-
-AWS CDK is currently supported in JavaScript, TypeScript, Python, Java, and
-.NET.  However, at this point the workshop is available in TypeScript and
-Python only.  Workshops tailored to more languages will be coming soon.
-
-{{% /notice %}}
-
 So what are we going to build? Nothing too fancy...
 
 We'll spend some time setting up your development environment and learning a
@@ -36,7 +28,7 @@ Constructs allow you to bundle up a bunch of infrastructure into reusable
 components which anyone can compose into their apps. We'll walk you through
 writing your own construct.
 
-Finally, we'll show you how to use a construct from an npm library in your
+Finally, we'll show you how to use a construct from a pre-packaged library in your
 stack.
 
 By the end of this workshop, you'll be able to:

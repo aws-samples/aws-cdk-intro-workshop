@@ -16,3 +16,5 @@ editing the `PATH` environment variable. To edit environment variables, click th
 **Environment Variables** button in the Advanced page of Windows' System Properties.
 (Quickest way to get there: press and release the Windows key, type **env**, and 
 choose **Edit the system environment variables** from the Start menu.)
+
+Additionally you will need to have the Python package installer (pip) installed. See installation instructions [here](https://pypi.org/project/pip/).

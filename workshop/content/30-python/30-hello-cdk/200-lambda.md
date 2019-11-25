@@ -31,6 +31,8 @@ hit [url path]"__. The function's output also includes the HTTP status code and
 HTTP headers. These are used by API Gateway to formulate the HTTP response to
 the user.
 
+{{% notice info %}} This lambda is provided in Python. For more information on writing lambda functions in your language of choice, please refer to the AWS Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) {{% /notice %}}
+
 ## Install the AWS Lambda construct library
 
 The AWS CDK is shipped with an extensive library of constructs called the __AWS

@@ -23,7 +23,7 @@ dotnet add package Amazon.CDK.AWS.APIGateway
 
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=3 19-23">}}
+{{<highlight csharp "hl_lines=3 19-23">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.APIGateway;
@@ -32,10 +32,10 @@ namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack
     {
-        public CdkWorkshopStack(Construct parent, string id, IStackProps props) : base(parent, id, props)
+        public CdkWorkshopStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
             // Defines a new lambda resource
-            var hello = new Function(this, "HelloHandler", new FunctionProps()
+            var hello = new Function(this, "HelloHandler", new FunctionProps
             {
                 Runtime = Runtime.NODEJS_10_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
@@ -43,7 +43,7 @@ namespace CdkWorkshop
             });
 
             // defines an API Gateway REST API resource backed by our "hello" function.
-            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps()
+            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps
             {
                 Handler = hello
             });
