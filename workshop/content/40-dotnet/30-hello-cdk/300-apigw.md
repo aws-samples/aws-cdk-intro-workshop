@@ -21,7 +21,7 @@ dotnet add package Amazon.CDK.AWS.APIGateway
 
 ## Add a LambdaRestApi construct to your stack
 
-Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
+Going back to `src/CdkWorkshop/CdkWorkshopStack.cs`, let's define an API endpoint and associate it with our Lambda function:
 
 {{<highlight csharp "hl_lines=3 19-23">}}
 using Amazon.CDK;
