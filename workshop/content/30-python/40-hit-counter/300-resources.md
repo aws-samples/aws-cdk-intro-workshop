@@ -6,7 +6,7 @@ weight = 300
 ## Add resources to the hit counter construct
 
 Now, let's define the AWS Lambda function and the DynamoDB table in our
-`HitCounter` construct. Go back to `hello/hitcounter.py` and add the following highlighted code:
+`HitCounter` construct. Go back to `cdkworkshop/hitcounter.py` and add the following highlighted code:
 
 {{<highlight python "hl_lines=3 9-11 16-19 21-30">}}
 from aws_cdk import (

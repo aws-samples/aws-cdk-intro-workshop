@@ -21,28 +21,27 @@ please navigate back now.{{% /notice %}}
 
 ```
 $ cdk ls
-hello-cdk-1
-hello-cdk-2
+cdkworkshop
 $
 ```
 
 We can then synthesize one of the stacks:
 
 ```
-$ cdk synth hello-cdk-1
+$ cdk synth
 ```
 
 This will output the following CloudFormation template:
 
 ```yaml
 Resources:
-  MyFirstQueueFF09316A:
+  CdkworkshopQueue18864164:
     Type: AWS::SQS::Queue
     Properties:
       VisibilityTimeout: 300
     Metadata:
-      aws:cdk:path: hello-cdk-1/MyFirstQueue/Resource
-  MyFirstQueuePolicy596EEC78:
+      aws:cdk:path: cdkworkshop/CdkworkshopQueue/Resource
+  CdkworkshopQueuePolicy78D5BF45:
     Type: AWS::SQS::QueuePolicy
     Properties:
       PolicyDocument:
@@ -51,140 +50,39 @@ Resources:
             Condition:
               ArnEquals:
                 aws:SourceArn:
-                  Ref: MyFirstTopic0ED1F8A4
+                  Ref: CdkworkshopTopic58CFDD3D
             Effect: Allow
             Principal:
               Service: sns.amazonaws.com
             Resource:
               Fn::GetAtt:
-                - MyFirstQueueFF09316A
+                - CdkworkshopQueue18864164
                 - Arn
         Version: "2012-10-17"
       Queues:
-        - Ref: MyFirstQueueFF09316A
+        - Ref: CdkworkshopQueue18864164
     Metadata:
-      aws:cdk:path: hello-cdk-1/MyFirstQueue/Policy/Resource
-  MyFirstQueuehellocdk1MyFirstTopicB252874C505090E8:
+      aws:cdk:path: cdkworkshop/CdkworkshopQueue/Policy/Resource
+  CdkworkshopQueuecdkworkshopCdkworkshopTopic7642CC2FCF70B637:
     Type: AWS::SNS::Subscription
     Properties:
       Protocol: sqs
       TopicArn:
-        Ref: MyFirstTopic0ED1F8A4
+        Ref: CdkworkshopTopic58CFDD3D
       Endpoint:
         Fn::GetAtt:
-          - MyFirstQueueFF09316A
+          - CdkworkshopQueue18864164
           - Arn
     Metadata:
-      aws:cdk:path: hello-cdk-1/MyFirstQueue/hellocdk1MyFirstTopicB252874C/Resource
-  MyFirstTopic0ED1F8A4:
+      aws:cdk:path: cdkworkshop/CdkworkshopQueue/cdkworkshopCdkworkshopTopic7642CC2F/Resource
+  CdkworkshopTopic58CFDD3D:
     Type: AWS::SNS::Topic
-    Properties:
-      DisplayName: My First Topic
     Metadata:
-      aws:cdk:path: hello-cdk-1/MyFirstTopic/Resource
-  MyHelloConstructBucket0DAEC57E1:
-    Type: AWS::S3::Bucket
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
-    Metadata:
-      aws:cdk:path: hello-cdk-1/MyHelloConstruct/Bucket-0/Resource
-  MyHelloConstructBucket18D9883BE:
-    Type: AWS::S3::Bucket
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
-    Metadata:
-      aws:cdk:path: hello-cdk-1/MyHelloConstruct/Bucket-1/Resource
-  MyHelloConstructBucket2C1DA3656:
-    Type: AWS::S3::Bucket
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
-    Metadata:
-      aws:cdk:path: hello-cdk-1/MyHelloConstruct/Bucket-2/Resource
-  MyHelloConstructBucket398A5DE67:
-    Type: AWS::S3::Bucket
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
-    Metadata:
-      aws:cdk:path: hello-cdk-1/MyHelloConstruct/Bucket-3/Resource
-  MyUserDC45028B:
-    Type: AWS::IAM::User
-    Metadata:
-      aws:cdk:path: hello-cdk-1/MyUser/Resource
-  MyUserDefaultPolicy7B897426:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyDocument:
-        Statement:
-          - Action:
-              - s3:GetObject*
-              - s3:GetBucket*
-              - s3:List*
-            Effect: Allow
-            Resource:
-              - Fn::GetAtt:
-                  - MyHelloConstructBucket0DAEC57E1
-                  - Arn
-              - Fn::Join:
-                  - ""
-                  - - Fn::GetAtt:
-                        - MyHelloConstructBucket0DAEC57E1
-                        - Arn
-                    - /*
-          - Action:
-              - s3:GetObject*
-              - s3:GetBucket*
-              - s3:List*
-            Effect: Allow
-            Resource:
-              - Fn::GetAtt:
-                  - MyHelloConstructBucket18D9883BE
-                  - Arn
-              - Fn::Join:
-                  - ""
-                  - - Fn::GetAtt:
-                        - MyHelloConstructBucket18D9883BE
-                        - Arn
-                    - /*
-          - Action:
-              - s3:GetObject*
-              - s3:GetBucket*
-              - s3:List*
-            Effect: Allow
-            Resource:
-              - Fn::GetAtt:
-                  - MyHelloConstructBucket2C1DA3656
-                  - Arn
-              - Fn::Join:
-                  - ""
-                  - - Fn::GetAtt:
-                        - MyHelloConstructBucket2C1DA3656
-                        - Arn
-                    - /*
-          - Action:
-              - s3:GetObject*
-              - s3:GetBucket*
-              - s3:List*
-            Effect: Allow
-            Resource:
-              - Fn::GetAtt:
-                  - MyHelloConstructBucket398A5DE67
-                  - Arn
-              - Fn::Join:
-                  - ""
-                  - - Fn::GetAtt:
-                        - MyHelloConstructBucket398A5DE67
-                        - Arn
-                    - /*
-        Version: "2012-10-17"
-      PolicyName: MyUserDefaultPolicy7B897426
-      Users:
-        - Ref: MyUserDC45028B
-    Metadata:
-      aws:cdk:path: hello-cdk-1/MyUser/DefaultPolicy/Resource
+      aws:cdk:path: cdkworkshop/CdkworkshopTopic/Resource
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=0.39.0,@aws-cdk/assets=0.39.0,@aws-cdk/aws-cloudwatch=0.39.0,@aws-cdk/aws-ec2=0.39.0,@aws-cdk/aws-events=0.39.0,@aws-cdk/aws-iam=0.39.0,@aws-cdk/aws-kms=0.39.0,@aws-cdk/aws-lambda=0.39.0,@aws-cdk/aws-logs=0.39.0,@aws-cdk/aws-s3=0.39.0,@aws-cdk/aws-s3-assets=0.39.0,@aws-cdk/aws-sns=0.39.0,@aws-cdk/aws-sns-subscriptions=0.39.0,@aws-cdk/aws-sqs=0.39.0,@aws-cdk/aws-ssm=0.39.0,@aws-cdk/core=0.39.0,@aws-cdk/cx-api=0.39.0,@aws-cdk/region-info=0.39.0,jsii-runtime=Python/3.7.0
+      Modules: aws-cdk=1.18.0,jsii-runtime=Python/3.7.3
 ```
 
 As you can see, this template includes a bunch of resources:
@@ -194,9 +92,6 @@ As you can see, this template includes a bunch of resources:
 - **AWS::SNS::Subscription** - the subscription between the queue and the topic
 - **AWS::SQS::QueuePolicy** - the IAM policy which allows this topic to send
 messages to the queue
-- **AWS::S3::Bucket** - four S3 buckets
-- **AWS::IAM::User** - an IAM user
-- Various IAM policies to grant the right permissions to all of the resources.
 
 {{% notice info %}} The **AWS::CDK::Metadata** resource is automatically added
 by the toolkit to every stack. It is used by the AWS CDK team for analytics and

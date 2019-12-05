@@ -13,13 +13,13 @@ You can either delete the stack through the AWS CloudFormation console or use
 `cdk destroy`:
 
 ```
-cdk destroy hello-cdk-1
+cdk destroy
 ```
 
 You'll be asked:
 
 ```
-Are you sure you want to delete: hello-cdk-1 (y/n)?
+Are you sure you want to delete: cdkworkshop (y/n)?
 ```
 
 Hit "y" and you'll see your stack being destroyed.

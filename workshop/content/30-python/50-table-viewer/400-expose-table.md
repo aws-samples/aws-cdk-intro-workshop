@@ -49,7 +49,7 @@ class HitCounter(core.Construct):
 
 ## Now we can access the table from our stack
 
-Go back to `hello-stack.py` and assign the `table` property of the table viewer:
+Go back to `cdkworkshop_stack.py` and assign the `table` property of the table viewer:
 
 {{<highlight python "hl_lines=37">}}
 from aws_cdk import (
@@ -62,7 +62,7 @@ from cdk_dynamo_table_viewer import TableViewer
 from hitcounter import HitCounter
 
 
-class MyStack(core.Stack):
+class CdkworkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)

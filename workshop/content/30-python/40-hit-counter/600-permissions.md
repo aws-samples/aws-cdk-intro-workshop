@@ -49,7 +49,7 @@ class HitCounter(core.Construct):
 Save & deploy:
 
 ```
-cdk deploy hello-cdk-1
+cdk deploy
 ```
 
 ## Test again
@@ -152,15 +152,15 @@ class HitCounter(core.Construct):
 You can check what this did using `cdk diff`:
 
 ```
-cdk diff hello-cdk-1
+cdk diff
 ```
 
 The **Resource** section should look something like this,
 which shows the IAM statement was added to the role:
 
 ```
-Stack hello-cdk-1
-The hello-cdk-1 stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+Stack cdkworkshop
+The cdkworkshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────────┬────────┬────────────────────────┬────────────────────────┬───────────┐
 │   │ Resource               │ Effect │ Action                 │ Principal              │ Condition │
@@ -200,7 +200,7 @@ Which is exactly what we wanted.
 Okay... let's give this another shot:
 
 ```
-cdk deploy hello-cdk-1
+cdk deploy
 ```
 
 Then hit your endpoint with `curl` or with your web browser:

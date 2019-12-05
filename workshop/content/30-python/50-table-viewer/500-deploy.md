@@ -9,7 +9,7 @@ Before we deploy, let's take a look at what will happen when we deploy our app
 (this is just the `Resources` section of the output):
 
 ```
-$ cdk diff hello-cdk-1
+$ cdk diff
 Resources
 [+] AWS::IAM::Role ViewHitCounter/Rendered/ServiceRole ViewHitCounterRenderedServiceRole254DB4EA 
 [+] AWS::IAM::Policy ViewHitCounter/Rendered/ServiceRole/DefaultPolicy ViewHitCounterRenderedServiceRoleDefaultPolicy9ADB8C83 
@@ -44,7 +44,7 @@ trust  {{% /notice %}}
 ### cdk deploy
 
 ```
-$ cdk deploy hello-cdk-1
+$ cdk deploy
 ...
 hello-cdk-1.ViewHitCounterViewerEndpointCA1B1E4B = https://6i4udz9wb2.execute-api.us-east-2.amazonaws.com/prod/
 ```
