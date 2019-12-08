@@ -21,7 +21,7 @@ pip install aws-cdk.aws_apigateway
 
 ## Add a LambdaRestApi construct to your stack
 
-Let's define an API endpoint and associate it with our Lambda function. Add this code to `hello_stack.py` (which you should
+Let's define an API endpoint and associate it with our Lambda function. Add this code to `cdkworkshop_stack.py` (which you should
 still have open from the last step):
 
 {{<highlight python "hl_lines=3 20-23">}}
@@ -32,7 +32,7 @@ from aws_cdk import (
 )
 
 
-class MyStack(core.Stack):
+class CdkworkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -58,7 +58,7 @@ proxies all requests to an AWS Lambda function.
 Let's see what's going to happen when we deploy this:
 
 ```
-cdk diff hello-cdk-1
+cdk diff
 ```
 
 Output should look like this:
@@ -141,7 +141,7 @@ That's nice. This one line of code added 12 new resources to our stack.
 Okay, ready to deploy?
 
 ```
-cdk deploy hello-cdk-1
+cdk deploy
 ```
 
 ## Stack outputs

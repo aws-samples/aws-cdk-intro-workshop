@@ -63,7 +63,7 @@ help you with auto-complete, inline documentation and type safety.
 
 ## Add an AWS Lambda Function to your stack
 
-Add an `import` statement at the beginning of `hello/hello_stack.py`, and a
+Add an `import` statement at the beginning of `cdkworkshop/cdkworkshop_stack.py`, and a
 `lambda.Function` to your stack.
 
 
@@ -74,7 +74,7 @@ from aws_cdk import (
 )
 
 
-class MyStack(core.Stack):
+class CdkworkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -101,7 +101,7 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of both `MyStack` and `lambda.Function`
+As you can see, the class constructors of both `CdkworkshopStack` and `lambda.Function`
 (and many other classes in the CDK) have the signature `(scope, id,
 **kwargs)`. This is because all of these classes are __constructs__.
 Constructs are the basic building block of CDK apps. They represent abstract

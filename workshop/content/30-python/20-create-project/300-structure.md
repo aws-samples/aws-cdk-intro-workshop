@@ -15,18 +15,18 @@ You'll see something like this:
 
 ![](./structure.png)
 
-
-* README.md — The introductory README for this project.
-* app.py — The “main” for this sample application.
-* cdk.json — A configuration file for CDK that defines what executable CDK should run to generate the CDK construct tree.
-* hello — A Python module directory.
-  * hello_construct.py — A custom CDK construct defined for use in your CDK application.
-  * hello_stack.py—A custom CDK stack construct for use in your CDK application.
-* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the hello module so that it can be edited in place.
-* setup.py — Defines how this Python package would be constructed and what the dependencies are.
+* .env - The python virtual envirnment information discussed in the previous section.
+* cdkworkshop — A Python module directory.
+  * cdkworkshop.egg-info - Folder that contains build information relevant for the packaging on the project
+  * cdkworkshop_stack.py—A custom CDK stack construct for use in your CDK application.
 * tests — Contains all tests.
   * unit — Contains unit tests.
-    * test_hello_construct.py—A trivial test of the custom CDK construct created in the hello package. This is mainly to demonstrate how tests can be hooked up to the project.
+    * test_cdkworkshop.py—A trivial test of the custom CDK stack created in the hello package. This is mainly to demonstrate how tests can be hooked up to the project.
+* app.py — The “main” for this sample application.
+* cdk.json — A configuration file for CDK that defines what executable CDK should run to generate the CDK construct tree.
+* README.md — The introductory README for this project.
+* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the hello module so that it can be edited in place.
+* setup.py — Defines how this Python package would be constructed and what the dependencies are.
 
 ## Your app's entry point
 
@@ -37,22 +37,21 @@ Let's have a quick look at `app.py`:
 
 from aws_cdk import core
 
-from hello.hello_stack import MyStack
+from cdkworkshop.cdkworkshop_stack import CdkWorkshopStack
 
 
 app = core.App()
-MyStack(app, "hello-cdk-1", env={'region': 'us-east-2'})
-MyStack(app, "hello-cdk-2", env={'region': 'us-west-2'})
+CdkWorkshopStack(app, "cdkworkshop", env={'region': 'us-west-2'})
 
 app.synth()
 ```
 
-This code loads and instantiates two instances of the `MyStack` class from 
-`hello/hello_stack.py` file. We won't need to look at this file anymore.
+This code loads and instantiates an instance of the `CdkWorkshopStack` class from 
+`cdkworshop/cdk_orkshop_stack.py` file. We won't need to look at this file anymore.
 
 ## The main stack
 
-Open up `hello/hello_stack.py`. This is where the meat of our application
+Open up `cdkworshop/cdkworkshop_stack.py`. This is where the meat of our application
 is:
 
 ```python
@@ -64,38 +63,30 @@ from aws_cdk import (
     core
 )
 
-from hello_construct import HelloConstruct
+class CdkWorkshopStack(core.Stack):
 
-
-class MyStack(core.Stack):
-
-    def __init__(self, app: core.App, id: str, **kwargs) -> None:
-        super().__init__(app, id, **kwargs)
+    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
 
         queue = sqs.Queue(
-            self, "MyFirstQueue",
+            self, "CdkWorkshopQueue",
             visibility_timeout=core.Duration.seconds(300),
         )
 
         topic = sns.Topic(
-            self, "MyFirstTopic",
-            display_name="My First Topic"
+            self, "CdkWorkshopTopic"
         )
 
         topic.add_subscription(subs.SqsSubscription(queue))
-
-        hello = HelloConstruct(self, "MyHelloConstruct", num_buckets=4)
-        user = iam.User(self, "MyUser")
-        hello.grant_read(user)
 ```
 
 As you can see, our app was created with two instances of our sample CDK stack
-(`HelloStack`).
+(`CdkWorkshopStack`).
 
 The stacks includes:
 
-- SQS Queue (`new sqs.Queue`)
-- SNS Topic (`new sns.Topic`)
-- Subscribes the queue to receive any messages published to the topic (`topic.addSubscription`)
+- SQS Queue (`sqs.Queue`)
+- SNS Topic (`sns.Topic`)
+- Subscribes the queue to receive any messages published to the topic (`topic.add_subscription`)
 - HelloConstruct which is a custom construct defined in our app.  It creates a
   variable number of S3 buckets in our stack.
