@@ -8,7 +8,7 @@ weight = 200
 We'll start with the AWS Lambda handler code.
 
 1. Create a directory `lambda` in the root of your project tree (next to the
-   hello directory).
+   cdkworkshop directory).
 2. Add a file called `lambda/hello.py` with the following contents:
 
 ```python
@@ -136,13 +136,13 @@ signature:
 Save your code, and let's take a quick look at the diff before we deploy:
 
 ```
-cdk diff hello-cdk-1
+cdk diff cdkworkshop
 ```
 
 Output would look like this:
 
 ```
-The hello-cdk-1 stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+The cdkworkshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────────┬────────┬────────────────────────┬────────────────────────┬───────────┐
 │   │ Resource               │ Effect │ Action                 │ Principal              │ Condition │
@@ -179,7 +179,7 @@ that are used by the toolkit to propagate the location of the handler code.
 Let's deploy:
 
 ```
-cdk deploy hello-cdk-1
+cdk deploy cdkworkshop
 ```
 
 You'll notice that `cdk deploy` not only deployed your CloudFormation stack, but

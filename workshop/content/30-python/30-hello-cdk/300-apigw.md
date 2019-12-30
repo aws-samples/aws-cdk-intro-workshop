@@ -64,7 +64,7 @@ cdk diff
 Output should look like this:
 
 ```
-The hello-cdk-1 stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+The cdkworkshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────┬────────┬────────────────────┬────────────────────┬───────────────────────┐
 │   │ Resource           │ Effect │ Action             │ Principal          │ Condition             │

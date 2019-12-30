@@ -33,7 +33,7 @@ Hopefully this command finished successfully and we can move on to deploy our ap
 Use `cdk deploy` to deploy a CDK app:
 
 ```
-cdk deploy hello-cdk-1
+cdk deploy cdkworkshop
 ```
 
 You should see a warning like the following:
@@ -103,7 +103,7 @@ You will likely see something like this (if you don't, make sure you are in the 
 
 ![](./cfn1.png)
 
-If you select `hello-cdk-1` and open the __Resources__ tab, you will see the
+If you select `cdkworkshop` and open the __Resources__ tab, you will see the
 physical identities of our resources:
 
 ![](./cfn2.png)

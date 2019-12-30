@@ -47,7 +47,7 @@ This code is hopefully quite easy to understand:
 
  * We defined a DynamoDB table with `path` as the partition key (every DynamoDB
    table must have a single partition key).
- * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
+ * We defined a Lambda function which is bound to the `lambda/hitcount.handler` code.
  * We __wired__ the Lambda's environment variables to the `function_name` and
    `table_name` of our resources.
 

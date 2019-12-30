@@ -46,7 +46,7 @@ trust  {{% /notice %}}
 ```
 $ cdk deploy
 ...
-hello-cdk-1.ViewHitCounterViewerEndpointCA1B1E4B = https://6i4udz9wb2.execute-api.us-east-2.amazonaws.com/prod/
+cdkworkshop.ViewHitCounterViewerEndpointCA1B1E4B = https://6i4udz9wb2.execute-api.us-east-2.amazonaws.com/prod/
 ```
 
 You'll see the viewer endpoint as an output.
