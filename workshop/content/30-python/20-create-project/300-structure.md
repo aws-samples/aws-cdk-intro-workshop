@@ -88,5 +88,4 @@ The stacks includes:
 - SQS Queue (`sqs.Queue`)
 - SNS Topic (`sns.Topic`)
 - Subscribes the queue to receive any messages published to the topic (`topic.add_subscription`)
-- HelloConstruct which is a custom construct defined in our app.  It creates a
-  variable number of S3 buckets in our stack.
+

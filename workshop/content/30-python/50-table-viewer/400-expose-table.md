@@ -39,11 +39,11 @@ class HitCounter(core.Construct):
             code=_lambda.Code.asset('lambda'),
             environment={
                 'DOWNSTREAM_FUNCTION_NAME': downstream.function_name,
-                'HITS_TABLE_NAME': self.table.table_name,
+                'HITS_TABLE_NAME': self._table.table_name,
             }
         )
 
-        self.table.grant_read_write_data(self.handler)
+        self._table.grant_read_write_data(self.handler)
         downstream.grant_invoke(self.handler)
 {{</highlight>}}
 

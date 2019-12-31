@@ -5,9 +5,9 @@ weight = 100
 
 ## Delete the sample code from your stack
 
-The project created by `cdk init sample-app` includes an SQS queue, an SNS
-topic, some S3 buckets, and an IAM user. We're not going to use them in our
-project, so remove them from the `MyStack` constructor.
+The project created by `cdk init sample-app` includes an SQS queue and queue policy, an SNS
+topic and subscription. We're not going to use them in our
+project, so remove them from the `CdkworkshopStack` constructor.
 
 Open `cdkworkshop/cdkworkshop_stack.py` and clean it up. Eventually it should look like
 this:
