@@ -45,7 +45,7 @@ public final class CdkWorkshopApp {
 }
 ```
 
-This code loads and instantiate the `CdkWorkshopStack` class from the
+This code loads and instantiates the `CdkWorkshopStack` class from the
 `~/CdkWorkshopStack.java` file. We won't need to look at this file anymore.
 
 ## The main stack
