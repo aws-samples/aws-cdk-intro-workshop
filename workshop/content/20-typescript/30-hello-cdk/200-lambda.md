@@ -125,8 +125,8 @@ signature:
    It's an ID that has to be unique amongst construct within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
-   for each resource defined within this scope. _To read more about IDs in the
-   CDK, see the [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)._
+   for each resource defined within this scope. *To read more about IDs in the
+   CDK, see the* [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
 3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
    the `lambda.Function` construct accepts properties like `runtime`, `code` and
