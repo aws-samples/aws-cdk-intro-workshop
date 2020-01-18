@@ -43,7 +43,7 @@ const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
 ```
 
-This code loads and instantiate the `CdkWorkshopStack` class from the
+This code loads and instantiates the `CdkWorkshopStack` class from the
 `lib/cdk-workshop-stack.ts` file. We won't need to look at this file anymore.
 
 ## The main stack
