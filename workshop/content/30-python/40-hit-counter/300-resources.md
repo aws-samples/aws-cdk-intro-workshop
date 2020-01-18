@@ -57,6 +57,6 @@ The `function_name` and `table_name` properties are values that only resolve
 when we deploy our stack (notice that we haven't configured these physical
 names when we defined the table/function, only logical IDs). This means that if
 you print their values during synthesis, you will get a "TOKEN", which is how
-the CDK represents these late-bound values. You should treat tokens as _opaque
-strings_.  This means you can concatenate them together for example, but don't
+the CDK represents these late-bound values. You should treat tokens as *opaque
+strings*.  This means you can concatenate them together for example, but don't
 be tempted to parse them in your code.
