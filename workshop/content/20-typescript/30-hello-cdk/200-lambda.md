@@ -93,8 +93,6 @@ export class CdkWorkshopStack extends cdk.Stack {
 
 A few things to notice:
 
-- Once you save *cdk-workshop-stack.ts*, you should see an error message in the
-  `npm run watch` window that hello is declared but never use. Cool huh?
 - Our function uses NodeJS 8.10 runtime
 - The handler code is loaded from the `lambda` directory which we created
   earlier. Path is relative to where you execute `cdk` from, which is the
