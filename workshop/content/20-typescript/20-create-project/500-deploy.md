@@ -26,6 +26,11 @@ Then:
 ...
 ```
 
+{{% notice info %}} You might see an Access Denied error at this step,
+if the **AWS CLI** has not been [set up correctly](/15-prerequisites/200-account.html) or if the active
+[AWS profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+does not have the `cloudformation:CreateChangeSet` permission. {{% /notice %}}
+
 Hopefully this command finished successfully and we can move on to deploy our app.
 
 ## Let's deploy
@@ -38,19 +43,20 @@ cdk deploy
 
 You should see a warning like the following:
 
-```
+```text
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
 Please confirm you intend to make the following modifications:
 
 IAM Statement Changes
-┌───┬─────────────────────────┬────────┬─────────────────┬───────────────────────────┬──────────────────────────────────────────┐
-│   │ Resource                │ Effect │ Action          │ Principal                 │ Condition                                │
-├───┼─────────────────────────┼────────┼─────────────────┼───────────────────────────┼──────────────────────────────────────────┤
-│ + │ ${CdkWorkshopQueue.Arn} │ Allow  │ sqs:SendMessage │ Service:sns.amazonaws.com │ "ArnEquals": {                           │
-│   │                         │        │                 │                           │   "aws:SourceArn": "${CdkWorkshopTopic}" │
-│   │                         │        │                 │                           │ }                                        │
-└───┴─────────────────────────┴────────┴─────────────────┴───────────────────────────┴──────────────────────────────────────────┘
-(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+┌───┬────────────────────────────────┬────────┬─────────────────┬────────────────────────────────┬────────────────────────────────┐
+│   │ Resource                       │ Effect │ Action          │ Principal                      │ Condition                      │
+├───┼────────────────────────────────┼────────┼─────────────────┼────────────────────────────────┼────────────────────────────────┤
+│ + │ ${CdkWorkshopQueue.Arn}        │ Allow  │ sqs:SendMessage │ Service:sns.amazonaws.com      │ "ArnEquals": {                 │
+│   │                                │        │                 │                                │   "aws:SourceArn": "${CdkWorks │
+│   │                                │        │                 │                                │ hopTopic}"                     │
+│   │                                │        │                 │                                │ }                              │
+└───┴────────────────────────────────┴────────┴─────────────────┴────────────────────────────────┴────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
 Do you wish to deploy these changes (y/n)?
 ```

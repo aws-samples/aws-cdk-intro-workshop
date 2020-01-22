@@ -53,7 +53,7 @@ Output should look like this:
 
 ```
 + @aws-cdk/aws-lambda@{{% cdkversion %}}
-updated 1 package and audited 1571 packages in 5.098s
+updated 5 packages and audited 883208 packages in 5.455s
 ```
 
 > You can safely ignore any warnings from npm about your package.json file.
@@ -74,8 +74,8 @@ Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 
 
 {{<highlight ts "hl_lines=2 8-13">}}
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
+import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -83,8 +83,8 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
-      code: lambda.Code.asset('lambda'),  // code loaded from the "lambda" directory
+      runtime: lambda.Runtime.NODEJS_10_X,    // execution environment
+      code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
   }
@@ -144,8 +144,8 @@ cdk diff
 
 Output would look like this:
 
-```
-The CdkWorkshopStack stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+```text
+Stack CdkWorkshopStack
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬────────────────┬──────────────────────────────┬───────────┐
 │   │ Resource                        │ Effect │ Action         │ Principal                    │ Condition │
@@ -158,12 +158,12 @@ IAM Policy Changes
 ├───┼─────────────────────────────┼────────────────────────────────────────────────────────────────────────────────┤
 │ + │ ${HelloHandler/ServiceRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole │
 └───┴─────────────────────────────┴────────────────────────────────────────────────────────────────────────────────┘
-(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
 Parameters
-[+] Parameter HelloHandler/Code/S3Bucket HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
-[+] Parameter HelloHandler/Code/S3VersionKey HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
-[+] Parameter HelloHandler/Code/ArtifactHash HelloHandlerCodeArtifactHash5DF4E4B6: {"Type":"String","Description":"Artifact hash for asset \"CdkWorkshopStack/HelloHandler/Code\""}
+[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/S3Bucket AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7S3BucketEB5CA0D6: {"Type":"String","Description":"S3 bucket for asset \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
+[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/S3VersionKey AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7S3VersionKeyC5F120D1: {"Type":"String","Description":"S3 key for asset version \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
+[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/ArtifactHash AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7ArtifactHashBAACCCD2: {"Type":"String","Description":"Artifact hash for asset \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
 
 Resources
 [+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63

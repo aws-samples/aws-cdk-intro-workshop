@@ -8,9 +8,9 @@ weight = 400
 Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
 
 {{<highlight ts "hl_lines=14-15 26">}}
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
-import dynamodb = require('@aws-cdk/aws-dynamodb');
+import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as dynamodb from '@aws-cdk/aws-dynamodb';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -36,9 +36,9 @@ export class HitCounter extends cdk.Construct {
     this.table = table;
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,
+      runtime: lambda.Runtime.NODEJS_10_X,
       handler: 'hitcounter.handler',
-      code: lambda.Code.asset('lambda'),
+      code: lambda.Code.fromAsset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
@@ -59,9 +59,9 @@ export class HitCounter extends cdk.Construct {
 Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
 
 {{<highlight ts "hl_lines=28">}}
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
-import apigw = require('@aws-cdk/aws-apigateway');
+import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as apigw from '@aws-cdk/aws-apigateway';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
@@ -70,8 +70,8 @@ export class CdkWorkshopStack extends cdk.Stack {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,
-      code: lambda.Code.asset('lambda'),
+      runtime: lambda.Runtime.NODEJS_10_X,
+      code: lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler'
     });
 

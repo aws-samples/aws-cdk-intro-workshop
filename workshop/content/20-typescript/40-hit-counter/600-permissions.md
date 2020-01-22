@@ -10,9 +10,9 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 Go back to `hitcounter.ts` and add the following highlighted lines:
 
 {{<highlight ts "hl_lines=32-33">}}
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
-import dynamodb = require('@aws-cdk/aws-dynamodb');
+import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as dynamodb from '@aws-cdk/aws-dynamodb';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -32,9 +32,9 @@ export class HitCounter extends cdk.Construct {
     });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,
+      runtime: lambda.Runtime.NODEJS_10_X,
       handler: 'hitcounter.handler',
-      code: lambda.Code.asset('lambda'),
+      code: lambda.Code.fromAsset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
@@ -115,9 +115,9 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 Add the highlighted lines to `lib/hitcounter.ts`:
 
 {{<highlight ts "hl_lines=35-36">}}
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
-import dynamodb = require('@aws-cdk/aws-dynamodb');
+import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as dynamodb from '@aws-cdk/aws-dynamodb';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -137,9 +137,9 @@ export class HitCounter extends cdk.Construct {
     });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,
+      runtime: lambda.Runtime.NODEJS_10_X,
       handler: 'hitcounter.handler',
-      code: lambda.Code.asset('lambda'),
+      code: lambda.Code.fromAsset('lambda'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
