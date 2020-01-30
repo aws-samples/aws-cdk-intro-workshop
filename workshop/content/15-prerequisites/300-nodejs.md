@@ -4,7 +4,7 @@ chapter = false
 weight = 300
 +++
 
-The AWS CDK uses Node.js (>= 8.12.0).
+The AWS CDK uses Node.js (>= 10.3.0).
 
 * To install Node.js visit the [node.js](https://nodejs.org) website.
 
@@ -17,8 +17,8 @@ The AWS CDK uses Node.js (>= 8.12.0).
     node --version
     ```
 
-    Output should be >= 8.12.0:
+    Output should be >= 10.3.0:
 
     ```
-    v8.12.0
+    v10.3.0
     ```

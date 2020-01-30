@@ -24,8 +24,8 @@ in use.
 Output should look like this:
 
 ```
-+ cdk-dynamo-table-viewer
-added 30 packages from 5 contributors and audited 3663 packages in 7.987s
++ cdk-dynamo-table-viewer@3.1.2
+added 1 package from 1 contributor and audited 886517 packages in 6.704s
 found 0 vulnerabilities
 ```
 

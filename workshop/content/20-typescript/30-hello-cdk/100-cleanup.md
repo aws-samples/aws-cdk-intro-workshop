@@ -12,7 +12,7 @@ not going to use them in our project, so remove them from your the
 Open `lib/cdk-workshop-stack.ts` and clean it up. Eventually it should look like this:
 
 ```ts
-import cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -35,6 +35,7 @@ cdk diff
 Output should look like the following:
 
 ```
+Stack CdkWorkshopStack
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬─────────────────┬───────────────────────────┬──────────────────────────────────────────────────┐
 │   │ Resource                        │ Effect │ Action          │ Principal                 │ Condition                                        │
@@ -43,7 +44,7 @@ IAM Statement Changes
 │   │                                 │        │                 │                           │   "aws:SourceArn": "${CdkWorkshopTopicD368A42F}" │
 │   │                                 │        │                 │                           │ }                                                │
 └───┴─────────────────────────────────┴────────┴─────────────────┴───────────────────────────┴──────────────────────────────────────────────────┘
-(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
 Resources
 [-] AWS::SQS::Queue CdkWorkshopQueue50D9D426 destroy
