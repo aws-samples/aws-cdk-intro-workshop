@@ -93,7 +93,7 @@ export class CdkWorkshopStack extends cdk.Stack {
 
 A few things to notice:
 
-- Our function uses NodeJS 8.10 runtime
+- Our function uses NodeJS 10.x runtime
 - The handler code is loaded from the `lambda` directory which we created
   earlier. Path is relative to where you execute `cdk` from, which is the
   project's root directory
