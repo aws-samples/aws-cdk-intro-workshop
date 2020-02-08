@@ -24,6 +24,13 @@ initialization of a git repository, this probably means you don't have git
 installed, which is fine for this workshop):
 
 ```
+Applying project template app for typescript
+Initializing a new git repository...
+Executing npm install...
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN tst@0.1.0 No repository field.
+npm WARN tst@0.1.0 No license field.
+
 # Welcome to your CDK TypeScript project!
 
 You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`CdkWorkshopStack`)
