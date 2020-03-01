@@ -65,8 +65,7 @@ export class HitCounter extends cdk.Construct {
 
 This code is hopefully quite easy to understand:
 
- * We defined a DynamoDB table with `path` as the partition key (every DynamoDB
-   table must have a single partition key).
+ * We defined a DynamoDB table with `path` as the partition key.
  * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
  * We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
    of our resources.
