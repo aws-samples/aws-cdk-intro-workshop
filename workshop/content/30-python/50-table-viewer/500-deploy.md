@@ -85,6 +85,6 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 
 **Interested in how the Table Viewer works?** It's easy to find out!
 Hold **Ctrl** (or **Command**) and click on the `TableViewer`
-identifier to navigate to its source code.
+identifier to navigate to its source code. Or navigate to the Github repository [here](https://github.com/eladb/cdk-dynamo-table-viewer)
 
 {{% /notice %}}
