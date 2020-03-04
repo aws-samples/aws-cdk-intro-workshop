@@ -21,11 +21,11 @@ You'll see something like this:
   * cdkworkshop_stack.py—A custom CDK stack construct for use in your CDK application.
 * tests — Contains all tests.
   * unit — Contains unit tests.
-    * test_cdkworkshop.py—A trivial test of the custom CDK stack created in the hello package. This is mainly to demonstrate how tests can be hooked up to the project.
+    * test_cdkworkshop.py—A trivial test of the custom CDK stack created in the cdk-workshop package. This is mainly to demonstrate how tests can be hooked up to the project.
 * app.py — The “main” for this sample application.
 * cdk.json — A configuration file for CDK that defines what executable CDK should run to generate the CDK construct tree.
 * README.md — The introductory README for this project.
-* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the hello module so that it can be edited in place.
+* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk-workshop module so that it can be edited in place.
 * setup.py — Defines how this Python package would be constructed and what the dependencies are.
 
 ## Your app's entry point

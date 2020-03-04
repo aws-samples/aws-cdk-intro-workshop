@@ -36,7 +36,7 @@ namespace CdkWorkshop
                     Type = AttributeType.STRING
                 }
             });
-            Table = table;
+            MyTable = table;
 
             Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {

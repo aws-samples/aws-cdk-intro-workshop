@@ -31,9 +31,9 @@ class HitCounter(core.Construct):
         )
 
         self._handler = _lambda.Function(
-            self, 'HitCounterHandler',
+            self, 'HitCountHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
-            handler='hitcounter.handler',
+            handler='hitcount.handler',
             code=_lambda.Code.asset('lambda'),
             environment={
                 'DOWNSTREAM_FUNCTION_NAME': downstream.function_name,
@@ -133,9 +133,9 @@ class HitCounter(core.Construct):
         )
 
         self._handler = _lambda.Function(
-            self, 'HitCounterHandler',
+            self, 'HitCountHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
-            handler='hitcounter.handler',
+            handler='hitcount.handler',
             code=_lambda.Code.asset('lambda'),
             environment={
                 'DOWNSTREAM_FUNCTION_NAME': downstream.function_name,
