@@ -1,11 +1,12 @@
+<!--
 +++
 title = "cdk init"
 weight = 100
 +++
-
+-->
 ## Create project directory
 
-Create an empty directory on your system:
+Using *PowerShell*, create an empty directory on your system:
 
 ```
 mkdir cdk-workshop && cd cdk-workshop

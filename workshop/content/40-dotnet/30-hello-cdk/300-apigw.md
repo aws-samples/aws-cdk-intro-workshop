@@ -1,8 +1,9 @@
+<!--
 +++
 title = "API Gateway"
 weight = 300
 +++
-
+-->
 Next step is to add an API Gateway in front of our function. API Gateway will
 expose a public HTTP endpoint that anyone on the internet can hit with an HTTP
 client such as [curl](https://curl.haxx.se/) or a web browser.
@@ -15,8 +16,8 @@ will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-```
-dotnet add package Amazon.CDK.AWS.APIGateway
+```ps1
+dotnet add package Amazon.CDK.AWS.APIGateway -v $cdkversion
 ```
 
 ## Add a LambdaRestApi construct to your stack

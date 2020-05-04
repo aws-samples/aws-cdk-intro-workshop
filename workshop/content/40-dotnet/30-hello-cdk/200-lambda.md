@@ -1,8 +1,9 @@
+<!--
 +++
 title = "Hello Lambda"
 weight = 200
 +++
-
+-->
 ## Lambda handler code
 
 We'll start with the AWS Lambda handler code.
@@ -41,11 +42,17 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 
 ![](./clib.png)
 
-Okay, let's use `dotnet add package` to install the AWS Lambda
-module and all it's dependencies into our project:
+Okay, let's use `dotnet add package` to install the AWS Lambda module and all its 
+dependencies into our project.
 
+First, to maintain CDK version consistency between CDK CLI and CDK NuGet packages, let's store CDK CLI version for future user as *PowerShell* variable:
+```ps1
+$cdkversion = (cdk --version).Split(' ')[0]
 ```
-dotnet add package Amazon.CDK.AWS.Lambda
+
+Now, it's time to add CDK Lambda NuGet package reference to the project, by running following command from the same directory where the .csproj file is:
+```ps1
+dotnet add package Amazon.CDK.AWS.Lambda -v $cdkversion
 ```
 {{% notice info %}}
 **NOTE:** You must be in the same directory as the `*.csproj` file to install a Nuget package

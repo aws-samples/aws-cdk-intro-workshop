@@ -1,8 +1,9 @@
+<!--
 +++
 title = "Define resources"
 weight = 300
 +++
-
+-->
 ## Add resources to the hit counter construct
 
 Now, let's define the AWS Lambda function and the DynamoDB table in our
@@ -11,8 +12,8 @@ Now, let's define the AWS Lambda function and the DynamoDB table in our
 As usual, we first need to install the DynamoDB construct library (we already
 have the Lambda library installed):
 
-```
-dotnet add package Amazon.CDK.AWS.DynamoDB
+```ps1
+dotnet add package Amazon.CDK.AWS.DynamoDB -v $cdkversion
 ```
 
 Now, go back to `src/CdkWorkshop/HitCounter.cs` and add the following highlighted code:
