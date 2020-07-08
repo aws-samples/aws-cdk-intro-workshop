@@ -14,6 +14,7 @@ from aws_cdk import (
     core,
 )
 
+
 class HitCounter(core.Construct):
 
     @property

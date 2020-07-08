@@ -16,6 +16,7 @@ from aws_cdk import (
     core,
 )
 
+
 class HitCounter(core.Construct):
 
     @property
@@ -117,6 +118,7 @@ from aws_cdk import (
     aws_dynamodb as ddb,
     core,
 )
+
 
 class HitCounter(core.Construct):
 
