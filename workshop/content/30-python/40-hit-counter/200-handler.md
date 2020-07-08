@@ -5,7 +5,7 @@ weight = 100
 
 ## Hit counter Lambda handler
 
-Okay, now let's write the Lambda handler code for our hit counter.  First, we
+Okay, now let's write the Lambda handler code for our hit counter. First, we
 will need to install the AWS DynamoDB module.
 
 ```

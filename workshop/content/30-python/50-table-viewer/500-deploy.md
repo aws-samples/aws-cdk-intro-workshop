@@ -35,7 +35,7 @@ function, permissions, outputs, all sorts of goodies.
 allow you to add complex capabilities to your apps with minimum effort. However,
 you must understand that with great power comes great responsibility. Constructs
 can add IAM permissions, expose data to the public or cause your application not
-to function. We are working on providing you tools for protecting your app, and
+to function. We are working on providing you tools for protection of your app, and
 identifying potential security issues with your stacks, but it is your
 responsibility to understand how certain constructs that you use impact your
 application, and to make sure you only use construct libraries from vendors you

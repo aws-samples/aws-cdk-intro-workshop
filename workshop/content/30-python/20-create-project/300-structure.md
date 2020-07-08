@@ -25,7 +25,7 @@ You'll see something like this:
 * app.py — The “main” for this sample application.
 * cdk.json — A configuration file for CDK that defines what executable CDK should run to generate the CDK construct tree.
 * README.md — The introductory README for this project.
-* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk-workshop module so that it can be edited in place.
+* requirements.txt — Used by pip to install all dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk-workshop module so that it can be edited in place.
 * setup.py — Defines how this Python package would be constructed and what the dependencies are.
 
 ## Your app's entry point
@@ -83,7 +83,7 @@ class CdkWorkshopStack(core.Stack):
 As you can see, our app was created with two instances of our sample CDK stack
 (`CdkWorkshopStack`).
 
-The stacks includes:
+The stacks include:
 
 - SQS Queue (`sqs.Queue`)
 - SNS Topic (`sns.Topic`)
