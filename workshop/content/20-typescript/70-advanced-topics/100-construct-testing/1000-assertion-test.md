@@ -19,6 +19,7 @@ same level as `bin` and `lib` and then create a file called `hitcounter.test.ts`
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import cdk = require('@aws-cdk/core');
 import * as lambda from '@aws-cdk/aws-lambda';
+
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created', () => {
