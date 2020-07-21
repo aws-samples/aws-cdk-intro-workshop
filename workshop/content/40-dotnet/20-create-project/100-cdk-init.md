@@ -13,7 +13,7 @@ mkdir cdk-workshop && cd cdk-workshop
 
 ## cdk init
 
-We will use `cdk init` to create a new TypeScript CDK project:
+We will use `cdk init` to create a new C# CDK project:
 
 ```
 cdk init sample-app --language csharp
