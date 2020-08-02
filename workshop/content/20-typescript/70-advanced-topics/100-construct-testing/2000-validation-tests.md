@@ -22,7 +22,7 @@ export interface HitCounterProps {
   /**
    * The read capacity units for the table
    *
-   * Must be greater than 5 and less than 20
+   * Must be greater than 5 and lower than 20
    *
    * @default 5
    */
@@ -35,7 +35,7 @@ Then update the DynamoDB table resource to add the `readCapacity` property.
 {{<highlight ts "hl_lines=3">}}
 const table = new dynamodb.Table(this, 'Hits', {
   partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
-  readCapacity: props.readCapacity || 5
+  readCapacity: props.readCapacity ?? 5
 });
 {{</highlight>}}
 
@@ -51,7 +51,7 @@ export class HitCounter extends cdk.Construct {
 
   constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
     if (props.readCapacity !== undefined && (props.readCapacity < 5 || props.readCapacity > 20)) {
-      throw new Error('readCapacity must be greater than 5 and less than 20');
+      throw new Error('readCapacity must be greater than 5 and lower than 20');
     }
 
     super(scope, id);
@@ -75,7 +75,7 @@ test('read capacity can be configured', () => {
       }),
       readCapacity: 3
     });
-  }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
+  }).toThrowError(/readCapacity must be greater than 5 and lower than 20/);
 });
 ```
 
