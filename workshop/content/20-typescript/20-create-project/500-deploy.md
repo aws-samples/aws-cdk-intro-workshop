@@ -69,22 +69,8 @@ and STACK-ID is the unique identifier for your stack:
 ```
 CdkWorkshopStack: deploying...
 CdkWorkshopStack: creating CloudFormation changeset...
- 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426)
- 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F)
- 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata
- 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426) Resource creation Initiated
- 0/6 | 1:12:48 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F) Resource creation Initiated
- 1/6 | 1:12:48 PM | CREATE_COMPLETE      | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426)
- 1/6 | 1:12:51 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata Resource creation Initiated
- 2/6 | 1:12:51 PM | CREATE_COMPLETE      | AWS::CDK::Metadata     | CDKMetadata
- 3/6 | 1:12:59 PM | CREATE_COMPLETE      | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F)
- 3/6 | 1:13:01 PM | CREATE_IN_PROGRESS   | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5)
- 3/6 | 1:13:01 PM | CREATE_IN_PROGRESS   | AWS::SNS::Subscription | CdkWorkshopTopic/CdkWorkshopQueueSubscription (CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7)
- 3/6 | 1:13:02 PM | CREATE_IN_PROGRESS   | AWS::SNS::Subscription | CdkWorkshopTopic/CdkWorkshopQueueSubscription (CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7) Resource creation Initiated
- 3/6 | 1:13:02 PM | CREATE_IN_PROGRESS   | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5) Resource creation Initiated
- 4/6 | 1:13:02 PM | CREATE_COMPLETE      | AWS::SNS::Subscription | CdkWorkshopTopic/CdkWorkshopQueueSubscription (CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7)
- 5/6 | 1:13:03 PM | CREATE_COMPLETE      | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5)
- 6/6 | 1:13:05 PM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CdkWorkshopStack
+
+
 
  ✅  CdkWorkshopStack
 
