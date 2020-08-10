@@ -68,13 +68,13 @@ class CdkWorkshop extends cdk.Stack {
             websiteIndexDocument: 'index.html'
         });
 
-        const origin = new cloudfront.CfnCloudFrontOriginAccessIdentity(this, "BucketOrigin", {
-            cloudFrontOriginAccessIdentityConfig: { comment: props.domain },
+        const origin = new cloudfront.OriginAccessIdentity(this, "BucketOrigin", {
+            comment: props.domain,
         });
 
         // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
         const bucketPolicy = new PolicyStatement({
-            principals: [new CanonicalUserPrincipal(origin.attrS3CanonicalUserId)],
+            principals: [new CanonicalUserPrincipal(origin.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
             actions: ['s3:GetObject'],
             resources: [bucket.arnForObjects('*')],
         })
@@ -116,7 +116,7 @@ class CdkWorkshop extends cdk.Stack {
                 originPath: `/${contentHash}`,
                 s3OriginSource: {
                     s3BucketSource: bucket,
-                    originAccessIdentityId: origin.ref,
+                    originAccessIdentity: origin,
                 }
             }],
             aliasConfiguration: {
