@@ -27,6 +27,7 @@ export class PipelineStack extends Stack {
         actionName: 'Synth',
         cloudAssemblyArtifact,
         sourceArtifact,
+        subdirectory: 'cdkworkshop.com',
 
         // Hugo is necessary for the build -- install from included tarball
         installCommand: 'npm ci && tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo'
