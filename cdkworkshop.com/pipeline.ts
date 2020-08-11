@@ -21,7 +21,6 @@ export class PipelineStack extends Stack {
         owner: 'aws-samples',
         repo: 'aws-cdk-intro-workshop',
         oauthToken: SecretValue.secretsManager('github-token'),
-        trigger: cpipe_actions.GitHubTrigger.POLL,
       }),
 
       synthAction: pipelines.SimpleSynthAction.standardNpmSynth({
