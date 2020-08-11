@@ -5,12 +5,12 @@ import route53Targets = require('@aws-cdk/aws-route53-targets');
 import cloudfront = require('@aws-cdk/aws-cloudfront');
 import s3 = require('@aws-cdk/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
-import { PolicyStatement, CanonicalUserPrincipal } from '@aws-cdk/aws-iam';
 import s3deploy = require('@aws-cdk/aws-s3-deployment');
 import path = require('path');
 import { hashDirectorySync } from './hash';
+import { PipelineStack } from './pipeline';
 
-interface CdkWorkshopProps extends cdk.StackProps {
+export interface CdkWorkshopProps extends cdk.StackProps {
 
     /**
      * The Domain the workshop should be hosted at
@@ -45,9 +45,9 @@ interface CdkWorkshopProps extends cdk.StackProps {
     disableCache?: boolean;
 }
 
-class CdkWorkshop extends cdk.Stack {
+export class CdkWorkshop extends cdk.Stack {
 
-    constructor(scope: cdk.App, id: string, props: CdkWorkshopProps) {
+    constructor(scope: cdk.Construct, id: string, props: CdkWorkshopProps) {
         super(scope, id, props);
 
         this.renameLogicalId('CloudFrontDNSRecord46217411', 'CloudFrontDNSRecord');
@@ -71,14 +71,7 @@ class CdkWorkshop extends cdk.Stack {
         const origin = new cloudfront.OriginAccessIdentity(this, "BucketOrigin", {
             comment: props.domain,
         });
-
-        // Restrict the S3 bucket via a bucket policy that only allows our CloudFront distribution
-        const bucketPolicy = new PolicyStatement({
-            principals: [new CanonicalUserPrincipal(origin.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
-            actions: ['s3:GetObject'],
-            resources: [bucket.arnForObjects('*')],
-        })
-        bucket.addToResourcePolicy(bucketPolicy);
+        (origin.node.defaultChild as cloudfront.CfnCloudFrontOriginAccessIdentity).overrideLogicalId('BucketOrigin');
 
         // Due to a bug in `BucketDeployment` (awslabs/aws-cdk#981) we must
         // deploy each version of the content to a different prefix (it's also a
@@ -161,16 +154,24 @@ class CdkWorkshop extends cdk.Stack {
     }
 }
 
+const ENV = { account: '025656461920', region: 'eu-west-1' };
+
+export class TheCdkWorkshopStage extends cdk.Stage {
+    constructor(scope: cdk.Construct, id: string) {
+        super(scope, id, { env: ENV });
+
+        new CdkWorkshop(this, 'CloudFrontStack', {
+            stackName: 'CDK-WORKSHOP-PROD',
+            domain: 'cdkworkshop.com',
+            certificate: 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35',
+            email: 'aws-cdk-workshop@amazon.com',
+            restrictToAmazonNetwork: false,
+            restrictToAmazonNetworkWebACL: cdk.Fn.importValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
+            disableCache: true
+        });
+    }
+}
+
 const app = new cdk.App();
-
-new CdkWorkshop(app, 'CDK-WORKSHOP-PROD', {
-    env: { account: '025656461920', region: 'eu-west-1' },
-    domain: 'cdkworkshop.com',
-    certificate: 'arn:aws:acm:us-east-1:025656461920:certificate/c75d7a9d-1253-4506-bc6d-5874767b3c35',
-    email: 'aws-cdk-workshop@amazon.com',
-    restrictToAmazonNetwork: false,
-    restrictToAmazonNetworkWebACL: cdk.Fn.importValue('AMAZON-CORP-NETWORK-ACL:AmazonNetworkACL'),
-    disableCache: true
-});
-
+new PipelineStack(app, 'WorkshopPipelineStack', { env: ENV });
 app.synth();
