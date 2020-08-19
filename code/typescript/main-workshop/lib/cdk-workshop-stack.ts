@@ -1,7 +1,6 @@
-#!/usr/bin/env node
-import cdk = require('@aws-cdk/core');
-import lambda = require('@aws-cdk/aws-lambda');
-import apigw = require('@aws-cdk/aws-apigateway');
+import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as apigw from '@aws-cdk/aws-apigateway';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
@@ -10,7 +9,7 @@ class CdkWorkshopStack extends cdk.Stack {
     super(scope, is, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,
+      runtime: lambda.Runtime.NODEJS_10_X,
       code: lambda.Code.asset('lambda'),
       handler: 'hello.handler',
 
@@ -32,6 +31,3 @@ class CdkWorkshopStack extends cdk.Stack {
     });
   }
 }
-
-const app = new cdk.App();
-new CdkWorkshopStack(app, 'CdkWorkshopStack');
