@@ -20,7 +20,7 @@ disableLanguageSwitchingButton = true
 disableShortcutsTitle = true
 
 [[menu.shortcuts]]
-name = "<i class='fab fa-github fa-lg'></i> github"
+name = "<i class='fab fa-github fa-lg'></i> aws/aws-cdk"
 identifier = "gh"
 url = "https://github.com/awslabs/aws-cdk"
 weight = 1
@@ -38,9 +38,9 @@ url = "https://gitter.im/awslabs/aws-cdk"
 weight = 3
 
 [[menu.shortcuts]]
-name = "<i class='fas fa-comment-dots'></i> submit feedback"
+name = "<i class='fab fa-github fa-lg'></i> workshop (issues/PRs)"
 identifier = "fb"
-url = "https://github.com/aws-samples/aws-cdk-intro-workshop/issues/new/choose"
+url = "https://github.com/aws-samples/aws-cdk-intro-workshop"
 weight = 4
 
 [[menu.shortcuts]]
