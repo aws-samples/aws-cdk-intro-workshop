@@ -5,11 +5,11 @@ import * as path from 'path';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
   public readonly hcEndpoint: cdk.CfnOutput;
   
-  constructor(scope: cdk.App, is: string, props?: cdk.StackProps) {
+  constructor(scope: cdk.Construct, is: string, props?: cdk.StackProps) {
     super(scope, is, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {

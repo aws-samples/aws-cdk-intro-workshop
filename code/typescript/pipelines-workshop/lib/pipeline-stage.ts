@@ -1,4 +1,4 @@
-import { PipeshopStack } from './pipeshop-stack';
+import { CdkWorkshopStack } from './cdk-workshop-stack';
 import { Stage, CfnOutput, Construct, StageProps } from '@aws-cdk/core';
 
 export class WorkshopPipelineStage extends Stage {
@@ -8,9 +8,9 @@ export class WorkshopPipelineStage extends Stage {
     constructor(scope: Construct, id: string, props?: StageProps) {
         super(scope, id, props);
 
-        const service = new PipeshopStack(this, 'WebService');
+        const service = new CdkWorkshopStack(this, 'WebService');
 
         this.hcEndpoint = service.hcEndpoint;
-        this.hcViewerUrl = service.hcViewerUrl
+        this.hcViewerUrl = service.hcViewerUrl;
     }
 }
