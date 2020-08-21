@@ -4,9 +4,13 @@ weight = 130
 +++
 
 ## Define an Empty Pipeline
-Now we are ready to define the basics of the pipeline. Return to the file `lib/pipeline-stack.ts` and edit as follows:
+Now we are ready to define the basics of the pipeline.
 
-{{<highlight ts "hl_lines=3-5 16-43">}}
+We will be using several new packages here, so first `npm install @aws-cdk/aws-codepipeline @aws-cdk/aws-codepipeline-actions @aws-cdk/pipelines`.
+
+Return to the file `lib/pipeline-stack.ts` and edit as follows:
+
+{{<highlight ts "hl_lines=3-5 12 16-42">}}
 import * as cdk from '@aws-cdk/core';
 import * as codecommit from '@aws-cdk/aws-codecommit';
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
@@ -30,7 +34,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        const pipeline = new CdkPipeline(this, 'Pipeline', {
+        new CdkPipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
             cloudAssemblyArtifact,
 
@@ -55,16 +59,17 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
 ### Component Breakdown
 The above code does several things:
-- `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly]() respectively
+- `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly](https://docs.aws.amazon.com/cdk/latest/guide/apps.html#apps_cloud_assembly) respectively
 - `new CdkPipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
     - `CodeCommitSourceAction(...)`: The `sourceAction` of the pipeline will check the designated repository for source code and generate an artifact.
     - `SimpleSynthAction.standardNpmSynth`: The `synthAction` of the pipeline will take the source artifact generated in by the `sourceAction` and build the application based on the `buildCommand`. This is always followed by `npx cdk synth`
 
 ## Deploy Pipeline and See Result
-All thats left to get our pipeline up and running is to run one last cdk deploy. 
+All thats left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
 
 ```
-npx cdk deploy
+git commit -am "MESSAGE" && git push
+npm run build && npx cdk deploy
 ```
 
 CdkPipelines auto-update for each commit in a source repoh, so this is is the *last time* we will need to execute this command!

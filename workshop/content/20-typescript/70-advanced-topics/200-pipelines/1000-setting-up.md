@@ -3,7 +3,7 @@ title = "Getting Started with Pipelines"
 weight = 110
 +++
 
-> Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here]() that represents the last state of the project after adding the tests.
+> Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/typescript/tests-workshop) that represents the last state of the project after adding the tests.
 
 ## Create Pipeline Stack
 The first step is to create the stack which will contain our pipeline.

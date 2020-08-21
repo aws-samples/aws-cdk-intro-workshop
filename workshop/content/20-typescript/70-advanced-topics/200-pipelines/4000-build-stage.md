@@ -16,7 +16,7 @@ export class WorkshopPipelineStage extends Stage {
     constructor(scope: Construct, id: string, props?: StageProps) {
         super(scope, id, props);
 
-        const service = new CdkWorkshopStack(this, 'WebService');
+        new CdkWorkshopStack(this, 'WebService');
     }
 }
 {{</highlight>}}
@@ -45,7 +45,7 @@ We created this stack with a scope of `cdk.App` which represents a top level CDK
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
 
-{{<highlight ts "hl_lines=5 45-46">}}
+{{<highlight ts "hl_lines=5 26 45-46">}}
 import * as cdk from '@aws-cdk/core';
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
@@ -88,7 +88,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
                 buildCommand: 'npm run build' // Language-specific build cmd
             })
-        })
+        });
 
         const deploy = new WorkshopPipelineStage(this, 'Deploy');
         pipeline.addApplicationStage(deploy);
@@ -107,12 +107,14 @@ Now that we have added the instructions to deploy our application, all thats lef
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console]() and take a look as the pipeline runs.
+Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (This may take a while).
 
+<!--
+![](/images/pipeline-fail.png)
 
 Uh oh! The pipeline synth failed. Lets take a look and see why.
 
-![](/images/pipeline-fail.png)
+![](/images/pipeline-fail-log.png)
 
 It looks like the build step is failing to find our lambda function.
 
@@ -143,4 +145,8 @@ By adding explicit path generation, we are finding the current directory and nav
 
 If we commit the change `git commit -am "fix lambda path" && git push`, and take a look at our pipeline again, we can see that it now builds successfully!
 
+-->
+
 ![](/images/pipeline-succeed.png)
+
+Success!
