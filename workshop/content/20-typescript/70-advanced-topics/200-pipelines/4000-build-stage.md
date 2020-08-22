@@ -110,11 +110,11 @@ git commit -am "Add deploy stage to pipeline" && git push
 Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (This may take a while).
 
 <!--
-![](/images/pipeline-fail.png)
+![](./pipeline-fail.png)
 
 Uh oh! The pipeline synth failed. Lets take a look and see why.
 
-![](/images/pipeline-fail-log.png)
+![](./pipeline-fail-log.png)
 
 It looks like the build step is failing to find our lambda function.
 
@@ -147,6 +147,6 @@ If we commit the change `git commit -am "fix lambda path" && git push`, and take
 
 -->
 
-![](/images/pipeline-succeed.png)
+![](./pipeline-succeed.png)
 
 Success!

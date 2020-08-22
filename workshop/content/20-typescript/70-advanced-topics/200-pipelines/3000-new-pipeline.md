@@ -76,4 +76,4 @@ CdkPipelines auto-update for each commit in a source repoh, so this is is the *l
 
 Once deployment is finished, you can go to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and you will see a new pipeline! If you navigate to it, it should look like this:
 
-![](/images/pipeline-init.png)
+![](./pipeline-init.png)

@@ -41,14 +41,14 @@ Finally, before we can do anything with our repo, we must populate it with our c
 Before we can do that, we will need Git credentials for the repo. To do this, go to the [IAM Console](https://console.aws.amazon.com/iam), then navigate to `Users` and then your user of choice.
 Inside the manage user interface, navigate to the `Security credentials` tab and scroll until you see "HTTPS Git credentials for AWS CodeCommit". Click generate credentials and follow the instructions on downloading those credentials. We will need them in a moment.
 
-![](/images/git-cred.png)
+![](./git-cred.png)
 
 ### Add Git remote
 The last console step we will need here is to navigate to the [CodeCommit Console](https://console.aws.amazon.com/codesuite/codecommit/repositories) and look for your repo. You will see a column called "Clone URL"; click "HTTPS" to copy the https link so we can add it to your local repo.
 
 > Note: If you do not see your repo here, ensure you are in the interface for the correct region
 
-![](/images/clone-repo.png)
+![](./clone-repo.png)
 
 > While you are here, feel free to explore your repo. You will see that it is empty, but you still have access to the repo configuration information
 
@@ -75,4 +75,4 @@ Here, CodeCommit will request the credentials you generated in the **Git Credent
 ### See Result
 Now you can return to the CodeCommit console and see that your code is all there!
 
-![](/images/repo-code.png)
+![](./repo-code.png)
