@@ -6,7 +6,7 @@ weight = 140
 ## Create Stage
 At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
 
-Create a new file under `lib` called `lib/pipeline-stage.ts` with the code below:
+Create a new file in `lib` called `pipeline-stage.ts` with the code below:
 
 {{<highlight ts>}}
 import { CdkWorkshopStack } from './cdk-workshop-stack';
@@ -21,9 +21,9 @@ export class WorkshopPipelineStage extends Stage {
 }
 {{</highlight>}}
 
-All this does is declare a new `Stage` (principal component of a pipeline), and in that stage instantiate our application stack.
+All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
 
-Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack created before is not quite configured properly to be deployed by a pipeline.
+Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack as it stands now is not configured to be deployed by a pipeline.
 Open `lib/cdk-workshop-stack.ts` and make the following changes:
 
 {{<highlight ts "hl_lines=8">}}
@@ -40,7 +40,7 @@ export class CdkWorkshopStack extends cdk.Stack {
     // The rest of your code...
 {{</highlight>}}
 
-We created this stack with a scope of `cdk.App` which represents a top level CDK construct, but since this is no longer the top-level (being deployed by the pipeline), this must be changes to `cdk.Construct`.
+This stack's `scope` parameter was defined as being a `cdk.App`, which means that in the construct tree, it must be a child of the app. Since the stack is being deployed by the pipeline, it is no longer a child of the app, so its type must be changed to `cdk.Construct`.
 
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
@@ -96,18 +96,18 @@ export class WorkshopPipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. In the future you can instantiate multiple times for multiple stages (eg. you want a Production deployment and a separate devlopment/test deployment).
+This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
 
-Then we add that stage to our pipeline (`pipepeline.addApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any cdk deployment action.
+Then we add that stage to our pipeline (`pipepeline.addApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
 
 ## Commit/Deploy
-Now that we have added the instructions to deploy our application, all thats left is to commit and push those changes to the repo.
+Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
 
 ```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (This may take a while).
+Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
 
 <!--
 ![](./pipeline-fail.png)
@@ -116,10 +116,10 @@ Uh oh! The pipeline synth failed. Lets take a look and see why.
 
 ![](./pipeline-fail-log.png)
 
-It looks like the build step is failing to find our lambda function.
+It looks like the build step is failing to find our Lambda function.
 
 ## Fix Lambda Path
-We are currently finding out lambda code based on the directory that `cdk synth` was being executed in. Since CodeBuild uses a different folder structure than you might for development, it cant find the path to our lambda code. We can fix that with a small change in `lib/cdk-workshop-stack.ts`:
+We are currently locating our Lambda code based on the directory that `cdk synth` is being executed in. Since CodeBuild uses a different folder structure than you might for development, it can't find the path to our Lambda code. We can fix that with a small change in `lib/cdk-workshop-stack.ts`:
 
 {{<highlight ts "hl_lines=6 14">}}
 import * as cdk from '@aws-cdk/core';
@@ -141,9 +141,9 @@ export class CdkWorkshopStack extends cdk.Stack {
     });
 {{</highlight>}}
 
-By adding explicit path generation, we are finding the current directory and navigating up a folder to find the lambda code.
+Here we are explictly navigating up a level from the current directory to find the Lambda code.
 
-If we commit the change `git commit -am "fix lambda path" && git push`, and take a look at our pipeline again, we can see that it now builds successfully!
+If we commit the change (`git commit -am "fix lambda path" && git push`) and take a look at our pipeline again, we can see that our pipeline now builds without error!
 
 -->
 
