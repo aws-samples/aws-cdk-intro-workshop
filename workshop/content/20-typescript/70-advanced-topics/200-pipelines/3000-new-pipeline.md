@@ -69,7 +69,7 @@ All thats left to get our pipeline up and running is to commit our changes and r
 
 ```
 git commit -am "MESSAGE" && git push
-npm run build && npx cdk deploy
+npx cdk deploy
 ```
 
 CdkPipelines auto-update for each commit in a source repoh, so this is is the *last time* we will need to execute this command!
