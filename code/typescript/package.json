@@ -24,6 +24,6 @@
         "@aws-cdk/aws-sqs": "^0.37.0",
         "@aws-cdk/core": "^0.37.0",
         "@aws-cdk/cx-api": "^0.37.0",
-        "cdk-dynamo-table-viewer": "^3.0.0"
+        "cdk-dynamo-table-viewer": "3.0.0"
     }
 }
