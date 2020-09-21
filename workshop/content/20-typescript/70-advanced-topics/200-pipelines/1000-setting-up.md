@@ -39,7 +39,7 @@ new WorkshopPipelineStack(app, 'CdkWorkshopPipelineStack');
 {{</highlight>}}
 
 ## Enable "New-Style" Synthesis
-The construct `@aws-cdk/pipelines` uses new core CDJ framework features called "new style stack synthesis". In order to deploy our pipeline, we must enable this feature in our CDK configuration.
+The construct `@aws-cdk/pipelines` uses new core CDK framework features called "new style stack synthesis". In order to deploy our pipeline, we must enable this feature in our CDK configuration.
 
 Edit the file `cdk.json` as follows:
 
