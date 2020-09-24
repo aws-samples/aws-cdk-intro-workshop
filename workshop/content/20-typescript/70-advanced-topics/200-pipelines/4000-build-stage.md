@@ -45,7 +45,7 @@ This stack's `scope` parameter was defined as being a `cdk.App`, which means tha
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
 
-{{<highlight ts "hl_lines=5 26 45-46">}}
+{{<highlight ts "hl_lines=5 25 45-46">}}
 import * as cdk from '@aws-cdk/core';
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
