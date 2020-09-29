@@ -59,6 +59,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
 ### Component Breakdown
 The above code does several things:
+
 * `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly](https://docs.aws.amazon.com/cdk/latest/guide/apps.html#apps_cloud_assembly) respectively
 * `new CdkPipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
     * `CodeCommitSourceAction(...)`: The `sourceAction` of the pipeline will check the designated repository for source code and generate an artifact.
