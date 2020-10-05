@@ -32,7 +32,7 @@ in use.
 
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=3 15-18">}}
+{{<highlight ts "hl_lines=3 16-19">}}
 import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as apigw from '@aws-cdk/aws-apigateway';
