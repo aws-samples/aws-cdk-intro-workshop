@@ -6,7 +6,7 @@ weight: 1
 
 # Welcome Developers!
 
-Hey there, and thanks for joining us! Hope you can't wait to play a little bit
+Hey there, and thanks for joining us! Hope you can't wait to play
 with this new thing we call the "AWS Cloud Development Kit" or in short, the AWS
 CDK.
 
