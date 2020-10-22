@@ -4,7 +4,7 @@ import * as apigw from '@aws-cdk/aws-apigateway';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
-class CdkWorkshopStack extends cdk.Stack {
+export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, is: string, props?: cdk.StackProps) {
     super(scope, is, props);
 
