@@ -1,3 +1,36 @@
++++
+title = "Add Application to Pipeline"
+weight = 140
++++
+
+## Create Stage
+At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
+
+Create a new file in `CdkWorkshop` called `PipelineStage.cs` with the code below:
+
+{{<highlight ts>}}
+using Amazon.CDK;
+using Amazon.CDK.Pipelines;
+
+namespace CdkWorkshop
+{
+    public class WorkshopPipelineStage : Stage
+    {
+        public WorkshopPipelineStage(Construct scope, string id, StageProps props = null)
+            : base(scope, id, props)
+        {
+            var service = new CdkWorkshopStack(this, "WebService");
+        }
+    }
+}
+{{</highlight>}}
+
+All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
+
+## Add stage to pipeline
+Now we must add the stage to the pipeline by adding the following code to `CdkWorkshop/PipelineStack.cs`:
+
+{{<highlight ts "hl_lines=28 56-57">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeCommit;
 using Amazon.CDK.AWS.CodePipeline;
@@ -55,26 +88,24 @@ namespace CdkWorkshop
 
             var deploy = new WorkshopPipelineStage(this, "Deploy");
             var deployStage = pipeline.AddApplicationStage(deploy);
-            deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-            {
-                ActionName = "TestViewerEndpoint",
-                UseOutputs = new Dictionary<string, StackOutput> {
-                    { "ENDPOINT_URL", pipeline.StackOutput(deploy.HCViewerUrl) }
-                },
-                Commands = new string[] {"curl -Ssf $ENDPOINT_URL"}
-            }));
-            deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-            {
-                ActionName = "TestAPIGatewayEndpoint",
-                UseOutputs = new Dictionary<string, StackOutput> {
-                    { "ENDPOINT_URL", pipeline.StackOutput(deploy.HCEndpoint) }
-                },
-                Commands = new string[] {
-                    "curl -Ssf $ENDPOINT_URL/",
-                    "curl -Ssf $ENDPOINT_URL/hello",
-                    "curl -Ssf $ENDPOINT_URL/test"
-                }
-            }));
         }
     }
 }
+{{</highlight>}}
+
+This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
+
+Then we add that stage to our pipeline (`pipepeline.AddApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
+
+## Commit/Deploy
+Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
+
+```
+git commit -am "Add deploy stage to pipeline" && git push
+```
+
+Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+
+![](./pipeline-succeed.png)
+
+Success!

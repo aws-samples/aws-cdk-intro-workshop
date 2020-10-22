@@ -6,31 +6,37 @@ weight = 120
 ## Create Repo in Pipeline Stack
 The first step in any good CD pipeline is source control. Here we will create a [**CodeCommit**](https://aws.amazon.com/codecommit/) repository to contain our project code.
 
-Edit the file `lib/pipeline-stack.ts` as follows.
+Edit the file `CdkWorkshop/PipelineStack.cs` as follows.
 
-{{<highlight ts "hl_lines=2 8-11">}}
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
+{{<highlight ts "hl_lines=2 10-14">}}
+using Amazon.CDK;
+using Amazon.CDK.AWS.CodeCommit;
 
-export class WorkshopPipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+namespace CdkWorkshop
+{
+    public class WorkshopPipelineStack : Stack
+    {
+        public WorkshopPipelineStack(Construct parent, string id, IStackProps props = null) : base(parent, id, props)
+        {
+            // Creates a CodeCommit repository called 'WorkshopRepo'
+            var repo = new Repository(this, "WorkshopRepo", new RepositoryProps
+            {
+                RepositoryName = "WorkshopRepo"
+            });
 
-        // Creates a CodeCommit repository called 'WorkshopRepo'
-        new codecommit.Repository(this, 'WorkshopRepo', {
-            repositoryName: "WorkshopRepo"
-        });
-
-        // Pipeline code goes here
+            // Pipeline code goes here
+        }
     }
 }
+
 {{</highlight>}}
 
 ## Deploy
 Now we can install the missing package and deploy the app to see our new repo.
 
 ```
-npm install @aws-cdk/aws-codecommit
+dotnet add package Amazon.CDK.AWS.CodeCommit
+dotnet build
 npx cdk deploy
 ```
 

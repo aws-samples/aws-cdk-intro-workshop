@@ -33,7 +33,7 @@ namespace CdkWorkshop
             var tv = new TableViewer(this, "ViewerHitCount", new TableViewerProps
             {
                 Title = "Hello Hits",
-                Table = helloWithCounter.Table
+                Table = helloWithCounter.MyTable
             });
 
             this.HCViewerUrl = new CfnOutput(this, "TableViewerUrl", new CfnOutputProps

@@ -1,6 +1,6 @@
 +++
 title = "CDK Pipelines"
-weight = 200
+weight = 100
 chapter = true
 +++
 

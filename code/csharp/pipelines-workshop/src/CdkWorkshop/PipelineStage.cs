@@ -3,7 +3,7 @@ using Amazon.CDK.Pipelines;
 
 namespace CdkWorkshop
 {
-    public class WorkshopPipelineStage : WorkshopPipelineStage
+    public class WorkshopPipelineStage : Stage
     {
         public readonly CfnOutput HCViewerUrl;
         public readonly CfnOutput HCEndpoint;
