@@ -61,7 +61,7 @@ Edit the file `cdk.json` as follows:
 This instructs the CDK to use those new features any time it synthesizes a stack (`cdk synth`).
 
 ## Special Bootstrap
-There's one last step before we we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
+There's one last step before we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
 
 ```
 npx cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
