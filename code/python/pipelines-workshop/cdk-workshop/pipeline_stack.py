@@ -39,7 +39,7 @@ class WorkshopPipelineStack(core.Stack):
             synth_action=pipelines.SimpleSynthAction(
                 install_commands=[
                     'npm install -g aws-cdk', # Installs the cdk cli on Codebuild
-                    'pip install -r requirements.txt' # Instructs codebuild to install required packages
+                    'pip install -r requirements.txt' # Instructs Codebuild to install required packages
                 ],
                 synth_command='npx cdk synth',
                 source_artifact=source_artifact, # Where to get source code to build
