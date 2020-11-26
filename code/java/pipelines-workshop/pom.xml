@@ -53,6 +53,26 @@
             <artifactId>lambda</artifactId>
             <version>1.71.0</version>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>codecommit</artifactId>
+            <version>1.71.0</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>codepipeline</artifactId>
+            <version>1.71.0</version>
+        </dependency>
+                <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>codepipeline-actions</artifactId>
+            <version>1.71.0</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>cdk-pipelines</artifactId>
+            <version>1.71.0</version>
+        </dependency>
 
         <!-- Additional Construct Libraries -->
         <dependency>
