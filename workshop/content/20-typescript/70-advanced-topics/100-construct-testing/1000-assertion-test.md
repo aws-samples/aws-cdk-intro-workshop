@@ -97,7 +97,7 @@ test('Lambda Has Environment Variables', () => {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_10_X,
       handler: 'lambda.handler',
-      code: lambda.Code.inline('test')
+      code: lambda.Code.fromInline('test')
     })
   });
   // THEN
@@ -179,7 +179,7 @@ test('Lambda Has Environment Variables', () => {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_10_X,
       handler: 'lambda.handler',
-      code: lambda.Code.inline('test')
+      code: lambda.Code.fromInline('test')
     })
   });
   // THEN
@@ -236,7 +236,7 @@ test('DynamoDB Table Created With Encryption', () => {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_10_X,
       handler: 'lambda.handler',
-      code: lambda.Code.inline('test')
+      code: lambda.Code.fromInline('test')
     })
   });
   // THEN
