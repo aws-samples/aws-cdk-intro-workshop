@@ -53,7 +53,7 @@ module and all it's dependencies into our project:
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>VERSION</version>
+            <version>${cdk.version}</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->

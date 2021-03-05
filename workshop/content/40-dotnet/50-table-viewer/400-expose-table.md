@@ -5,7 +5,7 @@ weight = 400
 
 ## Add a table property to our hit counter
 
-Edit `src/CdkWorkshop/HitCounter.cs` and modify it so that `table` is exposed as a public property called `MyTable`.
+Edit `src/CdkWorkshop/HitCounter.cs` and modify it so that `table` is exposed as a public property called `HitTable`.
 
 {{<highlight csharp "hl_lines=17 29">}}
 using Amazon.CDK;
@@ -23,8 +23,8 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public IFunction Handler { get; };
-        public Table MyTable { get; };
+        public IFunction Handler { get; }
+        public Table HitTable { get; }
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
@@ -36,7 +36,7 @@ namespace CdkWorkshop
                     Type = AttributeType.STRING
                 }
             });
-            MyTable = table;
+            HitTable = table;
 
             Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
@@ -100,7 +100,7 @@ namespace CdkWorkshop
             new TableViewer(this, "ViewerHitCount", new TableViewerProps
             {
                 Title = "Hello Hits",
-                Table = helloWithCounter.MyTable
+                Table = helloWithCounter.HitTable
             });
         }
     }

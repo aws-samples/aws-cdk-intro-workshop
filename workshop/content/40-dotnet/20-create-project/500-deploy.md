@@ -28,6 +28,11 @@ Then:
 
 Hopefully this command finished successfully and we can move on to deploy our app.
 
+{{% notice info %}} You might see an Access Denied error at this step,
+if the **AWS CLI** has not been [set up correctly](/15-prerequisites/200-account.html) or if the active
+[AWS profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+does not have the `cloudformation:CreateChangeSet` permission. {{% /notice %}}
+
 ## Let's deploy
 
 Use `cdk deploy` to deploy a CDK app:

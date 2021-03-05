@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands: 
+        - echo Entered the build phase ...
+        - echo Build started on `date`
+        - echo Pwd and ls
+        - pwd
+        - ls
+        - cd workshop
+        - hugo
+        # - hugo --baseURL https://$WORKSHOP_NAME.$BASE_DOMAIN_NAME --quiet
+  artifacts:
+    baseDirectory: workshop/public/
+    files:
+      - '**/*'
+  cache:
+    paths: []

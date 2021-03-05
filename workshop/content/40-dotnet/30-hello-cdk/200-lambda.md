@@ -51,6 +51,12 @@ dotnet add package Amazon.CDK.AWS.Lambda
 **NOTE:** You must be in the same directory as the `*.csproj` file to install a Nuget package
 {{% /notice %}}
 
+
+{{% notice info %}}
+**NOTE:** Dotnet package mechanism will pull the newest version of the `Amazon.CDK.AWS.Lambda` with dependencies on the newest version of the `cdk`. You may get errors that you have lower version. Run `dotnet list package` to check what version of packages were installed during `cdk init` command. Run command like `dotnet add package Amazon.CDK --version 1.91.0` to upgrade them.
+{{% /notice %}}
+
+
 ## A few words about copying & pasting in this workshop
 
 In this workshop, we highly recommended to type CDK code instead of copying &
