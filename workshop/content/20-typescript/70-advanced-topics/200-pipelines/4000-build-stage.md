@@ -34,7 +34,7 @@ import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, is: string, props?: cdk.StackProps) {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, is, props);
 
     // The rest of your code...
@@ -130,7 +130,7 @@ import { TableViewer } from 'cdk-dynamo-table-viewer';
 import * as path from 'path';
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, is: string, props?: cdk.StackProps) {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, is, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
