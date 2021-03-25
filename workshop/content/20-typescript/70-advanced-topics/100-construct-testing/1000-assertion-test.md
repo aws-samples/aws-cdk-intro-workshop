@@ -75,7 +75,7 @@ environment variable values were references to other constructs.
 this.handler = new lambda.Function(this, 'HitCounterHandler', {
   runtime: lambda.Runtime.NODEJS_10_X,
   handler: 'hitcounter.handler',
-  code: lambda.Code.asset('lambda'),
+  code: lambda.Code.from_asset('lambda'),
   environment: {
     DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
     HITS_TABLE_NAME: table.tableName
