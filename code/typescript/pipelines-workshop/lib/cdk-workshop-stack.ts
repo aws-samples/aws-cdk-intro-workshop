@@ -8,9 +8,9 @@ import { TableViewer } from 'cdk-dynamo-table-viewer';
 export class CdkWorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
   public readonly hcEndpoint: cdk.CfnOutput;
-  
+
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, is, props);
+    super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_10_X,
