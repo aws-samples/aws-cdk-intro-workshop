@@ -104,8 +104,12 @@ test('Lambda Has Environment Variables', () => {
   expectCDK(stack).to(haveResource("AWS::Lambda::Function", {
     Environment: {
       Variables: {
-        DOWNSTREAM_FUNCTION_NAME: "TestFunction",
-        HITS_TABLE_NAME: "MyTestConstructHits"
+        DOWNSTREAM_FUNCTION_NAME: {
+          Ref: "TestFunctionXXXXX",
+        },
+        HITS_TABLE_NAME: {
+          Ref: "MyTestConstructHitsXXXXX",
+        }
       }
     }
   }));
