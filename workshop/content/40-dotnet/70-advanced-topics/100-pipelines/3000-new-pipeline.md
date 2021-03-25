@@ -61,10 +61,10 @@ namespace CdkWorkshop
 
                     InstallCommands = new [] 
                     {
-                        "npm install -g aws-cdk", 
-                        "sudo apt-get install -y dotnet-sdk-3.1"
+                        "npm install -g aws-cdk"
                     },
-                    BuildCommands = new [] { "dotnet build" } // Language-specific build cmd
+                    BuildCommands = new [] { "dotnet build src" }, // Language-specific build cmd
+                    SynthCommand = "cdk synth"
                 })
             });
         }
@@ -79,14 +79,14 @@ The above code does several things:
 * `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly](https://docs.aws.amazon.com/cdk/latest/guide/apps.html#apps_cloud_assembly) respectively
 * `new CdkPipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
     * `CodeCommitSourceAction(...)`: The `sourceAction` of the pipeline will check the designated repository for source code and generate an artifact.
-    * `SimpleSynthAction.StandardNpmSynth`: The `SynthAction` of the pipeline will take the source artifact generated in by the `SourceAction` and build the application based on the `BuildCommand`. This is always followed by `npx cdk synth`
+    * `SimpleSynthAction.StandardNpmSynth`: The `SynthAction` of the pipeline will take the source artifact generated in by the `SourceAction` and build the application based on the `BuildCommand`. This is always followed by `cdk synth`
 
 ## Deploy Pipeline and See Result
 All thats left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
 
 ```
 git commit -am "MESSAGE" && git push
-npx cdk deploy
+cdk deploy
 ```
 
 CdkPipelines auto-update for each commit in a source repo, so this is is the *last time* we will need to execute this command!
