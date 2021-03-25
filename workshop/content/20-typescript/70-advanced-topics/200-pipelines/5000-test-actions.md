@@ -20,12 +20,12 @@ export class CdkWorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
   public readonly hcEndpoint: cdk.CfnOutput;
   
-  constructor(scope: cdk.Construct, is: string, props?: cdk.StackProps) {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, is, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_10_X,
-      code: lambda.Code.asset(path.resolve(__dirname, '../lambda')),
+      code: lambda.Code.from_asset(path.resolve(__dirname, '../lambda')),
       handler: 'hello.handler',
     });
 

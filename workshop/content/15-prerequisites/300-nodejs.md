@@ -4,7 +4,8 @@ chapter = false
 weight = 300
 +++
 
-The AWS CDK uses Node.js (>= 10.3.0).
+The AWS CDK uses Node.js (>= 10.13.0, except for versions 13.0.0 - 13.6.0).
+A version in active long-term support (14.x at this writing) is recommended.
 
 * To install Node.js visit the [node.js](https://nodejs.org) website.
 
@@ -17,7 +18,7 @@ The AWS CDK uses Node.js (>= 10.3.0).
     node --version
     ```
 
-    Output should be >= 10.3.0:
+    Output should be >= 10.13.0:
 
     ```
     v10.3.0
