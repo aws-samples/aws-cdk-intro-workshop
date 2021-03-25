@@ -35,7 +35,7 @@ import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, is, props);
+    super(scope, id, props);
 
     // The rest of your code...
 {{</highlight>}}
