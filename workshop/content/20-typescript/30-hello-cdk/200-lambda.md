@@ -30,6 +30,8 @@ the user.
 
 {{% notice info %}} This lambda is provided in Javascript. For more information on writing lambda functions in your language of choice, please refer to the AWS Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) {{% /notice %}}
 
+Also, if you are going to actively use git, consider adding `!lambda/*.js` in `.gitignore` file.
+
 ## Install the AWS Lambda construct library
 
 The AWS CDK is shipped with an extensive library of constructs called the __AWS
