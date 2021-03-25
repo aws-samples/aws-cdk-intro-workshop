@@ -67,7 +67,7 @@ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 Again?
 
 ```
-HTTP/1.1 502 Bad Gateway
+HTTP/2 502 Bad Gateway
 ...
 
 {"message": "Internal server error"}
@@ -208,7 +208,7 @@ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 Output should look like this:
 
 ```
-HTTP/1.1 200 OK
+HTTP/2 200 OK
 ...
 
 Hello, CDK! You've hit /

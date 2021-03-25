@@ -18,13 +18,13 @@ information but we are calling it out here because it is important.  To
 activate your virtualenv on a Linux or MacOs platform:
 
 ```
-source .env/bin/activate
+source .venv/bin/activate
 ```
 
 One a Windows platform, you would use this:
 
 ```
-.env\Scripts\activate.bat
+.venv\Scripts\activate.bat
 ```
 
 Now that the virtual environment is activated, you can safely install the

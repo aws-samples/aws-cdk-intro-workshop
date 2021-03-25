@@ -136,7 +136,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 ## Grant invoke permissions
 
-Add the highlighted lines to `src/CdkWorkshop/HitCounter.cs`:
+Add the highlighted lines to `src/CdkWorkshop/HitCounter.java`:
 
 {{<highlight java "hl_lines=43-44">}}
 package com.myorg;

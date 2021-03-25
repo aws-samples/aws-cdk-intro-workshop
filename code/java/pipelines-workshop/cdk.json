@@ -1,0 +1,6 @@
+{
+  "app": "mvn -e -q exec:java",
+  "context": {
+    "@aws-cdk/core:newStyleStackSynthesis": "true"
+  }
+}

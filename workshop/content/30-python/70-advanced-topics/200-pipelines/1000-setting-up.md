@@ -1,0 +1,72 @@
++++
+title = "Getting Started with Pipelines"
+weight = 110
++++
+
+> Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/python/main-workshop) that represents the last state of the project after adding the tests.
+
+## Create Pipeline Stack
+The first step is to create the stack that will contain our pipeline.
+Since this is separate from our actual "production" application, we want this to be entirely self-contained.
+
+Create a new file under `cdk-workshop` called `pipeline_stack.py`. Add the following to that file.
+
+{{<highlight python>}}
+from aws_cdk import (
+    core
+)
+from pipeline_stage import WorkshopPipelineStage
+
+class WorkshopPipelineStack(core.Stack):
+
+    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
+
+        # Pipeline code will go here
+{{</highlight>}}
+
+Look familiar? At this point, the pipeline is like any other CDK stack.
+
+## Update CDK Deploy Entrypoint
+Next, since the purpose of our pipeline is to deploy our application stack, we no longer want the main CDK application to deploy our original app. Instead, we can change the entry point to deploy our pipeline, which will in turn deploy the application.
+
+To do this, edit the code in `app.py` as follows:
+
+{{<highlight python "hl_lines=4 7">}}
+#!/usr/bin/env python3
+
+from aws_cdk import core
+from cdk-workshop.pipeline_stack import WorkshopPipelineStack
+
+app = core.App()
+WorkshopPipelineStack(app, "WorkshopPipelineStack")
+
+app.synth()
+{{</highlight>}}
+
+## Enable "New-Style" Synthesis
+The construct `@aws-cdk/pipelines` uses new core CDK framework features called "new style stack synthesis". In order to deploy our pipeline, we must enable this feature in our CDK configuration.
+
+Edit the file `cdk.json` as follows:
+
+{{<highlight json "hl_lines=3-5">}}
+{
+    "app": "python3 app.py",
+    "context": {
+        "@aws-cdk/core:newStyleStackSynthesis": true
+    }
+}
+{{</highlight>}}
+
+This instructs the CDK to use those new features any time it synthesizes a stack (`cdk synth`).
+
+## Special Bootstrap
+There's one last step before we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
+
+```
+npx cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+```
+
+And now we're ready!
+
+# Lets build a pipeline!
