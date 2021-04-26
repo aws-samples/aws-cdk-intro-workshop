@@ -6,5 +6,4 @@ workshop/public/**
 .DS_Store
 obj/
 cdk.out/
-bin/
 *~
