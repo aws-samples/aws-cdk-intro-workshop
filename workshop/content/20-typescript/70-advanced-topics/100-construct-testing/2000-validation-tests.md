@@ -71,7 +71,7 @@ test('read capacity can be configured', () => {
       downstream:  new lambda.Function(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_10_X,
         handler: 'lambda.handler',
-        code: lambda.Code.inline('test')
+        code: lambda.Code.fromInline('test')
       }),
       readCapacity: 3
     });
