@@ -18,7 +18,7 @@ Whenever possible, add reference to the minimal reproduction of the issue, as
 this will greatly help with identifying the root cause of the problem, and
 ensuring a candidate fix is working.
 
-If your minimal reprodiction is large, you may provide references to a [gist][1]
+If your minimal reproduction is large, you may provide references to a [gist][1]
 or any other publicly viewable location.
 -->
 
