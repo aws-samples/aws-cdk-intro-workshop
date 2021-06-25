@@ -228,9 +228,10 @@ requirement that our DynamoDB table be encrypted.
 
 First we'll update the test to reflect this new requirement.
 
-{{<highlight ts "hl_lines=17-19">}}
+{{<highlight ts "hl_lines=18-20">}}
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import cdk = require('@aws-cdk/core');
+import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created With Encryption', () => {
