@@ -22,7 +22,7 @@ export interface HitCounterProps {
 export class HitCounter extends cdk.Construct {
 
   /** allows accessing the counter function */
-  public readonly handler: lambda.Function;
+  public readonly handler: lambda.IFunction;
 
   constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
     super(scope, id);
