@@ -69,7 +69,7 @@ test('read capacity can be configured', () => {
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
       downstream:  new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_10_X,
+        runtime: lambda.Runtime.NODEJS_14_X,
         handler: 'lambda.handler',
         code: lambda.Code.inline('test')
       }),

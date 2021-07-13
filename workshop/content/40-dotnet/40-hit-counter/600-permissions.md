@@ -40,7 +40,7 @@ namespace CdkWorkshop
 
             Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X,
+                Runtime = Runtime.NODEJS_14_X,
                 Handler = "hitcounter.handler",
                 Code = Code.FromAsset("lambda"),
                 Environment = new Dictionary<string, string>
@@ -155,7 +155,7 @@ namespace CdkWorkshop
 
             Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X,
+                Runtime = Runtime.NODEJS_14_X,
                 Handler = "hitcounter.handler",
                 Code = Code.FromAsset("lambda"),
                 Environment = new Dictionary<string, string>

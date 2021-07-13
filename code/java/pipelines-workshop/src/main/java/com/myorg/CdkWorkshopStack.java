@@ -26,7 +26,7 @@ public class CdkWorkshopStack extends Stack {
 
         // Defines a new lambda resource
         final Function hello = Function.Builder.create(this, "HelloHandler")
-            .runtime(Runtime.NODEJS_10_X)    // execution environment
+            .runtime(Runtime.NODEJS_14_X)    // execution environment
             .code(Code.fromAsset("lambda"))  // code loaded from the "lambda" directory
             .handler("hello.handler")        // file is "hello", function is "handler"
             .build();
