@@ -35,7 +35,7 @@ import * as cdk from '@aws-cdk/core';
 import { WorkshopPipelineStack } from '../lib/pipeline-stack';
 
 const app = new cdk.App();
-new WorkshopPipelineStack(app, 'CdkWorkshopPipelineStack');
+new WorkshopPipelineStack(app, 'CdkWorkshopPipelineStack', { env: { account: 'FILL_IN_THE_ACCOUNT_YOU_WANT_TO_DEPLOY_TO', region: 'FILL_IN_THE_REGION_YOU_WANT_TO_DEPLOY_TO' }, });
 {{</highlight>}}
 
 ## Enable "New-Style" Synthesis
