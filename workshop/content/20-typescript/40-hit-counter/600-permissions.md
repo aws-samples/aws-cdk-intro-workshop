@@ -16,7 +16,7 @@ import * as dynamodb from '@aws-cdk/aws-dynamodb';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
-  downstream: lambda.Function;
+  downstream: lambda.IFunction;
 }
 
 export class HitCounter extends cdk.Construct {
@@ -121,7 +121,7 @@ import * as dynamodb from '@aws-cdk/aws-dynamodb';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
-  downstream: lambda.Function;
+  downstream: lambda.IFunction;
 }
 
 export class HitCounter extends cdk.Construct {
