@@ -2,7 +2,7 @@
 
 from aws_cdk import core
 
-from cdk-workshop.cdk-workshop_stack import CdkWorkshopStack
+from cdk_workshop.cdk_workshop_stack import CdkWorkshopStack
 
 
 app = core.App()
