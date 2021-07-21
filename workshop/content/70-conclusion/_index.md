@@ -34,9 +34,9 @@ Here are a few things you can do from here:
 * Create a simple app in the [Hello World Tutorial](https://docs.aws.amazon.com/CDK/latest/userguide/hello_world_tutorial.html)
   with the CDK in one of the supported languages: Java, .NET, JavaScript and TypeScript
 * Dive deeper into [CDK
-  Concepts](https://docs.aws.amazon.com/CDK/latest/userguide/concepts.html):
+  Concepts](https://docs.aws.amazon.com/cdk/latest/guide/core_concepts.html):
   [Constructs](https://docs.aws.amazon.com/CDK/latest/userguide/constructs.html),
-  [Apps and Stacks](https://docs.aws.amazon.com/CDK/latest/userguide/apps_and_stacks.html),
+  [Apps](https://docs.aws.amazon.com/CDK/latest/userguide/apps.html) and [Stacks](https://docs.aws.amazon.com/CDK/latest/userguide/stacks.html),
   [Logical IDs](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids),
   [Environments](https://docs.aws.amazon.com/cdk/latest/guide/apps_and_stacks.html#environments),
   [Contexts](https://docs.aws.amazon.com/cdk/latest/guide/context.html),
