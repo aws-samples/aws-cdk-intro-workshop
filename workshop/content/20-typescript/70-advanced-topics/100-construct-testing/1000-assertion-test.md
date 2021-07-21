@@ -27,7 +27,7 @@ test('DynamoDB Table Created', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'lambda.handler',
       code: lambda.Code.fromInline('test')
     })
@@ -73,7 +73,7 @@ environment variable values were references to other constructs.
 
 {{<highlight ts "hl_lines=6-7">}}
 this.handler = new lambda.Function(this, 'HitCounterHandler', {
-  runtime: lambda.Runtime.NODEJS_10_X,
+  runtime: lambda.Runtime.NODEJS_14_X,
   handler: 'hitcounter.handler',
   code: lambda.Code.from_asset('lambda'),
   environment: {
@@ -95,7 +95,7 @@ test('Lambda Has Environment Variables', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'lambda.handler',
       code: lambda.Code.fromInline('test')
     })
@@ -181,7 +181,7 @@ test('Lambda Has Environment Variables', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'lambda.handler',
       code: lambda.Code.fromInline('test')
     })
@@ -228,9 +228,10 @@ requirement that our DynamoDB table be encrypted.
 
 First we'll update the test to reflect this new requirement.
 
-{{<highlight ts "hl_lines=17-19">}}
+{{<highlight ts "hl_lines=18-20">}}
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import cdk = require('@aws-cdk/core');
+import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created With Encryption', () => {
@@ -238,7 +239,7 @@ test('DynamoDB Table Created With Encryption', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'lambda.handler',
       code: lambda.Code.fromInline('test')
     })

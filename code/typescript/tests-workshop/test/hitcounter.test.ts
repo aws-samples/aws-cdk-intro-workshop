@@ -7,7 +7,7 @@ test('DynamoDB Table Created', () => {
     const stack = new cdk.Stack();
 
     const tableCreateLambda = new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_10_X,
+        runtime: lambda.Runtime.NODEJS_14_X,
         handler: 'lambda.handler',
         code: lambda.Code.inline('test')
     });
@@ -29,7 +29,7 @@ test('Lambda Has Environment Variables', () => {
 
     new HitCounter(stack, 'MyTestConstruct', {
         downstream: new lambda.Function(stack, 'TestFunction', {
-            runtime: lambda.Runtime.NODEJS_10_X,
+            runtime: lambda.Runtime.NODEJS_14_X,
             handler: 'lambda.handler',
             code: lambda.Code.inline('test')
         })
@@ -55,7 +55,7 @@ test('Read Capacity can be configured', () => {
     expect(() => {
         new HitCounter(stack, 'MyTestConstruct', {
             downstream: new lambda.Function(stack, 'TestFunction', {
-                runtime: lambda.Runtime.NODEJS_10_X,
+                runtime: lambda.Runtime.NODEJS_14_X,
                 handler: 'lambda.handler',
                 code: lambda.Code.inline('test')
             }),
