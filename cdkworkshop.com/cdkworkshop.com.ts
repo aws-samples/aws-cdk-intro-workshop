@@ -173,5 +173,5 @@ export class TheCdkWorkshopStage extends cdk.Stage {
 }
 
 const app = new cdk.App();
-new PipelineStack(app, 'WorkshopPipelineStack', { env: ENV });
+new PipelineStack(app, 'WorkshopPipelineStack', { env: ENV, terminationProtection: true });
 app.synth();
