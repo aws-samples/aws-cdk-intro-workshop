@@ -26,7 +26,7 @@ namespace CdkWorkshop
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X,
+                Runtime = Runtime.NODEJS_14_X,
                 Code = Code.FromAsset("lambda"),
                 Handler = "hello.handler"
             });
