@@ -37,7 +37,7 @@ namespace CdkWorkshop
             // Defines a new lambda resource
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X, // execution environment
+                Runtime = Runtime.NODEJS_14_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
                 Handler = "hello.handler" // file is "hello", function is "handler"
             });

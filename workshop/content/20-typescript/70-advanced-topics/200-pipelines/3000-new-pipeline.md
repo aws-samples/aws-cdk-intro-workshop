@@ -34,7 +34,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        new CdkPipeline(this, 'Pipeline', {
+        const pipeline = new CdkPipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
             cloudAssemblyArtifact,
 

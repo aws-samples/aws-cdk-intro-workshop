@@ -39,4 +39,4 @@ expect(stack).to(haveResource('AWS::CertificateManager::Certificate', {
 
 `ABSENT` is a magic value to assert that a particular key in an object is *not* set (or set to `undefined`).
 
-To see the rest of the documentation, please read the docs [here](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assert/README.md).
+To see the rest of the documentation, please read the docs [here](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assert-internal/README.md).
