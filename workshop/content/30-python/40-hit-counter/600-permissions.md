@@ -109,7 +109,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 ## Grant invoke permissions
 
-Add the highlighted lines to `hello/hitcounter.py`:
+Add the highlighted lines to `cdkworkshop/hitcounter.py`:
 
 {{<highlight python "hl_lines=33-34">}}
 from aws_cdk import (
