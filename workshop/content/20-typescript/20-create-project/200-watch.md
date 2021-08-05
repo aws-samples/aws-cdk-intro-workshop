@@ -46,6 +46,7 @@ your `.ts` files to `.js`.
 
 ----
 
-{{% notice info %}} Keep this terminal window open with `watch` running for the duration of the workshop.
+{{% notice info %}} Keep this terminal window open with `watch` running for the
+duration of the workshop. {{% /notice %}}
 
 ----
