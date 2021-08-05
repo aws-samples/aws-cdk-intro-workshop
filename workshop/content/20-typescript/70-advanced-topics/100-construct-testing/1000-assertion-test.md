@@ -12,7 +12,7 @@ weight = 200
 Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
 validates that the table is getting created.
 
-If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the 
+If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the
 same level as `bin` and `lib` and then create a file called `hitcounter.test.ts` with the following code.
 
 ```typescript
@@ -28,8 +28,8 @@ test('DynamoDB Table Created', () => {
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.fromInline('test')
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
@@ -69,13 +69,13 @@ This time in addition to testing that the Lambda function is created, we also wa
 it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
 Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs. 
+environment variable values were references to other constructs.
 
 {{<highlight ts "hl_lines=6-7">}}
 this.handler = new lambda.Function(this, 'HitCounterHandler', {
   runtime: lambda.Runtime.NODEJS_14_X,
   handler: 'hitcounter.handler',
-  code: lambda.Code.from_asset('lambda'),
+  code: lambda.Code.fromAsset('lambda'),
   environment: {
     DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
     HITS_TABLE_NAME: table.tableName
@@ -83,8 +83,8 @@ this.handler = new lambda.Function(this, 'HitCounterHandler', {
 });
 {{</highlight>}}
 
-At this point we don't really know what the value of the `functionName` or `tableName` will be since the 
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a 
+At this point we don't really know what the value of the `functionName` or `tableName` will be since the
+CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
 dummy value for now. Once we run the test it will fail and show us the expected value.
 
 Create a new test in `hitcounter.test.ts` with the below code:
@@ -96,8 +96,8 @@ test('Lambda Has Environment Variables', () => {
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.fromInline('test')
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
@@ -182,8 +182,8 @@ test('Lambda Has Environment Variables', () => {
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.fromInline('test')
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
@@ -240,8 +240,8 @@ test('DynamoDB Table Created With Encryption', () => {
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.fromInline('test')
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
