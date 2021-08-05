@@ -62,7 +62,7 @@ from cdk_dynamo_table_viewer import TableViewer
 from hitcounter import HitCounter
 
 
-class CdkworkshopStack(core.Stack):
+class CdkWorkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -89,5 +89,5 @@ class CdkworkshopStack(core.Stack):
             self, 'ViewHitCounter',
             title='Hello Hits',
             table=hello_with_counter.table,
-        )  
+        )
 {{</highlight>}}
