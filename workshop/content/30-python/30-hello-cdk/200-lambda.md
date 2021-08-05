@@ -74,7 +74,7 @@ from aws_cdk import (
 )
 
 
-class CdkworkshopStack(core.Stack):
+class CdkWorkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -101,7 +101,7 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of both `CdkworkshopStack` and `lambda.Function`
+As you can see, the class constructors of both `CdkWorkshopStack` and `lambda.Function`
 (and many other classes in the CDK) have the signature `(scope, id,
 **kwargs)`. This is because all of these classes are __constructs__.
 Constructs are the basic building block of CDK apps. They represent abstract
