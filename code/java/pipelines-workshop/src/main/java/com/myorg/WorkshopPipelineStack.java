@@ -27,7 +27,7 @@ public class WorkshopPipelineStack extends Stack {
 
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        CodePipeline pipeline = CodePipeline.Builder.create(this, "Pipeline")
+       final CodePipeline pipeline = CodePipeline.Builder.create(this, "Pipeline")
                 .pipelineName("WorkshopPipeline")
                 .synth(CodeBuildStep.Builder.create("SynthStep")
                         .input(CodePipelineSource.codeCommit(repo, "master"))

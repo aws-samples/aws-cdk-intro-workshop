@@ -7,7 +7,7 @@ weight = 200
 
 Before you can use the table viewer in your application, you'll need to add the artifact to your `pom.xml` file:
 
-{{<highlight xml "hl_lines=27-32">}}
+{{<highlight xml "hl_lines=27-38">}}
 ...
     <dependencies>
         <!-- AWS Cloud Development Kit -->
@@ -38,7 +38,13 @@ Before you can use the table viewer in your application, you'll need to add the 
         <dependency>
             <groupId>com.github.eladb</groupId>
             <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>[3.0.6,4)</version>
+            <version>3.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId> software.amazon.jsii</groupId>
+                    <artifactId>jsii-runtime</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 ...

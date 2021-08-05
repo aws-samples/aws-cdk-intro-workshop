@@ -9,7 +9,7 @@ weight = 110
 The first step is to create the stack that will contain our pipeline.
 Since this is separate from our actual "production" application, we want this to be entirely self-contained.
 
-Create a new file under `src/main/java/com/myorg` called `PipelineStack.java`. Add the following to that file.
+Create a new file under `src/main/java/com/myorg` called `WorkshopPipelineStack.java`. Add the following to that file.
 
 {{<highlight java>}}
 package com.myorg;

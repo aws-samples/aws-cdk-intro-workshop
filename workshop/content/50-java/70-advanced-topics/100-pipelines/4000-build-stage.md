@@ -6,7 +6,7 @@ weight = 140
 ## Create Stage
 At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
 
-Create a new file in `CdkWorkshop` called `PipelineStage.cs` with the code below:
+Create a new file in `CdkWorkshop` called `WorkshopPipelineStage.java` with the code below:
 
 {{<highlight java>}}
 package com.myorg;
@@ -33,20 +33,20 @@ All this does is declare a new `Stage` (component of a pipeline), and in that st
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `PipelineStack.java`:
 
-{{<highlight java "hl_lines=36 57-58">}}
+{{<highlight java "hl_lines=43-44">}}
 package com.myorg;
+
+import java.util.List;
+import java.util.Map;
 
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
+import software.amazon.awscdk.pipelines.CodeBuildStep;
+import software.amazon.awscdk.pipelines.CodePipeline;
+import software.amazon.awscdk.pipelines.CodePipelineSource;
 
 import software.amazon.awscdk.services.codecommit.Repository;
-
-import software.amazon.awscdk.services.codepipeline.Artifact;
-import software.amazon.awscdk.pipelines.CdkPipeline;
-import software.amazon.awscdk.pipelines.SimpleSynthAction;
-
-import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
 
 public class WorkshopPipelineStack extends Stack {
     public WorkshopPipelineStack(final Construct parent, final String id) {
@@ -61,44 +61,30 @@ public class WorkshopPipelineStack extends Stack {
             .repositoryName("WorkshopRepo")
             .build();
 
-        // Defines the artifact representing the sourcecode
-        final Artifact sourceArtifact = new Artifact();
-        // Defines the artifact representing the cloud assembly 
-        // (cloudformation template + all other assets)
-        final Artifact cloudAssemblyArtifact = new Artifact();
-
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        final CdkPipeline pipeline = CdkPipeline.Builder.create(this, "Pipeline")
-            .pipelineName("WorkshopPipeline")
-            .cloudAssemblyArtifact(cloudAssemblyArtifact)
-            
-            // Generates the source artifact from the repo we created in the last step
-            .sourceAction(CodeCommitSourceAction.Builder.create()
-                .actionName("CodeCommit") // Any Git-based source control
-                .output(sourceArtifact) // Indicates where the artifact is stored
-                .repository(repo) // Designates the repo to draw code from
-                .build())
-            
-                // Builds our source code outlined above into a could assembly artifact
-            .synthAction(SimpleSynthAction.Builder.create()
-                .installCommands(List.of("npm install -g aws-cdk")) // Commands to run before build
-                .synthCommand("npx cdk synth") // Synth command (always same)
-                .sourceArtifact(sourceArtifact) // Where to get source code to build
-                .cloudAssemblyArtifact(cloudAssemblyArtifact) // Where to place built source
-                .buildCommands(List.of("mvn package")) // Language-specific build cmds
-                .build())
-            .build();
+        final CodePipeline pipeline = CodePipeline.Builder.create(this, "Pipeline")
+                .pipelineName("WorkshopPipeline")
+                .synth(CodeBuildStep.Builder.create("SynthStep")
+                        .input(CodePipelineSource.codeCommit(repo, "master"))
+                        .installCommands(List.of(
+                                "npm install -g aws-cdk"   // Commands to run before build
+                        ))
+                        .commands(List.of(
+                                "mvn package",            // Language-specific build commands
+                                "npx cdk synth"           // Synth command (always same)
+                        )).build())
+                .build();
 
         final WorkshopPipelineStage deploy = new WorkshopPipelineStage(this, "Deploy");
-        pipeline.addApplicationStage(deploy);
+        pipeline.addStage(deploy);
     }
 }
 {{</highlight>}}
 
 This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
 
-Then we add that stage to our pipeline (`pipepeline.addApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
+Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
 
 ## Commit/Deploy
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.

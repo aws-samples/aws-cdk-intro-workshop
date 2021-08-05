@@ -11,34 +11,36 @@ We will be using several new packages here, so first add the following to `pom.x
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codepipeline</artifactId>
-    <version>1.71.0</version>
+    <version>1.116.0</version>
 </dependency>
         <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codepipeline-actions</artifactId>
-    <version>1.71.0</version>
+    <version>1.116.0</version>
 </dependency>
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>cdk-pipelines</artifactId>
-    <version>1.71.0</version>
+    <version>1.116.0</version>
 </dependency>
 {{</highlight>}}
 
 Return to the file `PipelineStack.java` and edit as follows:
 
-{{<highlight java "hl_lines=9-11 13 28-55">}}
+{{<highlight java "hl_lines=9-11 30-44">}}
 package com.myorg;
+
+import java.util.List;
+import java.util.Map;
 
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
+import software.amazon.awscdk.pipelines.CodeBuildStep;
+import software.amazon.awscdk.pipelines.CodePipeline;
+import software.amazon.awscdk.pipelines.CodePipelineSource;
 
 import software.amazon.awscdk.services.codecommit.Repository;
-
-import software.amazon.awscdk.services.codepipeline.Artifact;
-import software.amazon.awscdk.pipelines.CdkPipeline;
-import software.amazon.awscdk.pipelines.SimpleSynthAction;
 
 import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
 
@@ -55,34 +57,20 @@ public class WorkshopPipelineStack extends Stack {
             .repositoryName("WorkshopRepo")
             .build();
 
-        // Defines the artifact representing the sourcecode
-        final Artifact sourceArtifact = new Artifact();
-        // Defines the artifact representing the cloud assembly 
-        // (cloudformation template + all other assets)
-        final Artifact cloudAssemblyArtifact = new Artifact();
-
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        final CdkPipeline pipeline = CdkPipeline.Builder.create(this, "Pipeline")
-            .pipelineName("WorkshopPipeline")
-            .cloudAssemblyArtifact(cloudAssemblyArtifact)
-            
-            // Generates the source artifact from the repo we created in the last step
-            .sourceAction(CodeCommitSourceAction.Builder.create()
-                .actionName("CodeCommit") // Any Git-based source control
-                .output(sourceArtifact) // Indicates where the artifact is stored
-                .repository(repo) // Designates the repo to draw code from
-                .build())
-            
-                // Builds our source code outlined above into a could assembly artifact
-            .synthAction(SimpleSynthAction.Builder.create()
-                .installCommands(List.of("npm install -g aws-cdk")) // Commands to run before build
-                .synthCommand("npx cdk synth") // Synth command (always same)
-                .sourceArtifact(sourceArtifact) // Where to get source code to build
-                .cloudAssemblyArtifact(cloudAssemblyArtifact) // Where to place built source
-                .buildCommands(List.of("mvn package")) // Language-specific build cmds
-                .build())
-            .build();
+        final CodePipeline pipeline = CodePipeline.Builder.create(this, "Pipeline")
+                .pipelineName("WorkshopPipeline")
+                .synth(CodeBuildStep.Builder.create("SynthStep")
+                        .input(CodePipelineSource.codeCommit(repo, "master"))
+                        .installCommands(List.of(
+                                "npm install -g aws-cdk"   // Commands to run before build
+                        ))
+                        .commands(List.of(
+                                "mvn package",            // Language-specific build commands
+                                "npx cdk synth"           // Synth command (always same)
+                        )).build())
+                .build();
     }
 }
 {{</highlight>}}
@@ -91,9 +79,9 @@ public class WorkshopPipelineStack extends Stack {
 The above code does several things:
 
 * `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly](https://docs.aws.amazon.com/cdk/latest/guide/apps.html#apps_cloud_assembly) respectively
-* `CdkPipeline.Builder(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `CodeCommitSourceAction.Builder(...)`: The `sourceAction` of the pipeline will check the designated repository for source code and generate an artifact.
-    * `SimpleSynthAction.Builder(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `sourceAction` and build the application based on the `buildCommands`. This is always followed by `npx cdk synth`
+* `CodePipeline.Builder.create(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
+    * `synth(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `input` and build the application based on the `commands`. This is always followed by `npx cdk synth`. 
+  The `input` of the synth step will check the designated repository for source code and generate an artifact. 
 
 ## Deploy Pipeline and See Result
 All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
