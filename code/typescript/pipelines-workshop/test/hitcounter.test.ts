@@ -9,7 +9,7 @@ test('DynamoDB Table Created', () => {
     const tableCreateLambda = new lambda.Function(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_14_X,
         handler: 'lambda.handler',
-        code: lambda.Code.inline('test')
+        code: lambda.Code.fromInline('test')
     });
 
     new HitCounter(stack, 'MyTestConstruct', {
@@ -31,7 +31,7 @@ test('Lambda Has Environment Variables', () => {
         downstream: new lambda.Function(stack, 'TestFunction', {
             runtime: lambda.Runtime.NODEJS_14_X,
             handler: 'lambda.handler',
-            code: lambda.Code.inline('test')
+            code: lambda.Code.fromInline('test')
         })
     });
 
@@ -57,9 +57,8 @@ test('Read Capacity can be configured', () => {
             downstream: new lambda.Function(stack, 'TestFunction', {
                 runtime: lambda.Runtime.NODEJS_14_X,
                 handler: 'lambda.handler',
-                code: lambda.Code.inline('test')
+                code: lambda.Code.fromInline('test')
             }),
-            readCapacity: 3
         });
     }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
 });

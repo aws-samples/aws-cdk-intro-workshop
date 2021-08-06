@@ -12,22 +12,25 @@
         "cdk": "cdk"
     },
     "devDependencies": {
+        "@aws-cdk/assert": "1.117.0",
+        "@aws-cdk/pipelines": "^1.117.0",
         "@types/jest": "^26.0.10",
         "@types/node": "^10.17.28",
-        "typescript": "^3.9.7",
-        "@aws-cdk/assert": "1.60.0",
-        "aws-cdk": "^1.60.0"
+        "aws-cdk": "^1.117.0",
+        "typescript": "^3.9.7"
     },
     "dependencies": {
-        "@aws-cdk/aws-apigateway": "^1.60.0",
-        "@aws-cdk/aws-codecommit": "^1.60.0",
-        "@aws-cdk/aws-dynamodb": "^1.60.0",
-        "@aws-cdk/aws-lambda": "^1.60.0",
-        "@aws-cdk/aws-sns": "^1.60.0",
-        "@aws-cdk/aws-sqs": "^1.60.0",
-        "@aws-cdk/core": "^1.60.0",
-        "@aws-cdk/cx-api": "^1.60.0",
-        "@aws-cdk/assert": "1.60.0",
+        "@aws-cdk/assert": "1.117.0",
+        "@aws-cdk/aws-apigateway": "^1.117.0",
+        "@aws-cdk/aws-codecommit": "^1.117.0",
+        "@aws-cdk/aws-codepipeline": "^1.117.0",
+        "@aws-cdk/aws-codepipeline-actions": "^1.117.0",
+        "@aws-cdk/aws-dynamodb": "^1.117.0",
+        "@aws-cdk/aws-lambda": "^1.117.0",
+        "@aws-cdk/aws-sns": "^1.117.0",
+        "@aws-cdk/aws-sqs": "^1.117.0",
+        "@aws-cdk/core": "^1.117.0",
+        "@aws-cdk/cx-api": "^1.117.0",
         "cdk-dynamo-table-viewer": "^3.1.2"
     }
 }
