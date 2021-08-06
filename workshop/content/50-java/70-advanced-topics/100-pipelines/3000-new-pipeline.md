@@ -11,17 +11,17 @@ We will be using several new packages here, so first add the following to `pom.x
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codepipeline</artifactId>
-    <version>1.116.0</version>
+    <version>1.117.0</version>
 </dependency>
         <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codepipeline-actions</artifactId>
-    <version>1.116.0</version>
+    <version>1.117.0</version>
 </dependency>
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>cdk-pipelines</artifactId>
-    <version>1.116.0</version>
+    <version>1.117.0</version>
 </dependency>
 {{</highlight>}}
 
@@ -78,7 +78,6 @@ public class WorkshopPipelineStack extends Stack {
 ### Component Breakdown
 The above code does several things:
 
-* `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly](https://docs.aws.amazon.com/cdk/latest/guide/apps.html#apps_cloud_assembly) respectively
 * `CodePipeline.Builder.create(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
     * `synth(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `input` and build the application based on the `commands`. This is always followed by `npx cdk synth`. 
   The `input` of the synth step will check the designated repository for source code and generate an artifact. 
