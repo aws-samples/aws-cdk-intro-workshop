@@ -59,6 +59,7 @@ test('Read Capacity can be configured', () => {
                 handler: 'lambda.handler',
                 code: lambda.Code.fromInline('test')
             }),
+            readCapacity: 3
         });
     }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
 });
