@@ -45,13 +45,11 @@ This stack's `scope` parameter was defined as being a `cdk.App`, which means tha
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
 
-{{<highlight ts "hl_lines=5 25 45-46">}}
+{{<highlight ts "hl_lines=3 17 33-34">}}
 import * as cdk from '@aws-cdk/core';
-import * as codepipeline from '@aws-cdk/aws-codepipeline';
-import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 import * as codecommit from '@aws-cdk/aws-codecommit';
-import { WorkshopPipelineStage } from './pipeline-stage';
-import { SimpleSynthAction, CdkPipeline } from "@aws-cdk/pipelines";
+import {WorkshopPipelineStage} from './pipeline-stage';
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -62,43 +60,33 @@ export class WorkshopPipelineStack extends cdk.Stack {
             repositoryName: "WorkshopRepo"
         });
 
-        // Defines the artifact representing the sourcecode
-        const sourceArtifact = new codepipeline.Artifact();
-        // Defines the artifact representing the cloud assembly
-        // (cloudformation template + all other assets)
-        const cloudAssemblyArtifact = new codepipeline.Artifact();
-
-        // The basic pipeline declaration. This sets the initial structure
+       // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        const pipeline = new CdkPipeline(this, 'Pipeline', {
+       const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
-            cloudAssemblyArtifact,
-
-            // Generates the source artifact from the repo we created in the last step
-            sourceAction: new codepipeline_actions.CodeCommitSourceAction({
-                actionName: 'CodeCommit', // Any Git-based source control
-                output: sourceArtifact, // Indicates where the artifact is stored
-                repository: repo // Designates the repo to draw code from
-            }),
-
-            // Builds our source code outlined above into a could assembly artifact
-            synthAction: SimpleSynthAction.standardNpmSynth({
-                sourceArtifact, // Where to get source code to build
-                cloudAssemblyArtifact, // Where to place built source
-
-                buildCommand: 'npm run build' // Language-specific build cmd
-            })
+            synth: new CodeBuildStep('SynthStep', {
+                    input: CodePipelineSource.codeCommit(repo, 'master'),
+                    installCommands: [
+                        'npm install -g aws-cdk'
+                    ],
+                    commands: [
+                        'npm ci',
+                        'npm run build',
+                        'npx cdk synth'
+                    ]
+                }
+            )
         });
 
         const deploy = new WorkshopPipelineStage(this, 'Deploy');
-        pipeline.addApplicationStage(deploy);
+        const deployStage = pipeline.addStage(deploy);
     }
 }
 {{</highlight>}}
 
 This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
 
-Then we add that stage to our pipeline (`pipepeline.addApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
+Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
 
 ## Commit/Deploy
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.

@@ -12,6 +12,9 @@ export class WorkshopPipelineStack extends cdk.Stack {
             repositoryName: "WorkshopRepo"
         });
 
+        // The basic pipeline declaration. This sets the initial structure
+        // of our pipeline
+
         const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
             synth: new CodeBuildStep('SynthStep', {
@@ -41,7 +44,6 @@ export class WorkshopPipelineStack extends cdk.Stack {
                     'curl -Ssf $ENDPOINT_URL'
                 ]
             }),
-
             new CodeBuildStep('TestAPIGatewayEndpoint', {
                 projectName: 'TestAPIGatewayEndpoint',
                 envFromCfnOutputs: {
