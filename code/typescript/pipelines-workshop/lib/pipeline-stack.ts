@@ -1,9 +1,7 @@
 import * as cdk from '@aws-cdk/core';
-import * as codepipeline from '@aws-cdk/aws-codepipeline';
-import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 import * as codecommit from '@aws-cdk/aws-codecommit';
-import { WorkshopPipelineStage } from './pipeline-stage';
-import { ShellScriptAction, SimpleSynthAction, CdkPipeline } from "@aws-cdk/pipelines";
+import {WorkshopPipelineStage} from './pipeline-stage';
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -14,55 +12,47 @@ export class WorkshopPipelineStack extends cdk.Stack {
             repositoryName: "WorkshopRepo"
         });
 
-        // Defines the artifact representing the sourcecode
-        const sourceArtifact = new codepipeline.Artifact();
-        // Defines the artifact representing the cloud assembly
-        // (cloudformation template + all other assets)
-        const cloudAssemblyArtifact = new codepipeline.Artifact();
-
-        // The basic pipeline declaration. This sets the initial structure
-        // of our pipeline
-        const pipeline = new CdkPipeline(this, 'Pipeline', {
+        const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
-            cloudAssemblyArtifact,
-
-            // Generates the source artifact from the repo we created in the last step
-            sourceAction: new codepipeline_actions.CodeCommitSourceAction({
-                actionName: 'CodeCommit', // Any Git-based source control
-                output: sourceArtifact, // Indicates where the artifact is stored
-                repository: repo // Designates the repo to draw code from
-            }),
-
-            // Builds our source code outlined above into a could assembly artifact
-            synthAction: SimpleSynthAction.standardNpmSynth({
-                sourceArtifact, // Where to get source code to build
-                cloudAssemblyArtifact, // Where to place built source
-
-                buildCommand: 'npm run build' // Language-specific build cmd
-            })
-        })
+            synth: new CodeBuildStep('SynthStep', {
+                    input: CodePipelineSource.codeCommit(repo, 'master'),
+                    installCommands: [
+                        'npm install -g aws-cdk'
+                    ],
+                    commands: [
+                        'npm ci',
+                        'npm run build',
+                        'npx cdk synth'
+                    ]
+                }
+            )
+        });
 
         const deploy = new WorkshopPipelineStage(this, 'Deploy');
-        const deployStage = pipeline.addApplicationStage(deploy);
-        deployStage.addActions(new ShellScriptAction({
-            actionName: 'TestViewerEndpoint',
-            useOutputs: {
-                ENDPOINT_URL: pipeline.stackOutput(deploy.hcViewerUrl)
-            },
-            commands: [
-                'curl -Ssf $ENDPOINT_URL'
-            ]
-        }));
-        deployStage.addActions(new ShellScriptAction({
-            actionName: 'TestAPIGatewayEndpoint',
-            useOutputs: {
-                ENDPOINT_URL: pipeline.stackOutput(deploy.hcEndpoint)
-            },
-            commands: [
-                'curl -Ssf $ENDPOINT_URL/',
-                'curl -Ssf $ENDPOINT_URL/hello',
-                'curl -Ssf $ENDPOINT_URL/test'
-            ]
-        }));
+        const deployStage = pipeline.addStage(deploy);
+
+        deployStage.addPost(
+            new CodeBuildStep('TestViewerEndpoint', {
+                projectName: 'TestViewerEndpoint',
+                envFromCfnOutputs: {
+                    ENDPOINT_URL: deploy.hcViewerUrl
+                },
+                commands: [
+                    'curl -Ssf $ENDPOINT_URL'
+                ]
+            }),
+
+            new CodeBuildStep('TestAPIGatewayEndpoint', {
+                projectName: 'TestAPIGatewayEndpoint',
+                envFromCfnOutputs: {
+                    ENDPOINT_URL: deploy.hcEndpoint
+                },
+                commands: [
+                    'curl -Ssf $ENDPOINT_URL',
+                    'curl -Ssf $ENDPOINT_URL',
+                    'curl -Ssf $ENDPOINT_URL'
+                ]
+            })
+        )
     }
 }
