@@ -11,8 +11,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Hugo dependency
-        run: sudo apt-get install hugo
+        run: apt-get install hugo
+
+      - name: Install NPM dependencies
+        working-directory: ./cdkworkshop.com
+        run: npm install --frozen-lockfile
 
       - name: Build site
-        working-directory: ./workshop
-        run: hugo server -D
+        working-directory: ./cdkworkshop.com
+        run: npm run build

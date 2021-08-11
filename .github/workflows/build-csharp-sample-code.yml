@@ -1,0 +1,37 @@
+name: Synth CSharp sample code
+
+on:
+  pull_request:
+    paths:
+      - code/csharp
+
+jobs:
+  main-workshop:
+    name: CDK synth main-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      - name: CDK synth
+        working-directory: code/csharp/main-workshop
+        run: npx cdk synth
+
+  pipelines-workshop:
+    name: CDK synth pipelines-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      - name: CDK synth
+        working-directory: code/csharp/pipelines-workshop
+        run: npx cdk synth

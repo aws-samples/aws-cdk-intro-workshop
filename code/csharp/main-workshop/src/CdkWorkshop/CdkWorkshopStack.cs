@@ -30,7 +30,7 @@ namespace CdkWorkshop
             new TableViewer(this, "ViewerHitCount", new TableViewerProps
             {
                 Title = "Hello Hits",
-                Table = helloWithCounter.Table
+                Table = helloWithCounter.MyTable
             });
         }
     }

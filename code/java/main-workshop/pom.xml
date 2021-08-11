@@ -34,31 +34,31 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>lambda</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
 
         <!-- Additional Construct Libraries -->
         <dependency>
             <groupId>com.github.eladb</groupId>
             <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>[3.1.2,4)</version>
+            <version>3.0.7</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/junit/junit -->
