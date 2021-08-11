@@ -3,7 +3,7 @@ name: Synth Java sample code
 on:
   pull_request:
     paths:
-      - code/java
+      - code/java/**
 
 jobs:
   main-workshop:

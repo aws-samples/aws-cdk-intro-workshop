@@ -3,7 +3,7 @@ name: Synth CSharp sample code
 on:
   pull_request:
     paths:
-      - code/csharp
+      - code/csharp/**
 
 jobs:
   main-workshop:

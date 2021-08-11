@@ -3,7 +3,7 @@ name: Synth Python sample code
 on:
   pull_request:
     paths:
-      - code/python
+      - code/python/**
 
 jobs:
   main-workshop:
