@@ -59,7 +59,7 @@ jobs:
         run: npx cdk synth
 
   tests-workshop:
-    name: CDK synth tests-workshop sample code
+    name: Test and CDK synth tests-workshop sample code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
