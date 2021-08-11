@@ -19,6 +19,7 @@ jobs:
           java-version: 8
 
       - name: Resolve Maven dependencies
+        working-directory: code/java/main-workshop
         run: mvn dependency:analyze
 
       - name: CDK synth
@@ -38,6 +39,7 @@ jobs:
           java-version: 8
 
       - name: Resolve Maven dependencies
+        working-directory: code/java/main-workshop
         run: mvn dependency:analyze
 
       - name: CDK synth
