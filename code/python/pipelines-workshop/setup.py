@@ -28,7 +28,7 @@ setuptools.setup(
         "aws-cdk.aws_codebuild==1.118.0",
         "aws-cdk.aws_codepipeline==1.118.0",
         "aws-cdk.aws_codepipeline_actions==1.118.0",
-        "cdk-dynamo-table-viewer==3.1.2",
+        "cdk-dynamo-table-view",
     ],
 
     python_requires=">=3.6",
