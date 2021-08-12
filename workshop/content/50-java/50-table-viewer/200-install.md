@@ -38,7 +38,7 @@ Before you can use the table viewer in your application, you'll need to add the 
         <dependency>
             <groupId>com.github.eladb</groupId>
             <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>[3.0.6,4)</version>
+            <version>3.0.7</version>
         </dependency>
     </dependencies>
 ...

@@ -11,4 +11,3 @@ In this chapter we will import a construct library called
 into our project and install it on our hit counter table.
 
 ![](/images/table-viewer.png)
-
