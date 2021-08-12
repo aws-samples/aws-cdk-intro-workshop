@@ -39,7 +39,7 @@ public class PipelineStack extends Stack {
 Now we can install the missing package and deploy the app to see our new repo.
 
 In `pom.xml` add:
-``` xml
+``` html
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codecommit</artifactId>
