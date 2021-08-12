@@ -52,7 +52,7 @@ namespace CdkWorkshop
 
             // Defines the artifact representing the sourcecode
             var sourceArtifact = new Artifact_();
-            // Defines the artifact representing the cloud assembly 
+            // Defines the artifact representing the cloud assembly
             // (cloudformation template + all other assets)
             var cloudAssemblyArtifact = new Artifact_();
 
@@ -77,12 +77,11 @@ namespace CdkWorkshop
                     SourceArtifact = sourceArtifact,  // Where to get source code to build
                     CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
 
-                    InstallCommands = new [] 
-                    {
-                        "npm install -g aws-cdk", 
+                    InstallCommand = string.Join(
+                        "npm install -g aws-cdk",
                         "sudo apt-get install -y dotnet-sdk-3.1"
-                    },
-                    BuildCommands = new [] { "dotnet build" } // Language-specific build cmd
+                    ),
+                    BuildCommand = "dotnet build" // Language-specific build cmd
                 })
             });
 
