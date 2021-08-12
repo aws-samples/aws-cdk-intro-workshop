@@ -17,7 +17,7 @@ template synthesized from the sample app:
 as your `cdk.json` file. If you have changed directories in your terminal,
 please navigate back now.{{% /notice %}}
 
-```sh
+```
 cdk synth
 ```
 

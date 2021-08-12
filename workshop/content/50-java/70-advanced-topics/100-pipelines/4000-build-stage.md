@@ -103,7 +103,7 @@ Then we add that stage to our pipeline (`pipepeline.addApplicationStage(deploy);
 ## Commit/Deploy
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
 
-```sh
+```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 

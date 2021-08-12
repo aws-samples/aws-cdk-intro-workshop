@@ -156,14 +156,14 @@ signature:
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
-```sh
+```
 mvn package
 cdk diff
 ```
 
 Output would look like this:
 
-```log
+```
 The CdkWorkshopStack stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬────────────────┬──────────────────────────────┬───────────┐
@@ -198,7 +198,7 @@ that are used by the toolkit to propagate the location of the handler code.
 
 Let's deploy:
 
-```sh
+```
 cdk deploy
 ```
 

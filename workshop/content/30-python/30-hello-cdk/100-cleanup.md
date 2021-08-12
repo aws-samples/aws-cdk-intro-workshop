@@ -31,13 +31,13 @@ class CdkWorkshopStack(core.Stack):
 Now that we modified our stack's contents, we can ask the toolkit to show us the difference between our CDK app and
 what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
 
-```sh
+```
 cdk diff
 ```
 
 Output should look like the following:
 
-```log
+```
 Stack cdkworkshop
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬─────────────────┬───────────────────────────┬─────────────────────────────────────────────────────────────────┐
@@ -62,7 +62,7 @@ As expected, all of our resources are going to be brutally destroyed.
 
 Run `cdk deploy` and __proceed to the next section__ (no need to wait):
 
-```sh
+```
 cdk deploy
 ```
 

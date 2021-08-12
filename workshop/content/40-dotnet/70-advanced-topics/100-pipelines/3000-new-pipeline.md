@@ -7,7 +7,7 @@ weight = 130
 Now we are ready to define the basics of the pipeline.
 
 We will be using several new packages here, so first run:
-```sh
+```
 dotnet add package Amazon.CDK.AWS.CodePipeline Amazon.CDK.AWS.CodePipeline.Actions Amazon.CDK.Pipelines
 ```
 
@@ -83,7 +83,7 @@ The above code does several things:
 ## Deploy Pipeline and See Result
 All thats left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
-```sh
+```
 git commit -am "MESSAGE" && git push
 cdk deploy
 ```

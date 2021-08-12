@@ -17,19 +17,19 @@ activate it within your shell.  The generated README file provides all of this
 information but we are calling it out here because it is important.  To
 activate your virtualenv on a Linux or MacOs platform:
 
-```sh
+```
 source .venv/bin/activate
 ```
 
 One a Windows platform, you would use this:
 
-```sh
+```
 .venv\Scripts\activate.bat
 ```
 
 Now that the virtual environment is activated, you can safely install the
 required python modules.
 
-```sh
+```
 pip install -r requirements.txt
 ```

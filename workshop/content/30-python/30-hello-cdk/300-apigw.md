@@ -15,7 +15,7 @@ will be returned back to the user.
 
 ## Install the API Gateway construct library
 
-```sh
+```
 pip install aws-cdk.aws_apigateway
 ```
 

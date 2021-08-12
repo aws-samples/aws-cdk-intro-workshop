@@ -98,7 +98,7 @@ The above code does several things:
 ## Deploy Pipeline and See Result
 All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
-```sh
+```
 git commit -am "MESSAGE" && git push
 mvn package
 npx cdk deploy

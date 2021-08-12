@@ -7,7 +7,7 @@ weight = 100
 
 Create an empty directory on your system:
 
-```sh
+```
 mkdir cdkworkshop && cd cdkworkshop
 ```
 
@@ -15,7 +15,7 @@ mkdir cdkworkshop && cd cdkworkshop
 
 We will use `cdk init` to create a new Python CDK project:
 
-```sh
+```
 cdk init sample-app --language python
 ```
 

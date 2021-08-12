@@ -19,7 +19,7 @@ You can get a list of available stacks:
 as your `cdk.json` file. If you have changed directories in your terminal,
 please navigate back now.{{% /notice %}}
 
-```sh
+```
 $ cdk ls
 cdkworkshop
 $
@@ -27,7 +27,7 @@ $
 
 We can then synthesize one of the stacks:
 
-```sh
+```
 $ cdk synth
 ```
 

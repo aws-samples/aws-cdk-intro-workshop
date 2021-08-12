@@ -39,12 +39,12 @@ Check that your Hugo version is minimum `0.25` with `hugo version`.
 
 ## Download old versions (prior to 2.0.0)
 
-If you need old version for compatibility purpose, either download [theme source code from releases](https://github.com/matcornic/hugo-theme-learn/releases) or use the right git tag. For example, with `1.1.0` 
+If you need old version for compatibility purpose, either download [theme source code from releases](https://github.com/matcornic/hugo-theme-learn/releases) or use the right git tag. For example, with `1.1.0`
 
 - Direct download way: https://github.com/matcornic/hugo-theme-learn/archive/1.1.0.zip
 - Git way:
 
-```shell
+```ell
 cd themes/hugo-theme-learn
 git checkout tags/1.1.0
 ```

@@ -8,7 +8,7 @@ weight = 500
 Before we deploy, let's take a look at what will happen when we deploy our app
 (this is just the `Resources` section of the output):
 
-```sh
+```
 $ cdk diff
 Resources
 [+] AWS::IAM::Role ViewHitCounter/Rendered/ServiceRole ViewHitCounterRenderedServiceRole254DB4EA
@@ -43,7 +43,7 @@ trust  {{% /notice %}}
 
 ### cdk deploy
 
-```sh
+```
 $ cdk deploy
 ...
 cdkworkshop.ViewHitCounterViewerEndpointCA1B1E4B = https://6i4udz9wb2.execute-api.us-east-2.amazonaws.com/prod/
@@ -65,7 +65,7 @@ viewer. You should see the values update in real-time.
 
 Use `curl` or your web browser to produce a few hits:
 
-```sh
+```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1

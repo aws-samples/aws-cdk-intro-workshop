@@ -8,13 +8,13 @@ weight = 200
 Before you can use the table viewer in your application, you'll need to install
 the Nuget package:
 
-```sh
+```
 dotnet add package Eladb.DynamoTableViewer --version 3.1.2
 ```
 
 Output should look like this:
 
-```log
+```
 info : Adding PackageReference for package 'Eladb.DynamoTableViewer' into project '~/cdk-workshop/src/CdkWorkshop/CdkWorkshop.csproj'.
 info : Restoring packages for ~/cdk-workshop/src/CdkWorkshop/CdkWorkshop.csproj...
 info :   GET https://api.nuget.org/v3-flatcontainer/eladb.dynamotableviewer/index.json

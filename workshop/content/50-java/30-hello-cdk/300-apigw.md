@@ -85,14 +85,14 @@ proxies all requests to an AWS Lambda function.
 
 Let's see what's going to happen when we deploy this:
 
-```sh
+```
 mvn package
 cdk diff
 ```
 
 Output should look like this:
 
-```log
+```
 IAM Statement Changes
 ┌───┬───────────────────────────┬────────┬───────────────────────────┬───────────────────────────┬─────────────────────────────┐
 │   │ Resource                  │ Effect │ Action                    │ Principal                 │ Condition                   │
@@ -164,7 +164,7 @@ That's nice. This one line of code added 12 new resources to our stack.
 
 Okay, ready to deploy?
 
-```sh
+```
 cdk deploy
 ```
 
@@ -172,7 +172,7 @@ cdk deploy
 
 When deployment is complete, you'll notice this line:
 
-```log
+```
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
@@ -189,13 +189,13 @@ If you don't have [curl](https://curl.haxx.se/) installed, you can always use
 your favorite web browser to hit this URL.
 {{% /notice %}}
 
-```sh
+```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
 Output should look like this:
 
-```log
+```
 Hello, CDK! You've hit /
 ```
 
