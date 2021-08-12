@@ -4,7 +4,6 @@ using Amazon.CDK.AWS.CodePipeline;
 using Amazon.CDK.AWS.CodePipeline.Actions;
 using Amazon.CDK.Pipelines;
 using System.Collections.Generic;
-using System;
 
 namespace CdkWorkshop
 {

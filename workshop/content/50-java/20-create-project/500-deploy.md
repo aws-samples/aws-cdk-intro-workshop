@@ -15,13 +15,13 @@ bucket that is used to store templates and assets during the deployment process.
 You can use the `cdk bootstrap` command to install the bootstrap stack into an
 environment:
 
-```
+```sh
 cdk bootstrap
 ```
 
 Then:
 
-```
+```log
  ⏳  Bootstrapping environment 999999999999/us-west-2...
 ...
 ```
@@ -32,14 +32,14 @@ Hopefully this command finished successfully and we can move on to deploy our ap
 
 Use `mvn package` to compile the code, then `cdk deploy` to deploy a CDK app:
 
-```
+```sh
 mvn package
 cdk deploy
 ```
 
 You should see a warning like the following:
 
-```
+```log
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
 Please confirm you intend to make the following modifications:
 
@@ -64,7 +64,7 @@ enter **y** to deploy the stack and create the resources.
 Output should look like the following, where ACCOUNT-ID is your account ID, REGION is the region in which you created the app,
 and STACK-ID is the unique identifier for your stack:
 
-```
+```log
 CdkWorkshopStack: deploying...
 CdkWorkshopStack: creating CloudFormation changeset...
  0/6 | 7:26:27 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata

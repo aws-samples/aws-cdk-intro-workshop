@@ -7,7 +7,7 @@ weight = 100
 
 Create an empty directory on your system:
 
-```
+```sh
 mkdir cdkworkshop && cd cdkworkshop
 ```
 
@@ -15,7 +15,7 @@ mkdir cdkworkshop && cd cdkworkshop
 
 We will use `cdk init` to create a new Python CDK project:
 
-```
+```sh
 cdk init sample-app --language python
 ```
 
@@ -23,7 +23,7 @@ Output should look like this (you can safely ignore warnings about
 initialization of a git repository, this probably means you don't have git
 installed, which is fine for this workshop):
 
-```` bash
+````bash
 Applying project template sample-app for python
 Initializing a new git repository...
 Executing Creating virtualenv...
@@ -72,7 +72,7 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-You can now begin exploring the source code, contained in the cdk-workshop directory.
+You can now begin exploring the source code, contained in the cdk_workshop directory.
 There is also a very trivial test included that can be run like this:
 
 ```

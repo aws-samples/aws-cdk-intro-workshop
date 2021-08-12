@@ -8,7 +8,7 @@ weight = 700
 Let's issue a few requests and see if our hit counter works. You can also use
 your web browser to do that:
 
-```
+```sh
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello
@@ -36,12 +36,12 @@ allows anyone to "attach" it to any Lambda function that serves as an API
 Gateway proxy backend and it will log hits to this API.
 
 Since our hit counter is a simple Java class, you could package it into a
-Maven artifact and publish it to [Central Repository](https://central.sonatype.org/), which is 
-the standard Maven package repo. Then, anyone could add it to their `pom.xml` 
+Maven artifact and publish it to [Central Repository](https://central.sonatype.org/), which is
+the standard Maven package repo. Then, anyone could add it to their `pom.xml`
 file to add it to their CDK apps.
 
 -----
 
 In the next chapter we __consume__ a construct library published to
-the Central Repository, which enables us to view the contents of our hit 
+the Central Repository, which enables us to view the contents of our hit
 counter table from any browser.

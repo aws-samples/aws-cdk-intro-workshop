@@ -8,7 +8,7 @@ namespace CdkWorkshop
     public class CdkWorkshopStack : Stack
     {
         // Defines a new lambda resource
-        public CdkWorkshopStack(Construct parent, string id, IStackProps props = null) : base(parent, id, props)
+        public CdkWorkshopStack(Construct scope, string id) : base(scope, id)
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {

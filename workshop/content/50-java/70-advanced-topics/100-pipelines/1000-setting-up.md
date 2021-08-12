@@ -18,12 +18,12 @@ import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
 
-public class WorkshopPipelineStack extends Stack {
-    public WorkshopPipelineStack(final Construct parent, final String id) {
+public class PipelineStack extends Stack {
+    public PipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
+    public PipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // Pipeline code goes here
@@ -47,7 +47,7 @@ public final class CdkWorkshopApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new WorkshopPipelineStack(app, "WorkshopPipelineStack");
+        new PipelineStack(app, "PipelineStack");
 
         app.synth();
     }
@@ -73,7 +73,7 @@ This instructs the CDK to use those new features any time it synthesizes a stack
 ## Special Bootstrap
 There's one last step before we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
 
-```
+```sh
 npx cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
 ```
 

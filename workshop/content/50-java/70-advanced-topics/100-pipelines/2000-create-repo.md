@@ -17,12 +17,12 @@ import software.amazon.awscdk.core.StackProps;
 
 import software.amazon.awscdk.services.codecommit.Repository;
 
-public class WorkshopPipelineStack extends Stack {
-    public WorkshopPipelineStack(final Construct parent, final String id) {
+public class PipelineStack extends Stack {
+    public PipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
+    public PipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // This creates a new CodeCommit repository called 'WorkshopRepo'
@@ -39,16 +39,16 @@ public class WorkshopPipelineStack extends Stack {
 Now we can install the missing package and deploy the app to see our new repo.
 
 In `pom.xml` add:
-``` html
+``` xml
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codecommit</artifactId>
-    <version>1.71.0</version>
+    <version>VERSION</version>
 </dependency>
 ```
 
 Then run:
-```
+```sh
 mvn package
 npx cdk deploy
 ```
@@ -79,13 +79,13 @@ In your terminal, first make sure that all the changes you have made during the 
 
 Next, we add the remote repo to our Git config. You can do this with the command (*XXXXX* represents the Clone URL you copied from the console):
 
-```
+```sh
 git remote add origin XXXXX
 ```
 
 Now all we need to do is to push our code to the repo (`--set-upstream` tells Git to override the current empty master branch on your repo):
 
-```
+```sh
 git push --set-upstream origin master
 ```
 

@@ -44,7 +44,7 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 Okay, let's use `dotnet add package` to install the AWS Lambda
 module and all it's dependencies into our project:
 
-```
+```sh
 dotnet add package Amazon.CDK.AWS.Lambda
 ```
 {{% notice info %}}
@@ -99,11 +99,11 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of `Function` (and many other classes 
-in the CDK) have the signature `(scope, id, props)`. This is because all of 
-these classes are __constructs__. Constructs are the basic building block of CDK 
-apps. They represent abstract "cloud components" which can be composed together 
-into higher level abstractions via scopes. Scopes can include constructs, which 
+As you can see, the class constructors of `Function` (and many other classes
+in the CDK) have the signature `(scope, id, props)`. This is because all of
+these classes are __constructs__. Constructs are the basic building block of CDK
+apps. They represent abstract "cloud components" which can be composed together
+into higher level abstractions via scopes. Scopes can include constructs, which
 in turn can include other constructs, etc.
 
 Constructs are always created in the scope of another construct and must always
@@ -132,13 +132,13 @@ signature:
 
 Save your code, and let's take a quick look at the diff before we deploy:
 
-```
+```sh
 cdk diff
 ```
 
 Output would look like this:
 
-```
+```log
 The CdkWorkshopStack stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬────────────────┬──────────────────────────────┬───────────┐
@@ -173,7 +173,7 @@ that are used by the toolkit to propagate the location of the handler code.
 
 Let's deploy:
 
-```
+```sh
 cdk deploy
 ```
 

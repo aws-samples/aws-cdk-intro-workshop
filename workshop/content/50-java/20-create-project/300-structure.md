@@ -15,7 +15,7 @@ You'll see something like this:
 
 ![](./structure.png)
 
-* `src/main/java/com/myorg/` is the main project directory for Java code in the app, and will be henceforth refered to (to shorten the paths) as `~/`
+* `src/main/java/com/myorg/` is the main project directory for Java code in the app, and will be henceforth referred to (to shorten the paths) as `~/`
 * `~/CdkWorkshopApp.java` is the entrypoint for the CDK application it will load the stack defined in `~/CdkWorkshopStack.java`
 * `~/CdkWorkshopStack.java` is where your CDK application's main stack is defined. This is the file we'll be spending most of our time in.
 * `cdk.json` tells the toolkit how to run your app. In our case it will be

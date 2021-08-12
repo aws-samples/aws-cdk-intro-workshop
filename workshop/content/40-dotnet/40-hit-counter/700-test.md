@@ -8,7 +8,7 @@ weight = 700
 Let's issue a few requests and see if our hit counter works. You can also use
 your web browser to do that:
 
-```
+```log
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello

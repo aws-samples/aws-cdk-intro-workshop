@@ -15,11 +15,20 @@ setuptools.setup(
 
     author="author",
 
-    package_dir={"": "cdk-workshop"},
+    package_dir={"": "cdk_workshop"},
     packages=setuptools.find_packages(where="cdk-workshop"),
 
     install_requires=[
-        "aws-cdk.core==1.71.0",
+        "aws-cdk.core==1.118.0",
+        "aws-cdk.aws_lambda==1.118.0",
+        "aws-cdk.aws_apigateway==1.118.0",
+        "aws-cdk.pipelines==1.118.0",
+        "aws-cdk.aws_dynamodb==1.118.0",
+        "aws-cdk.aws_codecommit==1.118.0",
+        "aws-cdk.aws_codebuild==1.118.0",
+        "aws-cdk.aws_codepipeline==1.118.0",
+        "aws-cdk.aws_codepipeline_actions==1.118.0",
+        "cdk-dynamo-table-viewer==3.1.2",
     ],
 
     python_requires=">=3.6",

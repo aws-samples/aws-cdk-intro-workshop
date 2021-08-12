@@ -74,7 +74,7 @@ public class HitCounter extends Construct {
 
 Save & deploy:
 
-```
+```sh
 mvn package
 cdk deploy
 ```
@@ -84,13 +84,13 @@ cdk deploy
 Okay, deployment is complete. Let's run our test again (either use `curl` or
 your web browser):
 
-```
+```sh
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
 Again?
 
-```
+```log
 HTTP/1.1 502 Bad Gateway
 ...
 
@@ -123,7 +123,7 @@ Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
 
 Another access denied, but this time, if you take a close look:
 
-```
+```log
 User: <VERY-LONG-STRING> is not authorized to perform: lambda:InvokeFunction on resource: <VERY-LONG-STRING>"
 ```
 
@@ -205,7 +205,7 @@ public class HitCounter extends Construct {
 
 You can check what this did using `cdk diff`:
 
-```
+```sh
 mvn package
 cdk diff
 ```
@@ -213,7 +213,7 @@ cdk diff
 The **Resource** section should look something like this,
 which shows the IAM statement was added to the role:
 
-```
+```log
 IAM Statement Changes
 ┌───┬────────────────────────────────────────┬────────┬────────────────────────────────────────┬─────────────────────────────────────────┬───────────┐
 │   │ Resource                               │ Effect │ Action                                 │ Principal                               │ Condition │
@@ -252,19 +252,19 @@ Which is exactly what we wanted.
 
 Okay... let's give this another shot:
 
-```
+```sh
 cdk deploy
 ```
 
 Then hit your endpoint with `curl` or with your web browser:
 
-```
+```sh
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
 Output should look like this:
 
-```
+```log
 HTTP/1.1 200 OK
 ...
 

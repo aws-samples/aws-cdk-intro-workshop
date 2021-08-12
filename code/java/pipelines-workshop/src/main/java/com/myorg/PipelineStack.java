@@ -1,26 +1,21 @@
 package com.myorg;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
-import software.amazon.awscdk.core.CfnOutput;
 
 import software.amazon.awscdk.services.codecommit.Repository;
-
 import software.amazon.awscdk.services.codepipeline.Artifact;
+import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
 import software.amazon.awscdk.pipelines.CdkPipeline;
 import software.amazon.awscdk.pipelines.SimpleSynthAction;
 import software.amazon.awscdk.pipelines.CdkStage;
 import software.amazon.awscdk.pipelines.ShellScriptAction;
 import software.amazon.awscdk.pipelines.StackOutput;
-
-import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
 
 public class PipelineStack extends Stack {
     public PipelineStack(final Construct parent, final String id) {

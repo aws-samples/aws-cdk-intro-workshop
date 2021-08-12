@@ -13,11 +13,11 @@ application.
 To synthesize a CDK app, use the `cdk synth` command. Let's check out the
 template synthesized from the sample app:
 
-{{% notice info %}} The **CDK CLI** requires you to be in the same directory 
-as your `cdk.json` file. If you have changed directories in your terminal, 
+{{% notice info %}} The **CDK CLI** requires you to be in the same directory
+as your `cdk.json` file. If you have changed directories in your terminal,
 please navigate back now.{{% /notice %}}
 
-```
+```sh
 cdk synth
 ```
 
@@ -93,4 +93,3 @@ by the toolkit to every stack. It is used by the AWS CDK team for analytics and
 to allow us to identify versions with security issues. See [Version Reporting](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) in
 the AWS CDK User Guide for more details. We will omit the metadata resource in
 diff views for the rest of this workshop {{% /notice %}}
-

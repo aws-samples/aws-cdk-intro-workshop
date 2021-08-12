@@ -12,7 +12,7 @@ class CdkWorkshopStack(core.Stack):
         super().__init__(scope, id, **kwargs)
 
         # Defines an AWS Lambda resource
-        my_lambda = _lambda.Function(
+        hello = _lambda.Function(
             self, 'HelloHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
             code=_lambda.Code.from_asset('lambda'),
@@ -21,7 +21,7 @@ class CdkWorkshopStack(core.Stack):
 
         hello_with_counter = HitCounter(
             self, 'HelloHitCounter',
-            downstream=my_lambda
+            downstream=hello
         )
 
         apigw.LambdaRestApi(
