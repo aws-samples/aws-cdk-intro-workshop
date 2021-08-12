@@ -18,14 +18,14 @@ You'll see something like this:
 * .venv - The python virtual envirnment information discussed in the previous section.
 * cdkworkshop — A Python module directory.
   * cdkworkshop.egg-info - Folder that contains build information relevant for the packaging on the project
-  * cdkworkshop_stack.py—A custom CDK stack construct for use in your CDK application.
+  * cdk_workshop_stack.py—A custom CDK stack construct for use in your CDK application.
 * tests — Contains all tests.
   * unit — Contains unit tests.
-    * test_cdkworkshop.py—A trivial test of the custom CDK stack created in the cdk-workshop package. This is mainly to demonstrate how tests can be hooked up to the project.
+    * test_cdkworkshop.py—A trivial test of the custom CDK stack created in the cdk_workshop package. This is mainly to demonstrate how tests can be hooked up to the project.
 * app.py — The “main” for this sample application.
 * cdk.json — A configuration file for CDK that defines what executable CDK should run to generate the CDK construct tree.
 * README.md — The introductory README for this project.
-* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk-workshop module so that it can be edited in place.
+* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk_workshop module so that it can be edited in place.
 * setup.py — Defines how this Python package would be constructed and what the dependencies are.
 
 ## Your app's entry point
@@ -41,17 +41,17 @@ from cdkworkshop.cdkworkshop_stack import CdkWorkshopStack
 
 
 app = core.App()
-CdkWorkshopStack(app, "cdkworkshop", env={'region': 'us-west-2'})
+CdkWorkshopStack(app, "cdkworkshop")
 
 app.synth()
 ```
 
-This code loads and instantiates an instance of the `CdkWorkshopStack` class from 
-`cdkworshop/cdk_workshop_stack.py` file. We won't need to look at this file anymore.
+This code loads and instantiates an instance of the `CdkWorkshopStack` class from
+`cdk_worshop/cdk_workshop_stack.py` file. We won't need to look at this file anymore.
 
 ## The main stack
 
-Open up `cdkworshop/cdkworkshop_stack.py`. This is where the meat of our application
+Open up `cdk_worshop/cdk_workshop_stack.py`. This is where the meat of our application
 is:
 
 ```python
@@ -88,4 +88,3 @@ The stacks includes:
 - SQS Queue (`sqs.Queue`)
 - SNS Topic (`sns.Topic`)
 - Subscribes the queue to receive any messages published to the topic (`topic.add_subscription`)
-

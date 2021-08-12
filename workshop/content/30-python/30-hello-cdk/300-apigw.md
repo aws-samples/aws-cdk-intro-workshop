@@ -21,7 +21,7 @@ pip install aws-cdk.aws_apigateway
 
 ## Add a LambdaRestApi construct to your stack
 
-Let's define an API endpoint and associate it with our Lambda function. Add this code to `cdkworkshop_stack.py` (which you should
+Let's define an API endpoint and associate it with our Lambda function. Add this code to `cdk_workshop_stack.py` (which you should
 still have open from the last step):
 
 {{<highlight python "hl_lines=3 20-23">}}
@@ -117,18 +117,18 @@ IAM Policy Changes
 (NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
 
 Resources
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY.. HelloHandlerApiPermissionANYAC4E141E 
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY.. HelloHandlerApiPermissionTestANYDDD56D72 
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY..{proxy+} HelloHandlerApiPermissionANYproxy90E90CD6 
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY..{proxy+} HelloHandlerApiPermissionTestANYproxy9803526C 
-[+] AWS::ApiGateway::RestApi Endpoint EndpointEEF1FD8F 
-[+] AWS::ApiGateway::Deployment Endpoint/Deployment EndpointDeployment318525DAb462c597ccb914d9fc1c10f664ed81ca 
-[+] AWS::ApiGateway::Stage Endpoint/DeploymentStage.prod EndpointDeploymentStageprodB78BEEA0 
-[+] AWS::IAM::Role Endpoint/CloudWatchRole EndpointCloudWatchRoleC3C64E0F 
-[+] AWS::ApiGateway::Account Endpoint/Account EndpointAccountB8304247 
-[+] AWS::ApiGateway::Resource Endpoint/Default/{proxy+} Endpointproxy39E2174E 
-[+] AWS::ApiGateway::Method Endpoint/Default/{proxy+}/ANY EndpointproxyANYC09721C5 
-[+] AWS::ApiGateway::Method Endpoint/Default/ANY EndpointANY485C938B 
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY.. HelloHandlerApiPermissionANYAC4E141E
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY.. HelloHandlerApiPermissionTestANYDDD56D72
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY..{proxy+} HelloHandlerApiPermissionANYproxy90E90CD6
+[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY..{proxy+} HelloHandlerApiPermissionTestANYproxy9803526C
+[+] AWS::ApiGateway::RestApi Endpoint EndpointEEF1FD8F
+[+] AWS::ApiGateway::Deployment Endpoint/Deployment EndpointDeployment318525DAb462c597ccb914d9fc1c10f664ed81ca
+[+] AWS::ApiGateway::Stage Endpoint/DeploymentStage.prod EndpointDeploymentStageprodB78BEEA0
+[+] AWS::IAM::Role Endpoint/CloudWatchRole EndpointCloudWatchRoleC3C64E0F
+[+] AWS::ApiGateway::Account Endpoint/Account EndpointAccountB8304247
+[+] AWS::ApiGateway::Resource Endpoint/Default/{proxy+} Endpointproxy39E2174E
+[+] AWS::ApiGateway::Method Endpoint/Default/{proxy+}/ANY EndpointproxyANYC09721C5
+[+] AWS::ApiGateway::Method Endpoint/Default/ANY EndpointANY485C938B
 
 Outputs
 [+] Output Endpoint/Endpoint Endpoint8024A810: {"Value":{"Fn::Join":["",["https://",{"Ref":"EndpointEEF1FD8F"},".execute-api.us-east-2.",{"Ref":"AWS::URLSuffix"},"/",{"Ref":"EndpointDeploymentStageprodB78BEEA0"},"/"]]}}
