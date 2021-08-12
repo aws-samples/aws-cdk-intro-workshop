@@ -99,11 +99,11 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of `Function` (and many other classes
-in the CDK) have the signature `(scope, id, props)`. This is because all of
-these classes are __constructs__. Constructs are the basic building block of CDK
-apps. They represent abstract "cloud components" which can be composed together
-into higher level abstractions via scopes. Scopes can include constructs, which
+As you can see, the class constructors of `Function` (and many other classes 
+in the CDK) have the signature `(scope, id, props)`. This is because all of 
+these classes are __constructs__. Constructs are the basic building block of CDK 
+apps. They represent abstract "cloud components" which can be composed together 
+into higher level abstractions via scopes. Scopes can include constructs, which 
 in turn can include other constructs, etc.
 
 Constructs are always created in the scope of another construct and must always

@@ -34,7 +34,7 @@ namespace CdkWorkshop
 
             // Defines the artifact representing the sourcecode
             var sourceArtifact = new Artifact_();
-            // Defines the artifact representing the cloud assembly
+            // Defines the artifact representing the cloud assembly 
             // (cloudformation template + all other assets)
             var cloudAssemblyArtifact = new Artifact_();
 
@@ -59,11 +59,12 @@ namespace CdkWorkshop
                     SourceArtifact = sourceArtifact,  // Where to get source code to build
                     CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
 
-                    InstallCommand = string.Join(
-                        "npm install -g aws-cdk",
-                        "sudo apt-get install -y dotnet-sdk-3.1"
-                    ),
-                    BuildCommand = "dotnet build" // Language-specific build cmd
+                    InstallCommands = new [] 
+                    {
+                        "npm install -g aws-cdk"
+                    },
+                    BuildCommands = new [] { "dotnet build src" }, // Language-specific build cmd
+                    SynthCommand = "cdk synth"
                 })
             });
         }
@@ -81,7 +82,7 @@ The above code does several things:
     * `SimpleSynthAction.StandardNpmSynth`: The `SynthAction` of the pipeline will take the source artifact generated in by the `SourceAction` and build the application based on the `BuildCommand`. This is always followed by `cdk synth`
 
 ## Deploy Pipeline and See Result
-All thats left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
+All thats left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
 
 ```
 git commit -am "MESSAGE" && git push
