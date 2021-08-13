@@ -1,5 +1,4 @@
 *.js
-!**/lambda/*.js
 !workshop/static/js/*
 *.d.ts
 node_modules
