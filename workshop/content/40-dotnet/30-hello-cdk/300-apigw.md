@@ -25,8 +25,8 @@ Going back to `src/CdkWorkshop/CdkWorkshopStack.cs`, let's define an API endpoin
 
 {{<highlight csharp "hl_lines=3 19-23">}}
 using Amazon.CDK;
-using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Lambda;
+using Amazon.CDK.AWS.APIGateway;
 
 namespace CdkWorkshop
 {
