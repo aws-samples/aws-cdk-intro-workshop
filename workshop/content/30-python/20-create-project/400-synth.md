@@ -15,8 +15,8 @@ template synthesized from the sample app.  Because our app includes two stacks
 we need to tell the ``cdk synth`` command which stack we want to synthesize.
 You can get a list of available stacks:
 
-{{% notice info %}} The **CDK CLI** requires you to be in the same directory 
-as your `cdk.json` file. If you have changed directories in your terminal, 
+{{% notice info %}} The **CDK CLI** requires you to be in the same directory
+as your `cdk.json` file. If you have changed directories in your terminal,
 please navigate back now.{{% /notice %}}
 
 ```
@@ -98,4 +98,3 @@ by the toolkit to every stack. It is used by the AWS CDK team for analytics and
 to allow us to identify versions with security issues. See [Version Reporting](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) in
 the AWS CDK User Guide for more details. We will omit the metadata resource in
 diff views for the rest of this workshop {{% /notice %}}
-

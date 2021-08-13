@@ -48,11 +48,11 @@ public class CdkWorkshopStack extends Stack {
             .build();
 
         hcViewerUrl = CfnOutput.Builder.create(this, "TableViewerUrl")
-            .value(tv.endpoint)
+            .value(tv.getEndpoint())
             .build();
 
         hcEndpoint = CfnOutput.Builder.create(this, "GatewayUrl")
-            .value(gateway.url)
+            .value(gateway.getUrl())
             .build();
     }
 }

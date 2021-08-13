@@ -33,7 +33,7 @@ Hopefully this command finished successfully and we can move on to deploy our ap
 Use `cdk deploy` to deploy a CDK app:
 
 ```
-cdk deploy cdkworkshop
+cdk deploy
 ```
 
 You should see a warning like the following:

@@ -6,7 +6,7 @@ weight = 120
 ## Create Repo in Pipeline Stack
 The first step in any good CD pipeline is source control. Here we will create a [**CodeCommit**](https://aws.amazon.com/codecommit/) repository to contain our project code.
 
-Edit the file `cdk-workshop/pipeline_stack.py` as follows.
+Edit the file `cdk_workshop/pipeline_stack.py` as follows.
 
 {{<highlight python "hl_lines=3 11-15">}}
 from aws_cdk import (
