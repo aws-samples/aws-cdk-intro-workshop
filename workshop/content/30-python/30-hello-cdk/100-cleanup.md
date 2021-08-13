@@ -38,7 +38,7 @@ cdk diff
 Output should look like the following:
 
 ```
-Stack cdkworkshop
+Stack cdk-workshop
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬─────────────────┬───────────────────────────┬─────────────────────────────────────────────────────────────────┐
 │   │ Resource                        │ Effect │ Action          │ Principal                 │ Condition                                                       │

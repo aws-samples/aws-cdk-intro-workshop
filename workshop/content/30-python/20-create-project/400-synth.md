@@ -11,9 +11,7 @@ parlance) an AWS CloudFormation template for each stack defined in your
 application.
 
 To synthesize a CDK app, use the `cdk synth` command. Let's check out the
-template synthesized from the sample app.  Because our app includes two stacks
-we need to tell the ``cdk synth`` command which stack we want to synthesize.
-You can get a list of available stacks:
+template synthesized from the sample app.
 
 {{% notice info %}} The **CDK CLI** requires you to be in the same directory
 as your `cdk.json` file. If you have changed directories in your terminal,
@@ -21,11 +19,11 @@ please navigate back now.{{% /notice %}}
 
 ```
 $ cdk ls
-cdkworkshop
-$
+cdk_workshop
+$ cd cdk_workshop
 ```
 
-We can then synthesize one of the stacks:
+We can then synthesize:
 
 ```
 $ cdk synth

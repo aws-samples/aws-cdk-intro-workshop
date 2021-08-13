@@ -8,7 +8,7 @@ weight = 100
 Create an empty directory on your system:
 
 ```
-mkdir cdkworkshop && cd cdkworkshop
+mkdir cdk_workshop && cd cdk_workshop
 ```
 
 ## cdk init

@@ -64,8 +64,8 @@ Output should look like the following, where ACCOUNT-ID is your account ID, REGI
 and STACK-ID is the unique identifier for your stack:
 
 ```
-cdkworkshop: deploying...
-cdkworkshop: creating CloudFormation changeset...
+cdk-workshop: deploying...
+cdk-workshop: creating CloudFormation changeset...
  0/6 | 1:31:31 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata
  0/6 | 1:31:31 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkworkshopQueue (CdkworkshopQueue18864164)
  0/6 | 1:31:32 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkworkshopTopic (CdkworkshopTopic58CFDD3D)
@@ -82,10 +82,10 @@ cdkworkshop: creating CloudFormation changeset...
  4/6 | 1:31:45 PM | CREATE_COMPLETE      | AWS::SQS::QueuePolicy  | CdkworkshopQueue/Policy (CdkworkshopQueuePolicy78D5BF45)
  5/6 | 1:31:45 PM | CREATE_COMPLETE      | AWS::SNS::Subscription | CdkworkshopQueue/cdkworkshopCdkworkshopTopic7642CC2F (CdkworkshopQueuecdkworkshopCdkworkshopTopic7642CC2FCF70B637)
 
- ✅  cdkworkshop
+ ✅  cdk-workshop
 
 Stack ARN:
-arn:aws:cloudformation:us-west-2:************:stack/cdkworkshop/********-****-****-****-************
+arn:aws:cloudformation:us-west-2:************:stack/cdk-workshop/********-****-****-****-************
 ```
 
 ## The CloudFormation Console
@@ -103,7 +103,7 @@ You will likely see something like this (if you don't, make sure you are in the 
 
 ![](./cfn1.png)
 
-If you select `cdkworkshop` and open the __Resources__ tab, you will see the
+If you select `cdk-workshop` and open the __Resources__ tab, you will see the
 physical identities of our resources:
 
 ![](./cfn2.png)
