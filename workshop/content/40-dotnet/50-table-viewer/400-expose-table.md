@@ -23,8 +23,8 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public readonly IFunction Handler { get; };
-        public readonly Table MyTable { get; };
+        public readonly Function Handler;
+        public readonly Table MyTable;
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
