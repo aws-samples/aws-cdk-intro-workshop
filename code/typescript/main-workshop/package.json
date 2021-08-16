@@ -1,8 +1,8 @@
 {
-  "name": "cdk-workshop",
+  "name": "cdk-main-workshop",
   "version": "0.1.0",
-  "main": "bin/index.js",
-  "types": "bin/index.d.ts",
+  "main": "bin/cdk-workshop.js",
+  "types": "bin/cdk-workshop.d.ts",
   "bin": {
     "cdk-workshop": "bin/cdk-workshop.js"
   },
