@@ -70,8 +70,8 @@ test('read capacity can be configured', () => {
     new HitCounter(stack, 'MyTestConstruct', {
       downstream:  new lambda.Function(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'lambda.handler',
-        code: lambda.Code.inline('test')
+        handler: 'hello.handler',
+        code: lambda.Code.fromAsset('lambda')
       }),
       readCapacity: 3
     });
