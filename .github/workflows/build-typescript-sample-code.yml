@@ -79,7 +79,7 @@ jobs:
         run: npm run build
 
       - name: Run tests
-        working-directory: code/typescript/pipelines-workshop
+        working-directory: code/typescript/tests-workshop
         run: npx jest
 
       - name: CDK synth

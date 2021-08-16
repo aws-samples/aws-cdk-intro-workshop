@@ -1,29 +1,29 @@
 {
-    "name": "cdk-workshop",
-    "version": "0.1.0",
-    "main": "bin/index.js",
-    "types": "bin/index.d.ts",
-    "bin": {
-        "cdk-workshop": "bin/cdk-workshop.js"
-    },
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
-        "cdk": "cdk"
-    },
-    "devDependencies": {
-        "@types/node": "^10.12.18",
-        "aws-cdk": "1.100.0",
-        "typescript": "^3.2.2"
-    },
-    "dependencies": {
-        "@aws-cdk/aws-apigateway": "1.100.0",
-        "@aws-cdk/aws-dynamodb": "1.100.0",
-        "@aws-cdk/aws-lambda": "1.100.0",
-        "@aws-cdk/aws-sns": "1.100.0",
-        "@aws-cdk/aws-sqs": "1.100.0",
-        "@aws-cdk/core": "1.100.0",
-        "@aws-cdk/cx-api": "1.100.0",
-        "cdk-dynamo-table-viewer": "^3.0.0"
-    }
+  "name": "cdk-workshop",
+  "version": "0.^1.0",
+  "main": "bin/index.js",
+  "types": "bin/index.d.ts",
+  "bin": {
+    "cdk-workshop": "bin/cdk-workshop.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "aws-cdk": "^1.118.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.118.0",
+    "@aws-cdk/aws-dynamodb": "^1.118.0",
+    "@aws-cdk/aws-lambda": "^1.118.0",
+    "@aws-cdk/aws-sns": "^1.118.0",
+    "@aws-cdk/aws-sqs": "^1.118.0",
+    "@aws-cdk/core": "^1.118.0",
+    "@aws-cdk/cx-api": "^1.118.0",
+    "cdk-dynamo-table-viewer": "^0.1.59"
+  }
 }
