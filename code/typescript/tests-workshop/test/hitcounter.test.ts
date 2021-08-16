@@ -11,11 +11,9 @@ test('DynamoDB Table Created', () => {
         handler: 'hello.handler',
         code: lambda.Code.fromAsset('lambda')
     });
-
     new HitCounter(stack, 'MyTestConstruct', {
         downstream: tableCreateLambda
     });
-    // THEN
 
     expectCDK(stack).to(haveResource("AWS::DynamoDB::Table", {
         SSESpecification: {
