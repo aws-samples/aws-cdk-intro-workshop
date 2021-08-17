@@ -17,8 +17,6 @@
     <PackageReference Include="Amazon.CDK.AWS.CodePipeline.Actions" Version="1.*" />
 
     <PackageReference Include="Eladb.DynamoTableViewer" Version="[0.1.*,3)" />
-
-    <PackageReference Include="Amazon.Jsii.Analyzers" Version="*" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
