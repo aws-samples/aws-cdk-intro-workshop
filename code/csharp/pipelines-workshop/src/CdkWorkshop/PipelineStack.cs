@@ -44,9 +44,11 @@ namespace CdkWorkshop
                     SourceArtifact = sourceArtifact,  // Where to get source code to build
                     CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
 
-                    InstallCommand = string.Join(
-                        "npm install -g aws-cdk",
-                        "sudo apt-get install -y dotnet-sdk-3.1"
+                    InstallCommand = string.Join("&&",
+                        new string[] {
+                            "npm install -g aws-cdk",
+                            "sudo apt-get install -y dotnet-sdk-3.1"
+                        }
                     ),
                     BuildCommand = "dotnet build" // Language-specific build cmd
                 })
