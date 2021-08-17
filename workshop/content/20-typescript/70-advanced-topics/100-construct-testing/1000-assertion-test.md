@@ -17,9 +17,8 @@ same level as `bin` and `lib` and then create a file called `hitcounter.test.ts`
 
 ```typescript
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
-import cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
-
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created', () => {
@@ -134,7 +133,6 @@ $ npx jest
  FAIL  test/hitcounter.test.ts
   ✓ DynamoDB Table Created (184ms)
   ✕ Lambda Has Environment Variables (53ms)
-  ✓ read capacity can be configured (9ms)
 
   ● Lambda Has Environment Variables
   ...
@@ -305,7 +303,7 @@ export class HitCounter extends cdk.Construct {
 
     const table = new dynamodb.Table(this, 'Hits', {
       partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
-      serverSideEncryption: true
+      serverSideEncryption: true,
     });
     ...
   }

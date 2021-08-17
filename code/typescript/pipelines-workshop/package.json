@@ -12,12 +12,8 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.118.0",
-    "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",
     "aws-cdk": "^1.118.0",
-    "jest": "^27.0.6",
-    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
   "dependencies": {
@@ -32,6 +28,6 @@
     "@aws-cdk/core": "^1.118.0",
     "@aws-cdk/cx-api": "^1.118.0",
     "@aws-cdk/pipelines": "^1.118.0",
-    "cdk-dynamo-table-viewer": "^0.1.59"
+    "cdk-dynamo-table-viewer": "^0.1.60"
   }
 }

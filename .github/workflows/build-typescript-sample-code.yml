@@ -31,7 +31,7 @@ jobs:
         run: npx cdk synth
 
   pipelines-workshop:
-    name: CDK synth and test pipelines-workshop sample code
+    name: CDK synth pipelines-workshop sample code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -53,10 +53,6 @@ jobs:
       - name: CDK synth
         working-directory: code/typescript/pipelines-workshop
         run: npx cdk synth
-
-      - name: Run tests
-        working-directory: code/typescript/pipelines-workshop
-        run: npx jest
 
   tests-workshop:
     name: CDK synth and test tests-workshop sample code
