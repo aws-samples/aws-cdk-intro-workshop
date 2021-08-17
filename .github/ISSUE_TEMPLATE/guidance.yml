@@ -1,0 +1,61 @@
+name: \U00002753 Guidance
+description: Ask a guidance question
+labels: [needs-triage, guidance]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Important Information
+        Please make sure you have gone through the [existing questions][1] before filing
+        a new issue! If your question was already asked, but the answer does not satisfy
+        your curiosity, prefer re-opening the existing issue to ask for further
+        clarification, instead of filing a new issue.
+
+        [1]: https://github.com/aws-samples/aws-cdk-intro-workshop/issues?utf8=✓&q=is%3Aissue+label%3Aguidance
+  - type: textarea
+    id: question
+    attributes:
+      label: Guidance Question
+      description: |
+        Ask your question here. Include any details relevant. Make sure you are not
+        falling prey to the [X/Y problem][2]!
+
+        [2]: http://xyproblem.info
+    validations:
+      required: true
+  - type: input
+    id: cdk-version
+    attributes:
+      label: CDK CLI Version
+      description: Output of `cdk version`
+    validations:
+      required: false
+  - type: input
+    id: section
+    attributes:
+      label: Section
+      description: Name of workshop section, if relevant
+    validations:
+      required: false
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: all | Chrome | Firefox | Safari | etc...
+    validations:
+      required: false
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: all | TypeScript | Python | etc...
+    validations:
+      required: false
+  - type: textarea
+    id: other
+    attributes:
+      label: Other information
+      description: |
+        e.g. detailed explanation, stacktraces, related issues, suggestions how to fix, links for us to have context, eg. associated pull-request, stackoverflow, gitter, etc
+    validations:
+      required: false
