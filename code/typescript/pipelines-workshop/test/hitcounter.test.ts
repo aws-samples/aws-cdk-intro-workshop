@@ -6,13 +6,12 @@ import { HitCounter } from '../lib/hitcounter';
 test('DynamoDB Table Created', () => {
     const stack = new cdk.Stack();
 
-    const tableCreateLambda = new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'hello.handler',
-        code: lambda.Code.fromAsset('lambda')
-    });
     new HitCounter(stack, 'MyTestConstruct', {
-        downstream: tableCreateLambda
+        downstream: new lambda.Function(stack, 'TestFunction', {
+            runtime: lambda.Runtime.NODEJS_14_X,
+            handler: 'hello.handler',
+            code: lambda.Code.fromAsset('lambda')
+        })
     });
 
     expectCDK(stack).to(haveResource("AWS::DynamoDB::Table", {
