@@ -38,7 +38,7 @@ namespace CdkWorkshop
 
             this.HCViewerUrl = new CfnOutput(this, "TableViewerUrl", new CfnOutputProps
             {
-                Value = gateway.Url
+                Value = tv.Endpoint
             });
 
             this.HCEndpoint = new CfnOutput(this, "GatewayUrl", new CfnOutputProps

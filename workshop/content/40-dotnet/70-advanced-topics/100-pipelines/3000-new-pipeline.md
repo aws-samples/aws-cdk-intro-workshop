@@ -8,7 +8,9 @@ Now we are ready to define the basics of the pipeline.
 
 We will be using several new packages here, so first run:
 ```
-dotnet add package Amazon.CDK.AWS.CodePipeline Amazon.CDK.AWS.CodePipeline.Actions Amazon.CDK.Pipelines
+dotnet add package Amazon.CDK.AWS.CodePipeline
+dotnet add package Amazon.CDK.AWS.CodePipeline.Actions
+dotnet add package Amazon.CDK.Pipelines
 ```
 
 Return to the file `CdkWorkshop/PipelineStack.cs` and edit as follows:

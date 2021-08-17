@@ -94,7 +94,7 @@ namespace CdkWorkshop
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
+This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate development/test deployment).
 
 Then we add that stage to our pipeline (`pipepeline.AddApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
 
