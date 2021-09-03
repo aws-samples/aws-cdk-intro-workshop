@@ -15,8 +15,8 @@ export class WorkshopPipelineStack extends cdk.Stack {
         });
 
         // Defines the artifact representing the sourcecode
-        const sourceArtifact = new codepipeline.Artifact(); 
-        // Defines the artifact representing the cloud assembly 
+        const sourceArtifact = new codepipeline.Artifact();
+        // Defines the artifact representing the cloud assembly
         // (cloudformation template + all other assets)
         const cloudAssemblyArtifact = new codepipeline.Artifact();
 
