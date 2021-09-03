@@ -63,7 +63,7 @@ public class WorkshopPipelineStack extends Stack {
 
         // Defines the artifact representing the sourcecode
         final Artifact sourceArtifact = new Artifact();
-        // Defines the artifact representing the cloud assembly 
+        // Defines the artifact representing the cloud assembly
         // (cloudformation template + all other assets)
         final Artifact cloudAssemblyArtifact = new Artifact();
 
@@ -72,14 +72,14 @@ public class WorkshopPipelineStack extends Stack {
         final CdkPipeline pipeline = CdkPipeline.Builder.create(this, "Pipeline")
             .pipelineName("WorkshopPipeline")
             .cloudAssemblyArtifact(cloudAssemblyArtifact)
-            
+
             // Generates the source artifact from the repo we created in the last step
             .sourceAction(CodeCommitSourceAction.Builder.create()
                 .actionName("CodeCommit") // Any Git-based source control
                 .output(sourceArtifact) // Indicates where the artifact is stored
                 .repository(repo) // Designates the repo to draw code from
                 .build())
-            
+
                 // Builds our source code outlined above into a could assembly artifact
             .synthAction(SimpleSynthAction.Builder.create()
                 .installCommands(List.of("npm install -g aws-cdk")) // Commands to run before build
@@ -107,7 +107,7 @@ Now that we have added the code to deploy our application, all that's left is to
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
 
 ![](./pipeline-succeed.png)
 
