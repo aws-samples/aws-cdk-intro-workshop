@@ -1,0 +1,72 @@
+name: \U0001F41B Bug Report
+description: Report a bug
+labels: [bug, needs-triage]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem?
+      description: |
+        Describe in as much detail as possible the problem that you have identified.
+        Please identify clearly what example the problem relates to.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: |
+        Whenever possible, add reference to the minimal reproduction of the issue, as
+        this will greatly help with identifying the root cause of the problem, and
+        ensuring a candidate fix is working.
+        If your minimal reproduction is large, you may provide references to a [gist](https://gist.github.com)
+        or any other publicly viewable location.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Verbose Log
+      description: |
+        If the output is very large, you may store it in a [gist](https://gist.github.com). In any case,
+        please review the contents of the log you are about to submit and edit any
+        confidential information out.
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: cdk-version
+    attributes:
+      label: CDK CLI Version
+      description: Output of `cdk version`
+    validations:
+      required: false
+  - type: input
+    id: section
+    attributes:
+      label: Section
+      description: Name of workshop section, if relevant
+    validations:
+      required: false
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: all | Chrome | Firefox | Safari | etc...
+    validations:
+      required: false
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: all | TypeScript | Python | etc...
+    validations:
+      required: false
+  - type: textarea
+    id: other
+    attributes:
+      label: Other information
+      description: |
+        e.g. detailed explanation, stacktraces, related issues, suggestions how to fix, links for us to have context, eg. associated pull-request, stackoverflow, gitter, etc
+    validations:
+      required: false
