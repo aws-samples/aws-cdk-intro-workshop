@@ -52,7 +52,7 @@ namespace CdkWorkshop
 
             // Defines the artifact representing the sourcecode
             var sourceArtifact = new Artifact_();
-            // Defines the artifact representing the cloud assembly 
+            // Defines the artifact representing the cloud assembly
             // (cloudformation template + all other assets)
             var cloudAssemblyArtifact = new Artifact_();
 
@@ -77,9 +77,9 @@ namespace CdkWorkshop
                     SourceArtifact = sourceArtifact,  // Where to get source code to build
                     CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
 
-                    InstallCommands = new [] 
+                    InstallCommands = new []
                     {
-                        "npm install -g aws-cdk", 
+                        "npm install -g aws-cdk",
                         "sudo apt-get install -y dotnet-sdk-3.1"
                     },
                     BuildCommands = new [] { "dotnet build" } // Language-specific build cmd
@@ -104,7 +104,7 @@ Now that we have added the code to deploy our application, all that's left is to
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
 
 ![](./pipeline-succeed.png)
 

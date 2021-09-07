@@ -35,6 +35,7 @@ Then update the DynamoDB table resource to add the `readCapacity` property.
 {{<highlight ts "hl_lines=3">}}
 const table = new dynamodb.Table(this, 'Hits', {
   partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+  serverSideEncryption: true,
   readCapacity: props.readCapacity ?? 5
 });
 {{</highlight>}}
@@ -51,7 +52,7 @@ export class HitCounter extends cdk.Construct {
 
   constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
     if (props.readCapacity !== undefined && (props.readCapacity < 5 || props.readCapacity > 20)) {
-      throw new Error('readCapacity must be greater than 5 and lower than 20');
+      throw new Error('readCapacity must be greater than 5 and less than 20');
     }
 
     super(scope, id);
@@ -70,12 +71,12 @@ test('read capacity can be configured', () => {
     new HitCounter(stack, 'MyTestConstruct', {
       downstream:  new lambda.Function(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'lambda.handler',
-        code: lambda.Code.inline('test')
+        handler: 'hello.handler',
+        code: lambda.Code.fromAsset('lambda')
       }),
       readCapacity: 3
     });
-  }).toThrowError(/readCapacity must be greater than 5 and lower than 20/);
+  }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
 });
 ```
 
@@ -98,13 +99,14 @@ $ npm run build && npx jest
 > jest
 
  PASS  test/hitcounter.test.ts
-  ✓ DynamoDB Table Created (175ms)
-  ✓ Lambda Has Environment Variables (54ms)
-  ✓ read capacity can be configured (7ms)
+  ✓ DynamoDB Table Created (206 ms)
+  ✓ Lambda Has Environment Variables (61 ms)
+  ✓ DynamoDB Table Created With Encryption (55 ms)
+  ✓ Read Capacity can be configured (14 ms)
 
 Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
+Tests:       4 passed, 4 total
 Snapshots:   0 total
-Time:        1.801s, estimated 3s
+Time:        4.755 s, estimated 5 s
 Ran all test suites.
 ```
