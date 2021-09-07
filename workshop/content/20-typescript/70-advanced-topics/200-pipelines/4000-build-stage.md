@@ -135,13 +135,13 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     const hello = new lambda.Function(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.asset(path.resolve(__dirname, '../lambda')),
+      code: lambda.Code.fromAsset(path.resolve(__dirname, '../lambda')),
       handler: 'hello.handler',
 
     });
 {{</highlight>}}
 
-Here we are explictly navigating up a level from the current directory to find the Lambda code.
+Here we are explicitly navigating up a level from the current directory to find the Lambda code.
 
 If we commit the change (`git commit -am "fix lambda path" && git push`) and take a look at our pipeline again, we can see that our pipeline now builds without error!
 
