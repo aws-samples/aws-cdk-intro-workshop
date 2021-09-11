@@ -6,7 +6,7 @@ weight = 140
 ## Create Stage
 At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
 
-Create a new file in `cdk-workshop` called `pipeline_stage.py` with the code below:
+Create a new file in `cdk_workshop` called `pipeline_stage.py` with the code below:
 
 {{<highlight python>}}
 from aws_cdk import (
@@ -26,7 +26,7 @@ class WorkshopPipelineStage(core.Stage):
 All this does is declare a new `core.Stage` (component of a pipeline), and in that stage instantiate our application stack.
 
 ## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `cdk-workshop/pipeline_stack.py`:
+Now we must add the stage to the pipeline by adding the following code to `cdk_workshop/pipeline_stack.py`:
 
 {{<highlight python "hl_lines=8 27 50-51">}}
 from aws_cdk import (

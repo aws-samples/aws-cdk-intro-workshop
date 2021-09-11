@@ -9,7 +9,7 @@ The project created by `cdk init sample-app` includes an SQS queue and queue pol
 topic and subscription. We're not going to use them in our
 project, so remove them from the `CdkWorkshopStack` constructor.
 
-Open `cdkworkshop/cdkworkshop_stack.py` and clean it up. Eventually it should look like
+Open `cdk_workshop/cdk_workshop_stack.py` and clean it up. Eventually it should look like
 this:
 
 ```python
@@ -38,7 +38,7 @@ cdk diff
 Output should look like the following:
 
 ```
-Stack cdkworkshop
+Stack cdk-workshop
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬─────────────────┬───────────────────────────┬─────────────────────────────────────────────────────────────────┐
 │   │ Resource                        │ Effect │ Action          │ Principal                 │ Condition                                                       │

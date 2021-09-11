@@ -20,7 +20,7 @@ class HitCounter(core.Construct):
 
     @property
     def handler(self):
-        return self._handler    
+        return self._handler
 
     def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
@@ -109,7 +109,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 ## Grant invoke permissions
 
-Add the highlighted lines to `cdkworkshop/hitcounter.py`:
+Add the highlighted lines to `cdk_workshop/hitcounter.py`:
 
 {{<highlight python "hl_lines=33-34">}}
 from aws_cdk import (
@@ -122,7 +122,7 @@ class HitCounter(core.Construct):
 
     @property
     def handler(self):
-        return self._handler    
+        return self._handler
 
     def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
@@ -159,8 +159,8 @@ The **Resource** section should look something like this,
 which shows the IAM statement was added to the role:
 
 ```
-Stack cdkworkshop
-The cdkworkshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+Stack cdk-workshop
+The cdk-workshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────────┬────────┬────────────────────────┬────────────────────────┬───────────┐
 │   │ Resource               │ Effect │ Action                 │ Principal              │ Condition │
@@ -172,7 +172,7 @@ IAM Statement Changes
 (NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
 
 Resources
-[~] AWS::IAM::Policy HelloHitCounter/HitCounterHandler/ServiceRole/DefaultPolicy HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A 
+[~] AWS::IAM::Policy HelloHitCounter/HitCounterHandler/ServiceRole/DefaultPolicy HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A
  └─ [~] PolicyDocument
      └─ [~] .Statement:
          └─ @@ -24,5 +24,15 @@

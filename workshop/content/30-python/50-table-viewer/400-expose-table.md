@@ -36,7 +36,7 @@ class HitCounter(core.Construct):
             self, 'HitCountHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
             handler='hitcount.handler',
-            code=_lambda.Code.asset('lambda'),
+            code=_lambda.Code.from_asset('lambda'),
             environment={
                 'DOWNSTREAM_FUNCTION_NAME': downstream.function_name,
                 'HITS_TABLE_NAME': self._table.table_name,
@@ -49,7 +49,7 @@ class HitCounter(core.Construct):
 
 ## Now we can access the table from our stack
 
-Go back to `cdkworkshop_stack.py` and assign the `table` property of the table viewer:
+Go back to `cdk_workshop_stack.py` and assign the `table` property of the table viewer:
 
 {{<highlight python "hl_lines=37">}}
 from aws_cdk import (
@@ -71,7 +71,7 @@ class CdkWorkshopStack(core.Stack):
         hello = _lambda.Function(
             self, 'HelloHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
-            code=_lambda.Code.asset('lambda'),
+            code=_lambda.Code.from_asset('lambda'),
             handler='hello.handler',
         )
 
@@ -89,5 +89,5 @@ class CdkWorkshopStack(core.Stack):
             self, 'ViewHitCounter',
             title='Hello Hits',
             table=hello_with_counter.table,
-        )  
+        )
 {{</highlight>}}
