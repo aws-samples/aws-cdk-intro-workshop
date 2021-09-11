@@ -15,12 +15,12 @@ import software.amazon.awscdk.core.Stage;
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.StageProps;
 
-public class WorkshopPipelineStage extends Stage {
-    public WorkshopPipelineStage(final Construct scope, final String id) {
+public class PipelineStage extends Stage {
+    public PipelineStage(final Construct scope, final String id) {
         this(scope, id, null);
     }
 
-    public WorkshopPipelineStage(final Construct scope, final String id, final StageProps props) {
+    public PipelineStage(final Construct scope, final String id, final StageProps props) {
         super(scope, id, props);
 
         new CdkWorkshopStack(this, "WebService");
@@ -36,24 +36,24 @@ Now we must add the stage to the pipeline by adding the following code to `Pipel
 {{<highlight java "hl_lines=36 57-58">}}
 package com.myorg;
 
+import java.util.Arrays;
+
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
 
 import software.amazon.awscdk.services.codecommit.Repository;
-
 import software.amazon.awscdk.services.codepipeline.Artifact;
+import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
 import software.amazon.awscdk.pipelines.CdkPipeline;
 import software.amazon.awscdk.pipelines.SimpleSynthAction;
 
-import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
-
-public class WorkshopPipelineStack extends Stack {
-    public WorkshopPipelineStack(final Construct parent, final String id) {
+public class PipelineStack extends Stack {
+    public PipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
+    public PipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // This creates a new CodeCommit repository called 'WorkshopRepo'
@@ -82,21 +82,21 @@ public class WorkshopPipelineStack extends Stack {
 
                 // Builds our source code outlined above into a could assembly artifact
             .synthAction(SimpleSynthAction.Builder.create()
-                .installCommands(List.of("npm install -g aws-cdk")) // Commands to run before build
+                .installCommands(Arrays.asList("npm install -g aws-cdk")) // Commands to run before build
                 .synthCommand("npx cdk synth") // Synth command (always same)
                 .sourceArtifact(sourceArtifact) // Where to get source code to build
                 .cloudAssemblyArtifact(cloudAssemblyArtifact) // Where to place built source
-                .buildCommands(List.of("mvn package")) // Language-specific build cmds
+                .buildCommands(Arrays.asList("mvn package")) // Language-specific build cmds
                 .build())
             .build();
 
-        final WorkshopPipelineStage deploy = new WorkshopPipelineStage(this, "Deploy");
+        final PipelineStage deploy = new PipelineStage(this, "Deploy");
         pipeline.addApplicationStage(deploy);
     }
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
+This imports and creates an instance of the `PipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
 
 Then we add that stage to our pipeline (`pipepeline.addApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
 

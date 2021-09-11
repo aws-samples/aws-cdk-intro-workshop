@@ -8,7 +8,7 @@ weight = 200
 We'll start with the AWS Lambda handler code.
 
 1. Create a directory `lambda` in the root of your project tree (next to `src`).
-2. Add a file called `lambda/hello.js with the following contents:
+2. Add a file called `lambda/hello.js` with the following contents:
 
 ---
 ```js
