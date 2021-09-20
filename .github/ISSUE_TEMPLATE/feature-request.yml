@@ -1,4 +1,4 @@
-name: \U0001F680 Feature Request
+name: Feature Request
 description: Request a new feature
 labels: [feature-request, needs-triage]
 body:
@@ -16,8 +16,7 @@ body:
     attributes:
       label: Description
       description: |
-        Describe the feature you would like added in as much detail as you can. Make
-        sure you explain how it'll enhance the project, user-experience or feature set.
+        Describe the feature you would like added in as much detail as you can. Make sure you explain how it'll enhance the project, user-experience or feature set.
     validations:
       required: true
   - type: textarea
@@ -25,10 +24,7 @@ body:
     attributes:
       label: Proposed Solution
       description: |
-        Whenever relevant, describe how you would like the feature to be implemented.
-        Include any documentation that can help understand your idea in very concrete
-        ways, such as code examples that leverage your feature, captures of design
-        diagrams, ...
+        Whenever relevant, describe how you would like the feature to be implemented. Include any documentation that can help understand your idea in very concrete ways, such as code examples that leverage your feature, captures of design diagrams, ...
     validations:
       required: true
   - type: input

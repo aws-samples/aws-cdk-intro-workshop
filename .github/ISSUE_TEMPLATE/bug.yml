@@ -1,4 +1,4 @@
-name: \U0001F41B Bug Report
+name: Bug Report
 description: Report a bug
 labels: [bug, needs-triage]
 body:
@@ -16,11 +16,8 @@ body:
     attributes:
       label: Reproduction Steps
       description: |
-        Whenever possible, add reference to the minimal reproduction of the issue, as
-        this will greatly help with identifying the root cause of the problem, and
-        ensuring a candidate fix is working.
-        If your minimal reproduction is large, you may provide references to a [gist](https://gist.github.com)
-        or any other publicly viewable location.
+        Whenever possible, add reference to the minimal reproduction of the issue, as this will greatly help with identifying the root cause of the problem, and ensuring a candidate fix is working.
+        If your minimal reproduction is large, you may provide references to a [gist](https://gist.github.com) or any other publicly viewable location.
     validations:
       required: true
   - type: textarea
@@ -28,9 +25,7 @@ body:
     attributes:
       label: Verbose Log
       description: |
-        If the output is very large, you may store it in a [gist](https://gist.github.com). In any case,
-        please review the contents of the log you are about to submit and edit any
-        confidential information out.
+        If the output is very large, you may store it in a [gist](https://gist.github.com). In any case, please review the contents of the log you are about to submit and edit any confidential information out.
       render: shell
     validations:
       required: false
