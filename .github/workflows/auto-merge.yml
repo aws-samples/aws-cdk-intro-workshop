@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Automatically Merge
-        uses: NGL321/automerge-action
+        uses: NGL321/automerge-action@main
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           LOG: "TRACE"
