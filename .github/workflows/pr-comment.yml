@@ -24,6 +24,7 @@ jobs:
         ignore-if-labeled: true
         github-token: "${{ secrets.GITHUB_TOKEN }}"
   pr-checklist:
+    runs-on: ubuntu-latest
     steps:
     - uses: peter-evans/create-or-update-comment@v1
       with:
