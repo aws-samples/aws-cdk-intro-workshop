@@ -15,10 +15,10 @@ jobs:
   core-label:
     env:
       CORE_MEMBERS: eladb,RomainMuller,garnaat,nija-at,skinny85,rix0rrr,NGL321,Jerry-AWS,MrArnoldPalmer,NetaNir,iliapolo,njlynch,ericzbeard,ccfife,fulghum,pkandasamy91,SoManyHs,uttarasridhar
-    if: contains(env.CORE_MEMBERS.split(','), github.event.pull_request.user.login)
     runs-on: ubuntu-latest
     steps:
     - uses: andymckay/labeler@1.0.2
+      if: contains(env.CORE_MEMBERS.split(','), github.event.pull_request.user.login)
       with:
         add-labels: "core-contributor"
         ignore-if-labeled: true
