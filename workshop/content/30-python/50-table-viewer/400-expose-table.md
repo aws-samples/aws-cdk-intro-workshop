@@ -82,12 +82,12 @@ class CdkworkshopStack(core.Stack):
 
         apigw.LambdaRestApi(
             self, 'Endpoint',
-            handler=hello_with_counter.handler,
+            handler=hello_with_counter._handler,
         )
 
         TableViewer(
             self, 'ViewHitCounter',
             title='Hello Hits',
             table=hello_with_counter.table,
-        )  
+        )
 {{</highlight>}}

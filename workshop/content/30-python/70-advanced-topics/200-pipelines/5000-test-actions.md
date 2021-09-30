@@ -45,7 +45,7 @@ class CdkWorkshopStack(core.Stack):
 
         gateway = apigw.LambdaRestApi(
             self, 'Endpoint',
-            handler=hello_with_counter.handler
+            handler=hello_with_counter._handler
         )
 
         tv = TableViewer(
@@ -68,7 +68,7 @@ class CdkWorkshopStack(core.Stack):
 
 By adding outputs `hc_viewer_url` and `hc_endpoint`, we expose the necessary endpoints to our HitCounter application. We are using the core construct `CfnOutput` to declare these as Cloudformation stack outputs (we will get to this in a minute).
 
-Let's commit these changes to our repo (`git commit -am "MESSAGE" && git push`), and navigate to the [Cloudformation console](https://console.aws.amazon.com/cloudformation). You can see there are three stacks. 
+Let's commit these changes to our repo (`git commit -am "MESSAGE" && git push`), and navigate to the [Cloudformation console](https://console.aws.amazon.com/cloudformation). You can see there are three stacks.
 
 * `CDKToolkit`: The first is the integrated CDK stack (you should always see this on bootstrapped accounts). You can ignore this.
 * `WorkshopPipelineStack`: This is the stack that declares our pipeline. It isn't the one we need right now.
