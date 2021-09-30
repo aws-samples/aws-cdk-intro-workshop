@@ -23,8 +23,8 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public IFunction Handler { get; };
-        public Table MyTable { get; };
+        public readonly Function Handler;
+        public readonly Table MyTable;
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
@@ -40,7 +40,7 @@ namespace CdkWorkshop
 
             Handler = new Function(this, "HitCounterHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X,
+                Runtime = Runtime.NODEJS_14_X,
                 Handler = "hitcounter.handler",
                 Code = Code.FromAsset("lambda"),
                 Environment = new Dictionary<string, string>
@@ -62,7 +62,7 @@ namespace CdkWorkshop
 
 ## Now we can access the table from our stack
 
-Go back to `CdkWorkshop.cs` and assign the `Table` property of the table viewer:
+Go back to `CdkWorkshopStack.cs` and assign the `Table` property of the table viewer:
 
 {{<highlight csharp "hl_lines=36">}}
 using Amazon.CDK;
@@ -79,7 +79,7 @@ namespace CdkWorkshop
             // Defines a new lambda resource
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X, // execution environment
+                Runtime = Runtime.NODEJS_14_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
                 Handler = "hello.handler" // file is "hello", function is "handler"
             });

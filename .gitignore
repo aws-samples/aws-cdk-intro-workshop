@@ -1,4 +1,5 @@
 *.js
+!**/lambda/*.js
 !workshop/static/js/*
 *.d.ts
 node_modules
@@ -6,5 +7,4 @@ workshop/public/**
 .DS_Store
 obj/
 cdk.out/
-bin/
 *~

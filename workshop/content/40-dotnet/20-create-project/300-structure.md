@@ -8,9 +8,9 @@ weight = 300
 Now's a good time to open the project in your favorite IDE and explore.
 
 > If you use VSCode, you can just type `code .` within the project directory.
-> 
-> You may see a notification saying `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?` 
-> 
+>
+> You may see a notification saying `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?`
+>
 > This can be ignored for our purposes.
 
 ## Explore your project directory

@@ -13,7 +13,7 @@ mkdir cdk-workshop && cd cdk-workshop
 
 ## cdk init
 
-We will use `cdk init` to create a new TypeScript CDK project:
+We will use `cdk init` to create a new C# CDK project:
 
 ```
 cdk init sample-app --language csharp
@@ -25,7 +25,7 @@ installed, which is fine for this workshop):
 
 ```
 Applying project template sample-app for csharp
-Projet 'CdkWorkshop/CdkWorkshop.csproj' ajouté à la solution.
+Project 'CdkWorkshop/CdkWorkshop.csproj' ajouté à la solution.
 Initializing a new git repository...
 # Welcome to your CDK C# project!
 

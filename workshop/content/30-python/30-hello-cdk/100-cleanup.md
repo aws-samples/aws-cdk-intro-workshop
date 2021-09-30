@@ -7,9 +7,9 @@ weight = 100
 
 The project created by `cdk init sample-app` includes an SQS queue and queue policy, an SNS
 topic and subscription. We're not going to use them in our
-project, so remove them from the `CdkworkshopStack` constructor.
+project, so remove them from the `CdkWorkshopStack` constructor.
 
-Open `cdkworkshop/cdkworkshop_stack.py` and clean it up. Eventually it should look like
+Open `cdk_workshop/cdk_workshop_stack.py` and clean it up. Eventually it should look like
 this:
 
 ```python
@@ -18,7 +18,7 @@ from aws_cdk import (
 )
 
 
-class CdkworkshopStack(core.Stack):
+class CdkWorkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -38,7 +38,7 @@ cdk diff
 Output should look like the following:
 
 ```
-Stack cdkworkshop
+Stack cdk-workshop
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬─────────────────┬───────────────────────────┬─────────────────────────────────────────────────────────────────┐
 │   │ Resource                        │ Effect │ Action          │ Principal                 │ Condition                                                       │

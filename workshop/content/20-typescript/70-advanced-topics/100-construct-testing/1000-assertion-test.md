@@ -12,14 +12,13 @@ weight = 200
 Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
 validates that the table is getting created.
 
-If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the 
+If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the
 same level as `bin` and `lib` and then create a file called `hitcounter.test.ts` with the following code.
 
 ```typescript
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
-import cdk = require('@aws-cdk/core');
+import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
-
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created', () => {
@@ -27,9 +26,9 @@ test('DynamoDB Table Created', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.fromInline('test')
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
@@ -69,13 +68,13 @@ This time in addition to testing that the Lambda function is created, we also wa
 it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
 Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs. 
+environment variable values were references to other constructs.
 
 {{<highlight ts "hl_lines=6-7">}}
 this.handler = new lambda.Function(this, 'HitCounterHandler', {
-  runtime: lambda.Runtime.NODEJS_10_X,
+  runtime: lambda.Runtime.NODEJS_14_X,
   handler: 'hitcounter.handler',
-  code: lambda.Code.asset('lambda'),
+  code: lambda.Code.fromAsset('lambda'),
   environment: {
     DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
     HITS_TABLE_NAME: table.tableName
@@ -83,8 +82,8 @@ this.handler = new lambda.Function(this, 'HitCounterHandler', {
 });
 {{</highlight>}}
 
-At this point we don't really know what the value of the `functionName` or `tableName` will be since the 
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a 
+At this point we don't really know what the value of the `functionName` or `tableName` will be since the
+CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
 dummy value for now. Once we run the test it will fail and show us the expected value.
 
 Create a new test in `hitcounter.test.ts` with the below code:
@@ -95,17 +94,21 @@ test('Lambda Has Environment Variables', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.inline('test')
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
   expectCDK(stack).to(haveResource("AWS::Lambda::Function", {
     Environment: {
       Variables: {
-        DOWNSTREAM_FUNCTION_NAME: "TestFunction",
-        HITS_TABLE_NAME: "MyTestConstructHits"
+        DOWNSTREAM_FUNCTION_NAME: {
+          Ref: "TestFunctionXXXXX",
+        },
+        HITS_TABLE_NAME: {
+          Ref: "MyTestConstructHitsXXXXX",
+        }
       }
     }
   }));
@@ -130,7 +133,6 @@ $ npx jest
  FAIL  test/hitcounter.test.ts
   ✓ DynamoDB Table Created (184ms)
   ✕ Lambda Has Environment Variables (53ms)
-  ✓ read capacity can be configured (9ms)
 
   ● Lambda Has Environment Variables
   ...
@@ -177,9 +179,9 @@ test('Lambda Has Environment Variables', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.inline('test')
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
@@ -224,9 +226,10 @@ requirement that our DynamoDB table be encrypted.
 
 First we'll update the test to reflect this new requirement.
 
-{{<highlight ts "hl_lines=17-19">}}
+{{<highlight ts "hl_lines=18-20">}}
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import cdk = require('@aws-cdk/core');
+import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created With Encryption', () => {
@@ -234,9 +237,9 @@ test('DynamoDB Table Created With Encryption', () => {
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
     downstream:  new lambda.Function(stack, 'TestFunction', {
-      runtime: lambda.Runtime.NODEJS_10_X,
-      handler: 'lambda.handler',
-      code: lambda.Code.inline('test')
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'hello.handler',
+      code: lambda.Code.fromAsset('lambda')
     })
   });
   // THEN
@@ -300,7 +303,7 @@ export class HitCounter extends cdk.Construct {
 
     const table = new dynamodb.Table(this, 'Hits', {
       partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
-      serverSideEncryption: true
+      serverSideEncryption: true,
     });
     ...
   }

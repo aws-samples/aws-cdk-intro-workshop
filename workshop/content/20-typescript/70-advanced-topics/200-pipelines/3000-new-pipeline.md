@@ -34,7 +34,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
         // The basic pipeline declaration. This sets the initial structure
         // of our pipeline
-        new CdkPipeline(this, 'Pipeline', {
+        const pipeline = new CdkPipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
             cloudAssemblyArtifact,
 
@@ -73,7 +73,7 @@ git commit -am "MESSAGE" && git push
 npx cdk deploy
 ```
 
-CdkPipelines auto-update for each commit in a source repoh, so this is is the *last time* we will need to execute this command!
+CdkPipelines auto-update for each commit in a source repo, so this is is the *last time* we will need to execute this command!
 
 Once deployment is finished, you can go to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and you will see a new pipeline! If you navigate to it, it should look like this:
 

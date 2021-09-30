@@ -79,7 +79,7 @@ namespace CdkWorkshop
             // Defines a new lambda resource
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X, // execution environment
+                Runtime = Runtime.NODEJS_14_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
                 Handler = "hello.handler" // file is "hello", function is "handler"
             });
@@ -90,7 +90,7 @@ namespace CdkWorkshop
 
 A few things to notice:
 
-- Our function uses NodeJS 10.X runtime
+- Our function uses the NodeJS (`NODEJS_14_X`) runtime
 - The handler code is loaded from the `lambda` directory which we created
   earlier. Path is relative to where you execute `cdk` from, which is the
   project's root directory
@@ -99,11 +99,11 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of `Function` (and many other classes 
-in the CDK) have the signature `(scope, id, props)`. This is because all of 
-these classes are __constructs__. Constructs are the basic building block of CDK 
-apps. They represent abstract "cloud components" which can be composed together 
-into higher level abstractions via scopes. Scopes can include constructs, which 
+As you can see, the class constructors of `Function` (and many other classes
+in the CDK) have the signature `(scope, id, props)`. This is because all of
+these classes are __constructs__. Constructs are the basic building block of CDK
+apps. They represent abstract "cloud components" which can be composed together
+into higher level abstractions via scopes. Scopes can include constructs, which
 in turn can include other constructs, etc.
 
 Constructs are always created in the scope of another construct and must always

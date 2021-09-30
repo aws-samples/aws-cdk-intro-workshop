@@ -1,0 +1,31 @@
+name: Automatically Merge Approved PRs
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - labeled
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+
+jobs:
+  automerge:
+    name: CDK synth main-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automatically Merge
+        uses: NGL321/automerge-action@main
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          LOG: "TRACE"
+          MERGE_LABELS: "!pr/do-not-merge"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-title-and-description"
+          MERGE_DELETE_BRANCH: "true"
+          
