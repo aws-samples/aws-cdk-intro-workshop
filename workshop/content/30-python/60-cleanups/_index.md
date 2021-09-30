@@ -19,7 +19,7 @@ cdk destroy
 You'll be asked:
 
 ```
-Are you sure you want to delete: cdkworkshop (y/n)?
+Are you sure you want to delete: cdk-workshop (y/n)?
 ```
 
 Hit "y" and you'll see your stack being destroyed.

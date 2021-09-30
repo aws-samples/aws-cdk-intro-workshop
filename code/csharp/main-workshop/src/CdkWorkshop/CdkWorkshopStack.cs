@@ -8,11 +8,11 @@ namespace CdkWorkshop
     public class CdkWorkshopStack : Stack
     {
         // Defines a new lambda resource
-        public CdkWorkshopStack(Construct parent, string id, IStackProps props = null) : base(parent, id, props)
+        public CdkWorkshopStack(Construct scope, string id) : base(scope, id)
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X,
+                Runtime = Runtime.NODEJS_14_X,
                 Code = Code.FromAsset("lambda"),
                 Handler = "hello.handler"
             });
@@ -30,7 +30,7 @@ namespace CdkWorkshop
             new TableViewer(this, "ViewerHitCount", new TableViewerProps
             {
                 Title = "Hello Hits",
-                Table = helloWithCounter.Table
+                Table = helloWithCounter.MyTable
             });
         }
     }

@@ -6,22 +6,15 @@ import { HitCounter } from '../lib/hitcounter';
 test('DynamoDB Table Created', () => {
     const stack = new cdk.Stack();
 
-    const tableCreateLambda = new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_10_X,
-        handler: 'lambda.handler',
-        code: lambda.Code.inline('test')
-    });
-
     new HitCounter(stack, 'MyTestConstruct', {
-        downstream: tableCreateLambda
+        downstream: new lambda.Function(stack, 'TestFunction', {
+            runtime: lambda.Runtime.NODEJS_14_X,
+            handler: 'hello.handler',
+            code: lambda.Code.fromAsset('lambda')
+        })
     });
-    // THEN
 
-    expectCDK(stack).to(haveResource("AWS::DynamoDB::Table", {
-        SSESpecification: {
-            SSEEnabled: true
-        }
-    }));
+    expectCDK(stack).to(haveResource("AWS::DynamoDB::Table"));
 });
 
 test('Lambda Has Environment Variables', () => {
@@ -29,9 +22,9 @@ test('Lambda Has Environment Variables', () => {
 
     new HitCounter(stack, 'MyTestConstruct', {
         downstream: new lambda.Function(stack, 'TestFunction', {
-            runtime: lambda.Runtime.NODEJS_10_X,
-            handler: 'lambda.handler',
-            code: lambda.Code.inline('test')
+            runtime: lambda.Runtime.NODEJS_14_X,
+            handler: 'hello.handler',
+            code: lambda.Code.fromAsset('lambda')
         })
     });
 
@@ -49,17 +42,35 @@ test('Lambda Has Environment Variables', () => {
     }));
 });
 
+test('DynamoDB Table Created With Encryption', () => {
+    const stack = new cdk.Stack();
+
+    new HitCounter(stack, 'MyTestConstruct', {
+        downstream: new lambda.Function(stack, 'TestFunction', {
+            runtime: lambda.Runtime.NODEJS_14_X,
+            handler: 'hello.handler',
+            code: lambda.Code.fromAsset('lambda')
+        })
+    });
+
+    expectCDK(stack).to(haveResource("AWS::DynamoDB::Table", {
+        SSESpecification: {
+            SSEEnabled: true
+        }
+    }));
+});
+
 test('Read Capacity can be configured', () => {
     const stack = new cdk.Stack();
 
     expect(() => {
         new HitCounter(stack, 'MyTestConstruct', {
             downstream: new lambda.Function(stack, 'TestFunction', {
-                runtime: lambda.Runtime.NODEJS_10_X,
-                handler: 'lambda.handler',
-                code: lambda.Code.inline('test')
+                runtime: lambda.Runtime.NODEJS_14_X,
+                handler: 'hello.handler',
+                code: lambda.Code.fromAsset('lambda')
             }),
             readCapacity: 3
         });
-    }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
+    }).toThrowError("readCapacity must be greater than 5 and less than 20");
 });

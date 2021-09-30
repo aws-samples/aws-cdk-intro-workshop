@@ -63,8 +63,8 @@ export class WorkshopPipelineStack extends cdk.Stack {
         });
 
         // Defines the artifact representing the sourcecode
-        const sourceArtifact = new codepipeline.Artifact(); 
-        // Defines the artifact representing the cloud assembly 
+        const sourceArtifact = new codepipeline.Artifact();
+        // Defines the artifact representing the cloud assembly
         // (cloudformation template + all other assets)
         const cloudAssemblyArtifact = new codepipeline.Artifact();
 
@@ -107,7 +107,7 @@ Now that we have added the code to deploy our application, all that's left is to
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://us-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
 
 <!--
 ![](./pipeline-fail.png)
@@ -134,14 +134,14 @@ export class CdkWorkshopStack extends cdk.Stack {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_10_X,
-      code: lambda.Code.asset(path.resolve(__dirname, '../lambda')),
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset(path.resolve(__dirname, '../lambda')),
       handler: 'hello.handler',
 
     });
 {{</highlight>}}
 
-Here we are explictly navigating up a level from the current directory to find the Lambda code.
+Here we are explicitly navigating up a level from the current directory to find the Lambda code.
 
 If we commit the change (`git commit -am "fix lambda path" && git push`) and take a look at our pipeline again, we can see that our pipeline now builds without error!
 

@@ -8,7 +8,7 @@ weight = 200
 We'll start with the AWS Lambda handler code.
 
 1. Create a directory `lambda` in the root of your project tree (next to `src`).
-2. Add a file called `lambda/hello.js with the following contents:
+2. Add a file called `lambda/hello.js` with the following contents:
 
 ---
 ```js
@@ -102,7 +102,7 @@ public class CdkWorkshopStack extends Stack {
 
         // Defines a new lambda resource
         final Function hello = Function.Builder.create(this, "HelloHandler")
-            .runtime(Runtime.NODEJS_10_X)    // execution environment
+            .runtime(Runtime.NODEJS_14_X)    // execution environment
             .code(Code.fromAsset("lambda"))  // code loaded from the "lambda" directory
             .handler("hello.handler")        // file is "hello", function is "handler"
             .build();
@@ -113,7 +113,7 @@ public class CdkWorkshopStack extends Stack {
 
 A few things to notice:
 
-- Our function uses NodeJS 10.X runtime
+- Our function uses the NodeJS (`NODEJS_14_X`) runtime
 - The handler code is loaded from the `lambda` directory which we created
   earlier. Path is relative to where you execute `cdk` from, which is the
   project's root directory

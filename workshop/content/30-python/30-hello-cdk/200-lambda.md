@@ -7,13 +7,11 @@ weight = 200
 
 We'll start with the AWS Lambda handler code.
 
-1. Create a directory `lambda` in the root of your project tree (next to the
-   cdkworkshop directory).
+1. Create a directory `lambda` in the root of your project tree (next to the `cdk_workshop` directory).
 2. Add a file called `lambda/hello.py` with the following contents:
 
 ```python
 import json
-
 
 def handler(event, context):
     print('request: {}'.format(json.dumps(event)))
@@ -63,7 +61,7 @@ help you with auto-complete, inline documentation and type safety.
 
 ## Add an AWS Lambda Function to your stack
 
-Add an `import` statement at the beginning of `cdkworkshop/cdkworkshop_stack.py`, and a
+Add an `import` statement at the beginning of `cdk_workshop/cdk_workshop_stack.py`, and a
 `lambda.Function` to your stack.
 
 
@@ -73,8 +71,7 @@ from aws_cdk import (
     aws_lambda as _lambda,
 )
 
-
-class CdkworkshopStack(core.Stack):
+class CdkWorkshopStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -83,7 +80,7 @@ class CdkworkshopStack(core.Stack):
         my_lambda = _lambda.Function(
             self, 'HelloHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
-            code=_lambda.Code.asset('lambda'),
+            code=_lambda.Code.from_asset('lambda'),
             handler='hello.handler',
         )
 {{</highlight>}}
@@ -101,7 +98,7 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of both `CdkworkshopStack` and `lambda.Function`
+As you can see, the class constructors of both `CdkWorkshopStack` and `lambda.Function`
 (and many other classes in the CDK) have the signature `(scope, id,
 **kwargs)`. This is because all of these classes are __constructs__.
 Constructs are the basic building block of CDK apps. They represent abstract
@@ -136,13 +133,13 @@ signature:
 Save your code, and let's take a quick look at the diff before we deploy:
 
 ```
-cdk diff cdkworkshop
+cdk diff
 ```
 
 Output would look like this:
 
 ```
-The cdkworkshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+The cdk-workshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────────┬────────┬────────────────────────┬────────────────────────┬───────────┐
 │   │ Resource               │ Effect │ Action                 │ Principal              │ Condition │
@@ -165,8 +162,8 @@ Parameters
 [+] Parameter HelloHandler/Code/ArtifactHash HelloHandlerCodeArtifactHash5DF4E4B6: {"Type":"String","Description":"Artifact hash for asset \"hello-cdk-1/HelloHandler/Code\""}
 
 Resources
-[+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63 
-[+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D 
+[+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63
+[+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
 As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
@@ -179,7 +176,7 @@ that are used by the toolkit to propagate the location of the handler code.
 Let's deploy:
 
 ```
-cdk deploy cdkworkshop
+cdk deploy
 ```
 
 You'll notice that `cdk deploy` not only deployed your CloudFormation stack, but

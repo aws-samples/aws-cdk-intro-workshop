@@ -25,7 +25,7 @@ installed, which is fine for this workshop):
 
 ```
 Applying project template sample-app for csharp
-Projet 'CdkWorkshop/CdkWorkshop.csproj' ajouté à la solution.
+Project 'CdkWorkshop/CdkWorkshop.csproj' ajouté à la solution.
 Initializing a new git repository...
 # Welcome to your CDK C# project!
 

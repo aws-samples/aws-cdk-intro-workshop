@@ -15,7 +15,7 @@ namespace CdkWorkshop
         {
             var hello = new Function(this, "HelloHandler", new FunctionProps
             {
-                Runtime = Runtime.NODEJS_10_X,
+                Runtime = Runtime.NODEJS_14_X,
                 Code = Code.FromAsset("lambda"),
                 Handler = "hello.handler"
             });
@@ -38,7 +38,7 @@ namespace CdkWorkshop
 
             this.HCViewerUrl = new CfnOutput(this, "TableViewerUrl", new CfnOutputProps
             {
-                Value = gateway.Url
+                Value = tv.Endpoint
             });
 
             this.HCEndpoint = new CfnOutput(this, "GatewayUrl", new CfnOutputProps

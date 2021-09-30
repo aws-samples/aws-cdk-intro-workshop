@@ -1,0 +1,22 @@
+name: Build workshop site
+
+on: [pull_request]
+
+jobs:
+  build:
+    name: Build using Hugo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Hugo dependency
+        run: sudo apt-get install hugo
+
+      - name: Install NPM dependencies
+        working-directory: ./cdkworkshop.com
+        run: npm install --frozen-lockfile
+
+      - name: Build site
+        working-directory: ./cdkworkshop.com
+        run: npm run build
