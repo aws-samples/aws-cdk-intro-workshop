@@ -45,7 +45,7 @@ class CdkWorkshopStack(core.Stack):
 
         gateway = apigw.LambdaRestApi(
             self, 'Endpoint',
-            handler=hello_with_counter.handler
+            handler=hello_with_counter._handler
         )
 
         tv = TableViewer(
