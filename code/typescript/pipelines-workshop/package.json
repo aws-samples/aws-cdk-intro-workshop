@@ -1,34 +1,33 @@
 {
-    "name": "cdk-workshop",
-    "version": "0.1.0",
-    "main": "bin/index.js",
-    "types": "bin/index.d.ts",
-    "bin": {
-        "cdk-workshop": "bin/cdk-workshop.js"
-    },
-    "scripts": {
-        "build": "tsc",
-        "watch": "tsc -w",
-        "cdk": "cdk"
-    },
-    "devDependencies": {
-        "@aws-cdk/assert": "1.117.0",
-        "@types/jest": "^26.0.10",
-        "@types/node": "^10.17.28",
-        "aws-cdk": "^1.117.0",
-        "typescript": "^3.9.7"
-    },
-    "dependencies": {
-        "@aws-cdk/assert": "1.117.0",
-        "@aws-cdk/aws-apigateway": "^1.117.0",
-        "@aws-cdk/aws-codecommit": "^1.117.0",
-        "@aws-cdk/aws-dynamodb": "^1.117.0",
-        "@aws-cdk/pipelines": "^1.117.0",
-        "@aws-cdk/aws-lambda": "^1.117.0",
-        "@aws-cdk/aws-sns": "^1.117.0",
-        "@aws-cdk/aws-sqs": "^1.117.0",
-        "@aws-cdk/core": "^1.117.0",
-        "@aws-cdk/cx-api": "^1.117.0",
-        "cdk-dynamo-table-viewer": "^3.1.2"
-    }
+  "name": "cdk-pipelines-workshop",
+  "version": "0.1.0",
+  "main": "bin/cdk-workshop.js",
+  "types": "bin/cdk-workshop.d.ts",
+  "bin": {
+    "cdk-workshop": "bin/cdk-workshop.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "aws-cdk": "^1.118.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.118.0",
+    "@aws-cdk/aws-codecommit": "^1.118.0",
+    "@aws-cdk/aws-codepipeline": "^1.118.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.118.0",
+    "@aws-cdk/aws-dynamodb": "^1.118.0",
+    "@aws-cdk/aws-lambda": "^1.118.0",
+    "@aws-cdk/aws-sns": "^1.118.0",
+    "@aws-cdk/aws-sqs": "^1.118.0",
+    "@aws-cdk/core": "^1.118.0",
+    "@aws-cdk/cx-api": "^1.118.0",
+    "@aws-cdk/pipelines": "^1.118.0",
+    "cdk-dynamo-table-viewer": "^0.1.60"
+  }
 }

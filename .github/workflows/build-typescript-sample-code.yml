@@ -1,0 +1,83 @@
+name: Build, Test, Synth Typescript sample code
+
+on:
+  pull_request:
+    paths:
+      - code/typescript/**
+
+jobs:
+  main-workshop:
+    name: CDK synth main-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install NPM modules
+        working-directory: code/typescript/main-workshop
+        run: npm install
+
+      - name: Build
+        working-directory: code/typescript/main-workshop
+        run: npm run build
+
+      - name: CDK synth
+        working-directory: code/typescript/main-workshop
+        run: npx cdk synth
+
+  pipelines-workshop:
+    name: CDK synth pipelines-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install NPM modules
+        working-directory: code/typescript/pipelines-workshop
+        run: npm install
+
+      - name: Build
+        working-directory: code/typescript/pipelines-workshop
+        run: npm run build
+
+      - name: CDK synth
+        working-directory: code/typescript/pipelines-workshop
+        run: npx cdk synth
+
+  tests-workshop:
+    name: CDK synth and test tests-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install NPM modules
+        working-directory: code/typescript/tests-workshop
+        run: npm install
+
+      - name: Build
+        working-directory: code/typescript/tests-workshop
+        run: npm run build
+
+      - name: CDK synth
+        working-directory: code/typescript/tests-workshop
+        run: npx cdk synth
+
+      - name: Run tests
+        working-directory: code/typescript/tests-workshop
+        run: npx jest

@@ -1,0 +1,47 @@
+name: Synth Java sample code
+
+on:
+  pull_request:
+    paths:
+      - code/java/**
+
+jobs:
+  main-workshop:
+    name: CDK synth main-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: zulu
+          java-version: 11
+
+      - name: Resolve Maven dependencies
+        working-directory: code/java/main-workshop
+        run: mvn dependency:analyze
+
+      - name: CDK synth
+        working-directory: code/java/main-workshop
+        run: npx cdk synth
+
+  pipelines-workshop:
+    name: CDK synth pipelines-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: zulu
+          java-version: 11
+
+      - name: Resolve Maven dependencies
+        working-directory: code/java/pipelines-workshop
+        run: mvn dependency:analyze
+
+      - name: CDK synth
+        working-directory: code/java/pipelines-workshop
+        run: npx cdk synth

@@ -9,7 +9,7 @@ weight = 110
 The first step is to create the stack that will contain our pipeline.
 Since this is separate from our actual "production" application, we want this to be entirely self-contained.
 
-Create a new file under `src/main/java/com/myorg` called `PipelineStack.java`. Add the following to that file.
+Create a new file under `src/main/java/com/myorg` called `WorkshopPipelineStack.java`. Add the following to that file.
 
 {{<highlight java>}}
 package com.myorg;
@@ -18,12 +18,12 @@ import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
 
-public class WorkshopPipelineStack extends Stack {
-    public WorkshopPipelineStack(final Construct parent, final String id) {
+public class PipelineStack extends Stack {
+    public PipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
+    public PipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // Pipeline code goes here
@@ -47,7 +47,7 @@ public final class CdkWorkshopApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new WorkshopPipelineStack(app, "WorkshopPipelineStack");
+        new PipelineStack(app, "PipelineStack");
 
         app.synth();
     }

@@ -9,7 +9,7 @@ weight = 110
 The first step is to create the stack that will contain our pipeline.
 Since this is separate from our actual "production" application, we want this to be entirely self-contained.
 
-Create a new file under `cdk-workshop` called `pipeline_stack.py`. Add the following to that file.
+Create a new file under `cdk_workshop` called `pipeline_stack.py`. Add the following to that file.
 
 {{<highlight python>}}
 from aws_cdk import (
@@ -36,7 +36,7 @@ To do this, edit the code in `app.py` as follows:
 #!/usr/bin/env python3
 
 from aws_cdk import core
-from cdk-workshop.pipeline_stack import WorkshopPipelineStack
+from cdk_workshop.pipeline_stack import WorkshopPipelineStack
 
 app = core.App()
 WorkshopPipelineStack(app, "WorkshopPipelineStack")

@@ -59,11 +59,11 @@ public class CdkWorkshopStack extends Stack {
             .build();
 
         hcViewerUrl = CfnOutput.Builder.create(this, "TableViewerUrl")
-            .value(tv.endpoint)
+            .value(tv.getEndpoint())
             .build();
 
         hcEndpoint = CfnOutput.Builder.create(this, "GatewayUrl")
-            .value(gateway.url)
+            .value(gateway.getUrl())
             .build();
     }
 }
@@ -88,21 +88,20 @@ Now we have our application deployed, but no CD pipeline is complete without tes
 Let's start with a simple test to ping our endpoints to see if they are alive.
 Return to `PipelineStack.java` and add the following:
 
-{{<highlight java "hl_lines=13 28-42">}}
+{{<highlight java "hl_lines=12 29-45">}}
 package com.myorg;
+
+import java.util.List;
+import java.util.Map;
 
 import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
-
+import software.amazon.awscdk.pipelines.CodeBuildStep;
+import software.amazon.awscdk.pipelines.CodePipeline;
+import software.amazon.awscdk.pipelines.CodePipelineSource;
+import software.amazon.awscdk.pipelines.StageDeployment;
 import software.amazon.awscdk.services.codecommit.Repository;
-
-import software.amazon.awscdk.services.codepipeline.Artifact;
-import software.amazon.awscdk.pipelines.CdkPipeline;
-import software.amazon.awscdk.pipelines.SimpleSynthAction;
-import software.amazon.awscdk.pipelines.CdkStage;
-import software.amazon.awscdk.pipelines.ShellScriptAction;
-
 import software.amazon.awscdk.services.codepipeline.actions.CodeCommitSourceAction;
 
 public class WorkshopPipelineStack extends Stack {
@@ -116,32 +115,36 @@ public class WorkshopPipelineStack extends Stack {
         // PIPELINE CODE HERE
 
         final WorkshopPipelineStage deploy = new WorkshopPipelineStage(this, "Deploy");
-        final CdkStage deployStage = pipeline.addApplicationStage(deploy);
-        deployStage.addActions(ShellScriptAction.Builder.create()
-            .actionName("TestViewerEndpoint")
-            .useOutputs(Map.of("ENDPOINT_URL", /* TBD */))
-            .commands(List.of("curl -Ssf $ENDPOINT_URL"))
-            .build());
-        deployStage.addActions(ShellScriptAction.Builder.create()
-            .actionName("TestAPIGatewayEndpoint")
-            .useOutputs(Map.of("ENDPOINT_URL", /* TBD */))
-            .commands(List.of(
-                "curl -Ssf $ENDPOINT_URL",
-                "curl -Ssf $ENDPOINT_URL/hello",
-                "curl -Ssf $ENDPOINT_URL/test"
-            ))
-            .build());
+        StageDeployment stageDeployment = pipeline.addStage(deploy);
+
+        stageDeployment.addPost(
+                CodeBuildStep.Builder.create("TestViewerEndpoint")
+                        .projectName("TestViewerEndpoint")
+                        .commands(List.of("curl -Ssf $ENDPOINT_URL"))
+                        .envFromCfnOutputs(Map.of("ENDPOINT_URL",  /* TBD */))
+                        .build(),
+
+                CodeBuildStep.Builder.create("TestAPIGatewayEndpoint")
+                        .projectName("TestAPIGatewayEndpoint")
+                        .envFromCfnOutputs(Map.of("ENDPOINT_URL",  /* TBD */))
+                        .commands(List.of(
+                                "curl -Ssf $ENDPOINT_URL",
+                                "curl -Ssf $ENDPOINT_URL/hello",
+                                "curl -Ssf $ENDPOINT_URL/test"
+                        ))
+                        .build()
+        );
     }
 }
 {{</highlight>}}
 
-First we import `ShellScriptAction` from CDK Pipelines. This is a construct that simply executes one or more shell script commands. Then we add two actions to our deployment stage that test our TableViewer endpoint and our APIGateway endpoint respectively.
+We add deployment post step via `stageDeployment.addPost(...)` from CDK Pipelines. We add two actions to our deployment stage that test our TableViewer endpoint and our APIGateway endpoint respectively.
 
 > Note: We submit several `curl` requests to the APIGateway endpoint so that when we look at our tableviewer, there are several values already populated.
 
 You may notice that we have not yet set the URLs of these endpoints. This is because they are not yet exposed to this stack!
 
-With a slight modification to `PipelineStage.java` we can expose them:
+With a slight modification to `WorkshopPipelineStage.java` we can expose them:
 
 {{<highlight java "hl_lines=6 10-11 20 22-23">}}
 package com.myorg;
@@ -171,26 +174,28 @@ public class WorkshopPipelineStage extends Stage {
 }
 {{</highlight>}}
 
-Now we can add those values to our actions in `PipelineStack.java` by getting the `StackOutput` of our pipeline stack:
-{{<highlight java "hl_lines=7 12">}}
-// OTHER CODE HERE...
+Now we can add those values to our actions in `WorkshopPipelineStack.java` by getting the `StackOutput` of our pipeline stack:
+{{<highlight java "hl_lines=9 14">}}
+        // OTHER CODE HERE...
+        final WorkshopPipelineStage deploy = new WorkshopPipelineStage(this, "Deploy");
+        StageDeployment stageDeployment = pipeline.addStage(deploy);
 
-final WorkshopPipelineStage deploy = new WorkshopPipelineStage(this, "Deploy");
-final CdkStage deployStage = pipeline.addApplicationStage(deploy);
-deployStage.addActions(ShellScriptAction.Builder.create()
-    .actionName("TestViewerEndpoint")
-    .useOutputs(Map.of("ENDPOINT_URL", deploy.hcViewerUrl))
-    .commands(List.of("curl -Ssf $ENDPOINT_URL"))
-    .build());
-deployStage.addActions(ShellScriptAction.Builder.create()
-    .actionName("TestAPIGatewayEndpoint")
-    .useOutputs(Map.of("ENDPOINT_URL", deploy.hcEndpoint))
-    .commands(List.of(
-        "curl -Ssf $ENDPOINT_URL",
-        "curl -Ssf $ENDPOINT_URL/hello",
-        "curl -Ssf $ENDPOINT_URL/test"
-    ))
-    .build());
+        stageDeployment.addPost(
+                CodeBuildStep.Builder.create("TestViewerEndpoint")
+                        .projectName("TestViewerEndpoint")
+                        .commands(List.of("curl -Ssf $ENDPOINT_URL"))
+                        .envFromCfnOutputs(Map.of("ENDPOINT_URL",  deploy.hcViewerUrl))
+                        .build(),
+
+                CodeBuildStep.Builder.create("TestAPIGatewayEndpoint")
+                        .projectName("TestAPIGatewayEndpoint")
+                        .envFromCfnOutputs(Map.of("ENDPOINT_URL",  deploy.hcEndpoint))
+                        .commands(List.of(
+                                "curl -Ssf $ENDPOINT_URL",
+                                "curl -Ssf $ENDPOINT_URL/hello",
+                                "curl -Ssf $ENDPOINT_URL/test"
+                        ))
+                        .build()
 {{</highlight>}}
 
 ## Commit and View!

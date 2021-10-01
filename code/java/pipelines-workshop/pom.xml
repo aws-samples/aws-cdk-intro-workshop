@@ -15,8 +15,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -34,51 +34,57 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>lambda</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>codecommit</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>codepipeline</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
                 <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>codepipeline-actions</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>cdk-pipelines</artifactId>
-            <version>1.71.0</version>
+            <version>1.117.0</version>
         </dependency>
 
         <!-- Additional Construct Libraries -->
-        <dependency>
+         <dependency>
             <groupId>com.github.eladb</groupId>
             <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>[3.1.2,4)</version>
+            <version>3.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId> software.amazon.jsii</groupId>
+                    <artifactId>jsii-runtime</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/junit/junit -->
