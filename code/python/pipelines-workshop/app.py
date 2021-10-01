@@ -2,7 +2,7 @@
 
 from aws_cdk import core
 
-from cdk-workshop.pipeline_stack import WorkshopPipelineStack
+from cdk_workshop.pipeline_stack import WorkshopPipelineStack
 
 
 app = core.App()

@@ -6,7 +6,7 @@ weight = 150
 ## Get Endpoints
 Stepping back, we can see a problem now that our app is being deployed by our pipeline. There is no easy way to find the endpoints of our application (the `TableViewer` and `LambdaRestApi` endpoints), so we can't call it! Let's add a little bit of code to expose these more obviously.
 
-First edit `cdk-workshop/cdk-workshop_stack.py` to get these values and expose them as properties of our stack:
+First edit `cdk_workshop/cdk_workshop_stack.py` to get these values and expose them as properties of our stack:
 
 {{<highlight python "hl_lines=11-17 35 40 46-54">}}
 from aws_cdk import (
@@ -34,7 +34,7 @@ class CdkWorkshopStack(core.Stack):
         my_lambda = _lambda.Function(
             self, 'HelloHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
-            code=_lambda.Code.asset('lambda'),
+            code=_lambda.Code.from_asset('lambda'),
             handler='hello.handler',
         )
 
@@ -45,7 +45,7 @@ class CdkWorkshopStack(core.Stack):
 
         gateway = apigw.LambdaRestApi(
             self, 'Endpoint',
-            handler=hello_with_counter.handler
+            handler=hello_with_counter._handler
         )
 
         tv = TableViewer(
@@ -68,7 +68,7 @@ class CdkWorkshopStack(core.Stack):
 
 By adding outputs `hc_viewer_url` and `hc_endpoint`, we expose the necessary endpoints to our HitCounter application. We are using the core construct `CfnOutput` to declare these as Cloudformation stack outputs (we will get to this in a minute).
 
-Let's commit these changes to our repo (`git commit -am "MESSAGE" && git push`), and navigate to the [Cloudformation console](https://console.aws.amazon.com/cloudformation). You can see there are three stacks. 
+Let's commit these changes to our repo (`git commit -am "MESSAGE" && git push`), and navigate to the [Cloudformation console](https://console.aws.amazon.com/cloudformation). You can see there are three stacks.
 
 * `CDKToolkit`: The first is the integrated CDK stack (you should always see this on bootstrapped accounts). You can ignore this.
 * `WorkshopPipelineStack`: This is the stack that declares our pipeline. It isn't the one we need right now.
@@ -82,7 +82,7 @@ If you click the `TableViewerUrl` value, you should see our pretty hitcounter ta
 Now we have our application deployed, but no CD pipeline is complete without tests!
 
 Let's start with a simple test to ping our endpoints to see if they are alive.
-Return to `cdk-workshop/pipeline_stack.py` and add the following:
+Return to `cdk_workshop/pipeline_stack.py` and add the following:
 
 {{<highlight python "hl_lines=18-36">}}
 from aws_cdk import (
@@ -130,7 +130,7 @@ First we add a `ShellScriptAction` from CDK Pipelines. This is a construct that 
 
 You may notice that we have not yet set the URLs of these endpoints. This is because they are not yet exposed to this stack!
 
-With a slight modification to `cdk-workshop/pipeline_stage.py` we can expose them:
+With a slight modification to `cdk_workshop/pipeline_stage.py` we can expose them:
 
 {{<highlight python "hl_lines=8-14 21-22">}}
 from aws_cdk import (
@@ -158,7 +158,7 @@ class WorkshopPipelineStage(core.Stage):
 
 {{</highlight>}}
 
-Now we can add those values to our actions in `cdk-workshop/pipeline_stack.py` by getting the `stack_output` of our pipeline stack:
+Now we can add those values to our actions in `cdk_workshop/pipeline_stack.py` by getting the `stack_output` of our pipeline stack:
 {{<highlight python "hl_lines=8 15">}}
   # CODE HERE...
 

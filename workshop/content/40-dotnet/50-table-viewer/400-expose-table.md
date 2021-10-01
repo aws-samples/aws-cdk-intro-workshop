@@ -23,8 +23,8 @@ namespace CdkWorkshop
 
     public class HitCounter : Construct
     {
-        public IFunction Handler { get; };
-        public Table MyTable { get; };
+        public readonly Function Handler;
+        public readonly Table MyTable;
 
         public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
         {
@@ -62,7 +62,7 @@ namespace CdkWorkshop
 
 ## Now we can access the table from our stack
 
-Go back to `CdkWorkshop.cs` and assign the `Table` property of the table viewer:
+Go back to `CdkWorkshopStack.cs` and assign the `Table` property of the table viewer:
 
 {{<highlight csharp "hl_lines=36">}}
 using Amazon.CDK;

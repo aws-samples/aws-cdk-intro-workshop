@@ -18,12 +18,12 @@ import software.amazon.awscdk.core.Construct;
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.core.StackProps;
 
-public class WorkshopPipelineStack extends Stack {
-    public WorkshopPipelineStack(final Construct parent, final String id) {
+public class PipelineStack extends Stack {
+    public PipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
+    public PipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // Pipeline code goes here
@@ -47,7 +47,7 @@ public final class CdkWorkshopApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new WorkshopPipelineStack(app, "WorkshopPipelineStack");
+        new PipelineStack(app, "PipelineStack");
 
         app.synth();
     }

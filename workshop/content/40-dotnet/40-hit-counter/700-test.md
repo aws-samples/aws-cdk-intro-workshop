@@ -20,7 +20,7 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
 
 1. Go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home).
 2. Make sure you are in the region where you created the table.
-3. Select `Tables` in the navigation pane and select the table that starts with `CdkWorkdShopStack-HelloHitCounterHits`.
+3. Select `Tables` in the navigation pane and select the table that starts with `CdkWorkShopStack-HelloHitCounterHits`.
 4. Open the table and select "Items".
 5. You should see how many hits you got for each path.
 

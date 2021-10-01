@@ -43,7 +43,7 @@ In `pom.xml` add:
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codecommit</artifactId>
-    <version>1.117.0</version>
+    <version>VERSION</version>
 </dependency>
 ```
 

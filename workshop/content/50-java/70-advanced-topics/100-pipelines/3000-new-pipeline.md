@@ -11,17 +11,17 @@ We will be using several new packages here, so first add the following to `pom.x
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codepipeline</artifactId>
-    <version>1.117.0</version>
+    <version>VERSION</version>
 </dependency>
         <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>codepipeline-actions</artifactId>
-    <version>1.117.0</version>
+    <version>VERSION</version>
 </dependency>
 <dependency>
     <groupId>software.amazon.awscdk</groupId>
     <artifactId>cdk-pipelines</artifactId>
-    <version>1.117.0</version>
+    <version>VERSION</version>
 </dependency>
 {{</highlight>}}
 
@@ -83,7 +83,7 @@ The above code does several things:
   The `input` of the synth step will check the designated repository for source code and generate an artifact. 
 
 ## Deploy Pipeline and See Result
-All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
+All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
 ```
 git commit -am "MESSAGE" && git push
