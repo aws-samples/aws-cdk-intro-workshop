@@ -6,7 +6,7 @@ public final class CdkWorkshopApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new PipelineStack(app, "PipelineStack");
+        new WorkshopPipelineStack(app, "PipelineStack");
 
         app.synth();
     }
