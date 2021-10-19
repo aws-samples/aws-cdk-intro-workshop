@@ -25,7 +25,7 @@ We will be using several new packages here, so first add the following to `pom.x
 </dependency>
 {{</highlight>}}
 
-Return to the file `PipelineStack.java` and edit as follows:
+Return to the file `WorkshopPipelineStack.java` and edit as follows:
 
 {{<highlight java "hl_lines=9-11 30-44">}}
 package com.myorg;
