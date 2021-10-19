@@ -6,7 +6,7 @@ weight = 120
 ## Create Repo in Pipeline Stack
 The first step in any good CD pipeline is source control. Here we will create a [**CodeCommit**](https://aws.amazon.com/codecommit/) repository to contain our project code.
 
-Edit the file `PipelineStack.java` as follows.
+Edit the file `WorkshopPipelineStack.java` as follows.
 
 {{<highlight java "hl_lines=7 17-20">}}
 package com.myorg;
@@ -17,12 +17,12 @@ import software.amazon.awscdk.core.StackProps;
 
 import software.amazon.awscdk.services.codecommit.Repository;
 
-public class PipelineStack extends Stack {
-    public PipelineStack(final Construct parent, final String id) {
+public class WorkshopPipelineStack extends Stack {
+    public WorkshopPipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public PipelineStack(final Construct parent, final String id, final StackProps props) {
+    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // This creates a new CodeCommit repository called 'WorkshopRepo'

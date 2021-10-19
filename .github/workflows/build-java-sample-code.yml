@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: zulu
-          java-version: 8
+          java-version: 11
 
       - name: Resolve Maven dependencies
         working-directory: code/java/main-workshop
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: zulu
-          java-version: 8
+          java-version: 11
 
       - name: Resolve Maven dependencies
         working-directory: code/java/pipelines-workshop
