@@ -51,8 +51,8 @@ export class WorkshopPipelineStack extends cdk.Stack {
                 },
                 commands: [
                     'curl -Ssf $ENDPOINT_URL',
-                    'curl -Ssf $ENDPOINT_URL',
-                    'curl -Ssf $ENDPOINT_URL'
+                    'curl -Ssf $ENDPOINT_URL/hello',
+                    'curl -Ssf $ENDPOINT_URL/test'
                 ]
             })
         )
