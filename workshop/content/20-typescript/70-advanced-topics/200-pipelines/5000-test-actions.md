@@ -114,7 +114,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-We add deployment post step via `deployStage.addPost(...)` from CDK Pipelines. We add two actions to our deployment stage that test our TableViewer endpoint and our APIGateway endpoint respectively.
+We add post-deployment steps via `deployStage.addPost(...)` from CDK Pipelines. We add two actions to our deployment stage: to test our TableViewer endpoint and our APIGateway endpoint, respectively.
 
 > Note: We submit several `curl` requests to the APIGateway endpoint so that when we look at our tableviewer, there are several values already populated.
 
