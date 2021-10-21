@@ -72,13 +72,11 @@ Now we have our application deployed, but no CD pipeline is complete without tes
 Let's start with a simple test to ping our endpoints to see if they are alive.
 Return to `lib/pipeline-stack.ts` and add the following:
 
-{{<highlight ts "hl_lines=6 15-35">}}
+{{<highlight ts "hl_lines=15-37">}}
 import * as cdk from '@aws-cdk/core';
-import * as codepipeline from '@aws-cdk/aws-codepipeline';
-import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 import * as codecommit from '@aws-cdk/aws-codecommit';
-import { WorkshopPipelineStage } from './pipeline-stage';
-import { ShellScriptAction, SimpleSynthAction, CdkPipeline } from "@aws-cdk/pipelines";
+import {WorkshopPipelineStage} from './pipeline-stage';
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -87,32 +85,36 @@ export class WorkshopPipelineStack extends cdk.Stack {
         // PIPELINE CODE HERE...
 
         const deploy = new WorkshopPipelineStage(this, 'Deploy');
-        const deployStage = pipeline.addApplicationStage(deploy);
-        deployStage.addActions(new ShellScriptAction({
-            actionName: 'TestViewerEndpoint',
-            useOutputs: {
-                ENDPOINT_URL: //TBD
-            },
-            commands: [
-                'curl -Ssf $ENDPOINT_URL'
-            ]
-        }));
-        deployStage.addActions(new ShellScriptAction({
-            actionName: 'TestAPIGatewayEndpoint',
-            useOutputs: {
-                ENDPOINT_URL: //TBD
-            },
-            commands: [
-                'curl -Ssf $ENDPOINT_URL/',
-                'curl -Ssf $ENDPOINT_URL/hello',
-                'curl -Ssf $ENDPOINT_URL/test'
-            ]
-        }));
+        const deployStage = pipeline.addStage(deploy);
+
+        deployStage.addPost(
+            new CodeBuildStep('TestViewerEndpoint', {
+                projectName: 'TestViewerEndpoint',
+                envFromCfnOutputs: {
+                    ENDPOINT_URL: //TBD
+                },
+                commands: [
+                    'curl -Ssf $ENDPOINT_URL'
+                ]
+            }),
+
+            new CodeBuildStep('TestAPIGatewayEndpoint', {
+                projectName: 'TestAPIGatewayEndpoint',
+                envFromCfnOutputs: {
+                    ENDPOINT_URL: //TBD
+                },
+                commands: [
+                    'curl -Ssf $ENDPOINT_URL',
+                    'curl -Ssf $ENDPOINT_URL/hello',
+                    'curl -Ssf $ENDPOINT_URL/test'
+                ]
+            })
+        )
     }
 }
 {{</highlight>}}
 
-First we import `ShellScriptAction` from CDK Pipelines. This is a construct that simply executes one or more shell script commands. Then we add two actions to our deployment stage that test our TableViewer endpoint and our APIGateway endpoint respectively.
+We add post-deployment steps via `deployStage.addPost(...)` from CDK Pipelines. We add two actions to our deployment stage: to test our TableViewer endpoint and our APIGateway endpoint, respectively.
 
 > Note: We submit several `curl` requests to the APIGateway endpoint so that when we look at our tableviewer, there are several values already populated.
 
@@ -140,29 +142,30 @@ export class WorkshopPipelineStage extends Stage {
 {{</highlight>}}
 
 Now we can add those values to our actions in `lib/pipeline-stack.ts` by getting the `stackOutput` of our pipeline stack:
-{{<highlight ts "hl_lines=6 15">}}
-// CODE HERE...
-
-deployStage.addActions(new ShellScriptAction({
-    actionName: 'TestViewerEndpoint',
-    useOutputs: {
-        ENDPOINT_URL: pipeline.stackOutput(deploy.hcViewerUrl)
-    },
-    commands: [
-        'curl -Ssf $ENDPOINT_URL'
-    ]
-}));
-deployStage.addActions(new ShellScriptAction({
-    actionName: 'TestAPIGatewayEndpoint',
-    useOutputs: {
-        ENDPOINT_URL: pipeline.stackOutput(deploy.hcEndpoint)
-    },
-    commands: [
-        'curl -Ssf $ENDPOINT_URL/',
-        'curl -Ssf $ENDPOINT_URL/hello',
-        'curl -Ssf $ENDPOINT_URL/test'
-    ]
-}));
+{{<highlight ts "hl_lines=6 16">}}
+    // CODE HERE...
+    deployStage.addPost(
+            new CodeBuildStep('TestViewerEndpoint', {
+                projectName: 'TestViewerEndpoint',
+                envFromCfnOutputs: {
+                    ENDPOINT_URL: deploy.hcViewerUrl
+                },
+                commands: [
+                    'curl -Ssf $ENDPOINT_URL'
+                ]
+                }),
+            new CodeBuildStep('TestAPIGatewayEndpoint', {
+                projectName: 'TestAPIGatewayEndpoint',
+                envFromCfnOutputs: {
+                    ENDPOINT_URL: deploy.hcEndpoint
+                },
+                commands: [
+                    'curl -Ssf $ENDPOINT_URL',
+                    'curl -Ssf $ENDPOINT_URL/hello',
+                    'curl -Ssf $ENDPOINT_URL/test'
+                ]
+            })
+        )
 {{</highlight>}}
 
 ## Commit and View!
