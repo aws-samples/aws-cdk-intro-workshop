@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-import cdk = require('@aws-cdk/core');
-import route53 = require('@aws-cdk/aws-route53');
-import route53Targets = require('@aws-cdk/aws-route53-targets');
-import cloudfront = require('@aws-cdk/aws-cloudfront');
-import s3 = require('@aws-cdk/aws-s3');
+import cdk = require('aws-cdk-lib');
+import acm = require('aws-cdk-lib/aws-certificatemanager');
+import route53 = require('aws-cdk-lib/aws-route53');
+import route53Targets = require('aws-cdk-lib/aws-route53-targets');
+import cloudfront = require('aws-cdk-lib/aws-cloudfront');
+import s3 = require('aws-cdk-lib/aws-s3');
 import { GuardDutyNotifier } from './guardduty';
-import s3deploy = require('@aws-cdk/aws-s3-deployment');
+import s3deploy = require('aws-cdk-lib/aws-s3-deployment');
 import path = require('path');
 import { hashDirectorySync } from './hash';
 import { PipelineStack } from './pipeline';
+import { Construct } from 'constructs';
 
 export interface CdkWorkshopProps extends cdk.StackProps {
 
@@ -47,7 +49,7 @@ export interface CdkWorkshopProps extends cdk.StackProps {
 
 export class CdkWorkshop extends cdk.Stack {
 
-    constructor(scope: cdk.Construct, id: string, props: CdkWorkshopProps) {
+    constructor(scope: Construct, id: string, props: CdkWorkshopProps) {
         super(scope, id, props);
 
         this.renameLogicalId('CloudFrontDNSRecord46217411', 'CloudFrontDNSRecord');
@@ -97,6 +99,7 @@ export class CdkWorkshop extends cdk.Stack {
         const maxTtl = props.disableCache ? cdk.Duration.seconds(0) : undefined;
 
         // CloudFront distribution
+        const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
         const cdn = new cloudfront.CloudFrontWebDistribution(this, 'CloudFront', {
             viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
             priceClass: cloudfront.PriceClass.PRICE_CLASS_ALL,
@@ -106,16 +109,15 @@ export class CdkWorkshop extends cdk.Stack {
                     isDefaultBehavior: true,
                     maxTtl
                 }],
-                originPath: `/${contentHash}`,
                 s3OriginSource: {
                     s3BucketSource: bucket,
                     originAccessIdentity: origin,
+                    originPath: `/${contentHash}`,
                 }
             }],
-            aliasConfiguration: {
-                names: [props.domain],
-                acmCertRef: props.certificate,
-            },
+            viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(cert, {
+                aliases: [props.domain],
+            }),
         })
 
         // TODO: Model dependency from CloudFront Web Distribution on S3 Bucket Deployment
@@ -136,7 +138,7 @@ export class CdkWorkshop extends cdk.Stack {
 
         new cdk.CfnOutput(this, 'CloudFrontURL', {
             description: 'The CloudFront distribution URL',
-            value: 'https://' + cdn.domainName,
+            value: 'https://' + cdn.distributionDomainName,
         })
 
         new cdk.CfnOutput(this, 'CertificateArn', {
@@ -157,7 +159,7 @@ export class CdkWorkshop extends cdk.Stack {
 const ENV = { account: '025656461920', region: 'eu-west-1' };
 
 export class TheCdkWorkshopStage extends cdk.Stage {
-    constructor(scope: cdk.Construct, id: string) {
+    constructor(scope: Construct, id: string) {
         super(scope, id, { env: ENV });
 
         new CdkWorkshop(this, 'CloudFrontStack', {

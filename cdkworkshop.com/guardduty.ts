@@ -1,9 +1,10 @@
-import cdk = require('@aws-cdk/core');
-import guardduty = require('@aws-cdk/aws-guardduty');
-import events = require('@aws-cdk/aws-events');
-import eventTargets = require('@aws-cdk/aws-events-targets');
-import sns = require('@aws-cdk/aws-sns');
-import sqsTargets = require('@aws-cdk/aws-sns-subscriptions');
+import cdk = require('aws-cdk-lib');
+import guardduty = require('aws-cdk-lib/aws-guardduty');
+import events = require('aws-cdk-lib/aws-events');
+import eventTargets = require('aws-cdk-lib/aws-events-targets');
+import sns = require('aws-cdk-lib/aws-sns');
+import sqsTargets = require('aws-cdk-lib/aws-sns-subscriptions');
+import { Construct } from 'constructs';
 
 export interface GuardDutyNotifierProps {
 
@@ -14,7 +15,7 @@ export interface GuardDutyNotifierProps {
     email: string
 }
 
-export class GuardDutyNotifier extends cdk.Construct {
+export class GuardDutyNotifier extends Construct {
     constructor(scope: cdk.Stack, id: string, props: GuardDutyNotifierProps) {
         super(scope, id);
 
