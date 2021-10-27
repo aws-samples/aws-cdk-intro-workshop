@@ -47,11 +47,11 @@ app.synth()
 ```
 
 This code loads and instantiates an instance of the `CdkWorkshopStack` class from
-`cdk_worshop/cdk_workshop_stack.py` file. We won't need to look at this file anymore.
+`cdk_workshop/cdk_workshop_stack.py` file. We won't need to look at this file anymore.
 
 ## The main stack
 
-Open up `cdk_worshop/cdk_workshop_stack.py`. This is where the meat of our application
+Open up `cdk_workshop/cdk_workshop_stack.py`. This is where the meat of our application
 is:
 
 ```python
