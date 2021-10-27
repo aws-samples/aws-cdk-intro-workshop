@@ -1,9 +1,11 @@
-import { Stack, StackProps, SecretValue } from 'aws-cdk-lib';
-import * as pipelines from 'aws-cdk-lib/pipelines';
-import * as sns from 'aws-cdk-lib/aws-sns';
-import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
-import * as events from 'aws-cdk-lib/aws-events';
-import * as targets from 'aws-cdk-lib/aws-events-targets';
+import {
+  aws_events as events,
+  aws_events_targets as targets,
+  pipelines,
+  aws_sns as sns,
+  aws_sns_subscriptions as subs,
+  SecretValue, Stack, StackProps,
+} from 'aws-cdk-lib';
 import { TheCdkWorkshopStage } from './cdkworkshop.com';
 import { Construct } from 'constructs';
 
