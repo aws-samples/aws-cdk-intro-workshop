@@ -2,7 +2,6 @@ package com.myorg;
 
 import software.amazon.awscdk.core.Stack;
 import software.amazon.awscdk.assertions.Template;
-import software.amazon.awscdk.assertions.Match;
 import software.amazon.awscdk.assertions.Capture;
 import java.io.IOException;
 
@@ -36,7 +35,7 @@ public class HitCounterTest {
         // synthesize the stack to a CloudFormation template
         Template template = Template.fromStack(stack);
 
-        template.hasResource("AWS::DynamoDB::Table", Match.anyValue());
+        template.resourceCountIs("AWS::DynamoDB::Table", 1);
     }
 
     @Test

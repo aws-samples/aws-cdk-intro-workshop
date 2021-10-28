@@ -16,8 +16,7 @@ def test_dynamodb_table_created():
                 code=_lambda.Code.from_asset('lambda')),
     )
     template = assertions.Template.from_stack(stack)
-    template.has_resource_properties("AWS::DynamoDB::Table",
-            assertions.Match.any_value())
+    template.resource_count_is("AWS::DynamoDB::Table", 1)
 
 
 def test_lambda_has_env_vars():

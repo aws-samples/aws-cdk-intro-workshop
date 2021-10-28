@@ -1,4 +1,4 @@
-import { Template, Match } from '@aws-cdk/assertions';
+import { Template } from '@aws-cdk/assertions';
 import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter } from '../lib/hitcounter';
@@ -16,7 +16,7 @@ test('DynamoDB Table Created', () => {
 
   const template = Template.fromStack(stack);
 
-  template.hasResourceProperties("AWS::DynamoDB::Table", Match.anyValue());
+  template.resourceCountIs("AWS::DynamoDB::Table", 1);
 });
 
 test('Lambda Has Environment Variables', () => {
