@@ -1,4 +1,4 @@
-import { Template } from '@aws-cdk/assertions';
+import { Template, Capture } from '@aws-cdk/assertions';
 import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter } from '../lib/hitcounter';
@@ -31,8 +31,13 @@ test('Lambda Has Environment Variables', () => {
   });
 
   const template = Template.fromStack(stack);
+  const envCapture = new Capture();
   template.hasResourceProperties("AWS::Lambda::Function", {
-    Environment: {
+    Handler: 'hitcounter.handler',
+    Environment: envCapture,
+  });
+  expect(envCapture.asObject()).toEqual(
+    {
       Variables: {
         DOWNSTREAM_FUNCTION_NAME: {
           "Ref": "TestFunction22AD90FC"
@@ -40,9 +45,9 @@ test('Lambda Has Environment Variables', () => {
         HITS_TABLE_NAME: {
           "Ref": "MyTestConstructHits24A357F0"
         }
-      }
+      },
     }
-  });
+  );
 });
 
 test('DynamoDB Table Created With Encryption', () => {
