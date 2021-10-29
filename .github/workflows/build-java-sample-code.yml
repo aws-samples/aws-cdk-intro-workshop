@@ -45,3 +45,27 @@ jobs:
       - name: CDK synth
         working-directory: code/java/pipelines-workshop
         run: npx cdk synth
+
+  tests-workshop:
+    name: CDK synth and test tests-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: zulu
+          java-version: 11
+
+      - name: Resolve Maven dependencies
+        working-directory: code/java/tests-workshop
+        run: mvn dependency:analyze
+
+      - name: CDK synth
+        working-directory: code/java/tests-workshop
+        run: npx cdk synth
+
+      - name: Run tests
+        working-directory: code/java/tests-workshop
+        run: mvn test
