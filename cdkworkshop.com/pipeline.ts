@@ -1,45 +1,35 @@
-import { Construct, Stack, StackProps, SecretValue } from '@aws-cdk/core';
-import * as pipelines from '@aws-cdk/pipelines';
-import * as cpipe from '@aws-cdk/aws-codepipeline';
-import * as cpipe_actions from '@aws-cdk/aws-codepipeline-actions';
-import * as sns from '@aws-cdk/aws-sns';
-import * as subs from '@aws-cdk/aws-sns-subscriptions';
-import * as events from '@aws-cdk/aws-events';
-import * as targets from '@aws-cdk/aws-events-targets';
+import {
+  aws_events as events,
+  aws_events_targets as targets,
+  pipelines,
+  aws_sns as sns,
+  aws_sns_subscriptions as subs,
+  SecretValue, Stack, StackProps,
+} from 'aws-cdk-lib';
 import { TheCdkWorkshopStage } from './cdkworkshop.com';
+import { Construct } from 'constructs';
 
 export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const sourceArtifact = new cpipe.Artifact();
-    const cloudAssemblyArtifact = new cpipe.Artifact();
-
-    const pipeline = new pipelines.CdkPipeline(this, 'Pipeline', {
+    const pipeline = new pipelines.CodePipeline(this, 'Pipeline', {
       pipelineName: 'WorkshopPipeline',
-      cloudAssemblyArtifact,
 
-      sourceAction: new cpipe_actions.GitHubSourceAction({
-        actionName: 'GitHub',
-        output: sourceArtifact,
-        owner: 'aws-samples',
-        repo: 'aws-cdk-intro-workshop',
-        oauthToken: SecretValue.secretsManager('github-token'),
-      }),
-
-      synthAction: pipelines.SimpleSynthAction.standardNpmSynth({
-        actionName: 'Synth',
-        cloudAssemblyArtifact,
-        sourceArtifact,
-        subdirectory: 'cdkworkshop.com',
-
-        // Hugo is necessary for the build -- install from included tarball
-        installCommand: 'npm ci && tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo',
-        buildCommand: 'npm run build',
+      synth: new pipelines.ShellStep('Synth', {
+        input: pipelines.CodePipelineSource.gitHub('aws-samples/aws-cdk-intro-workshop', 'master', {
+          authentication: SecretValue.secretsManager('github-token'),
+        }),
+        commands: [
+          'cd cdkworkshop.com',
+          'npm ci && tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo',
+          'npm run build',
+          'npx cdk synth'
+        ],
       }),
     });
 
-    pipeline.addApplicationStage(new TheCdkWorkshopStage(this, 'Prod'));
+    pipeline.addStage(new TheCdkWorkshopStage(this, 'Prod'));
 
     const failTopic = new sns.Topic(this, 'PipelineFailTopic');
 

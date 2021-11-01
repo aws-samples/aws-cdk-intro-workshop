@@ -1,9 +1,12 @@
-import cdk = require('@aws-cdk/core');
-import guardduty = require('@aws-cdk/aws-guardduty');
-import events = require('@aws-cdk/aws-events');
-import eventTargets = require('@aws-cdk/aws-events-targets');
-import sns = require('@aws-cdk/aws-sns');
-import sqsTargets = require('@aws-cdk/aws-sns-subscriptions');
+import {
+    aws_guardduty as guardduty,
+    aws_events as events,
+    aws_events_targets as eventTargets,
+    aws_sns as sns,
+    aws_sns_subscriptions as subs,
+    Stack,
+} from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export interface GuardDutyNotifierProps {
 
@@ -14,8 +17,8 @@ export interface GuardDutyNotifierProps {
     email: string
 }
 
-export class GuardDutyNotifier extends cdk.Construct {
-    constructor(scope: cdk.Stack, id: string, props: GuardDutyNotifierProps) {
+export class GuardDutyNotifier extends Construct {
+    constructor(scope: Stack, id: string, props: GuardDutyNotifierProps) {
         super(scope, id);
 
         // Enable GuardDuty in the AWS region, to detect security issues
@@ -23,7 +26,7 @@ export class GuardDutyNotifier extends cdk.Construct {
 
         // Configure GuardDuty to email any security findings
         const guardDutyTopic = new sns.Topic(this, "GuardDutyNotificationTopic");
-        guardDutyTopic.addSubscription(new sqsTargets.EmailSubscription(props.email));
+        guardDutyTopic.addSubscription(new subs.EmailSubscription(props.email));
         const eventRule = new events.Rule(this, "GuardDutyEventRule", {
             eventPattern: {
                 source: ["aws.guardduty"],
