@@ -63,6 +63,7 @@ public class HitCounterTest {
     }
 }
 ```
+
 This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
 
 Run the test.

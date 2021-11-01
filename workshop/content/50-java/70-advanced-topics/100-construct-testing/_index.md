@@ -58,11 +58,11 @@ properties are set to specific values.
 
 Example:
 
-```ts
+```java
 Map<String, Object> expected = Map.of(
-    "DomainName": "test.example.com",
+    "DomainName", "test.example.com",
 )
-template.hasResourceProperties('AWS::CertificateManager::Certificate', expected);
+template.hasResourceProperties("AWS::CertificateManager::Certificate", expected);
 ```
 
 To see the rest of the documentation, please read the docs [here](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assertions/README.md).
