@@ -21,8 +21,10 @@ export class PipelineStack extends Stack {
           authentication: SecretValue.secretsManager('github-token'),
         }),
         commands: [
+          'cd cdkworkshop.com',
           'npm ci && tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo',
           'npm run build',
+          'npx cdk synth'
         ],
       }),
     });
