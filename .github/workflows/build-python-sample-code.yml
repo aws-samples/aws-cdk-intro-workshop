@@ -45,3 +45,27 @@ jobs:
       - name: CDK synth
         working-directory: code/python/pipelines-workshop
         run: npx cdk synth
+
+  tests-workshop:
+    name: CDK synth and test tests-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+          architecture: x64
+
+      - name: Install Python modules
+        working-directory: code/python/tests-workshop
+        run: python3 -m pip install -r requirements.txt
+
+      - name: CDK synth
+        working-directory: code/python/tests-workshop
+        run: npx cdk synth
+
+      - name: Run tests
+        working-directory: code/python/tests-workshop
+        run: python3 -m pytest

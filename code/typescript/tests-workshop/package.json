@@ -12,22 +12,22 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.118.0",
+    "@aws-cdk/assertions": "^1.129.0",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",
-    "aws-cdk": "^1.118.0",
+    "aws-cdk": "^1.129.0",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.118.0",
-    "@aws-cdk/aws-dynamodb": "^1.118.0",
-    "@aws-cdk/aws-lambda": "^1.118.0",
-    "@aws-cdk/aws-sns": "^1.118.0",
-    "@aws-cdk/aws-sqs": "^1.118.0",
-    "@aws-cdk/core": "^1.118.0",
-    "@aws-cdk/cx-api": "^1.118.0",
+    "@aws-cdk/aws-apigateway": "^1.129.0",
+    "@aws-cdk/aws-dynamodb": "^1.129.0",
+    "@aws-cdk/aws-lambda": "^1.129.0",
+    "@aws-cdk/aws-sns": "^1.129.0",
+    "@aws-cdk/aws-sqs": "^1.129.0",
+    "@aws-cdk/core": "^1.129.0",
+    "@aws-cdk/cx-api": "^1.129.0",
     "cdk-dynamo-table-viewer": "^0.1.59"
   }
 }
