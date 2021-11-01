@@ -32,8 +32,12 @@ Example:
 ```ts
 template.hasResourceProperties('AWS::CertificateManager::Certificate', {
     DomainName: 'test.example.com',
+
+    ShouldNotExist: Match.absent(),
     // Note: some properties omitted here
 });
 ```
 
-To see the rest of the documentation, please read the docs [here](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assertions/README.md).
+`Match.absent()` can be used to assert that a particular key in an object is *not* set (or set to `undefined`).
+
+To see the rest of the documentation, please read the docs [here](https://docs.aws.amazon.com/cdk/api/latest/docs/assertions-readme.html).
