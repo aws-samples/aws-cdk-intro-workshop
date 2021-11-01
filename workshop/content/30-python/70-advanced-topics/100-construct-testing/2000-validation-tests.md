@@ -65,7 +65,7 @@ class HitCounter(core.Construct):
 
 Now lets add a test that validates the error is thrown.
 
-```typescript
+```python
 def test_dynamodb_raises():
     stack = core.Stack()
     with pytest.raises(Exception):
