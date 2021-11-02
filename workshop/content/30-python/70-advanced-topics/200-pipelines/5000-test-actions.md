@@ -136,7 +136,7 @@ With a slight modification to `cdk_workshop/pipeline_stage.py` we can expose the
 from aws_cdk import (
     core
 )
-from pypipworkshop_stack import PypipworkshopStack
+from cdk_workshop_stack import CdkWorkshopStack
 
 class WorkshopPipelineStage(core.Stage):
 
@@ -151,7 +151,7 @@ class WorkshopPipelineStage(core.Stage):
     def __init__(self, scope: core.Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        service = PypipworkshopStack(self, 'WebService')
+        service = CdkWorkshopStack(self, 'WebService')
 
         self._hc_enpdoint = service.hc_endpoint
         self._hc_viewer_url = service.hc_viewer_url
