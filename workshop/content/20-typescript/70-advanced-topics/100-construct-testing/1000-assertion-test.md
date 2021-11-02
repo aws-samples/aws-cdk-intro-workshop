@@ -16,7 +16,7 @@ If you do not already have a `test` directory (usually created automatically whe
 same level as `bin` and `lib` and then create a file called `hitcounter.test.ts` with the following code.
 
 ```typescript
-import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
+import { Template, Capture } from '@aws-cdk/assertions';
 import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
@@ -32,7 +32,9 @@ test('DynamoDB Table Created', () => {
     })
   });
   // THEN
-  expectCDK(stack).to(haveResource("AWS::DynamoDB::Table"));
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::DynamoDB::Table", 1);
 });
 ```
 This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
@@ -100,19 +102,25 @@ test('Lambda Has Environment Variables', () => {
     })
   });
   // THEN
-  expectCDK(stack).to(haveResource("AWS::Lambda::Function", {
-    Environment: {
+  const template = Template.fromStack(stack);
+  consts envCapture = new Capture();
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    Environment: envCapture,
+  });
+
+  expect(envCapture.asObject()).toEqual(
+    {
       Variables: {
         DOWNSTREAM_FUNCTION_NAME: {
           Ref: "TestFunctionXXXXX",
         },
         HITS_TABLE_NAME: {
           Ref: "MyTestConstructHitsXXXXX",
-        }
-      }
+        },
+      },
     }
-  }));
-})
+  );
+});
 ```
 
 Save the file and run the test again.
@@ -124,7 +132,7 @@ $ npm run build && npx jest
 This time the test should fail and you should be able to grab the correct value for the
 variables from the expected output.
 
-{{<highlight bash "hl_lines=16-21">}}
+{{<highlight bash "hl_lines=20-21 24-25">}}
 $ npx jest
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
@@ -135,45 +143,45 @@ $ npx jest
   ✕ Lambda Has Environment Variables (53ms)
 
   ● Lambda Has Environment Variables
-  ...
-  ...
-  "Environment": {
-              "Variables": {
-                "DOWNSTREAM_FUNCTION_NAME": {
-                  "Ref": "TestFunctionXXXXX"
-                },
-                "HITS_TABLE_NAME": {
-                  "Ref": "MyTestConstructHitsXXXXX"
-                }
-              }
-            }
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+        "Variables": Object {
+          "DOWNSTREAM_FUNCTION_NAME": Object {
+    -       "Ref": "TestFunctionXXXXX",
+    +       "Ref": "TestFunction22AD90FC",
           },
-          "DependsOn": [
-            "MyTestConstructHitCounterHandlerServiceRoleDefaultPolicyXXXXX",
-            "MyTestConstructHitCounterHandlerServiceRoleXXXXX"
-          ]
-        }
+          "HITS_TABLE_NAME": Object {
+    -       "Ref": "MyTestConstructHitsXXXXX",
+    +       "Ref": "MyTestConstructHits24A357F0",
+          },
+        },
+      }
 
-      37 |   });
-      38 |   // THEN
-    > 39 |   expectCDK(stack).to(haveResource("AWS::Lambda::Function", {
-         |                    ^
-      40 |     Environment: {
+      37 |     Environment: envCapture,
+      38 |   });
+    > 39 |   expect(envCapture.asObject()).toEqual(
+         |                                 ^
+      40 |     {
       41 |       Variables: {
-      42 |         DOWNSTREAM_FUNCTION_NAME: {"Ref": "TestFunction"},
+      42 |         DOWNSTREAM_FUNCTION_NAME: {
 
-      ...
-      ...
+      at Object.<anonymous> (test/hitcounter.test.ts:39:33)
 
 Test Suites: 1 failed, 1 total
-Tests:       1 failed, 2 passed, 3 total
+Tests:       1 failed, 1 passed, 2 total
 Snapshots:   0 total
-Time:        3.686s
+Time:        3.971 s, estimated 4 s
+Ran all test suites.
 {{</highlight>}}
 
 Grab the real values for the environment variables and update your test
 
-{{<highlight ts "hl_lines=15-16">}}
+{{<highlight ts "hl_lines=22 25">}}
 test('Lambda Has Environment Variables', () => {
   const stack = new cdk.Stack();
   // WHEN
@@ -185,14 +193,24 @@ test('Lambda Has Environment Variables', () => {
     })
   });
   // THEN
-  expectCDK(stack).to(haveResource("AWS::Lambda::Function", {
-    Environment: {
+  const template = Template.fromStack(stack);
+  consts envCapture = new Capture();
+  template.hasResourceProperties("AWS::Lambda::Function", {
+    Environment: envCapture,
+  });
+
+  expect(envCapture.asObject()).toEqual(
+    {
       Variables: {
-        DOWNSTREAM_FUNCTION_NAME: {"Ref": [VALUE_GOES_HERE]},
-        HITS_TABLE_NAME: {"Ref": [VALUE_GOES_HERE]}
-      }
+        DOWNSTREAM_FUNCTION_NAME: {
+          Ref: "VALUE_GOES_HERE",
+        },
+        HITS_TABLE_NAME: {
+          Ref: "VALUE_GOES_HERE",
+        },
+      },
     }
-  }));
+  );
 });
 {{</highlight>}}
 
@@ -226,8 +244,8 @@ requirement that our DynamoDB table be encrypted.
 
 First we'll update the test to reflect this new requirement.
 
-{{<highlight ts "hl_lines=18-20">}}
-import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
+{{<highlight ts "hl_lines=6-23">}}
+import { Template, Capture } from '@aws-cdk/assertions';
 import cdk = require('@aws-cdk/core');
 import * as lambda from '@aws-cdk/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
@@ -243,11 +261,12 @@ test('DynamoDB Table Created With Encryption', () => {
     })
   });
   // THEN
-  expectCDK(stack).to(haveResource('AWS::DynamoDB::Table', {
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties('AWS::DynamoDB::Table', {
     SSESpecification: {
       SSEEnabled: true
     }
-  }));
+  });
 });
 {{</highlight>}}
 
@@ -266,26 +285,50 @@ $ npx jest
 
   ● DynamoDB Table Created With Encryption
 
-    None of 1 resources matches resource 'AWS::DynamoDB::Table' with properties {
-      "SSESpecification": {
-        "SSEEnabled": true
+    Template has 1 resources with type AWS::DynamoDB::Table, but none match as expected.
+    The closest result is:
+      {
+        "Type": "AWS::DynamoDB::Table",
+        "Properties": {
+          "KeySchema": [
+            {
+              "AttributeName": "path",
+              "KeyType": "HASH"
+            }
+          ],
+          "AttributeDefinitions": [
+            {
+              "AttributeName": "path",
+              "AttributeType": "S"
+            }
+          ],
+          "ProvisionedThroughput": {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          }
+        },
+        "UpdateReplacePolicy": "Retain",
+        "DeletionPolicy": "Retain"
       }
-    }.
-    ...
+    with the following mismatches:
+        Missing key at /Properties/SSESpecification (using objectLike matcher)
 
-      60 |   });
-      61 |   // THEN
-    > 62 |   expectCDK(stack).to(haveResource("AWS::DynamoDB::Table", {
-         |                    ^
-      63 |     SSESpecification: {
-      64 |       SSEEnabled: true
-      ...
+      63 |
+      64 |   const template = Template.fromStack(stack);
+    > 65 |   template.hasResourceProperties("AWS::DynamoDB::Table", {
+         |            ^
+      66 |     SSESpecification: {
+      67 |       SSEEnabled: true
+      68 |     }
 
+      at Template.hasResourceProperties (node_modules/@aws-cdk/assertions/lib/template.ts:50:13)
+      at Object.<anonymous> (test/hitcounter.test.ts:65:12)
 
 Test Suites: 1 failed, 1 total
-Tests:       1 failed, 2 passed, 3 total
+Tests:       1 failed, 3 passed, 4 total
 Snapshots:   0 total
-Time:        3.932s, estimated 4s
+Time:        3.947 s, estimated 4 s
+Ran all test suites.
 ```
 
 Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
