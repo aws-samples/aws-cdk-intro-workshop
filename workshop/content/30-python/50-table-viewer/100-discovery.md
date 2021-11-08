@@ -5,8 +5,8 @@ weight = 100
 
 ## Reading documentation
 
-Browse to the [cdk-dynamo-table-viewer
-page](https://pypi.org/project/cdk-dynamo-table-viewer/) on pypi.org and
+Browse to the [cdk-dynamo-table-view
+page](https://pypi.org/project/cdk-dynamo-table-view/) on pypi.org and
 read the module documentation.
 
 There is some documentation about how to use the table viewer in the README but it is all focused on TypeScript rather than Python.  So, we will walk through the process of using a third-party construct in Python.

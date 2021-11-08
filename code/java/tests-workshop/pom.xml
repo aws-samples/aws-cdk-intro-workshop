@@ -7,6 +7,8 @@
     <version>0.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cdk.version>1.131.0</cdk.version>
+        <junit.version>5.7.1</junit.version>
     </properties>
     <build>
         <plugins>
@@ -34,29 +36,24 @@
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>core</artifactId>
-            <version>1.129.0</version>
+            <version>${cdk.version}</version>
         </dependency>
 
         <!-- Respective AWS Construct Libraries -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>apigateway</artifactId>
-            <version>1.129.0</version>
+            <version>${cdk.version}</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>1.129.0</version>
+            <version>${cdk.version}</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>lambda</artifactId>
-            <version>1.129.0</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>assertions</artifactId>
-            <version>1.129.0</version>
+            <version>${cdk.version}</version>
         </dependency>
 
         <!-- Additional Construct Libraries -->
@@ -75,9 +72,15 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
 
         <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>assertions</artifactId>
+            <version>${cdk.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
           <groupId>org.junit.jupiter</groupId>
           <artifactId>junit-jupiter</artifactId>
-          <version>5.7.1</version>
+          <version>${junit.version}</version>
           <scope>test</scope>
         </dependency>
         <dependency>

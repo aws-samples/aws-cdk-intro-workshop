@@ -69,7 +69,7 @@ public interface HitCounterProps {
 
 Then update the DynamoDB table resource to add the `readCapacity` property.
 
-{{<highlight java "hl_lines=7">}}
+{{<highlight java "hl_lines=1 9">}}
 Number readCapacity = (props.getReadCapacity() == null) ? 5 : props.getReadCapacity();
 
 this.table = Table.Builder.create(this, "Hits")

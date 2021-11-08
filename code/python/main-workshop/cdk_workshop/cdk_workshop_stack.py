@@ -4,7 +4,7 @@ from aws_cdk import (
     aws_apigateway as apigw,
 )
 from cdk_dynamo_table_view import TableViewer
-from hitcounter import HitCounter
+from cdk_workshop.hitcounter import HitCounter
 
 class CdkWorkshopStack(core.Stack):
 

@@ -12,6 +12,9 @@ weight = 200
 Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
 validates that the table is getting created.
 
+If you have create the project with `cdk init` then you should already have a `tests` directory. In that case you will need to remove
+the existing `test_cdk_workshop_stack.py` file.
+
 If you do not already have a `tests` directory (usually created automatically when you run `cdk init`), then create a `tests` directory at the
 root of the project and then create the following files:
 
@@ -293,7 +296,6 @@ self._table = ddb.Table(
     self, 'Hits',
     partition_key={'name': 'path', 'type': ddb.AttributeType.STRING},
     encryption=ddb.TableEncryption.AWS_MANAGED,
-    read_capacity=read_capacity,
 )
 {{</highlight>}}
 

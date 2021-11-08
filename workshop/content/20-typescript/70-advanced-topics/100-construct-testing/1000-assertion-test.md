@@ -12,8 +12,11 @@ weight = 200
 Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
 validates that the table is getting created.
 
+If `cdk init` created a test directory for you, then you should have a `cdk-workshop.test.ts` file. Delete this file.
+
 If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the
 same level as `bin` and `lib` and then create a file called `hitcounter.test.ts` with the following code.
+
 
 ```typescript
 import { Template, Capture } from '@aws-cdk/assertions';
@@ -42,13 +45,13 @@ This test is simply testing to ensure that the synthesized stack includes a Dyna
 Run the test.
 
 ```bash
-$ npm run build && npx jest
+$ npm run test
 ```
 
 You should see output like this:
 
 ```bash
-$ npx jest
+$ npm run test
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest
@@ -103,7 +106,7 @@ test('Lambda Has Environment Variables', () => {
   });
   // THEN
   const template = Template.fromStack(stack);
-  consts envCapture = new Capture();
+  const envCapture = new Capture();
   template.hasResourceProperties("AWS::Lambda::Function", {
     Environment: envCapture,
   });
@@ -126,14 +129,14 @@ test('Lambda Has Environment Variables', () => {
 Save the file and run the test again.
 
 ```bash
-$ npm run build && npx jest
+$ npm run test
 ```
 
 This time the test should fail and you should be able to grab the correct value for the
 variables from the expected output.
 
 {{<highlight bash "hl_lines=20-21 24-25">}}
-$ npx jest
+$ npm run test
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest
@@ -194,7 +197,7 @@ test('Lambda Has Environment Variables', () => {
   });
   // THEN
   const template = Template.fromStack(stack);
-  consts envCapture = new Capture();
+  const envCapture = new Capture();
   template.hasResourceProperties("AWS::Lambda::Function", {
     Environment: envCapture,
   });
@@ -217,13 +220,13 @@ test('Lambda Has Environment Variables', () => {
 Now run the test again. This time is should pass.
 
 ```bash
-$ npx jest
+$ npm run test
 ```
 
 You should see output like this:
 
 ```bash
-$ npm run build && npx jest
+$ npm run test
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest
@@ -273,7 +276,7 @@ test('DynamoDB Table Created With Encryption', () => {
 Now run the test, which should fail.
 
 ```bash
-$ npx jest
+$ npm run test
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest
@@ -356,7 +359,7 @@ export class HitCounter extends cdk.Construct {
 Now run the test again, which should now pass.
 
 ```bash
-npx jest
+npm run test
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest

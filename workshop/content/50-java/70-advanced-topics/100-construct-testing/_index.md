@@ -15,27 +15,14 @@ and [Validation](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testi
 
 Edit the `pom.xml` to add the following deps
 
-{{<highlight xml "hl_lines=6-10 15-26">}}
+{{<highlight xml "hl_lines=8-13">}}
 <?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <dependencies>
-        <!-- AWS Cloud Development Kit -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>assertions</artifactId>
-            <version>1.129.0</version>
-        </dependency>
 
+        ...
 
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
-
-        <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter</artifactId>
-          <version>5.7.1</version>
-          <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
