@@ -1,5 +1,5 @@
 import { CdkWorkshopStack } from './cdk-workshop-stack';
-import { Stage, CfnOutput, Construct, StageProps } from '@aws-cdk/core';
+import { Stage, CfnOutput, Construct, StageProps } from 'aws-cdk-lib';
 
 export class WorkshopPipelineStage extends Stage {
     public readonly hcViewerUrl: CfnOutput;

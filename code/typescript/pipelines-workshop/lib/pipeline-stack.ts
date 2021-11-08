@@ -1,7 +1,7 @@
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
+import * as cdk from 'aws-cdk-lib';
+import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import {WorkshopPipelineStage} from './pipeline-stage';
-import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
