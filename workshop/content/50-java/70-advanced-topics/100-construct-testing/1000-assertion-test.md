@@ -12,7 +12,7 @@ weight = 200
 Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
 validates that the table is getting created.
 
-If you do not already have a `src/test` directory (usually created automatically when you run `cdk init`), then create a `test` directory
+Since we removed the `src/test` directory (usually created automatically when you run `cdk init`), we need to create a new `test` directory
 under `src`:
 
 ```bash
@@ -385,14 +385,63 @@ Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
 
 Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
 
-{{<highlight java "hl_lines=6">}}
-this.table = Table.Builder.create(this, "Hits")
-    .partitionKey(Attribute.builder()
-        .name("path")
-        .type(AttributeType.STRING)
-        .build())
-    .encryption(TableEncryption.AWS_MANAGED)
-    .build();
+{{<highlight java "hl_lines=11 28">}}
+package com.myorg;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import software.amazon.awscdk.core.Construct;
+
+import software.amazon.awscdk.services.dynamodb.Attribute;
+import software.amazon.awscdk.services.dynamodb.AttributeType;
+import software.amazon.awscdk.services.dynamodb.Table;
+import software.amazon.awscdk.services.dynamodb.TableEncryption;
+import software.amazon.awscdk.services.lambda.Code;
+import software.amazon.awscdk.services.lambda.Function;
+import software.amazon.awscdk.services.lambda.Runtime;
+
+public class HitCounter extends Construct {
+    private final Function handler;
+    private final Table table;
+
+    public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
+        super(scope, id);
+
+        this.table = Table.Builder.create(this, "Hits")
+            .partitionKey(Attribute.builder()
+                .name("path")
+                .type(AttributeType.STRING)
+                .build())
+            .encryption(TableEncryption.AWS_MANAGED)
+            .build();
+
+        final Map<String, String> environment = new HashMap<>();
+        environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
+        environment.put("HITS_TABLE_NAME", this.table.getTableName());
+
+        this.handler = Function.Builder.create(this, "HitCounterHandler")
+            .runtime(Runtime.NODEJS_14_X)
+            .handler("hitcounter.handler")
+            .code(Code.fromAsset("lambda"))
+            .environment(environment)
+            .build();
+    }
+
+    /**
+     * @return the counter definition
+     */
+    public Function getHandler() {
+        return this.handler;
+    }
+
+    /**
+     * @return the counter table
+     */
+    public Table getTable() {
+        return this.table;
+    }
+}
 {{</highlight>}}
 
 Now run the test again, which should now pass.

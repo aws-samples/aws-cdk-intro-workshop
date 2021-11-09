@@ -32,7 +32,7 @@ export interface HitCounterProps {
 
 Then update the DynamoDB table resource to add the `readCapacity` property.
 
-{{<highlight ts "hl_lines=3">}}
+{{<highlight ts "hl_lines=4">}}
 const table = new dynamodb.Table(this, 'Hits', {
   partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
   encryption: dynamodb.TableEncryption.AWS_MANAGED,
@@ -83,17 +83,13 @@ test('read capacity can be configured', () => {
 Run the test.
 
 ```bash
-$ npm run build && npx jest
+$ npm run test
 ```
 
 You should see an output like this:
 
 ```bash
-$ npm run build && npx jest
-
-> cdk-workshop@0.1.0 build /home/aws-cdk-intro-workshop
-> tsc
-
+$ npm run test
 
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest

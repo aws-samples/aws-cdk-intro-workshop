@@ -9,7 +9,7 @@ Before you can use the table viewer in your application, you'll need to install
 the Nuget package:
 
 ```
-dotnet add package Eladb.DynamoTableViewer --version "[0.1.*,3)"
+dotnet add package Eladb.DynamoTableViewer --version 3.1.2
 ```
 
 Output should look like this:

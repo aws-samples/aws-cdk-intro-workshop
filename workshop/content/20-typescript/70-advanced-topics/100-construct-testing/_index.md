@@ -9,14 +9,6 @@ The [CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide/testing.h
 testing constructs. For this section of the workshop we are going to use the [Fine-Grained Assertions](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained)
 and [Validation](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) type tests.
 
-### Prerequisites
-
-1. Install the required testing packages.
-
-```bash
-$ npm install --save-dev jest @types/jest @aws-cdk/assertions
-```
-
 #### CDK assert Library
 
 We will be using the CDK `assertions` (`@aws-cdk/assertions`) library throughout this section.
