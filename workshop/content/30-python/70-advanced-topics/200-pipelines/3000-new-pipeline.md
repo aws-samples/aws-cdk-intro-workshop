@@ -6,25 +6,22 @@ weight = 130
 ## Define an Empty Pipeline
 Now we are ready to define the basics of the pipeline.
 
-We will be using several new packages here, so first:
-```
-pip install aws-cdk.aws_codepipeline aws-cdk.aws_codepipeline-actions aws-cdk_pipelines
-```
 
 Return to the file `pipeline_stack.py` and edit as follows:
 
-{{<highlight python "hl_lines=4-6 15 20-48">}}
+{{<highlight python "hl_lines=5-7 15 20-48">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
     pipelines as pipelines
 )
 
-class WorkshopPipelineStack(core.Stack):
+class WorkshopPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'WorkshopRepo'

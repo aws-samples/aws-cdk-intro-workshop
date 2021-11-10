@@ -13,7 +13,7 @@ testing constructs. For this section of the workshop we are going to use the [Fi
 1. Install the required testing packages.
 
 ```bash
-$ pip install pytest aws-cdk.assertions
+$ pip install -r requirements-dev.txt
 ```
 
 #### CDK assert Library

@@ -1,21 +1,21 @@
+from constructs import Construct
 from aws_cdk import (
-    core,
+    core as cdk,
     aws_codecommit as codecommit,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
-    pipelines as pipelines
+    pipelines as pipelines,
 )
 from cdk_workshop.pipeline_stage import WorkshopPipelineStage
 
-class WorkshopPipelineStack(core.Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+class WorkshopPipelineStack(cdk.Stack):
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'WorkshopRepo'
         repo = codecommit.Repository(
-            self, 'WorkshopRepo',
-            repository_name= "WorkshopRepo"
+            self, "WorkshopRepo", repository_name="WorkshopRepo"
         )
 
         # Defines the artifact representing the sourcecode
@@ -25,45 +25,46 @@ class WorkshopPipelineStack(core.Stack):
         cloud_assembly_artifact = codepipeline.Artifact()
 
         pipeline = pipelines.CdkPipeline(
-            self, 'Pipeline',
+            self,
+            "Pipeline",
             cloud_assembly_artifact=cloud_assembly_artifact,
-
             # Generates the source artifact from the repo we created in the last step
             source_action=codepipeline_actions.CodeCommitSourceAction(
-                action_name='CodeCommit', # Any Git-based source control
-                output=source_artifact, # Indicates where the artifact is stored
-                repository=repo # Designates the repo to draw code from
+                action_name="CodeCommit",  # Any Git-based source control
+                output=source_artifact,  # Indicates where the artifact is stored
+                repository=repo,  # Designates the repo to draw code from
             ),
-
             # Builds our source code outlined above into a could assembly artifact
             synth_action=pipelines.SimpleSynthAction(
                 install_commands=[
-                    'npm install -g aws-cdk', # Installs the cdk cli on Codebuild
-                    'pip install -r requirements.txt' # Instructs Codebuild to install required packages
+                    "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
+                    "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
                 ],
-                synth_command='npx cdk synth',
-                source_artifact=source_artifact, # Where to get source code to build
-                cloud_assembly_artifact=cloud_assembly_artifact, # Where to place built source
-            )
+                synth_command="npx cdk synth",
+                source_artifact=source_artifact,  # Where to get source code to build
+                cloud_assembly_artifact=cloud_assembly_artifact,  # Where to place built source
+            ),
         )
 
-        deploy = WorkshopPipelineStage(self, 'Deploy')
+        deploy = WorkshopPipelineStage(self, "Deploy")
         deploy_stage = pipeline.add_application_stage(deploy)
-        deploy_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='TestViewerEndpoint',
-            use_outputs={
-                'ENDPOINT_URL': pipeline.stack_output(deploy.hc_viewer_url)
-            },
-            commands=['curl -Ssf $ENDPOINT_URL']
-        ))
-        deploy_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='TestAPIGatewayEndpoint',
-            use_outputs={
-                'ENDPOINT_URL': pipeline.stack_output(deploy.hc_endpoint)
-            },
-            commands=[
-                'curl -Ssf $ENDPOINT_URL',
-                'curl -Ssf $ENDPOINT_URL/hello',
-                'curl -Ssf $ENDPOINT_URL/test'
-            ]
-        ))
+        deploy_stage.add_actions(
+            pipelines.ShellScriptAction(
+                action_name="TestViewerEndpoint",
+                use_outputs={
+                    "ENDPOINT_URL": pipeline.stack_output(deploy.hc_viewer_url)
+                },
+                commands=["curl -Ssf $ENDPOINT_URL"],
+            )
+        )
+        deploy_stage.add_actions(
+            pipelines.ShellScriptAction(
+                action_name="TestAPIGatewayEndpoint",
+                use_outputs={"ENDPOINT_URL": pipeline.stack_output(deploy.hc_endpoint)},
+                commands=[
+                    "curl -Ssf $ENDPOINT_URL",
+                    "curl -Ssf $ENDPOINT_URL/hello",
+                    "curl -Ssf $ENDPOINT_URL/test",
+                ],
+            )
+        )

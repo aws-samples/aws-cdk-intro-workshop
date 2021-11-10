@@ -12,14 +12,15 @@ Since this is separate from our actual "production" application, we want this to
 Create a new file under `cdk_workshop` called `pipeline_stack.py`. Add the following to that file.
 
 {{<highlight python>}}
+from constructs import Construct
 from aws_cdk import (
-    core
+    Stack
 )
 from pipeline_stage import WorkshopPipelineStage
 
-class WorkshopPipelineStack(core.Stack):
+class WorkshopPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Pipeline code will go here
@@ -35,37 +36,17 @@ To do this, edit the code in `app.py` as follows:
 {{<highlight python "hl_lines=4 7">}}
 #!/usr/bin/env python3
 
-from aws_cdk import core
+from aws_cdk import core as cdk
 from cdk_workshop.pipeline_stack import WorkshopPipelineStack
 
-app = core.App()
+app = cdk.App()
 WorkshopPipelineStack(app, "WorkshopPipelineStack")
 
 app.synth()
 {{</highlight>}}
 
-## Enable "New-Style" Synthesis
-The construct `@aws-cdk/pipelines` uses new core CDK framework features called "new style stack synthesis". In order to deploy our pipeline, we must enable this feature in our CDK configuration.
-
-Edit the file `cdk.json` as follows:
-
-{{<highlight json "hl_lines=3-5">}}
-{
-    "app": "python3 app.py",
-    "context": {
-        "@aws-cdk/core:newStyleStackSynthesis": true
-    }
-}
-{{</highlight>}}
-
 This instructs the CDK to use those new features any time it synthesizes a stack (`cdk synth`).
 
-## Special Bootstrap
-There's one last step before we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
-
-```
-npx cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
-```
 
 And now we're ready!
 

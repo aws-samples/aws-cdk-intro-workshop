@@ -10,13 +10,13 @@ Edit the file `cdk_workshop/pipeline_stack.py` as follows.
 
 {{<highlight python "hl_lines=3 11-15">}}
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
 )
 
-class WorkshopPipelineStack(core.Stack):
+class WorkshopPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'WorkshopRepo'
@@ -29,10 +29,8 @@ class WorkshopPipelineStack(core.Stack):
 {{</highlight>}}
 
 ## Deploy
-Now we can install the missing package and deploy the app to see our new repo.
 
 ```
-pip install aws-cdk.aws_codecommit
 npx cdk deploy
 ```
 

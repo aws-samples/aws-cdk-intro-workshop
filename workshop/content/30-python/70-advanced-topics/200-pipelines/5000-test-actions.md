@@ -8,16 +8,17 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `cdk_workshop/cdk_workshop_stack.py` to get these values and expose them as properties of our stack:
 
-{{<highlight python "hl_lines=11-17 35 40 46-54">}}
+{{<highlight python "hl_lines=12-18 36 41 47-55">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
 )
 from cdk_dynamo_table_viewer import TableViewer
-from hitcounter import HitCounter
+from .hitcounter import HitCounter
 
-class CdkWorkshopStack(core.Stack):
+class CdkWorkshopStack(Stack):
 
     @property
     def hc_endpoint(self):
@@ -27,7 +28,7 @@ class CdkWorkshopStack(core.Stack):
     def hc_viewer_url(self):
         return self._hc_viewer_url
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Defines an AWS Lambda resource
@@ -84,9 +85,10 @@ Now we have our application deployed, but no CD pipeline is complete without tes
 Let's start with a simple test to ping our endpoints to see if they are alive.
 Return to `cdk_workshop/pipeline_stack.py` and add the following:
 
-{{<highlight python "hl_lines=18-36">}}
+{{<highlight python "hl_lines=19-37">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
@@ -94,9 +96,9 @@ from aws_cdk import (
 )
 from pipeline_stage import WorkshopPipelineStage
 
-class WorkshopPipelineStack(core.Stack):
+class WorkshopPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # PIPELINE CODE HERE...
@@ -132,13 +134,14 @@ You may notice that we have not yet set the URLs of these endpoints. This is bec
 
 With a slight modification to `cdk_workshop/pipeline_stage.py` we can expose them:
 
-{{<highlight python "hl_lines=8-14 21-22">}}
+{{<highlight python "hl_lines=9-15 22-23">}}
+from constructs import Construct
 from aws_cdk import (
-    core
+    Stage
 )
 from pypipworkshop_stack import PypipworkshopStack
 
-class WorkshopPipelineStage(core.Stage):
+class WorkshopPipelineStage(Stage):
 
     @property
     def hc_endpoint(self):
@@ -148,7 +151,7 @@ class WorkshopPipelineStage(core.Stage):
     def hc_viewer_url(self):
         return self._hc_viewer_url
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         service = PypipworkshopStack(self, 'WebService')
