@@ -9,22 +9,23 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `hitcounter.ts` and add the following highlighted lines:
 
-{{<highlight ts "hl_lines=32-33">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
+{{<highlight ts "hl_lines=33-34">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
   downstream: lambda.IFunction;
 }
 
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
 
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {
@@ -114,22 +115,23 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `lib/hitcounter.ts`:
 
-{{<highlight ts "hl_lines=35-36">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
+{{<highlight ts "hl_lines=36-37">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
   downstream: lambda.IFunction;
 }
 
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
 
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {

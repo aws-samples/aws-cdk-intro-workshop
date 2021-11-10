@@ -19,9 +19,9 @@ same level as `bin` and `lib` and then create a file called `hitcounter.test.ts`
 
 
 ```typescript
-import { Template, Capture } from '@aws-cdk/assertions';
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
+import { Template, Capture } from 'aws-cdk-lib/assertions';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created', () => {
@@ -248,9 +248,9 @@ requirement that our DynamoDB table be encrypted.
 First we'll update the test to reflect this new requirement.
 
 {{<highlight ts "hl_lines=6-23">}}
-import { Template, Capture } from '@aws-cdk/assertions';
-import cdk = require('@aws-cdk/core');
-import * as lambda from '@aws-cdk/aws-lambda';
+import { Template, Capture } from 'aws-cdk-lib/assertions';
+import cdk = require('aws-cdk-lib');
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created With Encryption', () => {
@@ -324,7 +324,7 @@ $ npm run test
       67 |       SSEEnabled: true
       68 |     }
 
-      at Template.hasResourceProperties (node_modules/@aws-cdk/assertions/lib/template.ts:50:13)
+      at Template.hasResourceProperties (node_modules/aws-cdk-lib/assertions/lib/template.ts:50:13)
       at Object.<anonymous> (test/hitcounter.test.ts:65:12)
 
 Test Suites: 1 failed, 1 total
@@ -337,14 +337,14 @@ Ran all test suites.
 Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
 
 {{<highlight ts "hl_lines=13">}}
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
   /** the hit counter table */
   public readonly table: dynamodb.Table;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {

@@ -1,6 +1,7 @@
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -16,14 +17,14 @@ export interface HitCounterProps {
   readCapacity?: number;
 }
 
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
   /** the hit counter table */
   public readonly table: dynamodb.Table;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     if (props.readCapacity !== undefined && (props.readCapacity < 5 || props.readCapacity > 20)) {
       throw new Error('readCapacity must be greater than 5 and less than 20');
     }

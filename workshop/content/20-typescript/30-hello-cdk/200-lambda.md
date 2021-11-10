@@ -44,22 +44,6 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 
 ![](./clib.png)
 
-Okay, let's use `npm install` (or in short `npm i`) to install the AWS Lambda
-module and all it's dependencies into our project:
-
-```
-npm install @aws-cdk/aws-lambda
-```
-
-Output should look like this:
-
-```
-+ @aws-cdk/aws-lambda@{{% cdkversion %}}
-updated 5 packages and audited 883208 packages in 5.455s
-```
-
-> You can safely ignore any warnings from npm about your package.json file.
-
 ## A few words about copying & pasting in this workshop
 
 In this workshop, we highly recommended to type CDK code instead of copying &
@@ -76,8 +60,8 @@ Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 
 
 {{<highlight ts "hl_lines=2 8-13">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
