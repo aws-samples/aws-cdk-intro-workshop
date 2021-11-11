@@ -13,31 +13,6 @@ mounted to the root of the API. This means that any request to any URL path will
 be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
-## Install the API Gateway construct library
-{{<highlight xml "hl_lines=11-15">}}
-...
-    <dependencies>
-        <!-- AWS Cloud Development Kit -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>core</artifactId>
-            <version>VERSION</version>
-        </dependency>
-
-        <!-- Respective AWS Construct Libraries -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>apigateway</artifactId>
-            <version>VERSION</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>VERSION</version>
-        </dependency>
-    </dependencies>
-...
-{{</highlight>}}
 
 ## Add a LambdaRestApi construct to your stack
 
@@ -46,9 +21,9 @@ Going back to `~/CdkWorkshopStack.java`, let's define an API endpoint and associ
 {{<highlight java "hl_lines=7 27-30">}}
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.lambda.Code;

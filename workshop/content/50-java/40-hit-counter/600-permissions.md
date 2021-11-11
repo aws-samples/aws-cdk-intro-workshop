@@ -15,7 +15,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
@@ -144,7 +144,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;

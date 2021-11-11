@@ -14,9 +14,10 @@ Open `~/CdkWorkshopStack.java` and clean it up. Eventually it should look like t
 ```java
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
 public class CdkWorkshopStack extends Stack {
     public CdkWorkshopStack(final Construct parent, final String id) {

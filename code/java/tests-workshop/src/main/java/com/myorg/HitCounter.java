@@ -3,7 +3,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import java.io.IOException;
 

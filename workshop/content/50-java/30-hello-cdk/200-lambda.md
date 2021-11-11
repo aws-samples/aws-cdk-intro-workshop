@@ -40,32 +40,6 @@ To discover and learn about AWS constructs, you can browse the [AWS Construct
 Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html).
 
 ![](./clib.png)
-
-Okay, let's edit our `pom.xml` file to add the AWS Lambda
-module and all it's dependencies into our project:
-
-> NOTE: First clear out all unused dependencies and then add the Lambda construct as indicated below
-
-{{<highlight xml "hl_lines=10-15">}}
-    ...
-    <dependencies>
-        <!-- AWS Cloud Development Kit -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>core</artifactId>
-            <version>VERSION</version>
-        </dependency>
-
-        <!-- Respective AWS Construct Libraries -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>VERSION</version>
-        </dependency>
-    </dependencies>
-    ...
-{{</highlight>}}
-
 ## A few words about copying & pasting in this workshop
 
 In this workshop, we highly recommended to type CDK code instead of copying &
@@ -84,9 +58,9 @@ Add the `import` statements at the beginning of `~/CdkWorkshopStack.java`, and a
 {{<highlight java "hl_lines=7-9 19-24">}}
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
 import software.amazon.awscdk.services.lambda.Code;
 import software.amazon.awscdk.services.lambda.Function;

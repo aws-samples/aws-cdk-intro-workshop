@@ -13,10 +13,10 @@ package com.myorg;
 
 import com.github.eladb.dynamotableviewer.TableViewer;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
-import software.amazon.awscdk.core.CfnOutput;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
+import software.amazon.awscdk.CfnOutput;
 
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.lambda.Code;
@@ -94,9 +94,9 @@ package com.myorg;
 import java.util.List;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.pipelines.CodeBuildStep;
 import software.amazon.awscdk.pipelines.CodePipeline;
 import software.amazon.awscdk.pipelines.CodePipelineSource;
@@ -149,10 +149,10 @@ With a slight modification to `WorkshopPipelineStage.java` we can expose them:
 {{<highlight java "hl_lines=6 10-11 20 22-23">}}
 package com.myorg;
 
-import software.amazon.awscdk.core.Stage;
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.StageProps;
-import software.amazon.awscdk.core.CfnOutput;
+import software.amazon.awscdk.Stage;
+import software.constructs.Construct;
+import software.amazon.awscdk.StageProps;
+import software.amazon.awscdk.CfnOutput;
 
 public class WorkshopPipelineStage extends Stage {
 

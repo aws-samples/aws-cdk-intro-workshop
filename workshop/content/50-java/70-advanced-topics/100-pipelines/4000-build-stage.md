@@ -11,9 +11,9 @@ Create a new file in `CdkWorkshop` called `WorkshopPipelineStage.java` with the 
 {{<highlight java>}}
 package com.myorg;
 
-import software.amazon.awscdk.core.Stage;
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.StageProps;
+import software.amazon.awscdk.Stage;
+import software.constructs.Construct;
+import software.amazon.awscdk.StageProps;
 
 public class WorkshopPipelineStage extends Stage {
     public WorkshopPipelineStage(final Construct scope, final String id) {
@@ -39,9 +39,9 @@ package com.myorg;
 import java.util.List;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.pipelines.CodeBuildStep;
 import software.amazon.awscdk.pipelines.CodePipeline;
 import software.amazon.awscdk.pipelines.CodePipelineSource;
