@@ -12,7 +12,7 @@ Create a new file in `cdk_workshop` called `pipeline_stage.py` with the code bel
 from aws_cdk import (
     core
 )
-from cdk_workshop_stack import CdkWorkshopStack
+from .cdk_workshop_stack import CdkWorkshopStack
 
 class WorkshopPipelineStage(core.Stage):
 

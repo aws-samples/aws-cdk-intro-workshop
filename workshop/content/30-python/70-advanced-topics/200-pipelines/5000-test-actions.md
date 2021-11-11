@@ -136,7 +136,7 @@ With a slight modification to `cdk_workshop/pipeline_stage.py` we can expose the
 from aws_cdk import (
     core
 )
-from cdk_workshop_stack import CdkWorkshopStack
+from .cdk_workshop_stack import CdkWorkshopStack
 
 class WorkshopPipelineStage(core.Stage):
 
