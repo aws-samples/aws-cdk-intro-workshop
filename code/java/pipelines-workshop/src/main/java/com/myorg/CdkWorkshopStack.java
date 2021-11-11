@@ -1,6 +1,6 @@
 package com.myorg;
 
-import com.github.eladb.dynamotableviewer.TableViewer;
+import io.github.cdklabs.dynamotableviewer.TableViewer;
 
 import software.constructs.Construct;
 import software.amazon.awscdk.Stack;

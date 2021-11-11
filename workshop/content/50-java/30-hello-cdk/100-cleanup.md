@@ -15,7 +15,6 @@ Open `~/CdkWorkshopStack.java` and clean it up. Eventually it should look like t
 package com.myorg;
 
 import software.constructs.Construct;
-import software.amazon.awscdk.Construct;
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.StackProps;
 

@@ -19,8 +19,8 @@ Before you can use the table viewer in your application, you'll need to add the 
 
         <!-- Additional Construct Libraries -->
         <dependency>
-            <groupId>com.github.eladb</groupId>
-            <artifactId>cdk-dynamo-table-viewer</artifactId>
+            <groupId>io.github.cdklabs</groupId>
+            <artifactId>cdk-dynamo-table-view</artifactId>
             <version>0.2.0</version>
             <exclusions>
                 <exclusion>

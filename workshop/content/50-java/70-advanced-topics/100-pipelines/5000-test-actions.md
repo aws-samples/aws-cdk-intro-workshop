@@ -11,7 +11,7 @@ First edit `CdkWorkshopStack.java` to get these values and expose them as proper
 {{<highlight java "hl_lines=8 17-18 41 46 50-56">}}
 package com.myorg;
 
-import com.github.eladb.dynamotableviewer.TableViewer;
+import io.github.cdklabs.dynamotableviewer.TableViewer;
 
 import software.constructs.Construct;
 import software.amazon.awscdk.Stack;

@@ -6,7 +6,7 @@ weight = 100
 ## Reading documentation
 
 Browse to the [cdk-dynamo-table-viewer
-page](https://github.com/eladb/cdk-dynamo-table-viewer) on Github if
+page](https://github.com/cdklabs/cdk-dynamo-table-viewer) on Github if
 you want to read the module documentation.
 
 {{% notice warning %}}

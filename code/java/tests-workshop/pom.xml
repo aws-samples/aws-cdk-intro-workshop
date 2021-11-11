@@ -42,9 +42,9 @@
 
         <!-- Additional Construct Libraries -->
         <dependency>
-            <groupId>com.github.eladb</groupId>
-            <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>3.1.2</version>
+            <groupId>io.github.cdklabs</groupId>
+            <artifactId>cdk-dynamo-table-view</artifactId>
+            <version>0.2.0</version>
             <exclusions>
                 <exclusion>
                     <groupId> software.amazon.jsii</groupId>
