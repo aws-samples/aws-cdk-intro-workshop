@@ -1,14 +1,15 @@
 from constructs import Construct
 from aws_cdk import (
-    core as cdk,
+    Stack,
+    CfnOutput,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
 )
-from cdk_dynamo_table_viewer import TableViewer
-from cdk_workshop.hitcounter import HitCounter
+from cdk_dynamo_table_view import TableViewer
+from .hitcounter import HitCounter
 
 
-class CdkWorkshopStack(cdk.Stack):
+class CdkWorkshopStack(Stack):
     @property
     def hc_endpoint(self):
         return self._hc_endpoint
@@ -39,6 +40,6 @@ class CdkWorkshopStack(cdk.Stack):
             self, "ViewHitCounter", title="Hello Hits", table=hello_with_counter.table
         )
 
-        self._hc_endpoint = cdk.CfnOutput(self, "GatewayUrl", value=gateway.url)
+        self._hc_endpoint = CfnOutput(self, "GatewayUrl", value=gateway.url)
 
-        self._hc_viewer_url = cdk.CfnOutput(self, "TableViewerUrl", value=tv.endpoint)
+        self._hc_viewer_url = CfnOutput(self, "TableViewerUrl", value=tv.endpoint)

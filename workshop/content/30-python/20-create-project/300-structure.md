@@ -35,7 +35,7 @@ Let's have a quick look at `app.py`:
 ```python
 #!/usr/bin/env python3
 
-from aws_cdk import core as cdk
+import aws_cdk as cdk
 
 from cdk_workshop.cdk_workshop_stack import CdkWorkshopStack
 

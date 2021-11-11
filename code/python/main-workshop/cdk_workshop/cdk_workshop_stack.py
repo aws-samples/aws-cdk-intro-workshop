@@ -1,14 +1,14 @@
 from constructs import Construct
 from aws_cdk import (
-    core as cdk,
+    Stack,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
 )
-from cdk_dynamo_table_viewer import TableViewer
-from cdk_workshop.hitcounter import HitCounter
+from cdk_dynamo_table_view import TableViewer
+from .hitcounter import HitCounter
 
 
-class CdkWorkshopStack(cdk.Stack):
+class CdkWorkshopStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 

@@ -36,7 +36,7 @@ To do this, edit the code in `app.py` as follows:
 {{<highlight python "hl_lines=4 7">}}
 #!/usr/bin/env python3
 
-from aws_cdk import core as cdk
+import aws_cdk as cdk
 from cdk_workshop.pipeline_stack import WorkshopPipelineStack
 
 app = cdk.App()

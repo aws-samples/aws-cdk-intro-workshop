@@ -1,9 +1,9 @@
 from constructs import Construct
-from aws_cdk import core as cdk
+from aws_cdk import Stage
 from cdk_workshop.cdk_workshop_stack import CdkWorkshopStack
 
 
-class WorkshopPipelineStage(cdk.Stage):
+class WorkshopPipelineStage(Stage):
     @property
     def hc_endpoint(self):
         return self._hc_endpoint

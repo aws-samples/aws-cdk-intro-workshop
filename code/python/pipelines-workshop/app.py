@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from aws_cdk import core as cdk
+import aws_cdk as cdk
 
 from cdk_workshop.pipeline_stack import WorkshopPipelineStack
 

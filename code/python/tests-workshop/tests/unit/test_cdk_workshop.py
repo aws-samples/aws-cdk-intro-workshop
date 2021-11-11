@@ -1,10 +1,10 @@
-from aws_cdk import core as cdk, aws_lambda as _lambda, assertions
+from aws_cdk import Stack, aws_lambda as _lambda, assertions
 from cdk_workshop.hitcounter import HitCounter
 import pytest
 
 
 def test_dynamodb_table_created():
-    stack = cdk.Stack()
+    stack = Stack()
     HitCounter(
         stack,
         "HitCounter",
@@ -21,7 +21,7 @@ def test_dynamodb_table_created():
 
 
 def test_lambda_has_env_vars():
-    stack = cdk.Stack()
+    stack = Stack()
     HitCounter(
         stack,
         "HitCounter",
@@ -51,7 +51,7 @@ def test_lambda_has_env_vars():
 
 
 def test_dynamodb_with_encryption():
-    stack = cdk.Stack()
+    stack = Stack()
     HitCounter(
         stack,
         "HitCounter",
@@ -75,7 +75,7 @@ def test_dynamodb_with_encryption():
 
 
 def test_dynamodb_raises():
-    stack = cdk.Stack()
+    stack = Stack()
     with pytest.raises(Exception):
         HitCounter(
             stack,

@@ -8,10 +8,11 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `cdk_workshop/cdk_workshop_stack.py` to get these values and expose them as properties of our stack:
 
-{{<highlight python "hl_lines=12-18 36 41 47-55">}}
+{{<highlight python "hl_lines=13-19 37 42 48-56">}}
 from constructs import Construct
 from aws_cdk import (
     Stack,
+    CfnOutput,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
 )
@@ -55,12 +56,12 @@ class CdkWorkshopStack(Stack):
             table=hello_with_counter.table
         )
 
-        self._hc_endpoint = core.CfnOutput(
+        self._hc_endpoint = CfnOutput(
             self, 'GatewayUrl',
             value=gateway.url
         )
 
-        self._hc_viewer_url = core.CfnOutput(
+        self._hc_viewer_url = CfnOutput(
             self, 'TableViewerUrl',
             value=tv.endpoint
         )

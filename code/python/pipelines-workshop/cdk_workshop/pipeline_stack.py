@@ -1,6 +1,6 @@
 from constructs import Construct
 from aws_cdk import (
-    core as cdk,
+    Stack,
     aws_codecommit as codecommit,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
@@ -9,7 +9,7 @@ from aws_cdk import (
 from cdk_workshop.pipeline_stage import WorkshopPipelineStage
 
 
-class WorkshopPipelineStack(cdk.Stack):
+class WorkshopPipelineStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
