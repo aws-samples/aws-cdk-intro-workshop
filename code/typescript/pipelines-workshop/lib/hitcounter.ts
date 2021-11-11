@@ -1,4 +1,3 @@
-import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
@@ -24,7 +23,7 @@ export class HitCounter extends Construct {
   /** the hit counter table */
   public readonly table: dynamodb.Table;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {
