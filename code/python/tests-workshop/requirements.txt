@@ -1,7 +1,7 @@
 aws-cdk.core==1.131.0
 aws-cdk.aws_apigateway==1.131.0
 aws-cdk.aws_dynamodb==1.131.0
-aws-cdk.aws_sns==1.131.0
+aws-cdk.aws_sns==1.132.0
 aws-cdk.aws_sqs==1.131.0
 aws-cdk.assertions==1.131.0
 cdk-dynamo-table-view==0.1.139
