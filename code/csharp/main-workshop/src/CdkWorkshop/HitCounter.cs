@@ -1,6 +1,7 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.DynamoDB;
 using Amazon.CDK.AWS.Lambda;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
