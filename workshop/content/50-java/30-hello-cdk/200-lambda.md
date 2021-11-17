@@ -114,7 +114,7 @@ signature:
    scope of _current_ construct, which means you'll usually just want to pass
    `this` for the first argument. Make a habit out of it.
 2. __`id`__: the second argument is the __local identity__ of the construct.
-   It's an ID that has to be unique amongst construct within the same scope. The
+   It's an ID that has to be unique amongst constructs within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
    for each resource defined within this scope. *To read more about IDs in the

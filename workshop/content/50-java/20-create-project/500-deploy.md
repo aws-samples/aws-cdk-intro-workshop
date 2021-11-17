@@ -67,22 +67,12 @@ and STACK-ID is the unique identifier for your stack:
 ```
 CdkWorkshopStack: deploying...
 CdkWorkshopStack: creating CloudFormation changeset...
- 0/6 | 7:26:27 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata
- 0/6 | 7:26:27 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426)
- 0/6 | 7:26:28 PM | CREATE_IN_PROGRESS   | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426) Resource creation Initiated
- 0/6 | 7:26:28 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F)
- 0/6 | 7:26:28 PM | CREATE_IN_PROGRESS   | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F) Resource creation Initiated
- 0/6 | 7:26:29 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata Resource creation Initiated
- 1/6 | 7:26:29 PM | CREATE_COMPLETE      | AWS::CDK::Metadata     | CDKMetadata
- 2/6 | 7:26:29 PM | CREATE_COMPLETE      | AWS::SQS::Queue        | CdkWorkshopQueue (CdkWorkshopQueue50D9D426)
- 3/6 | 7:26:39 PM | CREATE_COMPLETE      | AWS::SNS::Topic        | CdkWorkshopTopic (CdkWorkshopTopicD368A42F)
- 3/6 | 7:26:40 PM | CREATE_IN_PROGRESS   | AWS::SNS::Subscription | CdkWorkshopQueue/CdkWorkshopStackCdkWorkshopTopicD7BE9643 (CdkWorkshopQueueCdkWorkshopStackCdkWorkshopTopicD7BE96438B5AD106)
- 3/6 | 7:26:41 PM | CREATE_IN_PROGRESS   | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5)
- 3/6 | 7:26:41 PM | CREATE_IN_PROGRESS   | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5) Resource creation Initiated
- 3/6 | 7:26:41 PM | CREATE_IN_PROGRESS   | AWS::SNS::Subscription | CdkWorkshopQueue/CdkWorkshopStackCdkWorkshopTopicD7BE9643 (CdkWorkshopQueueCdkWorkshopStackCdkWorkshopTopicD7BE96438B5AD106) Resource creation Initiated
- 4/6 | 7:26:41 PM | CREATE_COMPLETE      | AWS::SQS::QueuePolicy  | CdkWorkshopQueue/Policy (CdkWorkshopQueuePolicyAF2494A5)
- 5/6 | 7:26:41 PM | CREATE_COMPLETE      | AWS::SNS::Subscription | CdkWorkshopQueue/CdkWorkshopStackCdkWorkshopTopicD7BE9643 (CdkWorkshopQueueCdkWorkshopStackCdkWorkshopTopicD7BE96438B5AD106)
- 6/6 | 7:26:43 PM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CdkWorkshopStack
+
+
+
+
+
+
 
  ✅  CdkWorkshopStack
 

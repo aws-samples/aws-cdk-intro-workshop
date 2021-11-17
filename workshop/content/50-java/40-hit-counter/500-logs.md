@@ -33,19 +33,20 @@ you how to find your logs through the AWS console.
 
    ```json
    {
-       "errorMessage": "User: arn:aws:sts::XXXXXXXXX:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:us-east-1:XXXXXXXXX:table/CdkWorkshopStack-HelloHitCounterHits7AAEBF80-1DZVT3W84LJKB",
        "errorType": "AccessDeniedException",
-       "stackTrace": [
-           "Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:48:27)",
-           "Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:105:20)",
-           "Request.emit (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:77:10)",
-           "Request.emit (/var/runtime/node_modules/aws-sdk/lib/request.js:683:14)",
-           "Request.transition (/var/runtime/node_modules/aws-sdk/lib/request.js:22:10)",
-           "AcceptorStateMachine.runTo (/var/runtime/node_modules/aws-sdk/lib/state_machine.js:14:12)",
-           "/var/runtime/node_modules/aws-sdk/lib/state_machine.js:26:10",
-           "Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:38:9)",
-           "Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:685:12)",
-           "Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:115:18)"
+       "errorMessage": "User: arn:aws:sts::XXXXXXXXX:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:us-east-1:XXXXXXXXX:table/CdkWorkshopStack-HelloHitCounterHits7AAEBF80-1DZVT3W84LJKB",
+       "stack": [
+           "AccessDeniedException: User: arn:aws:sts::XXXXXXXXX:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: dynamodb:UpdateItem on resource: arn:aws:dynamodb:us-east-1:XXXXXXXXX:table/CdkWorkshopStack-HelloHitCounterHits7AAEBF80-1DZVT3W84LJKB",
+           "at Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:48:27)",
+           "at Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:105:20)",
+           "at Request.emit (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:77:10)",
+           "at Request.emit (/var/runtime/node_modules/aws-sdk/lib/request.js:683:14)",
+           "at Request.transition (/var/runtime/node_modules/aws-sdk/lib/request.js:22:10)",
+           "at AcceptorStateMachine.runTo (/var/runtime/node_modules/aws-sdk/lib/state_machine.js:14:12)",
+           "at /var/runtime/node_modules/aws-sdk/lib/state_machine.js:26:10",
+           "at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:38:9)",
+           "at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:685:12)",
+           "at Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:115:18)"
        ]
    }
    ```

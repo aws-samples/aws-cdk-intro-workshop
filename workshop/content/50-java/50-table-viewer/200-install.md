@@ -14,7 +14,7 @@ Before you can use the table viewer in your application, you'll need to add the 
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
             <artifactId>aws-cdk-lib</artifactId>
-            <version>VERSION</version>
+            <version>${cdk.version}</version>
         </dependency>
 
         <!-- Additional Construct Libraries -->

@@ -31,7 +31,7 @@ public class WorkshopPipelineStage extends Stage {
 All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
 
 ## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `PipelineStack.java`:
+Now we must add the stage to the pipeline by adding the following code to `WorkshopPipelineStack.java`:
 
 {{<highlight java "hl_lines=43-44">}}
 package com.myorg;

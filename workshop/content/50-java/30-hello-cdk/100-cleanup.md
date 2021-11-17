@@ -40,7 +40,7 @@ Now that we modified our stack's contents, we can ask the toolkit to show us the
 what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
 
 ```
-mvn package
+mvn clean package
 cdk diff
 ```
 

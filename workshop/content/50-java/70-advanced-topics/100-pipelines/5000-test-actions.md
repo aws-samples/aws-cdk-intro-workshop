@@ -8,7 +8,7 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `CdkWorkshopStack.java` to get these values and expose them as properties of our stack:
 
-{{<highlight java "hl_lines=8 17-18 41 46 50-56">}}
+{{<highlight java "hl_lines=8 17-18 50-56">}}
 package com.myorg;
 
 import io.github.cdklabs.dynamotableviewer.TableViewer;
@@ -86,7 +86,7 @@ If you click the `TableViewerUrl` value, you should see our pretty hitcounter ta
 Now we have our application deployed, but no CD pipeline is complete without tests!
 
 Let's start with a simple test to ping our endpoints to see if they are alive.
-Return to `PipelineStack.java` and add the following:
+Return to `WorkshopPipelineStack.java` and add the following:
 
 {{<highlight java "hl_lines=12 29-45">}}
 package com.myorg;
