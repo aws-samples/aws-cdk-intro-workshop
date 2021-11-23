@@ -18,52 +18,43 @@ class WorkshopPipelineStack(core.Stack):
             repository_name= "WorkshopRepo"
         )
 
-        # Defines the artifact representing the sourcecode
-        source_artifact = codepipeline.Artifact()
-        # Defines the artifact representing the cloud assembly
-        # (cloudformation template + all other assets)
-        cloud_assembly_artifact = codepipeline.Artifact()
-
-        pipeline = pipelines.CdkPipeline(
+        # The basic pipeline declaration. This sets the initial structure of our pipeline
+        pipeline = pipelines.CodePipeline(
             self, 'Pipeline',
-            cloud_assembly_artifact=cloud_assembly_artifact,
-
-            # Generates the source artifact from the repo we created in the last step
-            source_action=codepipeline_actions.CodeCommitSourceAction(
-                action_name='CodeCommit', # Any Git-based source control
-                output=source_artifact, # Indicates where the artifact is stored
-                repository=repo # Designates the repo to draw code from
-            ),
-
-            # Builds our source code outlined above into a could assembly artifact
-            synth_action=pipelines.SimpleSynthAction(
+            synth=pipelines.CodeBuildStep(
+                'SynthStep',
+                input=pipelines.CodePipelineSource.code_commit(repo, 'master'),
                 install_commands=[
-                    'npm install -g aws-cdk', # Installs the cdk cli on Codebuild
-                    'pip install -r requirements.txt' # Instructs Codebuild to install required packages
+                    'npm install -g aws-cdk',  # Installs the cdk cli on Codebuild
+                    'pip install -r requirements.txt'  # Instructs Codebuild to install required packages
                 ],
-                synth_command='npx cdk synth',
-                source_artifact=source_artifact, # Where to get source code to build
-                cloud_assembly_artifact=cloud_assembly_artifact, # Where to place built source
+                commands=['npx cdk synth'],
             )
         )
 
         deploy = WorkshopPipelineStage(self, 'Deploy')
-        deploy_stage = pipeline.add_application_stage(deploy)
-        deploy_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='TestViewerEndpoint',
-            use_outputs={
-                'ENDPOINT_URL': pipeline.stack_output(deploy.hc_viewer_url)
-            },
-            commands=['curl -Ssf $ENDPOINT_URL']
-        ))
-        deploy_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='TestAPIGatewayEndpoint',
-            use_outputs={
-                'ENDPOINT_URL': pipeline.stack_output(deploy.hc_endpoint)
-            },
-            commands=[
-                'curl -Ssf $ENDPOINT_URL',
-                'curl -Ssf $ENDPOINT_URL/hello',
-                'curl -Ssf $ENDPOINT_URL/test'
-            ]
-        ))
+        deploy_stage = pipeline.add_stage(deploy)
+        deploy_stage.add_post(
+            pipelines.CodeBuildStep(
+                'TestViewerEndpoint',
+                project_name='TestViewerEndpoint',
+                env_from_cfn_outputs={
+                    'ENDPOINT_URL': deploy.hc_viewer_url,
+                },
+                commands=['curl -Ssf $ENDPOINT_URL']
+            )
+        )
+        deploy_stage.add_post(
+            pipelines.CodeBuildStep(
+                'TestAPIGatewayEndpoint',
+                project_name='TestAPIGatewayEndpoint',
+                env_from_cfn_outputs={
+                    'ENDPOINT_URL': deploy.hc_endpoint,
+                },
+                commands=[
+                    'curl -Ssf $ENDPOINT_URL',
+                    'curl -Ssf $ENDPOINT_URL/hello',
+                    'curl -Ssf $ENDPOINT_URL/test'
+                ]
+            )
+        )
