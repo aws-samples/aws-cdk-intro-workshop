@@ -1,7 +1,7 @@
 +++
 title = "Java Workshop"
 chapter = true
-weight = 40
+weight = 50
 +++
 
 # The Java Workshop
