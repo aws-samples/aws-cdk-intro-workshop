@@ -39,6 +39,8 @@ By the end of this workshop, you'll be able to:
 - Define your own reusable constructs<br/>
 - Consume constructs published by other people<br/>
 
+You can also find a short guide on utilizing our [Construct Hub](./300-nodejs.html) at the end of this workshop. This will be a useful tool for all future endeavors with the CDKs.
+
 ## See Also
 
 - [AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide)
