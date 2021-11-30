@@ -8,20 +8,20 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct. Go back to `cdkworkshop/hitcounter.py` and add the following highlighted code:
 
-{{<highlight python "hl_lines=3 9-11 16-19 21-30">}}
+{{<highlight python "hl_lines=4 9-11 16-19 21-30">}}
+from constructs import Construct
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
-    core,
 )
 
-class HitCounter(core.Construct):
+class HitCounter(Construct):
 
     @property
     def handler(self):
         return self._handler    
 
-    def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
+    def __init__(self, scope: Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         table = ddb.Table(

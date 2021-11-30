@@ -35,12 +35,12 @@ Let's have a quick look at `app.py`:
 ```python
 #!/usr/bin/env python3
 
-from aws_cdk import core
+import aws_cdk as cdk
 
 from cdk_workshop.cdk_workshop_stack import CdkWorkshopStack
 
 
-app = core.App()
+app = cdk.App()
 CdkWorkshopStack(app, "cdk-workshop")
 
 app.synth()
@@ -55,22 +55,23 @@ Open up `cdk_workshop/cdk_workshop_stack.py`. This is where the meat of our appl
 is:
 
 ```python
+from constructs import Construct
 from aws_cdk import (
-    aws_iam as iam,
+    Duration,
+    Stack,
     aws_sqs as sqs,
     aws_sns as sns,
     aws_sns_subscriptions as subs,
-    core
 )
 
-class CdkWorkshopStack(core.Stack):
+class CdkWorkshopStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         queue = sqs.Queue(
             self, "CdkWorkshopQueue",
-            visibility_timeout=core.Duration.seconds(300),
+            visibility_timeout=Duration.seconds(300),
         )
 
         topic = sns.Topic(

@@ -1,6 +1,3 @@
-aws-cdk.core==1.131.0
-aws-cdk.aws_apigateway==1.131.0
-aws-cdk.aws_dynamodb==1.131.0
-aws-cdk.aws_sns==1.131.0
-aws-cdk.aws_sqs==1.131.0
-cdk-dynamo-table-view==0.1.139
+aws-cdk-lib==2.0.0-rc.29
+constructs>=10.0.0,<11.0.0
+cdk-dynamo-table-view==0.2.0

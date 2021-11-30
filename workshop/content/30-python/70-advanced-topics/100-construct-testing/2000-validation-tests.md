@@ -15,7 +15,7 @@ that the validation logic works: pass in invalid values and see what happens.
 First, add a `read_capacity` property to `HitCounter`:
 
 {{<highlight python "hl_lines=11">}}
-class HitCounter(core.Construct):
+class HitCounter(Construct):
 
     @property
     def handler(self):
@@ -25,7 +25,7 @@ class HitCounter(core.Construct):
     def table(self):
         return self._table
 
-    def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, read_capacity: int = 5, **kwargs):
+    def __init__(self, scope: Construct, id: str, downstream: _lambda.IFunction, read_capacity: int = 5, **kwargs):
 
     ...
 {{</highlight>}}
@@ -44,7 +44,7 @@ self._table = ddb.Table(
 Now add a validation which will throw an error if the `read_capacity` is not in the allowed range.
 
 {{<highlight python "hl_lines=12-13">}}
-class HitCounter(core.Construct):
+class HitCounter(Construct):
 
     @property
     def handler(self):
@@ -54,7 +54,7 @@ class HitCounter(core.Construct):
     def table(self):
         return self._table
 
-    def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, read_capacity: int = 5, **kwargs):
+    def __init__(self, scope: Construct, id: str, downstream: _lambda.IFunction, read_capacity: int = 5, **kwargs):
         if read_capacity < 5 or read_capacity > 20:
                 raise ValueError("readCapacity must be greater than 5 or less than 20")
 
@@ -67,7 +67,7 @@ Now lets add a test that validates the error is thrown.
 
 ```python
 def test_dynamodb_raises():
-    stack = core.Stack()
+    stack = Stack()
     with pytest.raises(Exception):
         HitCounter(stack, "HitCounter",
                 downstream=_lambda.Function(stack, "TestFunction",

@@ -43,13 +43,6 @@ Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct
 
 ![](./clib.png)
 
-Okay, let's use `pip install` to install the AWS Lambda
-module and all it's dependencies into our project:
-
-```
-pip install aws-cdk.aws-lambda
-```
-
 ## A few words about copying & pasting in this workshop
 
 In this workshop, we highly recommended to type CDK code instead of copying &
@@ -65,15 +58,16 @@ Add an `import` statement at the beginning of `cdk_workshop/cdk_workshop_stack.p
 `lambda.Function` to your stack.
 
 
-{{<highlight python "hl_lines=3 12-18">}}
+{{<highlight python "hl_lines=4 12-18">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_lambda as _lambda,
 )
 
-class CdkWorkshopStack(core.Stack):
+class CdkWorkshopStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Defines an AWS Lambda resource

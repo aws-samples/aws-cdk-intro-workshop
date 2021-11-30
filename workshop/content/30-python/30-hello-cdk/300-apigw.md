@@ -13,28 +13,23 @@ mounted to the root of the API. This means that any request to any URL path will
 be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
-## Install the API Gateway construct library
-
-```
-pip install aws-cdk.aws_apigateway
-```
-
 ## Add a LambdaRestApi construct to your stack
 
 Let's define an API endpoint and associate it with our Lambda function. Add this code to `cdk_workshop_stack.py` (which you should
 still have open from the last step):
 
-{{<highlight python "hl_lines=3 20-23">}}
+{{<highlight python "hl_lines=5 21-24">}}
+from constructs import Construct
 from aws_cdk import (
+    Stack,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
-    core,
 )
 
 
-class CdkWorkshopStack(core.Stack):
+class CdkWorkshopStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         my_lambda = _lambda.Function(

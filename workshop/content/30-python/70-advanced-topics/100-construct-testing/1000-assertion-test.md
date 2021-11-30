@@ -29,7 +29,7 @@ In the file called `test_cdk_workshop.py` create your first test using the follo
 
 ```python
 from aws_cdk import (
-        core,
+        Stack,
         aws_lambda as _lambda,
         assertions
     )
@@ -38,7 +38,7 @@ import pytest
 
 
 def test_dynamodb_table_created():
-    stack = core.Stack()
+    stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
                 runtime=_lambda.Runtime.NODEJS_14_X,
@@ -101,7 +101,7 @@ Create a new test in `test_cdk_workshop.py` with the below code:
 
 ```python
 def test_lambda_has_env_vars():
-    stack = core.Stack()
+    stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
                 runtime=_lambda.Runtime.NODEJS_14_X,
@@ -163,7 +163,7 @@ Grab the real values for the environment variables and update your test
 
 {{<highlight python "hl_lines=16-17">}}
 def test_lambda_has_env_vars():
-    stack = core.Stack()
+    stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
                 runtime=_lambda.Runtime.NODEJS_14_X,
@@ -212,7 +212,7 @@ First we'll update the test to reflect this new requirement.
 
 {{<highlight python>}}
 def test_dynamodb_with_encryption():
-    stack = core.Stack()
+    stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
                 runtime=_lambda.Runtime.NODEJS_14_X,

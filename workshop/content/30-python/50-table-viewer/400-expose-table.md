@@ -8,13 +8,13 @@ weight = 400
 Edit `hitcounter.py` and modify it as such `table` is exposed as a public property.
 
 {{<highlight python "hl_lines=13-15 20 32 36">}}
+from constructs import Construct
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
-    core,
 )
 
-class HitCounter(core.Construct):
+class HitCounter(Construct):
 
     @property
     def handler(self):
@@ -24,7 +24,7 @@ class HitCounter(core.Construct):
     def table(self):
         return self._table
 
-    def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
+    def __init__(self, scope: Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         self._table = ddb.Table(
@@ -51,20 +51,21 @@ class HitCounter(core.Construct):
 
 Go back to `cdk_workshop_stack.py` and assign the `table` property of the table viewer:
 
-{{<highlight python "hl_lines=37">}}
+{{<highlight python "hl_lines=38">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
 )
 
 from cdk_dynamo_table_view import TableViewer
-from hitcounter import HitCounter
+from .hitcounter import HitCounter
 
 
-class CdkWorkshopStack(core.Stack):
+class CdkWorkshopStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Defines an AWS Lambda resource
