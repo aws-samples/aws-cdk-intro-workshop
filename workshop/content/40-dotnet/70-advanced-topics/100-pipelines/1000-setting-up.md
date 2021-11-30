@@ -13,6 +13,7 @@ Create a new file under `src/CdkWorkshop` called `CdkWorkshop/PipelineStack.cs`.
 
 {{<highlight ts>}}
 using Amazon.CDK;
+using Constructs;
 
 namespace CdkWorkshop
 {
@@ -52,28 +53,6 @@ namespace CdkWorkshop
 
 {{</highlight>}}
 
-## Enable "New-Style" Synthesis
-The construct `@aws-cdk/pipelines` uses new core CDK framework features called "new style stack synthesis". In order to deploy our pipeline, we must enable this feature in our CDK configuration.
-
-Edit the file `cdk.json` as follows:
-
-{{<highlight json "hl_lines=3-5">}}
-{
-    "app": "node bin/cdk-workshop.js",
-    "context": {
-        "@aws-cdk/core:newStyleStackSynthesis": true
-    }
-}
-{{</highlight>}}
-
-This instructs the CDK to use those new features any time it synthesizes a stack (`cdk synth`).
-
-## Special Bootstrap
-There's one last step before we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
-
-```
-npx cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
-```
 
 And now we're ready!
 

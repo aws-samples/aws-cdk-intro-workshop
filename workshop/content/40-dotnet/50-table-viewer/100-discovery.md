@@ -5,8 +5,7 @@ weight = 100
 
 ## Reading documentation
 
-Browse to the [DynamoTableViewer page](https://www.nuget.org/packages/Eladb.DynamoTableViewer/) on nuget.org and
-read the module documentation.
+Browse to the [DynamoTableViewer page](https://github.com/cdklabs/cdk-dynamo-table-viewer/blob/master/README.md) on github and read the module documentation.
 
 {{% notice warning %}}
 As mentioned in the README page of this library, it is not intended for production use. Namely because

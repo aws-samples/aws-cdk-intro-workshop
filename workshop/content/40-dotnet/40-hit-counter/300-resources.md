@@ -8,19 +8,13 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct.
 
-As usual, we first need to install the DynamoDB construct library (we already
-have the Lambda library installed):
-
-```
-dotnet add package Amazon.CDK.AWS.DynamoDB
-```
-
 Now, go back to `src/CdkWorkshop/HitCounter.cs` and add the following highlighted code:
 
-{{<highlight csharp "hl_lines=2 4 16 20-39">}}
+{{<highlight csharp "hl_lines=2 5 17 21-40">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.DynamoDB;
 using Amazon.CDK.AWS.Lambda;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop

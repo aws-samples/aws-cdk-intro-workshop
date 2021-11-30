@@ -29,28 +29,6 @@ the user.
 
 {{% notice info %}} This lambda is provided in Javascript. For more information on writing lambda functions in your language of choice, please refer to the AWS Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) {{% /notice %}}
 
-## Install the AWS Lambda construct library
-
-The AWS CDK is shipped with an extensive library of constructs called the __AWS
-Construct Library__. The construct library is divided into __modules__, one for
-each AWS service. For example, if you want to define an AWS Lambda function, we
-will need to use the AWS Lambda construct library.
-
-To discover and learn about AWS constructs, you can browse the [AWS Construct
-Library reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html).
-
-![](./clib.png)
-
-Okay, let's use `dotnet add package` to install the AWS Lambda
-module and all it's dependencies into our project:
-
-```
-dotnet add package Amazon.CDK.AWS.Lambda
-```
-{{% notice info %}}
-**NOTE:** You must be in the same directory as the `*.csproj` file to install a Nuget package
-{{% /notice %}}
-
 ## A few words about copying & pasting in this workshop
 
 In this workshop, we highly recommended to type CDK code instead of copying &
@@ -66,9 +44,10 @@ Add an `using` statement at the beginning of `src/CdkWorkshop/CdkWorkshopStack.c
 `Function` to your stack.
 
 
-{{<highlight csharp "hl_lines=2 10-16">}}
+{{<highlight csharp "hl_lines=2 11-17">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda;
+using Constructs;
 
 namespace CdkWorkshop
 {
@@ -116,7 +95,7 @@ signature:
    scope of _current_ construct, which means you'll usually just want to pass
    `this` for the first argument. Make a habit out of it.
 2. __`id`__: the second argument is the __local identity__ of the construct.
-   It's an ID that has to be unique amongst construct within the same scope. The
+   It's an ID that has to be unique amongst constructs within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
    for each resource defined within this scope. *To read more about IDs in the

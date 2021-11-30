@@ -9,10 +9,11 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `src/CdkWorkshop/HitCounter.cs` and add the following highlighted lines:
 
-{{<highlight csharp "hl_lines=41-42">}}
+{{<highlight csharp "hl_lines=42-43">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.DynamoDB;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
@@ -124,10 +125,11 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `src/CdkWorkshop/HitCounter.cs`:
 
-{{<highlight csharp "hl_lines=44-45">}}
+{{<highlight csharp "hl_lines=45-46">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.DynamoDB;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
