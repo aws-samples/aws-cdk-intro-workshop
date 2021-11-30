@@ -13,32 +13,15 @@ Before you can use the table viewer in your application, you'll need to add the 
         <!-- AWS Cloud Development Kit -->
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
-            <artifactId>core</artifactId>
-            <version>VERSION</version>
-        </dependency>
-
-        <!-- Respective AWS Construct Libraries -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>apigateway</artifactId>
-            <version>VERSION</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>dynamodb</artifactId>
-            <version>VERSION</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>VERSION</version>
+            <artifactId>aws-cdk-lib</artifactId>
+            <version>${cdk.version}</version>
         </dependency>
 
         <!-- Additional Construct Libraries -->
         <dependency>
-            <groupId>com.github.eladb</groupId>
-            <artifactId>cdk-dynamo-table-viewer</artifactId>
-            <version>3.1.2</version>
+            <groupId>io.github.cdklabs</groupId>
+            <artifactId>cdk-dynamo-table-view</artifactId>
+            <version>0.2.0</version>
             <exclusions>
                 <exclusion>
                     <groupId> software.amazon.jsii</groupId>

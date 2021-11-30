@@ -24,7 +24,7 @@ And then create a file called `HitCounterTest.java` with the following code.
 ```java
 package com.myorg;
 
-import software.amazon.awscdk.core.Stack;
+import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.assertions.Template;
 import software.amazon.awscdk.assertions.Capture;
 import java.io.IOException;
@@ -391,7 +391,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;

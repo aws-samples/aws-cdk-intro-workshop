@@ -14,16 +14,16 @@ Create a new file under `src/main/java/com/myorg` called `WorkshopPipelineStack.
 {{<highlight java>}}
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
-public class PipelineStack extends Stack {
-    public PipelineStack(final Construct parent, final String id) {
+public class WorkshopPipelineStack extends Stack {
+    public WorkshopPipelineStack(final Construct parent, final String id) {
         this(parent, id, null);
     }
 
-    public PipelineStack(final Construct parent, final String id, final StackProps props) {
+    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
         // Pipeline code goes here
@@ -41,41 +41,20 @@ To do this, edit the code in `src/main/java/com/myorg/CdkWorkshopApp.java` as fo
 {{<highlight java "hl_lines=9">}}
 package com.myorg;
 
-import software.amazon.awscdk.core.App;
+import software.amazon.awscdk.App;
 
 public final class CdkWorkshopApp {
     public static void main(final String[] args) {
         App app = new App();
 
-        new PipelineStack(app, "PipelineStack");
+        new WorkshopPipelineStack(app, "PipelineStack");
 
         app.synth();
     }
 }
 {{</highlight>}}
 
-## Enable "New-Style" Synthesis
-The construct `software.amazon.awscdk.pipelines` uses new core CDK framework features called "new style stack synthesis". In order to deploy our pipeline, we must enable this feature in our CDK configuration.
 
-Edit the file `cdk.json` as follows:
-
-{{<highlight json "hl_lines=3-5">}}
-{
-    "app": "mvn -e -q exec:java",
-    "context": {
-        "@aws-cdk/core:newStyleStackSynthesis": true
-    }
-}
-{{</highlight>}}
-
-This instructs the CDK to use those new features any time it synthesizes a stack (`cdk synth`).
-
-## Special Bootstrap
-There's one last step before we're ready. To have the necessary permissions in your account to deploy the pipeline, we must re-run `cdk bootstrap` with the addition of parameter `--cloudformation-execution-policies`. This will explicitly give the CDK full control over your account and switch over to the new bootstrapping resources enabled in the previous step.
-
-```
-npx cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
-```
 
 And now we're ready!
 

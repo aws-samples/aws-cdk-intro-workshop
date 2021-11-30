@@ -1,11 +1,11 @@
 package com.myorg;
 
-import com.github.eladb.dynamotableviewer.TableViewer;
+import io.github.cdklabs.dynamotableviewer.TableViewer;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
-import software.amazon.awscdk.core.CfnOutput;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
+import software.amazon.awscdk.CfnOutput;
 
 import software.amazon.awscdk.services.apigateway.LambdaRestApi;
 import software.amazon.awscdk.services.lambda.Code;

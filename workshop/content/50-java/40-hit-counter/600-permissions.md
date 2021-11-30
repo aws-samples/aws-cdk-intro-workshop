@@ -15,7 +15,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
@@ -104,19 +104,20 @@ Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
 
 ```json
 {
-    "errorMessage": "User: arn:aws:sts::XXXXXXXXXX:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: lambda:InvokeFunction on resource: arn:aws:lambda:us-east-1:XXXXXXXXXXX:function:CdkWorkshopStack-HelloHandler2E4FBA4D-149MVAO4969O7",
     "errorType": "AccessDeniedException",
-    "stackTrace": [
-        "Object.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:48:27)",
-        "Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/rest_json.js:52:8)",
-        "Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:105:20)",
-        "Request.emit (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:77:10)",
-        "Request.emit (/var/runtime/node_modules/aws-sdk/lib/request.js:683:14)",
-        "Request.transition (/var/runtime/node_modules/aws-sdk/lib/request.js:22:10)",
-        "AcceptorStateMachine.runTo (/var/runtime/node_modules/aws-sdk/lib/state_machine.js:14:12)",
-        "/var/runtime/node_modules/aws-sdk/lib/state_machine.js:26:10",
-        "Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:38:9)",
-        "Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:685:12)"
+    "errorMessage": "User: arn:aws:sts::XXXXXXXXXX:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: lambda:InvokeFunction on resource: arn:aws:lambda:us-east-1:XXXXXXXXXXX:function:CdkWorkshopStack-HelloHandler2E4FBA4D-149MVAO4969O7",
+    "stack": [
+        "AccessDeniedException: User: arn:aws:sts::XXXXXXXXXX:assumed-role/CdkWorkshopStack-HelloHitCounterHitCounterHandlerS-TU5M09L1UBID/CdkWorkshopStack-HelloHitCounterHitCounterHandlerD-144HVUNEWRWEO is not authorized to perform: lambda:InvokeFunction on resource: arn:aws:lambda:us-east-1:XXXXXXXXXXX:function:CdkWorkshopStack-HelloHandler2E4FBA4D-149MVAO4969O7",
+        "at Object.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/json.js:48:27)",
+        "at Request.extractError (/var/runtime/node_modules/aws-sdk/lib/protocol/rest_json.js:52:8)",
+        "at Request.callListeners (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:105:20)",
+        "at Request.emit (/var/runtime/node_modules/aws-sdk/lib/sequential_executor.js:77:10)",
+        "at Request.emit (/var/runtime/node_modules/aws-sdk/lib/request.js:683:14)",
+        "at Request.transition (/var/runtime/node_modules/aws-sdk/lib/request.js:22:10)",
+        "at AcceptorStateMachine.runTo (/var/runtime/node_modules/aws-sdk/lib/state_machine.js:14:12)",
+        "at /var/runtime/node_modules/aws-sdk/lib/state_machine.js:26:10",
+        "at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:38:9)",
+        "at Request.<anonymous> (/var/runtime/node_modules/aws-sdk/lib/request.js:685:12)"
     ]
 }
 ```
@@ -144,7 +145,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;
