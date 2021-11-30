@@ -10,7 +10,8 @@ Create a new file in `lib` called `pipeline-stage.ts` with the code below:
 
 {{<highlight ts>}}
 import { CdkWorkshopStack } from './cdk-workshop-stack';
-import { Stage, Construct, StageProps } from '@aws-cdk/core';
+import { Stage, StageProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class WorkshopPipelineStage extends Stage {
     constructor(scope: Construct, id: string, props?: StageProps) {
@@ -26,33 +27,35 @@ All this does is declare a new `Stage` (component of a pipeline), and in that st
 Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack as it stands now is not configured to be deployed by a pipeline.
 Open `lib/cdk-workshop-stack.ts` and make the following changes:
 
-{{<highlight ts "hl_lines=8">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as apigw from '@aws-cdk/aws-apigateway';
+{{<highlight ts "hl_lines=9">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
+import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // The rest of your code...
 {{</highlight>}}
 
-This stack's `scope` parameter was defined as being a `cdk.App`, which means that in the construct tree, it must be a child of the app. Since the stack is being deployed by the pipeline, it is no longer a child of the app, so its type must be changed to `cdk.Construct`.
+This stack's `scope` parameter was defined as being a `cdk.App`, which means that in the construct tree, it must be a child of the app. Since the stack is being deployed by the pipeline, it is no longer a child of the app, so its type must be changed to `Construct`.
 
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
 
-{{<highlight ts "hl_lines=3 17 33-34">}}
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
+{{<highlight ts "hl_lines=4 18 34-35">}}
+import * as cdk from 'aws-cdk-lib';
+import * as codecommit from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
 import {WorkshopPipelineStage} from './pipeline-stage';
-import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
         // This creates a new CodeCommit repository called 'WorkshopRepo'
@@ -110,15 +113,16 @@ It looks like the build step is failing to find our Lambda function.
 We are currently locating our Lambda code based on the directory that `cdk synth` is being executed in. Since CodeBuild uses a different folder structure than you might for development, it can't find the path to our Lambda code. We can fix that with a small change in `lib/cdk-workshop-stack.ts`:
 
 {{<highlight ts "hl_lines=6 14">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as apigw from '@aws-cdk/aws-apigateway';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
+import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 import * as path from 'path';
 
 export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {

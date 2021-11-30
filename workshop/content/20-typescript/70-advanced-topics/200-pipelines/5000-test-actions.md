@@ -9,9 +9,10 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 First edit `lib/cdk-workshop-stack.ts` to get these values and expose them as properties of our stack:
 
 {{<highlight ts "hl_lines=9-10 26 30 36-42">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as apigw from '@aws-cdk/aws-apigateway';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
+import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
@@ -19,7 +20,7 @@ export class CdkWorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
   public readonly hcEndpoint: cdk.CfnOutput;
 
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
@@ -72,14 +73,15 @@ Now we have our application deployed, but no CD pipeline is complete without tes
 Let's start with a simple test to ping our endpoints to see if they are alive.
 Return to `lib/pipeline-stack.ts` and add the following:
 
-{{<highlight ts "hl_lines=15-37">}}
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
+{{<highlight ts "hl_lines=16-38">}}
+import * as cdk from 'aws-cdk-lib';
+import * as codecommit from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
 import {WorkshopPipelineStage} from './pipeline-stage';
-import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
         // PIPELINE CODE HERE...
@@ -122,9 +124,10 @@ You may notice that we have not yet set the URLs of these endpoints. This is bec
 
 With a slight modification to `lib/pipeline-stage.ts` we can expose them:
 
-{{<highlight ts "hl_lines=2 5-6 11 13-14">}}
+{{<highlight ts "hl_lines=2 6-7 12 14-15">}}
 import { CdkWorkshopStack } from './cdk-workshop-stack';
-import { Stage, CfnOutput, Construct, StageProps } from '@aws-cdk/core';
+import { Stage, CfnOutput, StageProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 export class WorkshopPipelineStage extends Stage {
     public readonly hcViewerUrl: CfnOutput;
@@ -142,7 +145,7 @@ export class WorkshopPipelineStage extends Stage {
 {{</highlight>}}
 
 Now we can add those values to our actions in `lib/pipeline-stack.ts` by getting the `stackOutput` of our pipeline stack:
-{{<highlight ts "hl_lines=6 16">}}
+{{<highlight ts "hl_lines=6 17">}}
     // CODE HERE...
     deployStage.addPost(
             new CodeBuildStep('TestViewerEndpoint', {

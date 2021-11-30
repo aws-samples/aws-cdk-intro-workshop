@@ -6,17 +6,18 @@ weight = 130
 ## Define an Empty Pipeline
 Now we are ready to define the basics of the pipeline.
 
-We will be using a new package here, so first `npm install @aws-cdk/pipelines`.
+We will be using a new package here, so first `npm install aws-cdk-lib/pipelines`.
 
 Return to the file `lib/pipeline-stack.ts` and edit as follows:
 
-{{<highlight ts "hl_lines=3 14-30">}}
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
-import {CodeBuildStep, CodePipeline, CodePipelineSource} from "@aws-cdk/pipelines";
+{{<highlight ts "hl_lines=4 15-31">}}
+import * as cdk from 'aws-cdk-lib';
+import * as codecommit from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
 
 export class WorkshopPipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
         // This creates a new CodeCommit repository called 'WorkshopRepo'

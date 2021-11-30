@@ -11,7 +11,7 @@ and [Validation](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testi
 
 #### CDK assert Library
 
-We will be using the CDK `assertions` (`@aws-cdk/assertions`) library throughout this section.
+We will be using the CDK `assertions` (`aws-cdk-lib/assertions`) library throughout this section.
 The library contains several helper functions for writing unit and integration tests.
 
 
