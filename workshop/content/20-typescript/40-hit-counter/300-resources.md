@@ -8,12 +8,6 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct.
 
-As usual, we first need to install the DynamoDB construct library (we already
-have the Lambda library installed):
-
-```
-npm install @aws-cdk/aws-dynamodb
-```
 
 {{% notice info %}}
 
@@ -26,22 +20,23 @@ in use.
 
 Now, go back to `lib/hitcounter.ts` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=3 12-13 18-30">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
+{{<highlight ts "hl_lines=3 13-14 19-31">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
   downstream: lambda.IFunction;
 }
 
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
 
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {

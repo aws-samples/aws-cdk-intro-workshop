@@ -8,38 +8,6 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct.
 
-As usual, we first need to install the DynamoDB construct library (we already
-have the Lambda library installed):
-
-{{<highlight xml "hl_lines=16-20">}}
-...
-    <dependencies>
-        <!-- AWS Cloud Development Kit -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>core</artifactId>
-            <version>VERSION</version>
-        </dependency>
-
-        <!-- Respective AWS Construct Libraries -->
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>apigateway</artifactId>
-            <version>VERSION</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>dynamodb</artifactId>
-            <version>VERSION</version>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awscdk</groupId>
-            <artifactId>lambda</artifactId>
-            <version>VERSION</version>
-        </dependency>
-    </dependencies>
-...
-{{</highlight>}}
 
 Now, go back to `~/HitCounter.java` and add the following highlighted code:
 
@@ -49,7 +17,7 @@ package com.myorg;
 import java.util.HashMap;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
+import software.constructs.Construct;
 
 import software.amazon.awscdk.services.dynamodb.Attribute;
 import software.amazon.awscdk.services.dynamodb.AttributeType;

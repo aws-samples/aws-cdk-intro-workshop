@@ -8,11 +8,12 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `CdkWorkshop/CdkWorkshopStack.cs` to get these values and expose them as properties of our stack:
 
-{{<highlight ts "hl_lines=10-11 28 33 39-47">}}
+{{<highlight ts "hl_lines=11-12 40-48">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Lambda;
-using Eladb.DynamoTableViewer;
+using Cdklabs.DynamoTableViewer;
+using Constructs;
 
 namespace CdkWorkshop
 {
@@ -79,12 +80,13 @@ Now we have our application deployed, but no CD pipeline is complete without tes
 Let's start with a simple test to ping our endpoints to see if they are alive.
 Return to `CdkWorkshop/PipelineStack.cs` and add the following:
 
-{{<highlight ts "hl_lines=6 18-37">}}
+{{<highlight ts "hl_lines=7 19-34">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeCommit;
 using Amazon.CDK.AWS.CodePipeline;
 using Amazon.CDK.AWS.CodePipeline.Actions;
 using Amazon.CDK.Pipelines;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
@@ -97,18 +99,14 @@ namespace CdkWorkshop
 
             var deploy = new WorkshopPipelineStage(this, "Deploy");
             var deployStage = pipeline.AddApplicationStage(deploy);
-            deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-            {
-                ActionName = "TestViewerEndpoint",
-                UseOutputs = new Dictionary<string, StackOutput> {
+            deployStage.AddPost(new ShellStep("TestViewerEndpoint", new ShellStepProps{
+                EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
                     { "ENDPOINT_URL", /* TBD */ }
                 },
-                Commands = new string[] {"curl -Ssf $ENDPOINT_URL"}
+                Commands = new string[] { "curl -Ssf $ENDPOINT_URL" }
             }));
-            deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-            {
-                ActionName = "TestAPIGatewayEndpoint",
-                UseOutputs = new Dictionary<string, StackOutput> {
+            deployStage.AddPost(new ShellStep("TestAPIGatewayEndpoint", new ShellStepProps{
+                EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
                     { "ENDPOINT_URL", /* TBD */ }
                 },
                 Commands = new string[] {
@@ -122,7 +120,7 @@ namespace CdkWorkshop
 }
 {{</highlight>}}
 
-First we import `ShellScriptAction` from CDK Pipelines. This is a construct that simply executes one or more shell script commands. Then we add two actions to our deployment stage that test our TableViewer endpoint and our APIGateway endpoint respectively.
+We add post-deployment steps via `deployStage.AddPost(...)` from CDK Pipelines. We add two actions to our deployment stage: to test our TableViewer endpoint and our APIGateway endpoint, respectively.
 
 > Note: We submit several `curl` requests to the APIGateway endpoint so that when we look at our tableviewer, there are several values already populated.
 
@@ -130,9 +128,10 @@ You may notice that we have not yet set the URLs of these endpoints. This is bec
 
 With a slight modification to `CdkWorkshop/PipelineStage.cs` we can expose them:
 
-{{<highlight ts "hl_lines=8-9 14 16-17">}}
+{{<highlight ts "hl_lines=9-10 15 17-18">}}
 using Amazon.CDK;
 using Amazon.CDK.Pipelines;
+using Constructs;
 
 namespace CdkWorkshop
 {
@@ -153,23 +152,19 @@ namespace CdkWorkshop
 }
 {{</highlight>}}
 
-Now we can add those values to our actions in `CdkWorkshop/PipelineStack.cs` by getting the `StackOutput` of our pipeline stack:
+Now we can add those values to our actions in `CdkWorkshop/PipelineStack.cs` by getting the `CfnOutput` of our deploy stage:
 {{<highlight ts "hl_lines=6 15">}}
 // CODE HERE...
 
-deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-{
-    ActionName = "TestViewerEndpoint",
-    UseOutputs = new Dictionary<string, StackOutput> {
-        { "ENDPOINT_URL", pipeline.StackOutput(deploy.HCViewerUrl) }
+deployStage.AddPost(new ShellStep("TestViewerEndpoint", new ShellStepProps{
+    EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
+        { "ENDPOINT_URL", deploy.HCViewerUrl }
     },
-    Commands = new string[] {"curl -Ssf $ENDPOINT_URL"}
+    Commands = new string[] { "curl -Ssf $ENDPOINT_URL" }
 }));
-deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-{
-    ActionName = "TestAPIGatewayEndpoint",
-    UseOutputs = new Dictionary<string, StackOutput> {
-        { "ENDPOINT_URL", pipeline.StackOutput(deploy.HCEndpoint) }
+deployStage.AddPost(new ShellStep("TestAPIGatewayEndpoint", new ShellStepProps{
+    EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
+        { "ENDPOINT_URL", deploy.HCEndpoint }
     },
     Commands = new string[] {
         "curl -Ssf $ENDPOINT_URL/",

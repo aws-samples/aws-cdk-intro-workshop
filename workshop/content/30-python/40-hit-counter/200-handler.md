@@ -5,12 +5,7 @@ weight = 100
 
 ## Hit counter Lambda handler
 
-Okay, now let's write the Lambda handler code for our hit counter.  First, we
-will need to install the AWS DynamoDB module.
-
-```
-pip install aws-cdk.aws_dynamodb
-```
+Okay, now let's write the Lambda handler code for our hit counter.
 
 Create the file `lambda/hitcount.py`:
 

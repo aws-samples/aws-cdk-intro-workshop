@@ -1,6 +1,6 @@
 package com.myorg;
 
-import software.amazon.awscdk.core.Stack;
+import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.assertions.Template;
 import software.amazon.awscdk.assertions.Capture;
 import java.io.IOException;

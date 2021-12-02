@@ -9,14 +9,15 @@ At this point, you have a fully operating CDK pipeline that will automatically u
 Create a new file in `cdk_workshop` called `pipeline_stage.py` with the code below:
 
 {{<highlight python>}}
+from constructs import Construct
 from aws_cdk import (
-    core
+    Stage
 )
 from .cdk_workshop_stack import CdkWorkshopStack
 
-class WorkshopPipelineStage(core.Stage):
+class WorkshopPipelineStage(Stage):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         service = CdkWorkshopStack(self, 'WebService')
@@ -28,9 +29,10 @@ All this does is declare a new `core.Stage` (component of a pipeline), and in th
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `cdk_workshop/pipeline_stack.py`:
 
-{{<highlight python "hl_lines=8 27 50-51">}}
+{{<highlight python "hl_lines=9 28 51-52">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
@@ -38,9 +40,9 @@ from aws_cdk import (
 )
 from pipeline_stage import WorkshopPipelineStage
 
-class WorkshopPipelineStack(core.Stack):
+class WorkshopPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'WorkshopRepo'

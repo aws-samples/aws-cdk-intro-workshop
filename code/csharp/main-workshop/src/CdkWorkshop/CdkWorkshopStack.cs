@@ -1,8 +1,8 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Lambda;
-using Eladb.DynamoTableViewer;
-
+using Constructs;
+using Cdklabs.DynamoTableViewer;
 namespace CdkWorkshop
 {
     public class CdkWorkshopStack : Stack

@@ -13,20 +13,15 @@ mounted to the root of the API. This means that any request to any URL path will
 be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
-## Install the API Gateway construct library
-
-```
-dotnet add package Amazon.CDK.AWS.APIGateway
-```
-
 ## Add a LambdaRestApi construct to your stack
 
 Going back to `src/CdkWorkshop/CdkWorkshopStack.cs`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight csharp "hl_lines=3 19-23">}}
+{{<highlight csharp "hl_lines=3 20-24">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.APIGateway;
+using Constructs;
 
 namespace CdkWorkshop
 {

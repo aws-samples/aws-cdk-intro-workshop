@@ -9,7 +9,7 @@ Before you can use the table viewer in your application, you'll need to install
 the npm module:
 
 ```
-npm install cdk-dynamo-table-viewer@3.1.2
+npm install cdk-dynamo-table-viewer@0.2.0
 ```
 
 {{% notice info %}}
@@ -24,7 +24,7 @@ in use.
 Output should look like this:
 
 ```
-+ cdk-dynamo-table-viewer@3.1.2
++ cdk-dynamo-table-viewer@0.2.0
 added 1 package from 1 contributor and audited 886517 packages in 6.704s
 found 0 vulnerabilities
 ```

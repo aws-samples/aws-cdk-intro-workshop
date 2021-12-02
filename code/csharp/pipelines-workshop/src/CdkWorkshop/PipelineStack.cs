@@ -3,6 +3,7 @@ using Amazon.CDK.AWS.CodeCommit;
 using Amazon.CDK.AWS.CodePipeline;
 using Amazon.CDK.AWS.CodePipeline.Actions;
 using Amazon.CDK.Pipelines;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
@@ -17,58 +18,35 @@ namespace CdkWorkshop
                 RepositoryName = "WorkshopRepo"
             });
 
-            // Defines the artifact representing the sourcecode
-            var sourceArtifact = new Artifact_();
-            // Defines the artifact representing the cloud assembly
-            // (cloudformation template + all other assets)
-            var cloudAssemblyArtifact = new Artifact_();
-
             // The basic pipeline declaration. This sets the initial structure
             // of our pipeline
-            var pipeline = new CdkPipeline(this, "Pipeline", new CdkPipelineProps
+            var pipeline = new CodePipeline(this, "Pipeline", new CodePipelineProps
             {
                 PipelineName = "WorkshopPipeline",
-                CloudAssemblyArtifact = cloudAssemblyArtifact,
 
-                // Generates the source artifact from the repo we created in the last step
-                SourceAction = new CodeCommitSourceAction(new CodeCommitSourceActionProps
-                {
-                    ActionName = "CodeCommit", // Any Git-based source control
-                    Output = sourceArtifact, // Indicates where the artifact is stored
-                    Repository = repo // Designates the repo to draw code from
+                // Builds our source code outlined above into a cloud assembly artifact
+                Synth = new ShellStep("Synth", new ShellStepProps{
+                    Input = CodePipelineSource.CodeCommit(repo, "master"),  // Where to get source code to build
+                    Commands = new string[] {
+                        "npm install -g aws-cdk",
+                        "sudo apt-get install -y dotnet-sdk-3.1",  // Language-specific install cmd
+                        "dotnet build",  // Language-specific build cmd
+                        "npx cdk synth"
+                    }
                 }),
-
-                // Builds our source code outlined above into a could assembly artifact
-                SynthAction = SimpleSynthAction.StandardNpmSynth(new StandardNpmSynthOptions
-                {
-                    SourceArtifact = sourceArtifact,  // Where to get source code to build
-                    CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
-
-                    InstallCommand = string.Join("&&",
-                        new string[] {
-                            "npm install -g aws-cdk",
-                            "sudo apt-get install -y dotnet-sdk-3.1"
-                        }
-                    ),
-                    BuildCommand = "dotnet build" // Language-specific build cmd
-                })
             });
 
             var deploy = new WorkshopPipelineStage(this, "Deploy");
-            var deployStage = pipeline.AddApplicationStage(deploy);
-            deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-            {
-                ActionName = "TestViewerEndpoint",
-                UseOutputs = new Dictionary<string, StackOutput> {
-                    { "ENDPOINT_URL", pipeline.StackOutput(deploy.HCViewerUrl) }
+            var deployStage = pipeline.AddStage(deploy);
+            deployStage.AddPost(new ShellStep("TestViewerEndpoint", new ShellStepProps{
+                EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
+                    { "ENDPOINT_URL", deploy.HCViewerUrl }
                 },
-                Commands = new string[] {"curl -Ssf $ENDPOINT_URL"}
+                Commands = new string[] { "curl -Ssf $ENDPOINT_URL" }
             }));
-            deployStage.AddActions(new ShellScriptAction(new ShellScriptActionProps
-            {
-                ActionName = "TestAPIGatewayEndpoint",
-                UseOutputs = new Dictionary<string, StackOutput> {
-                    { "ENDPOINT_URL", pipeline.StackOutput(deploy.HCEndpoint) }
+            deployStage.AddPost(new ShellStep("TestAPIGatewayEndpoint", new ShellStepProps{
+                EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
+                    { "ENDPOINT_URL", deploy.HCEndpoint }
                 },
                 Commands = new string[] {
                     "curl -Ssf $ENDPOINT_URL/",

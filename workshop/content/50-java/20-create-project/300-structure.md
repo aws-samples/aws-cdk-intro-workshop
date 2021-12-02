@@ -32,10 +32,10 @@ Let's have a quick look at `~/CdkWorkshopApp.java`:
 ```java
 package com.myorg;
 
-import software.amazon.awscdk.core.App;
+import software.amazon.awscdk.App;
 
 public final class CdkWorkshopApp {
-    public static void main(final String args[]) {
+    public static void main(final String[] args) {
         App app = new App();
 
         new CdkWorkshopStack(app, "CdkWorkshopStack");
@@ -56,10 +56,10 @@ is:
 ```java
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Duration;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Duration;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.services.sns.Topic;
 import software.amazon.awscdk.services.sns.subscriptions.SqsSubscription;
 import software.amazon.awscdk.services.sqs.Queue;

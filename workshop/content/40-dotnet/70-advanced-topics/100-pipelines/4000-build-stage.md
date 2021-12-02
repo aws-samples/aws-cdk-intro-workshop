@@ -11,6 +11,7 @@ Create a new file in `CdkWorkshop` called `PipelineStage.cs` with the code below
 {{<highlight ts>}}
 using Amazon.CDK;
 using Amazon.CDK.Pipelines;
+using Constructs;
 
 namespace CdkWorkshop
 {
@@ -30,12 +31,13 @@ All this does is declare a new `Stage` (component of a pipeline), and in that st
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `CdkWorkshop/PipelineStack.cs`:
 
-{{<highlight ts "hl_lines=28 56-57">}}
+{{<highlight ts "hl_lines=39-40">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeCommit;
 using Amazon.CDK.AWS.CodePipeline;
 using Amazon.CDK.AWS.CodePipeline.Actions;
 using Amazon.CDK.Pipelines;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
@@ -50,45 +52,26 @@ namespace CdkWorkshop
                 RepositoryName = "WorkshopRepo"
             });
 
-            // Defines the artifact representing the sourcecode
-            var sourceArtifact = new Artifact_();
-            // Defines the artifact representing the cloud assembly
-            // (cloudformation template + all other assets)
-            var cloudAssemblyArtifact = new Artifact_();
-
             // The basic pipeline declaration. This sets the initial structure
             // of our pipeline
-            var pipeline = new CdkPipeline(this, "Pipeline", new CdkPipelineProps
+            var pipeline = new CodePipeline(this, "Pipeline", new CodePipelineProps
             {
                 PipelineName = "WorkshopPipeline",
-                CloudAssemblyArtifact = cloudAssemblyArtifact,
 
-                // Generates the source artifact from the repo we created in the last step
-                SourceAction = new CodeCommitSourceAction(new CodeCommitSourceActionProps
-                {
-                    ActionName = "CodeCommit", // Any Git-based source control
-                    Output = sourceArtifact, // Indicates where the artifact is stored
-                    Repository = repo // Designates the repo to draw code from
+                // Builds our source code outlined above into a cloud assembly artifact
+                Synth = new ShellStep("Synth", new ShellStepProps{
+                    Input = CodePipelineSource.CodeCommit(repo, "master"),  // Where to get source code to build
+                    Commands = new string[] {
+                        "npm install -g aws-cdk",
+                        "sudo apt-get install -y dotnet-sdk-3.1",  // Language-specific install cmd
+                        "dotnet build",  // Language-specific build cmd
+                        "npx cdk synth"
+                    }
                 }),
-
-                // Builds our source code outlined above into a could assembly artifact
-                SynthAction = SimpleSynthAction.StandardNpmSynth(new StandardNpmSynthOptions
-                {
-                    SourceArtifact = sourceArtifact,  // Where to get source code to build
-                    CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
-
-                    InstallCommand = string.Join("&&",
-                        new string[] {
-                            "npm install -g aws-cdk",
-                            "sudo apt-get install -y dotnet-sdk-3.1"
-                        }
-                    ),
-                    BuildCommand = "dotnet build" // Language-specific build cmd
-                })
             });
 
             var deploy = new WorkshopPipelineStage(this, "Deploy");
-            var deployStage = pipeline.AddApplicationStage(deploy);
+            var deployStage = pipeline.AddStage(deploy);
         }
     }
 }
@@ -96,7 +79,7 @@ namespace CdkWorkshop
 
 This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate development/test deployment).
 
-Then we add that stage to our pipeline (`pipepeline.AddApplicationStage(deploy);`). An `ApplicationStage` in a CDK pipeline represents any CDK deployment action.
+Then we add that stage to our pipeline (`pipepeline.AddStage(deploy);`). A `Stage` in a CDK pipeline represents a set of one or more CDK Stacks that should be deployed together, to a particular environment.
 
 ## Commit/Deploy
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.

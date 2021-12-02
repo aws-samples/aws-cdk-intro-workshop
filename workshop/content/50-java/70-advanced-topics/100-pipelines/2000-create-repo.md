@@ -11,9 +11,9 @@ Edit the file `WorkshopPipelineStack.java` as follows.
 {{<highlight java "hl_lines=7 17-20">}}
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
 import software.amazon.awscdk.services.codecommit.Repository;
 
@@ -36,18 +36,10 @@ public class WorkshopPipelineStack extends Stack {
 {{</highlight>}}
 
 ## Deploy
-Now we can install the missing package and deploy the app to see our new repo.
+Now we can deploy the app to see our new repo.
 
-In `pom.xml` add:
-``` html
-<dependency>
-    <groupId>software.amazon.awscdk</groupId>
-    <artifactId>codecommit</artifactId>
-    <version>VERSION</version>
-</dependency>
-```
 
-Then run:
+Run:
 ```
 mvn package
 npx cdk deploy

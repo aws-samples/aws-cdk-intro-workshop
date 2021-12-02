@@ -1,6 +1,6 @@
-import { Template, Capture } from '@aws-cdk/assertions';
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
+import { Template, Capture } from 'aws-cdk-lib/assertions';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { HitCounter } from '../lib/hitcounter';
 
 test('DynamoDB Table Created', () => {
