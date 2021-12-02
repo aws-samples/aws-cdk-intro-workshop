@@ -84,12 +84,11 @@ Now we have our application deployed, but no CD pipeline is complete without tes
 Let's start with a simple test to ping our endpoints to see if they are alive.
 Return to `cdk_workshop/pipeline_stack.py` and add the following:
 
-{{<highlight python "hl_lines=18-36">}}
+{{<highlight python "hl_lines=16-39">}}
+from constructs import Construct
 from aws_cdk import (
     core,
     aws_codecommit as codecommit,
-    aws_codepipeline as codepipeline,
-    aws_codepipeline_actions as codepipeline_actions,
     pipelines as pipelines
 )
 from pipeline_stage import WorkshopPipelineStage
@@ -101,30 +100,34 @@ class WorkshopPipelineStack(core.Stack):
 
         # PIPELINE CODE HERE...
 
-        deploy = WorkshopPipelineStage(self, 'Deploy')
-        deploy_stage = pipeline.add_application_stage(deploy)
-        deploy_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='TestViewerEndpoint',
-            use_outputs={
-                'ENDPOINT_URL': # TBD
-            },
-            commands=['curl -Ssf $ENDPOINT_URL']
-        ))
-        deploy_stage.add_actions(pipelines.ShellScriptAction(
-            action_name='TestAPIGatewayEndpoint',
-            use_outputs={
-                'ENDPOINT_URL': # TBD
-            },
-            commands=[
-                'curl -Ssf $ENDPOINT_URL',
-                'curl -Ssf $ENDPOINT_URL/hello',
-                'curl -Ssf $ENDPOINT_URL/test'
-            ]
-        ))
+        deploy = WorkshopPipelineStage(self, "Deploy")
+        deploy_stage = pipeline.add_stage(deploy)
+        deploy_stage.add_post(
+            pipelines.ShellStep(
+                "TestViewerEndpoint",
+                env_from_cfn_outputs={
+                    "ENDPOINT_URL": # TBD
+                },
+                commands=["curl -Ssf $ENDPOINT_URL"],
+            )
+        )
+        deploy_stage.add_post(
+            pipelines.ShellStep(
+                "TestAPIGatewayEndpoint",
+                env_from_cfn_outputs={
+                    "ENDPOINT_URL": # TBD
+                },
+                commands=[
+                    "curl -Ssf $ENDPOINT_URL",
+                    "curl -Ssf $ENDPOINT_URL/hello",
+                    "curl -Ssf $ENDPOINT_URL/test",
+                ],
+            )
+        )
 
 {{</highlight>}}
 
-First we add a `ShellScriptAction` from CDK Pipelines. This is a construct that simply executes one or more shell script commands. Then we add two actions to our deployment stage that test our TableViewer endpoint and our APIGateway endpoint respectively.
+We add post-deployment steps via `deployStage.AddPost(...)` from CDK Pipelines. We add two actions to our deployment stage: to test our TableViewer endpoint and our APIGateway endpoint, respectively.
 
 > Note: We submit several `curl` requests to the APIGateway endpoint so that when we look at our tableviewer, there are several values already populated.
 
@@ -158,30 +161,34 @@ class WorkshopPipelineStage(core.Stage):
 
 {{</highlight>}}
 
-Now we can add those values to our actions in `cdk_workshop/pipeline_stack.py` by getting the `stack_output` of our pipeline stack:
-{{<highlight python "hl_lines=8 15">}}
+Now we can add those values to our actions in `cdk_workshop/pipeline_stack.py` by getting the `cfn_output` of our deploy stage:
+{{<highlight python "hl_lines=9 18">}}
   # CODE HERE...
 
-  deploy = WorkshopPipelineStage(self, 'Deploy')
-  deploy_stage = pipeline.add_application_stage(deploy)
-  deploy_stage.add_actions(pipelines.ShellScriptAction(
-      action_name='TestViewerEndpoint',
-      use_outputs={
-          'ENDPOINT_URL': pipeline.stack_output(deploy.hc_viewer_url)
-      },
-      commands=['curl -Ssf $ENDPOINT_URL']
-  ))
-  deploy_stage.add_actions(pipelines.ShellScriptAction(
-      action_name='TestAPIGatewayEndpoint',
-      use_outputs={
-          'ENDPOINT_URL': pipeline.stack_output(deploy.hc_endpoint)
-      },
-      commands=[
-          'curl -Ssf $ENDPOINT_URL',
-          'curl -Ssf $ENDPOINT_URL/hello',
-          'curl -Ssf $ENDPOINT_URL/test'
-      ]
-  ))
+    deploy = WorkshopPipelineStage(self, "Deploy")
+        deploy_stage = pipeline.add_stage(deploy)
+        deploy_stage.add_post(
+            pipelines.ShellStep(
+                "TestViewerEndpoint",
+                env_from_cfn_outputs={
+                    "ENDPOINT_URL": deploy.hc_viewer_url
+                },
+                commands=["curl -Ssf $ENDPOINT_URL"],
+            )
+        )
+        deploy_stage.add_post(
+            pipelines.ShellStep(
+                "TestAPIGatewayEndpoint",
+                env_from_cfn_outputs={
+                    "ENDPOINT_URL": deploy.hc_endpoint
+                },
+                commands=[
+                    "curl -Ssf $ENDPOINT_URL",
+                    "curl -Ssf $ENDPOINT_URL/hello",
+                    "curl -Ssf $ENDPOINT_URL/test",
+                ],
+            )
+        )
 
 {{</highlight>}}
 
