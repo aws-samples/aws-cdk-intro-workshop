@@ -25,8 +25,6 @@ installed, which is fine for this workshop):
 
 ```
 Applying project template sample-app for java
-Initializing a new git repository...
-Executing mvn package...
 # Welcome to your CDK Java project!
 
 You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`CdkWorkshopStack`)
@@ -35,6 +33,9 @@ which contains an Amazon SNS topic that is subscribed to an Amazon SQS queue.
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 It is a [Maven](https://maven.apache.org/) based project, so you can open this project with any Maven compatible Java IDE to build and run tests.
+
+## Tutorial
+See [this useful workshop](https://cdkworkshop.com/50-java.html) on working with the AWS CDK for Java projects.
 
 ## Useful commands
 
@@ -46,6 +47,11 @@ It is a [Maven](https://maven.apache.org/) based project, so you can open this p
  * `cdk docs`        open CDK documentation
 
 Enjoy!
+
+Initializing a new git repository...
+Executing 'mvn package'
+
+✅ All done!
 ```
 
 As you can see, it shows us a bunch of useful commands to get us started.

@@ -8,12 +8,13 @@ The first step in any good CD pipeline is source control. Here we will create a 
 
 Edit the file `lib/pipeline-stack.ts` as follows.
 
-{{<highlight ts "hl_lines=2 8-11">}}
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
+{{<highlight ts "hl_lines=2 9-12">}}
+import * as cdk from 'aws-cdk-lib';
+import * as codecommit from 'aws-cdk-lib/aws-codecommit';
+import { Construct } from 'constructs';
 
 export class WorkshopPipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
         // Creates a CodeCommit repository called 'WorkshopRepo'
@@ -27,10 +28,8 @@ export class WorkshopPipelineStack extends cdk.Stack {
 {{</highlight>}}
 
 ## Deploy
-Now we can install the missing package and deploy the app to see our new repo.
 
 ```
-npm install @aws-cdk/aws-codecommit
 npx cdk deploy
 ```
 

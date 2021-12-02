@@ -1,6 +1,6 @@
 package com.myorg;
 
-import software.amazon.awscdk.core.App;
+import software.amazon.awscdk.App;
 
 public final class CdkWorkshopApp {
     public static void main(final String[] args) {

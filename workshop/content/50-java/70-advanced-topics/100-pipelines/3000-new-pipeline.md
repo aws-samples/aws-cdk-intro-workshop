@@ -6,25 +6,6 @@ weight = 130
 ## Define an Empty Pipeline
 Now we are ready to define the basics of the pipeline.
 
-We will be using several new packages here, so first add the following to `pom.xml`:
-{{<highlight html>}}
-<dependency>
-    <groupId>software.amazon.awscdk</groupId>
-    <artifactId>codepipeline</artifactId>
-    <version>VERSION</version>
-</dependency>
-        <dependency>
-    <groupId>software.amazon.awscdk</groupId>
-    <artifactId>codepipeline-actions</artifactId>
-    <version>VERSION</version>
-</dependency>
-<dependency>
-    <groupId>software.amazon.awscdk</groupId>
-    <artifactId>cdk-pipelines</artifactId>
-    <version>VERSION</version>
-</dependency>
-{{</highlight>}}
-
 Return to the file `WorkshopPipelineStack.java` and edit as follows:
 
 {{<highlight java "hl_lines=9-11 30-44">}}
@@ -33,9 +14,9 @@ package com.myorg;
 import java.util.List;
 import java.util.Map;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 import software.amazon.awscdk.pipelines.CodeBuildStep;
 import software.amazon.awscdk.pipelines.CodePipeline;
 import software.amazon.awscdk.pipelines.CodePipelineSource;

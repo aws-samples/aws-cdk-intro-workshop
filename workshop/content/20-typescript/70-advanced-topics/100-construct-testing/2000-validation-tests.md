@@ -43,14 +43,14 @@ const table = new dynamodb.Table(this, 'Hits', {
 Now add a validation which will throw an error if the readCapacity is not in the allowed range.
 
 {{<highlight ts "hl_lines=9-11">}}
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
   /** the hit counter table */
   public readonly table: dynamodb.Table;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     if (props.readCapacity !== undefined && (props.readCapacity < 5 || props.readCapacity > 20)) {
       throw new Error('readCapacity must be greater than 5 and less than 20');
     }

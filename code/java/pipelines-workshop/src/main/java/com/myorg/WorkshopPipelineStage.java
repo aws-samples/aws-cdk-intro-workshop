@@ -1,9 +1,9 @@
 package com.myorg;
 
-import software.amazon.awscdk.core.Stage;
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.StageProps;
-import software.amazon.awscdk.core.CfnOutput;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stage;
+import software.amazon.awscdk.StageProps;
+import software.amazon.awscdk.CfnOutput;
 
 public class WorkshopPipelineStage extends Stage {
 

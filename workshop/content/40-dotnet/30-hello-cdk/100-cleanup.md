@@ -6,13 +6,14 @@ weight = 100
 ## Delete the sample code from your stack
 
 The project created by `cdk init sample-app` includes an SQS queue, and an SNS topic. We're
-not going to use them in our project, so remove them from your the
+not going to use them in our project, so remove them from the
 `CdkWorkshopStack` constructor.
 
 Open `src/CdkWorkshop/CdkWorkshopStack.cs` and clean it up. Eventually it should look like this:
 
 ```csharp
 using Amazon.CDK;
+using Constructs;
 
 namespace CdkWorkshop
 {

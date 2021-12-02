@@ -10,19 +10,19 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 Go back to `hitcounter.py` and add the following highlighted line:
 
 {{<highlight python "hl_lines=32">}}
+from constructs import Construct
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
-    core,
 )
 
-class HitCounter(core.Construct):
+class HitCounter(Construct):
 
     @property
     def handler(self):
         return self._handler
 
-    def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
+    def __init__(self, scope: Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         table = ddb.Table(
@@ -112,19 +112,19 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 Add the highlighted lines to `cdk_workshop/hitcounter.py`:
 
 {{<highlight python "hl_lines=33-34">}}
+from constructs import Construct
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_dynamodb as ddb,
-    core,
 )
 
-class HitCounter(core.Construct):
+class HitCounter(Construct):
 
     @property
     def handler(self):
         return self._handler
 
-    def __init__(self, scope: core.Construct, id: str, downstream: _lambda.IFunction, **kwargs):
+    def __init__(self, scope: Construct, id: str, downstream: _lambda.IFunction, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         table = ddb.Table(

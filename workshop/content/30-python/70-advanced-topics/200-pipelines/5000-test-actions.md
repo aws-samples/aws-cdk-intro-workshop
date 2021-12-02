@@ -8,16 +8,18 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `cdk_workshop/cdk_workshop_stack.py` to get these values and expose them as properties of our stack:
 
-{{<highlight python "hl_lines=11-17 35 40 46-54">}}
+{{<highlight python "hl_lines=13-19 37 42 48-56">}}
+from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
+    CfnOutput,
     aws_lambda as _lambda,
     aws_apigateway as apigw,
 )
 from cdk_dynamo_table_viewer import TableViewer
-from hitcounter import HitCounter
+from .hitcounter import HitCounter
 
-class CdkWorkshopStack(core.Stack):
+class CdkWorkshopStack(Stack):
 
     @property
     def hc_endpoint(self):
@@ -27,7 +29,7 @@ class CdkWorkshopStack(core.Stack):
     def hc_viewer_url(self):
         return self._hc_viewer_url
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Defines an AWS Lambda resource
@@ -54,12 +56,12 @@ class CdkWorkshopStack(core.Stack):
             table=hello_with_counter.table
         )
 
-        self._hc_endpoint = core.CfnOutput(
+        self._hc_endpoint = CfnOutput(
             self, 'GatewayUrl',
             value=gateway.url
         )
 
-        self._hc_viewer_url = core.CfnOutput(
+        self._hc_viewer_url = CfnOutput(
             self, 'TableViewerUrl',
             value=tv.endpoint
         )
@@ -87,15 +89,15 @@ Return to `cdk_workshop/pipeline_stack.py` and add the following:
 {{<highlight python "hl_lines=16-39">}}
 from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
     pipelines as pipelines
 )
 from pipeline_stage import WorkshopPipelineStage
 
-class WorkshopPipelineStack(core.Stack):
+class WorkshopPipelineStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # PIPELINE CODE HERE...
@@ -135,13 +137,14 @@ You may notice that we have not yet set the URLs of these endpoints. This is bec
 
 With a slight modification to `cdk_workshop/pipeline_stage.py` we can expose them:
 
-{{<highlight python "hl_lines=8-14 21-22">}}
+{{<highlight python "hl_lines=9-15 22-23">}}
+from constructs import Construct
 from aws_cdk import (
-    core
+    Stage
 )
 from .cdk_workshop_stack import CdkWorkshopStack
 
-class WorkshopPipelineStage(core.Stage):
+class WorkshopPipelineStage(Stage):
 
     @property
     def hc_endpoint(self):
@@ -151,7 +154,7 @@ class WorkshopPipelineStage(core.Stage):
     def hc_viewer_url(self):
         return self._hc_viewer_url
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         service = CdkWorkshopStack(self, 'WebService')

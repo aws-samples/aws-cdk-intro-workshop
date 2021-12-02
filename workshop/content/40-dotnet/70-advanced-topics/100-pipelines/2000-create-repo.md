@@ -8,9 +8,10 @@ The first step in any good CD pipeline is source control. Here we will create a 
 
 Edit the file `CdkWorkshop/PipelineStack.cs` as follows.
 
-{{<highlight ts "hl_lines=2 10-14">}}
+{{<highlight ts "hl_lines=2 11-15">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeCommit;
+using Constructs
 
 namespace CdkWorkshop
 {
@@ -32,10 +33,9 @@ namespace CdkWorkshop
 {{</highlight>}}
 
 ## Deploy
-Now we can install the missing package and deploy the app to see our new repo.
+Now we can deploy the app to see our new repo.
 
 ```
-dotnet add package Amazon.CDK.AWS.CodeCommit
 dotnet build
 npx cdk deploy
 ```

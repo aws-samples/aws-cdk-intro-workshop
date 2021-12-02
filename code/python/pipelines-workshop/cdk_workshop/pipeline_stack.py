@@ -12,8 +12,8 @@ class WorkshopPipelineStack(Stack):
 
         # Creates a CodeCommit repository called 'WorkshopRepo'
         repo = codecommit.Repository(
-            self, 'WorkshopRepo',
-            repository_name= "WorkshopRepo"
+            self, "WorkshopRepo", 
+            repository_name="WorkshopRepo"
         )
 
         pipeline = pipelines.CodePipeline(
@@ -54,3 +54,4 @@ class WorkshopPipelineStack(Stack):
                 ],
             )
         )
+        

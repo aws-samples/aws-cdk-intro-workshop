@@ -7,10 +7,11 @@ weight = 400
 
 Edit `src/CdkWorkshop/HitCounter.cs` and modify it so that `table` is exposed as a public property called `MyTable`.
 
-{{<highlight csharp "hl_lines=17 29">}}
+{{<highlight csharp "hl_lines=18 30">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.DynamoDB;
 using Amazon.CDK.AWS.Lambda;
+using Constructs;
 using System.Collections.Generic;
 
 namespace CdkWorkshop
@@ -64,11 +65,12 @@ namespace CdkWorkshop
 
 Go back to `CdkWorkshopStack.cs` and assign the `Table` property of the table viewer:
 
-{{<highlight csharp "hl_lines=36">}}
+{{<highlight csharp "hl_lines=37">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Lambda;
-using Eladb.DynamoTableViewer;
+using Cdklabs.DynamoTableViewer;
+using Constructs;
 
 namespace CdkWorkshop
 {

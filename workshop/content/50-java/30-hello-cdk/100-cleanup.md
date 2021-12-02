@@ -14,9 +14,9 @@ Open `~/CdkWorkshopStack.java` and clean it up. Eventually it should look like t
 ```java
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
 public class CdkWorkshopStack extends Stack {
     public CdkWorkshopStack(final Construct parent, final String id) {
@@ -40,7 +40,7 @@ Now that we modified our stack's contents, we can ask the toolkit to show us the
 what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
 
 ```
-mvn package
+mvn clean package
 cdk diff
 ```
 

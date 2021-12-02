@@ -32,8 +32,9 @@ here](https://portal.aws.amazon.com/billing/signup).
     ![](./new-user-2.png)
 
 7. Click **Next: Review**
-8. Click **Create User**
-9. In the next screen, you'll see your **Access key ID** and you will have the option
+8. Click **Next: Tags**
+9. Click **Create User**
+10. In the next screen, you'll see your **Access key ID** and you will have the option
    to click **Show** to show the **Secret access key**. Keep this browser window open.
 
     ![](./new-user-3.png)

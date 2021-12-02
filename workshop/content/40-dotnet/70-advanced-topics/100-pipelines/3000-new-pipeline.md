@@ -6,21 +6,15 @@ weight = 130
 ## Define an Empty Pipeline
 Now we are ready to define the basics of the pipeline.
 
-We will be using several new packages here, so first run:
-```
-dotnet add package Amazon.CDK.AWS.CodePipeline
-dotnet add package Amazon.CDK.AWS.CodePipeline.Actions
-dotnet add package Amazon.CDK.Pipelines
-```
-
 Return to the file `CdkWorkshop/PipelineStack.cs` and edit as follows:
 
-{{<highlight ts "hl_lines=3-5 14 19-53">}}
+{{<highlight ts "hl_lines=3-5 15 20-35">}}
 using Amazon.CDK;
 using Amazon.CDK.AWS.CodeCommit;
 using Amazon.CDK.AWS.CodePipeline;
 using Amazon.CDK.AWS.CodePipeline.Actions;
 using Amazon.CDK.Pipelines;
+using Constructs;
 
 namespace CdkWorkshop
 {
@@ -34,41 +28,21 @@ namespace CdkWorkshop
                 RepositoryName = "WorkshopRepo"
             });
 
-            // Defines the artifact representing the sourcecode
-            var sourceArtifact = new Artifact_();
-            // Defines the artifact representing the cloud assembly
-            // (cloudformation template + all other assets)
-            var cloudAssemblyArtifact = new Artifact_();
-
             // The basic pipeline declaration. This sets the initial structure
             // of our pipeline
-            var pipeline = new CdkPipeline(this, "Pipeline", new CdkPipelineProps
+            var pipeline = new CodePipeline(this, "Pipeline", new CodePipelineProps
             {
                 PipelineName = "WorkshopPipeline",
-                CloudAssemblyArtifact = cloudAssemblyArtifact,
-
-                // Generates the source artifact from the repo we created in the last step
-                SourceAction = new CodeCommitSourceAction(new CodeCommitSourceActionProps
-                {
-                    ActionName = "CodeCommit", // Any Git-based source control
-                    Output = sourceArtifact, // Indicates where the artifact is stored
-                    Repository = repo // Designates the repo to draw code from
-                }),
 
                 // Builds our source code outlined above into a could assembly artifact
-                SynthAction = SimpleSynthAction.StandardNpmSynth(new StandardNpmSynthOptions
-                {
-                    SourceArtifact = sourceArtifact,  // Where to get source code to build
-                    CloudAssemblyArtifact = cloudAssemblyArtifact,  // Where to place built source
-
-                    InstallCommand = string.Join("&&",
-                        new string[] {
-                            "npm install -g aws-cdk",
-                            "sudo apt-get install -y dotnet-sdk-3.1"
-                        }
-                    ),
-                    BuildCommand = "dotnet build" // Language-specific build cmd
-                })
+                Synth = new ShellStep("Synth", new ShellStepProps{
+                    Input = CodePipelineSource.CodeCommit(repo, "master"),  // Where to get source code to build
+                    Commands = new string[] {
+                        "npm install -g aws-cdk",
+                        "sudo apt-get install -y dotnet-sdk-3.1", // Language-specific install cmd
+                        "dotnet build"  // Language-specific build cmd
+                    }
+                }),
             });
         }
     }
@@ -79,10 +53,10 @@ namespace CdkWorkshop
 ### Component Breakdown
 The above code does several things:
 
-* `sourceArtifact`/`cloudAssemblyArtifact`: These will store our source code and [cloud assembly](https://docs.aws.amazon.com/cdk/latest/guide/apps.html#apps_cloud_assembly) respectively
-* `new CdkPipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `CodeCommitSourceAction(...)`: The `sourceAction` of the pipeline will check the designated repository for source code and generate an artifact.
-    * `SimpleSynthAction.StandardNpmSynth`: The `SynthAction` of the pipeline will take the source artifact generated in by the `SourceAction` and build the application based on the `BuildCommand`. This is always followed by `cdk synth`
+* `new CodePipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
+    * `Synth(...)`: The `synthAction` of the pipeline describes the commands necessary to install dependencies, build, and synth the CDK application from source. This should always end in a *synth* command, for NPM-based projects this is always `npx cdk synth`.
+        * The `input` of the synth step specifies the repository where the CDK source code is stored.
+
 
 ## Deploy Pipeline and See Result
 All thats left to get our pipeline up and running is to commit our changes and run one last cdk deploy.

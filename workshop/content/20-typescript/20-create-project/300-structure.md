@@ -37,7 +37,7 @@ Let's have a quick look at `bin/cdk-workshop.ts`:
 
 ```js
 #!/usr/bin/env node
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import { CdkWorkshopStack } from '../lib/cdk-workshop-stack';
 
 const app = new cdk.App();
@@ -53,10 +53,10 @@ Open up `lib/cdk-workshop-stack.ts`. This is where the meat of our application
 is:
 
 ```ts
-import * as sns from '@aws-cdk/aws-sns';
-import * as subs from '@aws-cdk/aws-sns-subscriptions';
-import * as sqs from '@aws-cdk/aws-sqs';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as sns from 'aws-cdk-lib/aws-sns';
+import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {

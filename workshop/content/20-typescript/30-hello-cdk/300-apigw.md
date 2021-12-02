@@ -13,11 +13,6 @@ mounted to the root of the API. This means that any request to any URL path will
 be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
-## Install the API Gateway construct library
-
-```
-npm install @aws-cdk/aws-apigateway
-```
 
 {{% notice info %}}
 
@@ -33,9 +28,9 @@ in use.
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
 {{<highlight ts "hl_lines=3 16-19">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as apigw from '@aws-cdk/aws-apigateway';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {

@@ -6,17 +6,13 @@ weight = 130
 ## Define an Empty Pipeline
 Now we are ready to define the basics of the pipeline.
 
-We will be using several new packages here, so first:
-```
-pip install aws-cdk.aws_codepipeline aws-cdk.aws_codepipeline-actions aws-cdk_pipelines
-```
 
 Return to the file `pipeline_stack.py` and edit as follows:
 
 {{<highlight python "hl_lines=13 18-30">}}
 from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
     pipelines as pipelines,
 )

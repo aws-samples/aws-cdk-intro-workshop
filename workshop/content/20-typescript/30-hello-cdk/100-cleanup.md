@@ -12,7 +12,7 @@ not going to use them in our project, so remove them from your the
 Open `lib/cdk-workshop-stack.ts` and clean it up. Eventually it should look like this:
 
 ```ts
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {

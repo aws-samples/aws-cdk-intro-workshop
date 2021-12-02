@@ -7,24 +7,25 @@ weight = 400
 
 Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
 
-{{<highlight ts "hl_lines=14-15 26">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
+{{<highlight ts "hl_lines=15-16 27">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
   downstream: lambda.IFunction;
 }
 
-export class HitCounter extends cdk.Construct {
+export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
   /** the hit counter table */
   public readonly table: dynamodb.Table;
 
-  constructor(scope: cdk.Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
     const table = new dynamodb.Table(this, "Hits", {
@@ -59,9 +60,9 @@ export class HitCounter extends cdk.Construct {
 Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
 
 {{<highlight ts "hl_lines=28">}}
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as apigw from '@aws-cdk/aws-apigateway';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 

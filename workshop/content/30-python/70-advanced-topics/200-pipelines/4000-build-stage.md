@@ -9,14 +9,15 @@ At this point, you have a fully operating CDK pipeline that will automatically u
 Create a new file in `cdk_workshop` called `pipeline_stage.py` with the code below:
 
 {{<highlight python>}}
+from constructs import Construct
 from aws_cdk import (
-    core
+    Stage
 )
 from .cdk_workshop_stack import CdkWorkshopStack
 
-class WorkshopPipelineStage(core.Stage):
+class WorkshopPipelineStage(Stage):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs):
+    def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
         service = CdkWorkshopStack(self, 'WebService')
@@ -31,7 +32,7 @@ Now we must add the stage to the pipeline by adding the following code to `cdk_w
 {{<highlight python "hl_lines=7 32-33">}}
 from constructs import Construct
 from aws_cdk import (
-    core,
+    Stack,
     aws_codecommit as codecommit,
     pipelines as pipelines,
 )
