@@ -8,7 +8,8 @@ The first step in any good CD pipeline is source control. Here we will create a 
 
 Edit the file `cdk_workshop/pipeline_stack.py` as follows.
 
-{{<highlight python "hl_lines=3 11-15">}}
+{{<highlight python "hl_lines=4 12-16">}}
+from constructs import Construct
 from aws_cdk import (
     Stack,
     aws_codecommit as codecommit,
