@@ -1,14 +1,15 @@
 {
     "name": "cdkworkshop.com",
     "version": "0.1.0",
+    "private": true,
     "main": "bin/index.js",
     "types": "bin/index.d.ts",
     "bin": {
         "cdkworkshop.com": "bin/cdkworkshop.com.js"
     },
     "scripts": {
-        "build": "tsc && (cd ../workshop && hugo)",
-        "watch": "tsc -w",
+        "build": "tsc --build && (cd ../workshop && hugo)",
+        "watch": "tsc --build -w",
         "deploy": "npm run build && cdk deploy",
         "cdk": "cdk"
     },
