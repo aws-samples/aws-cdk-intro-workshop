@@ -59,7 +59,8 @@ non-resource changes have the potential to be hotswapped. Here, we will try
 When the `cdk watch` command runs, the files that it observes is determined by the
 `"watch"` setting in the `cdk.json` file. It has two sub-keys, `"include"` and
 `"exclude"`, each of which can be either a single string or an array of strings.
-Each entry is interpreted as a path relative to the location of the `cdk.json` file. Globs, both `*` and `**`, are allowed to be used.
+Each entry is interpreted as a path relative to the location of the `cdk.json`
+file. Globs, both `*` and `**`, are allowed to be used.
 
 Your `cdk.json` file should look like this:
 
