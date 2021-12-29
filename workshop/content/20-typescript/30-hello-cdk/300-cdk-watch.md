@@ -105,7 +105,8 @@ We can do better than calling `cdk deploy` or `cdk deploy --hotswap` each time.
 `cdk watch` is similar to `cdk deploy` except that instead of being a one-shot
 operation, it monitors your code and assets for changes and attempts to perform a 
 deployment automatically when a change is detected. By default, `cdk watch` will 
-use the `--hotswap` flag, which inspects the changes and determines if those changes can be hotswapped. To disable this behavior, you can call
+use the `--hotswap` flag, which inspects the changes and determines if those 
+changes can be hotswapped. To disable this behavior, you can call
 `cdk watch --no-hotswap`.
 
 Once we set it up, we can use `cdk watch` to detect both hotswappable changes and
