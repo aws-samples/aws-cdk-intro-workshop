@@ -3,11 +3,11 @@ title = "CDK Watch"
 weight = 300
 +++
 
-## Faster Personal Deployments
+## Faster Personal Deployment
 
 {{% notice info %}} This section is not necessary to complete the workshop, but we
-recommend that you take the time to see how `cdk watch` can speed up your personal
-deployments.
+recommend that you take the time to see how `cdk deploy --hotswap` and `cdk watch` 
+can speed up your personal deployments.
 {{% /notice %}}
 
 It's great that we have a working lambda! But what if you want to tweak the lambda
@@ -39,117 +39,47 @@ The output will look something like this:
 INSERT OUTPUT HERE
 ```
 
-## CDK Watch
+## CDK Deploy Hotswap
 
 {{% notice info %}} This command deliberately introduces drift in CloudFormation 
 stacks in order to speed up deployments. For this reason, only use it for 
-development purposes. Never use CDK Watch for your production deployments!
+development purposes. Never use hotswap for your production deployments!
 {{% /notice %}}
 
-We can speed up that deployment time with `cdk watch`, which watches your
-CDK application and looks for hotswappable changes. Which `cdk watch` finds a
-change that can be hotswapped, it bypasses the CloudFormation deployment entirely
-and instead makes the necessary SDK call to update your code for you. Changes to 
-your AWS Lambda asset code, AWS Step Function State Machine definition, and other
-non-resource changes have the potential to be hotswapped. Here, we will try
-`cdk watch` with your AWS Lambda asset code.
+We can speed up that deployment time with `cdk deploy --hotswap`, which will
+assess whether a hotswap deployment can be performed instead of a CloudFormation
+deployment. If possible, the CDK CLI will use AWS service APIs to directly make
+the changes; otherwise it will fall back to performing a full CloudFormation
+deployment.
 
-## Modify your `cdk.json` file
+Here, we will use `cdk deploy --hotswap` to detect a hotswappable change to your 
+AWS Lambda asset code.
 
-When the `cdk watch` command runs, the files that it observes is determined by the
-`"watch"` setting in the `cdk.json` file. It has two sub-keys, `"include"` and
-`"exclude"`, each of which can be either a single string or an array of strings.
-Each entry is interpreted as a path relative to the location of the `cdk.json`
-file. Globs, both `*` and `**`, are allowed to be used.
+## See how long 'CDK Deploy --Hotswap' takes
 
-Your `cdk.json` file should look like this:
-
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/workshop.ts",
-  "watch": {
-    "include": [
-      "**"
-    ],
-    "exclude": [
-      "README.md",
-      "cdk*.json",
-      "**/*.d.ts",
-      "**/*.js",
-      "tsconfig.json",
-      "package*.json",
-      "yarn.lock",
-      "node_modules",
-      "test"
-    ]
-  },
-  "context": {
-    ...
-  }
-}
-```
-
-As you can see, the sample app comes with a suggested `"watch"` setting. We do in
-fact want to observe our `.js` files in the `lambda` folder, so let's remove
-`"**/*.js"` from the `"exclude"` list:
-
-```json
-{
-  "app": "npx ts-node --prefer-ts-exts bin/workshop.ts",
-  "watch": {
-    "include": [
-      "**"
-    ],
-    "exclude": [
-      "README.md",
-      "cdk*.json",
-      "**/*.d.ts",
-      "tsconfig.json",
-      "package*.json",
-      "yarn.lock",
-      "node_modules",
-      "test"
-    ]
-  },
-  "context": {
-    ...
-  }
-}
-```
-
-Now you're all set to start watching!
-
-## See how long 'CDK Watch' takes
-
-First, call `cdk watch`: 
+Let's change the lambda code in `lambda/hello.js` another time. What you change
+is not important for this exercise.
 
 ```bash
-cdk watch
+time cdk deploy --hotswap
 ```
 
-This will trigger an initial deployment and immediately begin observing the files
-you've specified in `cdk.json`.
-
-For the purposes of this exercise, make sure that the initial deployment is
-finished before proceeding. Otherwise, the changes you make will be queued for
-deployment and released _after_ the first deployment finishes.
-
-Let's change our lambda asset code in `lambda/hello.js` one more time. It doesn't
-matter what you change it to, but let's say we want it to say
-`"Good Afternoon, CDK"` now.
-
-Once you click save or hit `CTRL+s`, `cdk watch` will recognize that your file has
-changed and trigger a new deployment. In this case, it will recognize that we can
-hotswap the lambda asset code, so it will bypass a CloudFormation deployment and
-deploy directly to the Lambda service instead.
-
-How fast did deployment take?
+The output will look something like this:
 
 ```
-INSERT PHOTO HERE
+INSERT OUTPUT HERE
 ```
 
-Wow!
+As you can see, hotswapping a change is much faster! But take a look and read the
+warning message thoroughly:
+
+```bash
+⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
+⚠️ It should only be used for development - never use it for your production Stacks!
+```
+
+We're deliberately introducing drift for the faster deployment, so make sure you
+don't use this feature in production.
 
 ## Did the code actually change?
 
@@ -168,6 +98,109 @@ Let's go to the AWS Lambda Console and double check!
 3. The code should be loaded onto the screen. Did your change show up?
 
     INSERT PHOTO HERE
+
+## CDK Watch
+
+We can do better than calling `cdk deploy` or `cdk deploy --hotswap` each time.
+`cdk watch` is similar to `cdk deploy` except that instead of being a one-shot
+operation, it monitors your code and assets for changes and attempts to perform a 
+deployment automatically when a change is detected. By default, `cdk watch` will 
+use the `--hotswap` flag, which inspects the changes and determines if those changes can be hotswapped. To disable this behavior, you can call
+`cdk watch --no-hotswap`.
+
+Once we set it up, we can use `cdk watch` to detect both hotswappable changes and
+changes that require full CloudFormation deployment.
+
+## Modify your `cdk.json` file
+
+When the `cdk watch` command runs, the files that it observes is determined by the
+`"watch"` setting in the `cdk.json` file. It has two sub-keys, `"include"` and
+`"exclude"`, each of which can be either a single string or an array of strings.
+Each entry is interpreted as a path relative to the location of the `cdk.json`
+file. Globs, both `*` and `**`, are allowed to be used.
+
+Your `cdk.json` file should look like this:
+
+```json
+{
+  "app": "npx ts-node --prefer-ts-exts bin/cdk-workshop.ts",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "**/*.d.ts",
+      "**/*.js",
+      "tsconfig.json",
+      "package*.json",
+      "yarn.lock",
+      "node_modules",
+      "test"
+    ]
+  },
+  "context": {
+    // ...
+  }
+}
+```
+
+As you can see, the sample app comes with a suggested `"watch"` setting. We do in
+fact want to observe our `.js` files in the `lambda` folder, so let's remove
+`"**/*.js"` from the `"exclude"` list:
+
+```json
+{
+  "app": "npx ts-node --prefer-ts-exts bin/cdk-workshop.ts",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "**/*.d.ts",
+      "tsconfig.json",
+      "package*.json",
+      "yarn.lock",
+      "node_modules",
+      "test"
+    ]
+  },
+  "context": {
+    // ...
+  }
+}
+```
+
+Now you're all set to start watching!
+
+## See how long 'CDK Watch' takes
+
+First, call `cdk watch`: 
+
+```bash
+cdk watch
+```
+
+This will trigger an initial deployment and immediately begin observing the files
+you've specified in `cdk.json`.
+
+Let's change our lambda asset code in `lambda/hello.js` one more time. It doesn't
+matter what you change it to, but let's say we want it to say
+`"Good Afternoon, CDK"` now.
+
+Once you click save or hit `CTRL+s`, `cdk watch` will recognize that your file has
+changed and trigger a new deployment. In this case, it will recognize that we can
+hotswap the lambda asset code, so it will bypass a CloudFormation deployment and
+deploy directly to the Lambda service instead.
+
+How fast did deployment take?
+
+```
+INSERT PHOTO HERE
+```
 
 ## Wrap Up
 
