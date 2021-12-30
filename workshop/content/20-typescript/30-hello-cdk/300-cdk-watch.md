@@ -3,7 +3,7 @@ title = "CDK Watch"
 weight = 300
 +++
 
-## Faster Personal Deployment
+## Faster personal deployments
 
 {{% notice info %}} This section is not necessary to complete the workshop, but we
 recommend that you take the time to see how `cdk deploy --hotswap` and `cdk watch` 
@@ -23,14 +23,14 @@ CloudFormation stack, so that part of `cdk deploy` is wasted effort.
 We really only need to update our lambda code. It would be great if we had
 some other mechanism for doing only that...
 
-## See how long 'CDK Deploy' takes
+## Timing `cdk deploy`
 
 First, as an exercise, change your lambda code in `lambda/hello.js` slightly and 
 time how long it takes to run `cdk deploy`. It will help us get a baseline for how 
 long `cdk deploy` takes:
 
 ```bash
-time cdk deploy
+cdk deploy
 ```
 
 The output will look something like this:
@@ -39,7 +39,7 @@ The output will look something like this:
 INSERT OUTPUT HERE
 ```
 
-## CDK Deploy Hotswap
+## Hotswap deployments
 
 {{% notice info %}} This command deliberately introduces drift in CloudFormation 
 stacks in order to speed up deployments. For this reason, only use it for 
@@ -52,16 +52,16 @@ deployment. If possible, the CDK CLI will use AWS service APIs to directly make
 the changes; otherwise it will fall back to performing a full CloudFormation
 deployment.
 
-Here, we will use `cdk deploy --hotswap` to detect a hotswappable change to your 
+Here, we will use `cdk deploy --hotswap` to deploy a hotswappable change to your 
 AWS Lambda asset code.
 
-## See how long 'CDK Deploy --Hotswap' takes
+## Timing `cdk deploy --hotswap`
 
 Let's change the lambda code in `lambda/hello.js` another time. What you change
 is not important for this exercise.
 
 ```bash
-time cdk deploy --hotswap
+cdk deploy --hotswap
 ```
 
 The output will look something like this:
@@ -177,7 +177,7 @@ fact want to observe our `.js` files in the `lambda` folder, so let's remove
 
 Now you're all set to start watching!
 
-## See how long 'CDK Watch' takes
+## Timing `cdk watch`
 
 First, call `cdk watch`: 
 
@@ -192,10 +192,10 @@ Let's change our lambda asset code in `lambda/hello.js` one more time. It doesn'
 matter what you change it to, but let's say we want it to say
 `"Good Afternoon, CDK"` now.
 
-Once you click save or hit `CTRL+s`, `cdk watch` will recognize that your file has
-changed and trigger a new deployment. In this case, it will recognize that we can
-hotswap the lambda asset code, so it will bypass a CloudFormation deployment and
-deploy directly to the Lambda service instead.
+Once you save the changes to your Lambda code file, `cdk watch` will recognize that
+your file has changed and trigger a new deployment. In this case, it will recognize
+that we can hotswap the lambda asset code, so it will bypass a CloudFormation
+deployment and deploy directly to the Lambda service instead.
 
 How fast did deployment take?
 
