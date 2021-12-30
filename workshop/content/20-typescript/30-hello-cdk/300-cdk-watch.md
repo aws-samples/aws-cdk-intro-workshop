@@ -25,19 +25,49 @@ some other mechanism for doing only that...
 
 ## Timing `cdk deploy`
 
-First, as an exercise, change your lambda code in `lambda/hello.js` slightly and 
-time how long it takes to run `cdk deploy`. It will help us get a baseline for how 
-long `cdk deploy` takes:
+First, let's time how long it takes to run `cdk deploy`. It will help us baseline how
+long a full CloudFormation deployment takes. To do this, we are going to change the code 
+inside `lambda/hello.js`:
 
-```bash
+{{<highlight js "hl_lines=6">}}
+exports.handler = async function(event) {
+  console.log("request:", JSON.stringify(event, undefined, 2));
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "text/plain" },
+    body: `Good Morning, CDK! You've hit ${event.path}\n`
+  };
+};
+{{</highlight>}}
+
+Then, we can run `cdk deploy`:
+
+```
 cdk deploy
 ```
 
 The output will look something like this:
 
 ```
-INSERT OUTPUT HERE
+✨  Synthesis time: 6s
+
+CdkWorkshopStack: deploying...
+CdkWorkshopStack: creating CloudFormation changeset...
+
+
+
+ ✅  CdkWorkshopStack
+
+✨  Deployment time: 66.82s
+
+Stack ARN:
+arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
+
+✨  Total time: 72.82s
 ```
+
+The exact time will vary but we should get a pretty good idea of how long a normal
+deployment takes!
 
 ## Hotswap deployments
 
@@ -57,33 +87,60 @@ AWS Lambda asset code.
 
 ## Timing `cdk deploy --hotswap`
 
-Let's change the lambda code in `lambda/hello.js` another time. What you change
-is not important for this exercise.
+Let's change the lambda code in `lambda/hello.js` another time:
 
-```bash
+{{<highlight js "hl_lines=6">}}
+exports.handler = async function(event) {
+  console.log("request:", JSON.stringify(event, undefined, 2));
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "text/plain" },
+    body: `Good Afternoon, CDK! You've hit ${event.path}\n`
+  };
+};
+{{</highlight>}}
+
+Now, let's run `cdk deploy --hotswap`:
+
+```
 cdk deploy --hotswap
 ```
 
 The output will look something like this:
 
 ```
-INSERT OUTPUT HERE
+✨  Synthesis time: 6.44s
+
+⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
+⚠️ It should only be used for development - never use it for your production Stacks!
+
+CdkWorkshopStack: deploying...
+✨ hotswapping resources:
+   ✨ Lambda Function 'CdkWorkshopStack-HelloHandler2E4FBA4D-tEZTcXqG8YYe'
+✨ Lambda Function 'CdkWorkshopStack-HelloHandler2E4FBA4D-tEZTcXqG8YYe' hotswapped!
+
+ ✅  CdkWorkshopStack
+
+✨  Deployment time: 3.07s
+
+Stack ARN:
+arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
+
+✨  Total time: 9.51s
 ```
 
-As you can see, hotswapping a change is much faster! But take a look and read the
-warning message thoroughly:
+Wow, deploying a hotswapped change took 3 seconds, while a full deployment took 67 seconds! 
+But take a look and read the warning message thoroughly - it's important!:
 
-```bash
+```
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
 ⚠️ It should only be used for development - never use it for your production Stacks!
 ```
 
-We're deliberately introducing drift for the faster deployment, so make sure you
-don't use this feature in production.
-
 ## Did the code actually change?
 
-Let's go to the AWS Lambda Console and double check!
+Wow that was fast. Did the code actually change? Let's go to the AWS Lambda Console and
+double check!
 
 1. Open the [AWS Lambda
    Console](https://console.aws.amazon.com/lambda/home#/functions) (make sure
@@ -91,13 +148,13 @@ Let's go to the AWS Lambda Console and double check!
 
     You should see our function:
 
-    INSERT PHOTO HERE
+    ![](./lambda-1.png)
 
 2. Click on the function name to go to the console.
 
 3. The code should be loaded onto the screen. Did your change show up?
 
-    INSERT PHOTO HERE
+    ![](./lambda-5.png)
 
 ## CDK Watch
 
@@ -181,16 +238,25 @@ Now you're all set to start watching!
 
 First, call `cdk watch`: 
 
-```bash
+```
 cdk watch
 ```
 
 This will trigger an initial deployment and immediately begin observing the files
 you've specified in `cdk.json`.
 
-Let's change our lambda asset code in `lambda/hello.js` one more time. It doesn't
-matter what you change it to, but let's say we want it to say
-`"Good Afternoon, CDK"` now.
+Let's change our lambda asset code in `lambda/hello.js` one more time:
+
+{{<highlight js "hl_lines=6">}}
+exports.handler = async function(event) {
+  console.log("request:", JSON.stringify(event, undefined, 2));
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "text/plain" },
+    body: `Good Night, CDK! You've hit ${event.path}\n`
+  };
+};
+{{</highlight>}}
 
 Once you save the changes to your Lambda code file, `cdk watch` will recognize that
 your file has changed and trigger a new deployment. In this case, it will recognize
@@ -200,7 +266,26 @@ deployment and deploy directly to the Lambda service instead.
 How fast did deployment take?
 
 ```
-INSERT PHOTO HERE
+Detected change to 'lambda/hello.js' (type: change). Triggering 'cdk deploy'
+
+✨  Synthesis time: 5.57s
+
+⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
+⚠️ It should only be used for development - never use it for your production Stacks!
+
+CdkWorkshopStack: deploying...
+✨ hotswapping resources:
+   ✨ Lambda Function 'CdkWorkshopStack-HelloHandler2E4FBA4D-tEZTcXqG8YYe'
+✨ Lambda Function 'CdkWorkshopStack-HelloHandler2E4FBA4D-tEZTcXqG8YYe' hotswapped!
+
+ ✅  CdkWorkshopStack
+
+✨  Deployment time: 2.54s
+
+Stack ARN:
+arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
+
+✨  Total time: 8.11s
 ```
 
 ## Wrap Up
