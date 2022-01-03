@@ -10,7 +10,7 @@ recommend that you take the time to see how `cdk deploy --hotswap` and `cdk watc
 can speed up your personal deployments.
 {{% /notice %}}
 
-It's great that we have a working lambda! But what if you want to tweak the lambda
+It's great that we have a working lambda! But what if we want to tweak the lambda
 code to get it just right? Let's say that we have now decided that we want our
 lambda function to respond with `"Good Morning, CDK!"` instead of `"Hello, CDK"`.
 
@@ -130,7 +130,7 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ```
 
 Wow, deploying a hotswapped change took 3 seconds, while a full deployment took 67 seconds! 
-But take a look and read the warning message thoroughly - it's important!:
+But take a look and read the warning message thoroughly - it's important!
 
 ```
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
@@ -163,21 +163,21 @@ We can do better than calling `cdk deploy` or `cdk deploy --hotswap` each time.
 operation, it monitors your code and assets for changes and attempts to perform a 
 deployment automatically when a change is detected. By default, `cdk watch` will 
 use the `--hotswap` flag, which inspects the changes and determines if those 
-changes can be hotswapped. To disable this behavior, you can call
-`cdk watch --no-hotswap`.
+changes can be hotswapped. Calling `cdk watch --no-hotswap` will disable the 
+hotswap behavior.
 
 Once we set it up, we can use `cdk watch` to detect both hotswappable changes and
 changes that require full CloudFormation deployment.
 
 ## Modify your `cdk.json` file
 
-When the `cdk watch` command runs, the files that it observes is determined by the
+When the `cdk watch` command runs, the files that it observes are determined by the
 `"watch"` setting in the `cdk.json` file. It has two sub-keys, `"include"` and
 `"exclude"`, each of which can be either a single string or an array of strings.
 Each entry is interpreted as a path relative to the location of the `cdk.json`
 file. Globs, both `*` and `**`, are allowed to be used.
 
-Your `cdk.json` file should look like this:
+Your `cdk.json` file should look similar to this:
 
 ```json
 {
@@ -243,7 +243,7 @@ cdk watch
 ```
 
 This will trigger an initial deployment and immediately begin observing the files
-you've specified in `cdk.json`.
+we've specified in `cdk.json`.
 
 Let's change our lambda asset code in `lambda/hello.js` one more time:
 
