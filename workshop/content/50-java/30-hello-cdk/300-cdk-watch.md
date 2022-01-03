@@ -181,7 +181,7 @@ Your `cdk.json` file should look similar to this:
 
 ```json
 {
-  "app": "dotnet run -p src/CdkWorkshop/CdkWorkshop.csproj",
+  "app": "mvn -e -q compile exec:java",
   "watch": {
     "include": [
       "**"
@@ -189,11 +189,9 @@ Your `cdk.json` file should look similar to this:
     "exclude": [
       "README.md",
       "cdk*.json",
-      "src/*/obj",
-      "src/*/bin",
-      "src/*.sln",
-      "src/*/GlobalSuppressions.cs",
-      "src/*/*.csproj"
+      "target",
+      "pom.xml",
+      "src/test"
     ]
   },
   "context": {
