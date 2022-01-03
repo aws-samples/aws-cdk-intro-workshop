@@ -1,6 +1,6 @@
 +++
 title = "API Gateway"
-weight = 300
+weight = 400
 +++
 
 Next step is to add an API Gateway in front of our function. API Gateway will
