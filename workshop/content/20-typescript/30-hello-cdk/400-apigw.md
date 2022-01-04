@@ -1,6 +1,6 @@
 +++
 title = "API Gateway"
-weight = 300
+weight = 400
 +++
 
 Next step is to add an API Gateway in front of our function. API Gateway will
@@ -13,37 +13,42 @@ mounted to the root of the API. This means that any request to any URL path will
 be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
+
+{{% notice info %}}
+
+**Windows users**: on Windows, you will have to stop the `npm run watch` command
+that is running in the background, then run `npm install`, then start
+`npm run watch` again. Otherwise you will get an error about files being
+in use.
+
+{{% /notice %}}
+
 ## Add a LambdaRestApi construct to your stack
 
-Going back to `src/CdkWorkshop/CdkWorkshopStack.cs`, let's define an API endpoint and associate it with our Lambda function:
+Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight csharp "hl_lines=3 20-24">}}
-using Amazon.CDK;
-using Amazon.CDK.AWS.Lambda;
-using Amazon.CDK.AWS.APIGateway;
-using Constructs;
+{{<highlight ts "hl_lines=3 16-19">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
 
-namespace CdkWorkshop
-{
-    public class CdkWorkshopStack : Stack
-    {
-        public CdkWorkshopStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
-        {
-            // Defines a new lambda resource
-            var hello = new Function(this, "HelloHandler", new FunctionProps
-            {
-                Runtime = Runtime.NODEJS_14_X, // execution environment
-                Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
-                Handler = "hello.handler" // file is "hello", function is "handler"
-            });
+export class CdkWorkshopStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
-            // defines an API Gateway REST API resource backed by our "hello" function.
-            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps
-            {
-                Handler = hello
-            });
-        }
-    }
+    // defines an AWS Lambda resource
+    const hello = new lambda.Function(this, 'HelloHandler', {
+      runtime: lambda.Runtime.NODEJS_14_X,    // execution environment
+      code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
+      handler: 'hello.handler'                // file is "hello", function is "handler"
+    });
+
+    // defines an API Gateway REST API resource backed by our "hello" function.
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: hello
+    });
+
+  }
 }
 {{</highlight>}}
 
@@ -60,7 +65,8 @@ cdk diff
 
 Output should look like this:
 
-```
+```text
+Stack CdkWorkshopStack
 IAM Statement Changes
 ┌───┬───────────────────────────┬────────┬───────────────────────────┬───────────────────────────┬─────────────────────────────┐
 │   │ Resource                  │ Effect │ Action                    │ Principal                 │ Condition                   │
@@ -106,20 +112,20 @@ IAM Policy Changes
 ├───┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────┤
 │ + │ ${Endpoint/CloudWatchRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs │
 └───┴────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────┘
-(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
 Resources
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY.. HelloHandlerApiPermissionANYAC4E141E
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY.. HelloHandlerApiPermissionTestANYDDD56D72
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.ANY..{proxy+} HelloHandlerApiPermissionANYproxy90E90CD6
-[+] AWS::Lambda::Permission HelloHandler/ApiPermission.Test.ANY..{proxy+} HelloHandlerApiPermissionTestANYproxy9803526C
 [+] AWS::ApiGateway::RestApi Endpoint EndpointEEF1FD8F
 [+] AWS::ApiGateway::Deployment Endpoint/Deployment EndpointDeployment318525DA37c0e38727e25b4317827bf43e918fbf
 [+] AWS::ApiGateway::Stage Endpoint/DeploymentStage.prod EndpointDeploymentStageprodB78BEEA0
 [+] AWS::IAM::Role Endpoint/CloudWatchRole EndpointCloudWatchRoleC3C64E0F
 [+] AWS::ApiGateway::Account Endpoint/Account EndpointAccountB8304247
 [+] AWS::ApiGateway::Resource Endpoint/Default/{proxy+} Endpointproxy39E2174E
+[+] AWS::Lambda::Permission Endpoint/Default/{proxy+}/ANY/ApiPermission.CdkWorkshopStackEndpoint018E8349.ANY..{proxy+} EndpointproxyANYApiPermissionCdkWorkshopStackEndpoint018E8349ANYproxy747DCA52
+[+] AWS::Lambda::Permission Endpoint/Default/{proxy+}/ANY/ApiPermission.Test.CdkWorkshopStackEndpoint018E8349.ANY..{proxy+} EndpointproxyANYApiPermissionTestCdkWorkshopStackEndpoint018E8349ANYproxy41939001
 [+] AWS::ApiGateway::Method Endpoint/Default/{proxy+}/ANY EndpointproxyANYC09721C5
+[+] AWS::Lambda::Permission Endpoint/Default/ANY/ApiPermission.CdkWorkshopStackEndpoint018E8349.ANY.. EndpointANYApiPermissionCdkWorkshopStackEndpoint018E8349ANYE84BEB04
+[+] AWS::Lambda::Permission Endpoint/Default/ANY/ApiPermission.Test.CdkWorkshopStackEndpoint018E8349.ANY.. EndpointANYApiPermissionTestCdkWorkshopStackEndpoint018E8349ANYB6CC1B64
 [+] AWS::ApiGateway::Method Endpoint/Default/ANY EndpointANY485C938B
 
 Outputs
