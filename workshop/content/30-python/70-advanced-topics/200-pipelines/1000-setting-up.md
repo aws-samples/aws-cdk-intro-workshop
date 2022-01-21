@@ -16,7 +16,7 @@ from constructs import Construct
 from aws_cdk import (
     Stack
 )
-
+#from pipeline_stage import WorkshopPipelineStage
 class WorkshopPipelineStack(Stack):
 
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
