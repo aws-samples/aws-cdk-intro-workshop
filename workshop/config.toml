@@ -9,6 +9,14 @@ sectionPagesMenu = "main"
 pygmentsCodeFences = true
 pygmentsStyle = "monokai"
 
+[languages]
+  [languages.en]
+    languageName = "English"
+    contentDir = "content/english"
+  [languages.ja]
+    languageName = "日本語"
+    contentDir = "content/japanese"
+
 [params]
 themeVariant = "mine"
 showVisitedLinks = false
@@ -16,7 +24,7 @@ author = "Elad Ben-Israel"
 description = "AWS Cloud Development Kit (AWS CDK) Workshop"
 disableSearch = true
 disableAssetsBusting = true
-disableLanguageSwitchingButton = true
+disableLanguageSwitchingButton = false
 disableShortcutsTitle = true
 
 [[menu.shortcuts]]

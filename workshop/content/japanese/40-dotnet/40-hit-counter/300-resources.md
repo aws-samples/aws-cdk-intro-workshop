@@ -1,0 +1,78 @@
++++
+title = "Define resources"
+weight = 300
++++
+
+## Add resources to the hit counter construct
+
+Now, let's define the AWS Lambda function and the DynamoDB table in our
+`HitCounter` construct.
+
+Now, go back to `src/CdkWorkshop/HitCounter.cs` and add the following highlighted code:
+
+{{<highlight csharp "hl_lines=2 5 17 21-40">}}
+using Amazon.CDK;
+using Amazon.CDK.AWS.DynamoDB;
+using Amazon.CDK.AWS.Lambda;
+using Constructs;
+using System.Collections.Generic;
+
+namespace CdkWorkshop
+{
+    public class HitCounterProps
+    {
+        // The function for which we want to count url hits
+        public IFunction Downstream { get; set; }
+    }
+
+    public class HitCounter : Construct
+    {
+        public Function Handler { get; }
+
+        public HitCounter(Construct scope, string id, HitCounterProps props) : base(scope, id)
+        {
+            var table = new Table(this, "Hits", new TableProps
+            {
+                PartitionKey = new Attribute
+                {
+                    Name = "path",
+                    Type = AttributeType.STRING
+                }
+            });
+
+            Handler = new Function(this, "HitCounterHandler", new FunctionProps
+            {
+                Runtime = Runtime.NODEJS_14_X,
+                Handler = "hitcounter.handler",
+                Code = Code.FromAsset("lambda"),
+                Environment = new Dictionary<string, string>
+                {
+                    ["DOWNSTREAM_FUNCTION_NAME"] = props.Downstream.FunctionName,
+                    ["HITS_TABLE_NAME"] = table.TableName
+                }
+            });
+        }
+    }
+}
+
+{{</highlight>}}
+
+## What did we do here?
+
+This code is hopefully quite easy to understand:
+
+ * We defined a DynamoDB table with `path` as the partition key (every DynamoDB
+   table must have a single partition key).
+ * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
+ * We __wired__ the Lambda's environment variables to the `FunctionName` and `TableName`
+   of our resources.
+
+## Late-bound values
+
+The `FunctionName` and `TableName` properties are values that only resolve when
+we deploy our stack (notice that we haven't configured these physical names when
+we defined the table/function, only logical IDs). This means that if you print
+their values during synthesis, you will get a "TOKEN", which is how the CDK
+represents these late-bound values. You should treat tokens as *opaque strings*.
+This means you can concatenate them together for example, but don't be tempted
+to parse them in your code.
