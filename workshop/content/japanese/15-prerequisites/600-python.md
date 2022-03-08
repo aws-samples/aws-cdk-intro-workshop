@@ -3,18 +3,16 @@ title = "Python"
 weight = 600
 +++
 
-If you are planning on using the Python Workshop, you obviously will need to
-have Python installed.  Specifically, you will need version 3.6 or later.  You
-can find information about downloading and installing Python
-[here](https://www.python.org/downloads/).
+Python Workshop を利用する場合、Python(バージョン3.6以降) がインストールされている必要があります。
+Pythonのダウンロードとインストールに関する情報は [こちら](https://www.python.org/downloads/) をご覧ください。
 
-If you use Windows, be sure Python is on your PATH. To see if it is, type `python`
-at a command prompt. The easiest way to make sure Python is on your PATH is to tick the
-**Add Python 3.x to PATH** checkbox on the first screen of the Python installer wizard.
-If you already have Python installed, but it's not on your PATH, you can add it by
-editing the `PATH` environment variable. To edit environment variables, click the 
-**Environment Variables** button in the Advanced page of Windows' System Properties.
-(Quickest way to get there: press and release the Windows key, type **env**, and 
-choose **Edit the system environment variables** from the Start menu.)
 
-Additionally you will need to have the Python package installer (pip) installed. See installation instructions [here](https://pypi.org/project/pip/).
+Windowsをお使いの場合、Python の PATH が通っているか確認してください。
+Python の PATH が通っているかにあるかどうかを確認するには、コマンドプロンプトで`python`と入力してください。
+Python の PATH を通す最も簡単な方法は、Pythonインストーラウィザードの画面で **Add Python 3.x to PATH** チェックボックスにチェックを入れることです。
+すでに Python がインストールされていて、PATH にない場合は、環境変数 `PATH` を編集することで追加することができます。
+環境変数を編集するには、Windowsのシステムのプロパティの詳細設定ページで **環境変数** ボタンをクリックします。
+
+(もっと早くアクセスするには: Windowsキーを押して離し、**env** とタイプして **システム環境変数の編集** を選択します。)
+
+さらに、Pythonパッケージインストーラー（pip）がインストールされている必要があります。インストール方法は [こちら](https://pypi.org/project/pip/) をご覧ください。

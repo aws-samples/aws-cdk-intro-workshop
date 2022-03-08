@@ -3,8 +3,6 @@ title = "Java"
 weight = 800
 +++
 
-If you are planning on using the Java Workshop, you obviously will need to
-have a JDK installed.  Specifically, you will need JDK 11 or later. You can find
-information about downloading and installing the Amazon Corretto 11 distribution
-[here](https://aws.amazon.com/corretto/). Other JDK 11 distributions are
-available if you do not wish to use Amazon Corretto.
+Java Workshop を使用する場合、JDK(バージョン11以降) がインストールされている必要があります。
+Amazon Corretto 11 のダウンロードとインストールについては [こちら](https://aws.amazon.com/corretto/)をご覧ください。
+Amazon Corretto を使いたくない場合は、他の JDK 11 ディストリビューションを使うこともできます。

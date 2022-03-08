@@ -4,21 +4,21 @@ chapter = false
 weight = 300
 +++
 
-The AWS CDK uses Node.js (>= 10.13.0, except for versions 13.0.0 - 13.6.0).
-A version in active long-term support (14.x at this writing) is recommended.
+AWS CDK は Node.js (>= 10.13.0, バージョン 13.0.0 - 13.6.0 を除く) を使用します。
+バージョンは長期サポート対象のもの (翻訳時点では 16.x) を推奨します。.
 
-* To install Node.js visit the [node.js](https://nodejs.org) website.
+* Node.js をインストールするには [node.js](https://nodejs.org) のページをご覧ください。
 
-    * __Windows__: if you have an old version of Node.js installed on your
-      system, it may be required to run the .msi installation as Administrator.
+    * __Windows__: 古いバージョンの Node.js がインストールされている場合、.msi のインストールを Administrator として実行する必要がある場合があります。
 
-* If you already have Node.js installed, verify that you have a compatible version:
+
+* すでに Node.js がインストールされている場合は、互換性のあるバージョンであることを確認します:
 
     ```
     node --version
     ```
 
-    Output should be >= 10.13.0:
+    バージョンは >= 10.13.0 である必要があります:
 
     ```
     v10.3.0
