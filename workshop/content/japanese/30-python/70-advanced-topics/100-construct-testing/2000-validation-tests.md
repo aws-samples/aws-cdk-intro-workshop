@@ -1,18 +1,17 @@
 +++
-title = "Validation Tests"
+title = "バリデーションテスト"
 weight = 300
 +++
 
-### Validation Tests
+### バリデーションテスト
 
-Sometimes we want the inputs to be configurable, but we also want to put constraints on those inputs or validate
-that the input is valid.
+場合によって、入力値を可変にする必要がありますが、その値に対して制約を設定したり、値の有効性を検証したりすることも必要です。
 
-Suppose for the `HitCounter` construct we want to allow the user to specify the `read_capacity` on the DynamoDB
-table, but we also want to ensure the value is within a reasonable range. We can write a test to make sure
-that the validation logic works: pass in invalid values and see what happens.
+例えば、`HitCounter` コンストラクトに対して、 DynamoDB の `read_capacity` を指定できるようにします。
+ユーザにリーズナブルな範囲で値を指定してもらいたいです。ひとまず、バリデーションロジックが正常に動作していることを確認するためのテストを書きます。
+敢えて無効な値を指定して、結果を確認します。
 
-First, add a `read_capacity` property to `HitCounter`:
+まず、`HitCounter` コンストラクトに `read_capacity` プロパティーを追加します。
 
 {{<highlight python "hl_lines=11">}}
 class HitCounter(Construct):
@@ -30,7 +29,7 @@ class HitCounter(Construct):
     ...
 {{</highlight>}}
 
-Then update the DynamoDB table resource to add the `read_capacity` property.
+次は、DynamoDB テーブルのリソースに `read_capacity` プロパティを追加します。
 
 {{<highlight python "hl_lines=5">}}
 self._table = ddb.Table(
@@ -41,7 +40,7 @@ self._table = ddb.Table(
 )
 {{</highlight>}}
 
-Now add a validation which will throw an error if the `read_capacity` is not in the allowed range.
+以下のように、`read_capacity` が範囲外である時にエラーをスローするバリデーションを追加します。
 
 {{<highlight python "hl_lines=12-13">}}
 class HitCounter(Construct):
@@ -63,7 +62,7 @@ class HitCounter(Construct):
         ...
 {{</highlight>}}
 
-Now lets add a test that validates the error is thrown.
+最後に、エラーがスローされていることを確認するテストを追加します。
 
 ```python
 def test_dynamodb_raises():
@@ -78,13 +77,13 @@ def test_dynamodb_raises():
                 )
 ```
 
-Run the test.
+テストを実行すると
 
 ```bash
 $ pytest
 ```
 
-You should see an output like this:
+以下のような出力を確認できるはずです。
 
 ```bash
 $ pytest

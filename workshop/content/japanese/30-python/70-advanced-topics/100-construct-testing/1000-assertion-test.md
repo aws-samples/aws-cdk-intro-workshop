@@ -1,22 +1,21 @@
 +++
-title = "Assertion Tests"
+title = "アサーションテスト"
 weight = 200
 +++
 
-### Fine-Grained Assertion Tests
+### きめ細かな(fine-grained) アサーションテスト
 
-#### Create a test for the DynamoDB table
+#### DynamoDB テーブルのためのテストの作成
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/30-python/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} このセクションでは、[hit counter コンストラクトの作成](/30-python/40-hit-counter.html) が完了していることを前提としています。 {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+`HitCounter` コンストラクトはシンプルな DynamoDB テーブルを作成します。テーブルが作成されていることを検証するテストを作りましょう。
 
-If you have create the project with `cdk init` then you should already have a `tests` directory. In that case you will need to remove
-the existing `test_cdk_workshop_stack.py` file.
+`cdk init` でプロジェクトを作成した場合は `tests` フォルダーが既に作成されているはずです。
+その場合は、既存の `test_cdk_workshop_stack.py` ファイルを削除する必要があります。
 
-If you do not already have a `tests` directory (usually created automatically when you run `cdk init`), then create a `tests` directory at the
-root of the project and then create the following files:
+`tests` フォルダーがない場合は (通常は `cdk init` の実行時に自動的に作成されます)、
+プロジェクトのルートに `tests` フォルダーを作成し、次のようにファイルを作成します。
 
 ```
 mkdir -p tests/unit
@@ -25,7 +24,7 @@ touch tests/unit/__init__.py
 touch tests/unit/test_cdk_workshop.py
 ```
 
-In the file called `test_cdk_workshop.py` create your first test using the following code.
+`test_cdk_workshop.py` というファイルで、以下のコードのように最初のテストを作成します。
 
 ```python
 from aws_cdk import (
@@ -49,15 +48,15 @@ def test_dynamodb_table_created():
     template.resource_count_is("AWS::DynamoDB::Table", 1)
 ```
 
-This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
+このテストは、生成 (synthesize) されたスタックに DynamoDB テーブルが含まれていることを確認します。
 
-Run the test.
+テストを実行します。
 
 ```bash
 $ pytest
 ```
 
-You should see output like this:
+以下のような出力が表示されるはずです。
 
 ```bash
 $ pytest
@@ -71,14 +70,14 @@ tests/unit/test_cdk_workshop.py .                                               
 ================================================================================================== 1 passed in 1.49s ==================================================================================================
 ```
 
-#### Create a test for the Lambda function
+#### Lambda 関数のためのテストの作成
 
-Now lets add another test, this time for the Lambda function that the `HitCounter` construct creates.
-This time in addition to testing that the Lambda function is created, we also want to test that
-it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
+次は、`HitCounter` コンストラクトが作成する Lambda 関数のためのテストを追加します。
+今回は、Lambda 関数が作成されたことのテストに加えて、その関数には
+`DOWNSTREAM_FUNCTION_NAME` と `HITS_TABLE_NAME` の2つの環境変数があることをテストします。
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+DynamoDB のテストの下に新規のテストを追加します。
+Lambda 関数を作成した時に、環境変数の値は他のコンストラクトへの参照だったことを覚えていますか？
 
 {{<highlight python "hl_lines=7-8">}}
 self._handler = _lambda.Function(
@@ -93,11 +92,11 @@ self._handler = _lambda.Function(
 )
 {{</highlight>}}
 
-At this point we don't really know what the value of the `function_name` or `table_name` will be since the
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
-dummy value for now. Once we run the test it will fail and show us the expected value.
+この時点では、`function_name` と `table_name` の値がわかりません。
+CDK はハッシュを計算して、コンストラクトの名前の末尾に追加するからです。
+そのため、一旦ダミーな値をセットして、最初のテストの実行が失敗し、実際の期待値が明らかになります。
 
-Create a new test in `test_cdk_workshop.py` with the below code:
+`test_cdk_workshop.py` に以下のコードを追加し、新しいテストを作成します。
 
 ```python
 def test_lambda_has_env_vars():
@@ -124,14 +123,13 @@ def test_lambda_has_env_vars():
             }
 ```
 
-Save the file and run the test again.
+ファイルを保存して、テストをもう一度実行します。
 
 ```bash
-pytest
+$ pytest
 ```
 
-This time the test should fail and you should be able to grab the correct value for the
-variables from the expected output.
+今回のテストが失敗するが、期待値の出力から環境変数の正しい値を入手できるはずです。
 
 {{<highlight bash "hl_lines=17">}}
 $ pytest
@@ -159,7 +157,7 @@ FAILED tests/unit/test_cdk_workshop.py::test_lambda_has_env_vars - AssertionErro
 ============================================================================================= 1 failed, 1 passed in 1.60s =============================================================================================
 {{</highlight>}}
 
-Grab the real values for the environment variables and update your test
+環境変数の実際の値を取得し、テストの内容を更新します。
 
 {{<highlight python "hl_lines=16-17">}}
 def test_lambda_has_env_vars():
@@ -184,13 +182,13 @@ def test_lambda_has_env_vars():
 
 {{</highlight>}}
 
-Now run the test again. This time is should pass.
+ここで、テストをもう一度実行します。今回は成功するはずです。
 
 ```bash
 $ pytest
 ```
 
-You should see output like this:
+次のような出力が表示されるはずです。
 
 ```bash
 $ pytest
@@ -205,10 +203,10 @@ tests/unit/test_cdk_workshop.py ..                                              
 ================================================================================================== 2 passed in 1.58s ==================================================================================================
 ```
 
-You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
-requirement that our DynamoDB table be encrypted.
+CDK コンストラクトの開発をテスト駆動開発手法 (Test Driven Development) でできます。
+単純な例として、DynamoDB テーブルを暗号化する要件を追加しましょう。
 
-First we'll update the test to reflect this new requirement.
+まず、この新しい要件を反映するために、テストを更新します。
 
 {{<highlight python>}}
 def test_dynamodb_with_encryption():
@@ -227,7 +225,7 @@ def test_dynamodb_with_encryption():
         })
 {{</highlight>}}
 
-Now run the test, which should fail.
+ここでテストを実行すると、失敗するはずです。
 
 ```bash
 $ pytest
@@ -288,9 +286,9 @@ FAILED tests/unit/test_cdk_workshop.py::test_dynamodb_with_encryption - jsii.err
 ============================================================================================= 1 failed, 2 passed in 1.65s =============================================================================================
 ```
 
-Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
+次に、壊れたテストを直しましょう。hitcounter のコードを更新して、デフォルトで暗号化を有効にします。
 
-Edit `hitcounter.py`
+`hitcounter.py` を編集します。
 {{<highlight python "hl_lines=4">}}
 self._table = ddb.Table(
     self, 'Hits',
@@ -299,7 +297,7 @@ self._table = ddb.Table(
 )
 {{</highlight>}}
 
-Now run the test again, which should now pass.
+次にテストを実行します。成功するはずです。
 
 ```bash
 $ pytest

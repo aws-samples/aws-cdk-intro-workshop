@@ -1,15 +1,15 @@
 +++
-title = "Getting Started with Pipelines"
+title = "パイプライン入門"
 weight = 110
 +++
 
-> Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/python/main-workshop) that represents the last state of the project after adding the tests.
+> 注意 : このワークショップの章は、前の全ての章を完了していることを前提としています。完了していないか、またはこの部分のみ検証する場合は、[こちら](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/python/main-workshop) のコードを利用すれば、テストを追加した直後のプロジェクトの状態に設定することができます。
 
-## Create Pipeline Stack
-The first step is to create the stack that will contain our pipeline.
-Since this is separate from our actual "production" application, we want this to be entirely self-contained.
+## パイプラインのスタックの作成
+最初のステップでは、パイプラインを持つスタックを作成します。
+実際の「本番」アプリケーションとは分離するので、完全に独立させる必要があります。
 
-Create a new file under `cdk_workshop` called `pipeline_stack.py`. Add the following to that file.
+`cdk_workshop` フォルダーの中で `pipeline_stack.py` という新しいファイルを作成します。ファイルに以下の内容を追加します。
 
 {{<highlight python>}}
 from constructs import Construct
@@ -26,12 +26,12 @@ class WorkshopPipelineStack(Stack):
         # Pipeline code will go here
 {{</highlight>}}
 
-Look familiar? At this point, the pipeline is like any other CDK stack.
+内容に見覚えがありますか？この時点では、パイプラインも他の CDK スタックと同じです。
 
-## Update CDK Deploy Entrypoint
-Next, since the purpose of our pipeline is to deploy our application stack, we no longer want the main CDK application to deploy our original app. Instead, we can change the entry point to deploy our pipeline, which will in turn deploy the application.
+## CDK デプロイのエントリーポイントの変更
+パイプラインはアプリケーションスタックをデプロイするためにあるので、メインの CDK アプリケーションに実際のアプリケーションをデプロイすることはもう必要ありません。代わりに、エントリポイントを変更してパイプラインをデプロイするようにすれば、アプリケーションはそのパイプラインにデプロイされます。
 
-To do this, edit the code in `app.py` as follows:
+それを実現するために、`app.py` のコードを以下のように編集します。
 
 {{<highlight python "hl_lines=4 7">}}
 #!/usr/bin/env python3
@@ -45,9 +45,9 @@ WorkshopPipelineStack(app, "WorkshopPipelineStack")
 app.synth()
 {{</highlight>}}
 
-This instructs the CDK to use those new features any time it synthesizes a stack (`cdk synth`).
+このコードは、CDK がスタックを生成 (`cdk synth`) する度に、この新しい機能を使うように指示をします。
 
 
-And now we're ready!
+これで準備が整いました！
 
-# Lets build a pipeline!
+# パイプラインを作りましょう！

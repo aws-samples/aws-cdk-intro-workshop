@@ -1,12 +1,13 @@
 +++
-title = "Create Repository"
+title = "リポジトリの作成"
 weight = 120
 +++
 
-## Create Repo in Pipeline Stack
-The first step in any good CD pipeline is source control. Here we will create a [**CodeCommit**](https://aws.amazon.com/codecommit/) repository to contain our project code.
+## パイプラインのスタックでリポジトリの作成
+優れた CD パイプラインの最初のステップはソース管理です。
+これから、プロジェクトコードを格納する [**CodeCommit**](https://aws.amazon.com/jp/codecommit/) リポジトリを作成します。
 
-Edit the file `cdk_workshop/pipeline_stack.py` as follows.
+次のように `cdk_workshop/pipeline_stack.py` ファイルを編集します。
 
 {{<highlight python "hl_lines=4 12-16">}}
 from constructs import Construct
@@ -29,49 +30,53 @@ class WorkshopPipelineStack(Stack):
         # Pipeline code goes here
 {{</highlight>}}
 
-## Deploy
+## デプロイメント
 
 ```
 npx cdk deploy
 ```
 
-## Get Repo Info and Commit
-Before we can do anything with our repo, we must add our code to it!
+## リポジトリ情報の取得とコミット
+リポジトリで何かをする前に、ソースコードをリポジトリに追加する必要があります。
 
-### Git Credentials
-Before we can do that, we will need Git credentials for the repo. To do this, go to the [IAM Console](https://console.aws.amazon.com/iam), then navigate to `Users` and then your user of choice.
-Inside the manage user interface, navigate to the `Security credentials` tab and scroll until you see "HTTPS Git credentials for AWS CodeCommit". Click generate credentials and follow the instructions on downloading those credentials. We will need them in a moment.
+### Git 認証情報
+先にリポジトリの Git 認証情報が必要です。
+[IAM コンソール](https://console.aws.amazon.com/iam) を開き、`ユーザー` 画面で対象ユーザを開きます。
+ユーザー管理画面で `認証情報` タブを開き、「AWS CodeCommit の HTTPS Git 認証情報」セクションまでスクロールします。
+認証情報を生成 ボタンをクリックし、指示に従って認証情報をダウンロードします。すぐに利用します。
 
 ![](./git-cred.png)
 
-### Add Git remote
-The last console step we will need here is to navigate to the [CodeCommit Console](https://console.aws.amazon.com/codesuite/codecommit/repositories) and look for your repo. You will see a column called "Clone URL"; click "HTTPS" to copy the https link so we can add it to your local repo.
+### Git remote の追加
+[CodeCommit コンソール](https://console.aws.amazon.com/codesuite/codecommit/repositories) に移動してリポジトリを特定します。「URL のクローン」列の「HTTPS」をクリックして https のリンクがコピーされます。その値をローカルリポジトリに追加します。
 
-> Note: If you do not see your repo here, ensure you are in the interface for the correct region
+> 注意 : リポジトリが表示されない場合は、コンソールが表示する AWS リージョンが正しいことを確認してください。
 
 ![](./clone-repo.png)
 
-> While you are here, feel free to explore your repo. You will see that it is still empty, but you do have access to the repo configuration information.
+> こちらの画面でリポジトリの内容を確認できます。現時点ではまだ空です。さらに、リポジトリの設定内容を参照できます。
 
-In your terminal, first make sure that all the changes you have made during the workshop are committed by issuing `git status`. If you have unstaged or uncommitted changes, you can execute `git commit -am "SOME_COMMIT_MESSAGE_HERE"`. This will stage and commit all your files so you are ready to go!
+最初は、ターミナルで `git status` を用いて、適用した変更が全てコミットされていることを確認します。
+ステージングされていないことや、コミットされていない内容があれば、`git commit -am "SOME_COMMIT_MESSAGE_HERE"` で適用できます。
+このコマンドで全てのファイルをステージ又はコミットしてくれるので、準備が完了です。
 
-> Note: If you copied the code from the repo rather than following through the workshop from the beginning, first issue `git init && git add -A && git commit -m "init"`
+> 注意 : 最初からワークショップをたどるのではなく、リポジトリからソースコードをコピーした場合は、まずは `git init && git add -A && git commit -m "init"` を実行してください。
 
-Next, we add the remote repo to our Git config. You can do this with the command (*XXXXX* represents the Clone URL you copied from the console):
+次に、Git config にリモートリポジトリーを追加します。以下のコマンドで追加できます (*XXXXX* は AWS コンソールからコピーしたクローン URL を表します)。
 
 ```
 git remote add origin XXXXX
 ```
 
-Now all we need to do is to push our code to the repo (`--set-upstream` tells Git to override the current empty master branch on your repo):
+最後に、リポジトリにソースコードをプッシュするだけです (`--set-upstream` はリポジトリで空になっている master ブランチを上書きするためです)。
 
 ```
 git push --set-upstream origin master
 ```
 
-Here, CodeCommit will request the credentials you generated in the **Git Credentials** section. You will only have to provide them once.
+ここで CodeCommitの認証情報が求められます。**Git 認証情報** セクションで作成した認証情報を使います。入力するのは 1回めだけです。
 
-### See Result
-Now you can return to the CodeCommit console and see that your code is all there!
+### 結果の確認
+CodeCommit のコンソールを見ると、コードがプッシュされたことを確認できます！
 
 ![](./repo-code.png)
