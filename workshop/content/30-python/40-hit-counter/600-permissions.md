@@ -41,7 +41,7 @@ class HitCounter(Construct):
             }
         )
 
-        table.grant_read_write_data(self.handler)
+        table.grant_read_write_data(self._handler)
 {{</highlight>}}
 
 ## Deploy
@@ -143,8 +143,8 @@ class HitCounter(Construct):
             }
         )
 
-        table.grant_read_write_data(self.handler)
-        downstream.grant_invoke(self.handler)
+        table.grant_read_write_data(self._handler)
+        downstream.grant_invoke(self._handler)
 {{</highlight>}}
 
 ## Diff
