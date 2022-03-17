@@ -3,10 +3,7 @@ title = ".NET"
 weight = 700
 +++
 
-If you are planning on using the .NET Workshop, you obviously will need to
-have the .NET Core SDK installed.  Specifically, you will need version 3.1 or later.
-You can find information about downloading and installing .NET Core SDK
-[here](https://dotnet.microsoft.com/download).
+.NET Workshopを使用する場合、NET Core SDK(バージョン3.1以降) のインストールが必要です。 
+.NET Core SDK のダウンロードとインストールについては、[こちら](https://dotnet.microsoft.com/download) をご覧ください。
 
-We will be using the .NET Core CLI for this project, so if you are not familiar, 
-please take a look at their [documentation](https://docs.microsoft.com/en-us/dotnet/core/tools).
+この Workshop では .NET Core CLIを使用しますので、不慣れな方は [ドキュメント](https://docs.microsoft.com/en-us/dotnet/core/tools) をご覧ください。

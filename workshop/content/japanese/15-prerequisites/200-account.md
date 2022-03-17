@@ -1,56 +1,50 @@
 +++
-title = "AWS Account and User"
+title = "AWS Account と User"
 weight = 200
 +++
 
-## AWS Account for Experimentation
+## 実験用 AWS Account
 
-To deploy our app, you'll need access to an AWS account. If you already have an
-account and your system is configured with credentials of an administrator user,
-you can [move to the next step](./300-nodejs.html).
+アプリをデプロイするには、AWSアカウントへのアクセス権が必要です。
+すでにアカウントがあり、Administrator の権限を持つユーザーで AWS CLI を使用できるよう設定されている場合、[次のステップに進むことができます](./300-nodejs.html)。
 
 {{% notice warning %}}
-If you are using an existing account, either personal or
-a company account, make sure you understand the implications and policy of
-provisioning resources into this account.
+個人または会社の既存のアカウントを使用する場合は、このアカウントにリソースをプロビジョニングする意味と方針を理解していることを確認して下さい。
 {{% /notice %}}
 
-If you don't have an AWS account, you can [create a free account
-here](https://portal.aws.amazon.com/billing/signup).
+AWSアカウントをお持ちでない場合は、[ここから作成することができます](https://portal.aws.amazon.com/billing/signup).。
 
-## Administrator User
+## Administrator ユーザーを作成する
 
-2. Sign in to your AWS account
-3. Go to the AWS IAM console and [create a new user](https://console.aws.amazon.com/iam/home?#/users$new).
-4. Type a name for your user (e.g. `cdk-workshop`) and choose "Programmatic access".
+2. AWS アカウントでサインインして下さい。
+3. AWS IAM コンソール に移動して、 [新しいユーザーを作成します](https://console.aws.amazon.com/iam/home?#/users$new)。
+4. ユーザー名を入力 (例: `cdk-workshop`) し、"アクセスキー - プログラムによるアクセス"にチェックを入れます。
 
     ![](./new-user-1.png)
 
-5. Click **Next: Permissions** to continue to the next step.
-6. Click **Attach existing policies directly** and choose **AdministratorAccess**.
+5. **次のステップ: アクセス権限** をクリックします。
+6. **既存のポリシーを直接アタッチ** をクリックし、 **AdministratorAccess** を選択します。
 
     ![](./new-user-2.png)
 
-7. Click **Next: Review**
-8. Click **Next: Tags**
-9. Click **Create User**
-10. In the next screen, you'll see your **Access key ID** and you will have the option
-   to click **Show** to show the **Secret access key**. Keep this browser window open.
+7. **次のステップ: タグ** をクリックします。
+8. **次のステップ: 確認** をクリックします。
+9. **ユーザーの作成** クリックします。
+10. 次の画面では **アクセスキー ID** が表示されており、**表示** ボタンを押すと **シークレットアクセスキー** を確認できます。 ブラウザでこの画面を表示したままにして下さい。
 
     ![](./new-user-3.png)
 
-## Configure your credentials
+## 認証情報の設定
 
-Open a terminal window and use `aws configure` to set up your environment. Type
-the __access key ID__ and __secret key__ and choose a default region (you can
-use `us-east-1`, `eu-west-1`, `us-west-2` for example). Preferably use a region
-that doesn't have any resources already deployed into it.
+ターミナルウィンドウを開き、 `aws configure` を使って環境を設定します。
+__アクセスキー ID__ と __シークレットアクセスキー__ を入力し、デフォルトのリージョンを選択します。 (例として `ap-northeast-1`, `eu-west-1`, `us-west-2` を使用できます)。
+可能であれば、まだ何もリソースが配置されていないリージョンがよいでしょう。
 
 ```
 aws configure
 ```
 
-And fill in the information from the console:
+そしてコンソールに情報を入力します: 
 
 ```
 AWS Access Key ID [None]: <type key ID here>

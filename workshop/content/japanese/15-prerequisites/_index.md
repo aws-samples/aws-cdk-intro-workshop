@@ -1,23 +1,21 @@
 +++
-title = "Prerequisites"
+title = "必要条件"
 chapter = true
 weight = 15
 +++
 
-# Prerequisites for the Workshop
+# ワークショップの必要条件
 
-To perform this workshop, you'll need the following:
+このワークショップを行うには、以下のものが必要です。
 
 {{% children showhidden="false" %}}
 
-You can skip any of these steps if you have these tools already installed on
-your machine.
+これらのツールがすでにマシンにすでにインストールされている場合は、これらの手順を省略することができます。
 
-Some steps are language-specific to the workshop you are doing, so you can skip
-any steps related to other languages.
+いくつかの手順は、あなたが行っているワークショップに固有の言語であるため、他の言語に関する手順をスキップすることができます。
 
-Click on the arrow to the right to continue to the first step.
+右の矢印をクリックすると、最初のステップに進みます。
 
-## See Also
+## 参考
 
 - [Prerequisites in the AWS CDK User Guide](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_prerequisites)
