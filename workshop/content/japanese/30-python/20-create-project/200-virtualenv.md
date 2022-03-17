@@ -1,34 +1,27 @@
 +++
-title = "Activating the virtualenv"
+title = "virtualenvのアクティベート"
 weight = 200
 +++
 
-## Activating the Virtualenv
+## virtualenvのアクティベート
 
-The init script we ran in the last step created a bunch of code to help get us
-started but it also created a virtual environment within our directory.  If you
-haven't used virtualenv before, you can find out more
-[here](https://docs.python.org/3/tutorial/venv.html) but the bottom line is
-that they allow you have a self-contained, isolated environment to run Python
-and install arbitrary packages without polluting your system Python.
+前のステップで実行した init スクリプトは、作業を開始するのに役立つ一連のコードを作成しましたが、ディレクトリ内に仮想環境も作成しています。 virtualenv によってシステムの Python を汚すことなく任意のパッケージをインストールできる隔離された個別の環境を持つことができます。virtualenv の詳しい説明は[こちら](https://docs.python.org/3/tutorial/venv.html)をご参照ください。
 
-To take advantage of the virtual environment that was created, you have to
-activate it within your shell.  The generated README file provides all of this
-information but we are calling it out here because it is important.  To
-activate your virtualenv on a Linux or MacOs platform:
+作成された仮想環境を利用するには、仮想環境をアクティベートする必要があります。生成された README ファイルに書かれているとおりですが、肝心なアクティベートの方法は次のとおりです。
+
+Linux または macOS プラットフォームで virtualenv をアクティベートするには、こちらを使用します。
 
 ```
 source .venv/bin/activate
 ```
 
-One a Windows platform, you would use this:
+Windowsプラットフォームでは、こちらを使用します。
 
 ```
 .venv\Scripts\activate.bat
 ```
 
-Now that the virtual environment is activated, you can safely install the
-required python modules.
+これで仮想環境がアクティブになったので、必要な python モジュールを安全にインストールできます。
 
 ```
 pip install -r requirements.txt
