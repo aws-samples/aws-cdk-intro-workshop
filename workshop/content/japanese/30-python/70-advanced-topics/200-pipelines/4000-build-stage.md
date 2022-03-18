@@ -1,12 +1,12 @@
 +++
-title = "Add Application to Pipeline"
+title = "アプリケーションの追加"
 weight = 140
 +++
 
-## Create Stage
-At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
+## ステージの作成
+この時点では、自動的に自分を更新する CDK パイプラインができています。*しかし*、それ以外は何もしていません。アプリケーションをデプロイするには、そのためのステージを追加する必要があります。
 
-Create a new file in `cdk_workshop` called `pipeline_stage.py` with the code below:
+`cdk_workshop` フォルダに新規に `pipeline_stage.py` というファイルを以下の内容で作成します。
 
 {{<highlight python>}}
 from constructs import Construct
@@ -24,10 +24,10 @@ class WorkshopPipelineStage(Stage):
 
 {{</highlight>}}
 
-All this does is declare a new `core.Stage` (component of a pipeline), and in that stage instantiate our application stack.
+このソースコードはアプリケーションのスタックを作成する `core.Stage` (パイプラインのコンポーネント) を定義します。
 
-## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `cdk_workshop/pipeline_stack.py`:
+## パイプラインにステージを追加
+次に、`cdk_workshop/pipeline_stack.py` に次のコードを追加して、パイプラインにステージを追加します。
 
 {{<highlight python "hl_lines=7 32-33">}}
 from constructs import Construct
@@ -65,19 +65,20 @@ class WorkshopPipelineStack(Stack):
         deploy_stage = pipeline.add_stage(deploy)
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
+`WorkshopPipelineStage` をインポートし、インスタンスがさくせされます。
+場合によって、このステージの複数のインスタンスを作成することがあります (たとえば、本番環境と開発/テスト環境のデプロイを分ける場合など)。
 
-Then we add that stage to our pipeline (`pipeline.add_stage(deploy);`). A `Stage` in a CDK pipeline represents a set of one or more CDK Stacks that should be deployed together, to a particular environment.
+次に、このステージをパイプラインに追加します (`pipeline.add_stage(deploy)`)。CDK パイプラインの `Stage` とは、特定の環境にて一緒にデプロイする必要のある 1つ以上の CDK スタックのセットを表します。
 
-## Commit/Deploy
-Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
+## コミット/デプロイ
+アプリケーションをデプロイするためのコードを追加できたので、後は変更をコミットしてリポジトリにプッシュするだけです。
 
 ```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+プッシュが完了したら、[CodePipeline コンソール](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) でパイプラインの実行状況を確認できます (しばらく時間がかかる場合があります)。
 
 ![](./pipeline-succeed.png)
 
-Success!
+成功しました !

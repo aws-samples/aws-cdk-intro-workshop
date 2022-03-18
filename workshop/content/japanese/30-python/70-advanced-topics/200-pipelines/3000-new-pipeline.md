@@ -1,13 +1,13 @@
 +++
-title = "Create New Pipeline"
+title = "パイプラインの作成"
 weight = 130
 +++
 
-## Define an Empty Pipeline
-Now we are ready to define the basics of the pipeline.
+## 空のパイプラインの定義
+パイプラインの基本を定義する準備が整いました。
 
 
-Return to the file `pipeline_stack.py` and edit as follows:
+`pipeline_stack.py` を開き、以下のように編集します。
 
 {{<highlight python "hl_lines=13 18-30">}}
 from constructs import Construct
@@ -42,23 +42,23 @@ class WorkshopPipelineStack(Stack):
         )
 {{</highlight>}}
 
-### Component Breakdown
-The above code does several things:
+### コンポーネットの説明
+上記ソースコードは以下の通りに構成されています。
 
-* `pipelines.CodePipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `pipelines.ShellStep(...)`: The `synth` of the pipeline describes the commands necessary to install dependencies, build, and synth the CDK application from source. This should always end in a *synth* command, for NPM-based projects this is always `npx cdk synth`.
-      * The `input` of the synth step specifies the repository where the CDK source code is stored.
+* `pipelines.CodePipeline(...)` : 必要な値でパイプラインを初期化します。今後のベースコンポーネントになります。すべてのパイプラインには以下のような構成が必要です。
+   * `pipelines.ShellStep(...)` : パイプラインの `synth` の値は、依存関係のインストール、ビルド、ソースから CDK アプリケーションの生成を行うために必要なコマンドを示します。最後に必ず *synth* コマンドで終わる必要があります。NPM ベースのプロジェクトの場合は、`npx cdk synth` になります。
+      * synth ステップの `input` の値はCDK ソースコードが格納されているリポジトリを指定します。
 
-## Deploy Pipeline and See Result
-All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
+## パイプラインをデプロイし、結果を確認
+パイプラインを稼働させるためには、変更をコミットして、再度 cdk deploy を実行するだけです。
 
 ```
 git commit -am "MESSAGE" && git push
 npx cdk deploy
 ```
 
-CdkPipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!
+CDK パイプラインはソースリポジトリのコミットごとに自動的に更新するので、このコマンドを実行するのはこれで *最後* です！
 
-Once deployment is finished, you can go to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and you will see a new pipeline! If you navigate to it, it should look like this:
+デプロイが完了したら [CodePipeline コンソール](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) を開くと、新しいパイプラインを確認できます。パイプラインを開くと、以下のような画面を確認できます。
 
 ![](./pipeline-init.png)

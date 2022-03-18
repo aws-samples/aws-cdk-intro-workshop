@@ -1,32 +1,31 @@
 +++
-title = "Testing Constructs"
+title = "コンストラクトのテスト"
 weight = 100
 +++
 
-## Testing Constructs (Optional)
+## コンストラクトのテスト (オプション)
 
-The [CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) has a good guide on
-testing constructs. For this section of the workshop we are going to use the [Fine-Grained Assertions](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained) and [Validation](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) type tests.
+[CDK デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/testing.html) には、コンストラクトのテストについてのガイドがあります。
+このワークショップのセクションでは [きめ細かな(fine-grained) アサーション](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained) と [検証(validation)](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) の種類のテストを利用します。
 
-### Prerequisites
+### 前提条件
 
-1. Install the required testing packages.
+1. 必要なテスト用のパッケージをインストールします。
 
 ```bash
 $ pip install -r requirements-dev.txt
 ```
 
-#### CDK assert Library
+#### CDK アサートライブラリ
 
-We will be using the CDK `assertions` (`aws_cdk.assertions`) library throughout this section.
-The library contains several helper functions for writing unit and integration tests.
+このセクションでは CDK の `assertions` (`aws_cdk.assertions`) ライブラリを利用します。
+このライブラリはユニットテストとインテグレーションテストを書くためのヘルパー関数を持っています。
 
 
-For this workshop we will mostly be using the `has_resource_properties` function. This helper is used when you
-only care that a resource of a particular type exists (regardless of its logical identfier), and that _some_
-properties are set to specific values.
+このワークショップでは主に `has_resource_properties` 関数を使います。
+このヘルパー関数は特定のタイプのリソースの存在 (論理IDに関係なく) と、_特定_ のプロパティの値を検証する時に使います。
 
-Example:
+例:
 
 ```python
 template.has_resource_properties("AWS::CertificateManager::Certificate", {
@@ -35,6 +34,6 @@ template.has_resource_properties("AWS::CertificateManager::Certificate", {
 })
 ```
 
-`Match.absent()` can be used to assert that a particular key in an object is *not* set (or set to `undefined`).
+`Match.absent()` はオブジェクトの特定のキーが設定*されていない* (或いは `undefined` に設定れている) ことのアサートに使えます。
 
-To see the rest of the documentation, please read the docs [here](https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.assertions/README.html).
+詳しい説明には、[こちら](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.assertions/README.html)のドキュメントをおご参照ください。
