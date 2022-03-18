@@ -1,9 +1,9 @@
 +++
-title = "Python Workshop"
+title = "Python ワークショップ"
 chapter = true
 weight = 30
 +++
 
-# The Python Workshop
+# Python ワークショップ
 
-This version of the workshop will guide you through a getting started experience in Python.
+こちらのワークショップのバリエーションでは、Python 言語で体験できます。
