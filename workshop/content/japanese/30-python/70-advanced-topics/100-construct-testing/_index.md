@@ -16,10 +16,10 @@ weight = 100
 $ pip install -r requirements-dev.txt
 ```
 
-#### CDK アサートライブラリー
+#### CDK アサートライブラリ
 
-このセクションでは CDK の `assertions` (`aws_cdk.assertions`) ライブラリーを利用します。
-このライブラリーはユニットテストとインテグレーションテストを書くためのヘルパー関数を持っています。
+このセクションでは CDK の `assertions` (`aws_cdk.assertions`) ライブラリを利用します。
+このライブラリはユニットテストとインテグレーションテストを書くためのヘルパー関数を持っています。
 
 
 このワークショップでは主に `has_resource_properties` 関数を使います。

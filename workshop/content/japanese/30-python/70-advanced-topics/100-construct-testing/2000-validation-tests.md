@@ -40,7 +40,7 @@ self._table = ddb.Table(
 )
 {{</highlight>}}
 
-以下のように、`read_capacity` が範囲外である時にエラーをスローするバリデーションを追加します。
+以下のように、`read_capacity` が範囲外である時にエラーを渡すバリデーションを追加します。
 
 {{<highlight python "hl_lines=12-13">}}
 class HitCounter(Construct):
@@ -62,7 +62,7 @@ class HitCounter(Construct):
         ...
 {{</highlight>}}
 
-最後に、エラーがスローされていることを確認するテストを追加します。
+最後に、エラーが渡されることを確認するテストを追加します。
 
 ```python
 def test_dynamodb_raises():

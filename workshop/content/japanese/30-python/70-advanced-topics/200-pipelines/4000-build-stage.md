@@ -6,7 +6,7 @@ weight = 140
 ## ステージの作成
 この時点では、自動的に自分を更新する CDK パイプラインができています。*しかし*、それ以外は何もしていません。アプリケーションをデプロイするには、そのためのステージを追加する必要があります。
 
-`cdk_workshop` フォルダーに新規に `pipeline_stage.py` というファイルを以下の内容で作成します。
+`cdk_workshop` フォルダに新規に `pipeline_stage.py` というファイルを以下の内容で作成します。
 
 {{<highlight python>}}
 from constructs import Construct

@@ -9,7 +9,7 @@ weight = 110
 最初のステップでは、パイプラインを持つスタックを作成します。
 実際の「本番」アプリケーションとは分離するので、完全に独立させる必要があります。
 
-`cdk_workshop` フォルダーの中で `pipeline_stack.py` という新しいファイルを作成します。ファイルに以下の内容を追加します。
+`cdk_workshop` フォルダの中で `pipeline_stack.py` という新しいファイルを作成します。ファイルに以下の内容を追加します。
 
 {{<highlight python>}}
 from constructs import Construct
