@@ -21,7 +21,7 @@ activate your virtualenv on a Linux or MacOs platform:
 source .venv/bin/activate
 ```
 
-One a Windows platform, you would use this:
+On a Windows platform, you would use this:
 
 ```
 .venv\Scripts\activate.bat
