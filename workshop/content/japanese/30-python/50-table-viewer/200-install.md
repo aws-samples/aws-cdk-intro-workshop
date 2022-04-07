@@ -1,18 +1,17 @@
 +++
-title = "Installing the library"
+title = "ライブラリのインストール"
 weight = 200
 +++
 
 ## pip install
 
-Before you can use the table viewer in your application, you'll need to install
-the python module:
+アプリケーションで table viewer を使用するために、Python モジュールをインストールする必要があります。
 
 ```
 pip install cdk-dynamo-table-view==0.2.0
 ```
 
-The last two lines of the output (there's a lot of it) should look like this:
+インストール時にたくさんの出力が出ますが、最後の 2行が以下のようになります。
 
 ```
 Installing collected packages: cdk-dynamo-table-view
@@ -21,4 +20,4 @@ Successfully installed cdk-dynamo-table-view-0.2.0
 
 ----
 
-Now we are ready to add a viewer to our app.
+これで、アプリケーションに table viewer を追加する準備ができました。

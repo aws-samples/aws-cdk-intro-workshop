@@ -1,12 +1,12 @@
 +++
-title = "Deploying our app"
+title = "アプリのデプロイ"
 weight = 500
 +++
 
 ## cdk diff
 
-Before we deploy, let's take a look at what will happen when we deploy our app
-(this is just the `Resources` section of the output):
+デプロイする前に、アプリケーションをデプロイするとどうなるか見てみましょう。
+(以下は `Resources` セクションのみ表示しています)
 
 ```
 $ cdk diff
@@ -28,18 +28,11 @@ Resources
 [+] AWS::ApiGateway::Method ViewHitCounter/ViewerEndpoint/Default/ANY ViewHitCounterViewerEndpointANY66F2285B
 ```
 
-You'll notice that the table viewer adds another API Gateway endpoint, a Lambda
-function, permissions, outputs, all sorts of goodies.
+Table viewer は API Gateway のエンドポイント、Lambda 関数、権限、出力などを追加していることがわかります。
 
-{{% notice warning %}} Construct libraries are a very powerful concept. They
-allow you to add complex capabilities to your apps with minimum effort. However,
-you must understand that with great power comes great responsibility. Constructs
-can add IAM permissions, expose data to the public or cause your application not
-to function. We are working on providing you tools for protecting your app, and
-identifying potential security issues with your stacks, but it is your
-responsibility to understand how certain constructs that you use impact your
-application, and to make sure you only use construct libraries from vendors you
-trust  {{% /notice %}}
+{{% notice warning %}}
+コンストラクトライブラリは協力な概念です。最小限の労力で複雑な機能をアプリケーションに追加できます。しかし、大いなる力には、大いなる責任が伴うことです。コンストラクトは IAM 権限を追加したり、データを外部に公開したり、またはアプリケーションの動作に悪影響を与えることもできます。アプリケーションを保護したり、潜在的なセキュリティリスクを発見できるためのツールの提供に取り込んでいますが、ご利用のコンストラクトがアプリケーションに与える影響を理解するのはお客さんの責任になります。コンストラクライブラリが信頼できる提供者から提供されていることを必ず確認してください。
+{{% /notice %}}
 
 ### cdk deploy
 
@@ -49,21 +42,19 @@ $ cdk deploy
 cdk-workshop.ViewHitCounterViewerEndpointCA1B1E4B = https://6i4udz9wb2.execute-api.us-east-2.amazonaws.com/prod/
 ```
 
-You'll see the viewer endpoint as an output.
+viewer のエンドポイントが出力に表示されます。
 
-### Viewing the hit counter table
+### Hit counter テーブルを参照
 
-Open your browser and browse to the hit counter viewer endpoint URL. You should
-see something like this:
+WEB ブラウザで hit counter viewer のエンドポイントの URL を開きます。以下のような内容が表示されるはずです。
 
 ![](./viewer1.png)
 
-### Send a few requests
+### 複数のリクエストを送信
 
-Send a few more requests to your "hello" endpoint and monitor your hit counter
-viewer. You should see the values update in real-time.
+"hello" エンドポイントにいくつかのリクエストを送信し、hit counter viewer で結果を確認します。リアルタイムにアップデータされることを確認できるはずです。
 
-Use `curl` or your web browser to produce a few hits:
+`curl` またはウェブブラウザを使って、アクセスカウントを増やします。
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
@@ -83,8 +74,6 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 
 {{% notice tip %}}
 
-**Interested in how the Table Viewer works?** It's easy to find out!
-Hold **Ctrl** (or **Command**) and click on the `TableViewer`
-identifier to navigate to its source code. Or navigate to the Github repository [here](https://github.com/eladb/cdk-dynamo-table-viewer)
+**Table Viewer の仕組みに興味ありますか？** 簡単に見れます！**Ctrl** (或いは **Command**) を押しながら `TableViewer` 要素をクリックすると、ソースコードに遷移できます。それとも、[こちら](https://github.com/eladb/cdk-dynamo-table-viewer) の Github のリポジトリで確認できます。
 
 {{% /notice %}}

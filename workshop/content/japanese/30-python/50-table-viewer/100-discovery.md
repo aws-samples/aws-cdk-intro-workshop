@@ -1,19 +1,17 @@
 +++
-title = "Learning about the Table Viewer construct"
+title = "Table viewer コンストラクト"
 weight = 100
 +++
 
-## Reading documentation
+## ドキュメンテーションの確認
 
-Browse to the [cdk-dynamo-table-view
-page](https://pypi.org/project/cdk-dynamo-table-view/) on pypi.org and
-read the module documentation.
+pypi.org の [cdk-dynamo-table-view のページ](https://pypi.org/project/cdk-dynamo-table-view/)
+にアクセスして、モジュールのドキュメンテーションを確認しましょう。
 
-There is some documentation about how to use the table viewer in the README but it is all focused on TypeScript rather than Python.  So, we will walk through the process of using a third-party construct in Python.
+README には table viewer の使い方に関するドキュメントがありますが、Python ではなく TypeScript 中心の内容です。そのため、Python のためにサードパーティのコンストラクトを使用するプロセスを見ていきましょう。
 
 {{% notice warning %}}
-As mentioned in the README page of this library, it is not intended for production use. Namely because
-it will expose contents from your DynamoDB table to anyone without authentication.
+ライブラリの README に記載されているように、本番環境での使用を意図したものではありません。ユーザを認証せずに、テーブルへのアクセスを可能にするからです。
 {{% /notice %}}
 
 ![](./table-viewer-pypi.png)
