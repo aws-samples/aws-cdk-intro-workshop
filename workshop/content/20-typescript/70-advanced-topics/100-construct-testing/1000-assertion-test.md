@@ -356,6 +356,8 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
+{{% notice info %}} You must compile your updated TypeScript to JavaScript for the test to pick up your changes successfully. If you do not have "npm run watch" still running in a terminal, run this command again to compile the TypeScript. {{% /notice %}}
+
 Now run the test again, which should now pass.
 
 ```bash
