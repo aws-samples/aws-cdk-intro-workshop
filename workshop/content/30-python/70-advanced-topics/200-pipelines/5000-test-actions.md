@@ -137,12 +137,10 @@ You may notice that we have not yet set the URLs of these endpoints. This is bec
 
 With a slight modification to `cdk_workshop/pipeline_stage.py` we can expose them:
 
-{{<highlight python "hl_lines=9-15 22-23">}}
+{{<highlight python "hl_lines=7-13 20-21">}}
 from constructs import Construct
-from aws_cdk import (
-    Stage
-)
-from .cdk_workshop_stack import CdkWorkshopStack
+from aws_cdk import Stage
+from cdk_workshop.cdk_workshop_stack import CdkWorkshopStack
 
 class WorkshopPipelineStage(Stage):
 
@@ -157,9 +155,9 @@ class WorkshopPipelineStage(Stage):
     def __init__(self, scope: Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        service = CdkWorkshopStack(self, 'WebService')
+        service = CdkWorkshopStack(self, "WebService")
 
-        self._hc_enpdoint = service.hc_endpoint
+        self._hc_endpoint = service.hc_endpoint
         self._hc_viewer_url = service.hc_viewer_url
 
 {{</highlight>}}
