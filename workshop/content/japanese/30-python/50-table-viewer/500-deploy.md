@@ -44,15 +44,15 @@ cdk-workshop.ViewHitCounterViewerEndpointCA1B1E4B = https://6i4udz9wb2.execute-a
 
 viewer のエンドポイントが出力に表示されます。
 
-### Hit counter テーブルを参照
+### HitCounter テーブルを参照
 
-WEB ブラウザで hit counter viewer のエンドポイントの URL を開きます。以下のような内容が表示されるはずです。
+WEB ブラウザで HitCounter viewer のエンドポイントの URL を開きます。以下のような内容が表示されるはずです。
 
 ![](./viewer1.png)
 
 ### 複数のリクエストを送信
 
-"hello" エンドポイントにいくつかのリクエストを送信し、hit counter viewer で結果を確認します。リアルタイムにアップデータされることを確認できるはずです。
+"hello" エンドポイントにいくつかのリクエストを送信し、HitCounter viewer で結果を確認します。リアルタイムにアップデータされることを確認できるはずです。
 
 `curl` またはウェブブラウザを使って、アクセスカウントを増やします。
 

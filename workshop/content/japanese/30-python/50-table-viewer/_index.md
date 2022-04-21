@@ -7,7 +7,7 @@ chapter = true
 # コンストラクトライブラリの利用
 
 このチャプターでは、[cdk-dynamo-table-viewer](https://www.npmjs.com/package/cdk-dynamo-table-viewer)
-というコンストラクトライブラリをプロジェクトにインポートし、hit counter テーブルに利用します。
+というコンストラクトライブラリをプロジェクトにインポートし、HitCounter テーブルに利用します。
 
 ![](/images/table-viewer.png)
 

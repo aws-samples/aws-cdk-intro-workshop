@@ -1,9 +1,9 @@
 +++
-title = "Hit counter テーブルを公開"
+title = "HitCounter テーブルを公開"
 weight = 400
 +++
 
-## Hit counter にテーブルのプロパティを追加
+## HitCounter にテーブルのプロパティを追加
 
 `hitcounter.py` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
 
