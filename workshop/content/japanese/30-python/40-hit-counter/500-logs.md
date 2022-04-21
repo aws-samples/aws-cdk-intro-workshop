@@ -1,34 +1,31 @@
 +++
-title = "CloudWatch Logs"
+title = "CloudWatch ログ"
 weight = 500
 +++
 
-## Viewing CloudWatch logs for our Lambda function
+## Lambda 関数の CloudWatch ログを表示する
 
-The first thing to do is to go and look at the logs of our hit counter AWS
-Lambda function.
+最初にやるべきことは、hit counter Lambda 関数のログの確認です。
 
-There are many tools that help you do that like [SAM
-CLI](https://github.com/awslabs/aws-sam-cli) and
-[awslogs](https://github.com/jorgebastida/awslogs). In this workshop, we'll show
-you how to find your logs through the AWS console.
+[SAM CLI](https://github.com/awslabs/aws-sam-cli) や [awslogs](https://github.com/jorgebastida/awslogs)
+のようなツールが役に立ちます。このワークショップでは、AWS コンソールを使ったログの参照方法を紹介します。
 
-1. Open the [AWS Lambda console](https://console.aws.amazon.com/lambda/home) (make sure you
-   are connected to the correct region).
+1. [AWS Lambda コンソール](https://console.aws.amazon.com/lambda/home) を開きます。
+   (正しいリージョンに接続されていることを確認してください)
 
-2. Click on the __HitCounter__ Lambda function
-   (the name should contain the string HelloHitCounterHitCountHandler`):
+2. __HitCounter__ Lambda 関数をクリックします。
+   (関数名には、`HelloHitCounterHitCountHandler` という文字列が含まれています)
     ![](./logs1.png)
 
-3. Click on __Monitoring__
+3. __モニタリング__ をクリックします。
     ![](./logs2.png)
 
-4. Click on __View Logs in CloudWatch__. This will open the AWS CloudWatch console.
+4. __CloudWatch のログを表示__ をクリックします. AWS CloudWatch のコンソールが開きます。
     ![](./logs3.png)
 
-5. Select the most-recent log group.
+5. 一番新しいロググループを選択します。
 
-6. Look for the most-recent message containing the string "errorMessage". You'll likely see something like this:
+6. 文字列「errorMessage」を含む最新のメッセージを探します。おそらく次のようなものが表示されます。
 
 
    ```json
@@ -52,7 +49,5 @@ you how to find your logs through the AWS console.
 
 ---
 
-It seems like our Lambda function can't write to our DynamoDB table. This
-actually makes sense - we didn't grant it those permissions! Let's go do that
-now.
+どうやら、Lambda 関数が DynamoDB テーブルに書き込みできないようです。当たり前です。この時点では権限を付与していないからです。早速追加しましょう。
 

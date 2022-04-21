@@ -1,12 +1,11 @@
 +++
-title = "Define resources"
+title = "リソースの定義"
 weight = 300
 +++
 
-## Add resources to the hit counter construct
+## HitCounter コンストラクトにリソースを追加する
 
-Now, let's define the AWS Lambda function and the DynamoDB table in our
-`HitCounter` construct. Go back to `cdkworkshop/hitcounter.py` and add the following highlighted code:
+Lambda 関数と DynamoDB テーブルを `HitCounter` コンストラクトに定義します。`cdkworkshop/hitcounter.py` に次のハイライトされたコードを追加します。
 
 {{<highlight python "hl_lines=4 9-11 16-19 21-30">}}
 from constructs import Construct
@@ -41,22 +40,14 @@ class HitCounter(Construct):
         )
 {{</highlight>}}
 
-## What did we do here?
+## コードの解説
 
-This code is hopefully quite easy to understand:
+このコードはそう難しくはありません。
 
- * We defined a DynamoDB table with `path` as the partition key (every DynamoDB
-   table must have a single partition key).
- * We defined a Lambda function which is bound to the `lambda/hitcount.handler` code.
- * We __wired__ the Lambda's environment variables to the `function_name` and
-   `table_name` of our resources.
+ * DynamoDB テーブルに `path` というパーティションキーを定義しました (すべての DynamoDB テーブルには必ず一つのパーティションキーが必要です)。
+ * `lambda/hitcount.handler` にバインドされる Lambda 関数を定義しました。
+ * Lambda 関数の環境変数をリソースの `function_name` と `table_name` に __紐付け__ しました。
 
-## Late-bound values
+## 遅延バインディング値
 
-The `function_name` and `table_name` properties are values that only resolve
-when we deploy our stack (notice that we haven't configured these physical
-names when we defined the table/function, only logical IDs). This means that if
-you print their values during synthesis, you will get a "TOKEN", which is how
-the CDK represents these late-bound values. You should treat tokens as *opaque
-strings*.  This means you can concatenate them together for example, but don't
-be tempted to parse them in your code.
+`function_name` と `table_name` プロパティは、CloudFormation スタックをデプロイするタイミングで解決される値です (テーブル/関数を定義した時点では、まだ物理名が決まっていないことに注目してください)。つまり、それらの値を出力する場合は、仮の文字列として出力されます。CDK は仮の文字列を使って、遅延バインディング値を表現します。この仮の文字列は *未定の値* として扱うべきで、コード上でそれらの値を設定してはいけません。
