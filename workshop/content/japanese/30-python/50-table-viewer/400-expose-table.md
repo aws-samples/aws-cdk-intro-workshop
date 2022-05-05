@@ -1,11 +1,11 @@
 +++
-title = "Exposing our hit counter table"
+title = "HitCounter テーブルを公開"
 weight = 400
 +++
 
-## Add a table property to our hit counter
+## HitCounter にテーブルのプロパティを追加
 
-Edit `hitcounter.py` and modify it as such `table` is exposed as a public property.
+`hitcounter.py` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
 
 {{<highlight python "hl_lines=13-15 20 32 36">}}
 from constructs import Construct
@@ -47,9 +47,9 @@ class HitCounter(Construct):
         downstream.grant_invoke(self.handler)
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## これでスタックからテーブルにアクセスできるようになりました
 
-Go back to `cdk_workshop_stack.py` and assign the `table` property of the table viewer:
+`cdk_workshop_stack.py` に戻り、`table` プロパティを指定します。
 
 {{<highlight python "hl_lines=38">}}
 from constructs import Construct

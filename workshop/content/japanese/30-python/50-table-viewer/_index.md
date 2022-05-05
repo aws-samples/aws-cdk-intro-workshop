@@ -1,14 +1,13 @@
 +++
-title = "Using construct libraries"
+title = "コンストラクトライブラリの利用"
 weight = 50
 chapter = true
 +++
 
-# Using construct libraries
+# コンストラクトライブラリの利用
 
-In this chapter we will import a construct library called
-[cdk-dynamo-table-viewer](https://www.npmjs.com/package/cdk-dynamo-table-viewer)
-into our project and install it on our hit counter table.
+このチャプターでは、[cdk-dynamo-table-viewer](https://www.npmjs.com/package/cdk-dynamo-table-viewer)
+というコンストラクトライブラリをプロジェクトにインポートし、HitCounter テーブルに利用します。
 
 ![](/images/table-viewer.png)
 
