@@ -12,4 +12,4 @@ chapter = true
 
 それぞれのパイプラインは、ソースコードの管理方法から、ビルドされた全てのアーティファクトのデプロイ方法まで、デプロイプロセスのフェーズを表す「ステージ」で構成されます。
 
-![](./pipeline-stages.png)
+![](./200-pipelines/pipeline-stages.png)
