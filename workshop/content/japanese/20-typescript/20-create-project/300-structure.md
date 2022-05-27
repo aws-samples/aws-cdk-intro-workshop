@@ -1,39 +1,33 @@
 +++
-title = "Project structure"
+title = "プロジェクトの構造"
 weight = 300
 +++
 
-## Open your IDE
+## IDEを開く
 
-Now's a good time to open the project in your favorite IDE and explore.
+使い慣れたIDEでプロジェクトを開いてみましょう。
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> VSCodeを使用する場合は、プロジェクトディレクトリ内で `code .` と入力するだけです。
 
-## Explore your project directory
 
-You'll see something like this:
+## プロジェクトディレクトリを探索する
+
+次のような内容が表示されます。
+
 
 ![](./structure.png)
 
-* __`lib/cdk-workshop-stack.ts`__ is where your CDK application's main stack is defined.
-  This is the file we'll be spending most of our time in.
-* `bin/cdk-workshop.ts` is the entrypoint of the CDK application. It will load
-  the stack defined in `lib/cdk-workshop-stack.ts`.
-* `package.json` is your npm module manifest. It includes information like the
-  name of your app, version, dependencies and build scripts like "watch" and
-  "build" (`package-lock.json` is maintained by npm)
-* `cdk.json` tells the toolkit how to run your app. In our case it will be
-  `"npx ts-node bin/cdk-workshop.ts"`
-* `tsconfig.json` your project's [typescript
-  configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-* `.gitignore` and `.npmignore` tell git and npm which files to include/exclude
-  from source control and when publishing this module to the package manager.
-* `node_modules` is maintained by npm and includes all your project's
-  dependencies.
+* __`lib/cdk-workshop-stack.ts`__ CDKアプリケーションのメインスタックが定義されます。今回のワークショップでほとんどの時間を費やすことになるファイルです。
+* `bin/cdk-workshop.ts` CDKアプリケーションのエントリポイントです。lib/cdk-workshop-stack.ts で定義されたスタックをロードします。
+* `package.json` npmモジュールのマニフェストです。アプリの名前、バージョン、依存関係、"watch" や "build" 用のビルドスクリプトなどの情報が含まれます（package-lock.json はnpmによって管理されます）
+* `cdk.json` アプリの実行方法をツールキットに指示させるためのファイルです。今回の場合は、 `"npx ts-node bin/cdk-workshop.ts"` です。
+* `tsconfig.json` プロジェクトの [TypeScript 設定](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) です。
+* `.gitignore` と `.npmignore` Gitとnpm用のファイルです。ソースコードの管理に含める/除外するファイルと、パッケージマネージャーへの公開用設定が含まれています。
+* `node_modules` npmによって管理され、プロジェクトのすべての依存関係が含まれます。
 
-## Your app's entry point
+## エントリーポイント
 
-Let's have a quick look at `bin/cdk-workshop.ts`:
+`bin/cdk-workshop.ts` ファイルを簡単に見てみましょう。
 
 ```js
 #!/usr/bin/env node
@@ -44,13 +38,11 @@ const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
 ```
 
-This code loads and instantiates the `CdkWorkshopStack` class from the
-`lib/cdk-workshop-stack.ts` file. We won't need to look at this file anymore.
+このコードは、`lib/cdk-workshop-stack.ts` から `CdkWorkshopStack` クラス をロードしてインスタンス化するものです。
 
-## The main stack
+## メインスタック
 
-Open up `lib/cdk-workshop-stack.ts`. This is where the meat of our application
-is:
+`lib/cdk-workshop-stack.ts` を開いてください。これがアプリケーションの要のファイルです。
 
 ```ts
 import * as cdk from 'aws-cdk-lib';
@@ -73,11 +65,10 @@ export class CdkWorkshopStack extends cdk.Stack {
 }
 ```
 
-As you can see, our app was created with a sample CDK stack
-(`CdkWorkshopStack`).
+ご覧のとおり、CDK スタック(`CdkWorkshopStack`)によってアプリケーションが作成されます。
 
-The stack includes:
+このスタックは次のリソースを含んでいます。
 
-- SQS Queue (`new sqs.Queue`)
-- SNS Topic (`new sns.Topic`)
-- Subscribes the queue to receive any messages published to the topic (`topic.addSubscription`)
+- SQS キュー (`new sqs.Queue`)
+- SNS トピック (`new sns.Topic`)
+- SNS トピックにパブリッシュされたメッセージを受信するように SQS キューをサブスクライブします。 (`topic.addSubscription`)
