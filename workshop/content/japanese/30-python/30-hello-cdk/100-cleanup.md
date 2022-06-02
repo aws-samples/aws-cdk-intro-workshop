@@ -3,14 +3,11 @@ title = "Cleanup sample"
 weight = 100
 +++
 
-## Delete the sample code from your stack
+## スタックからサンプルコードを削除する
 
-The project created by `cdk init sample-app` includes an SQS queue and queue policy, an SNS
-topic and subscription. We're not going to use them in our
-project, so remove them from the `CdkWorkshopStack` constructor.
+`cdk init sample-app` によって作成されたプロジェクトには、SQS キューとキューポリシー、SNS トピック、サブスクリプションが含まれています。このプロジェクトではこれらを使用しないので、`CDKWorkshopStack` コンストラクタから削除しましょう。
 
-Open `cdk_workshop/cdk_workshop_stack.py` and clean it up. Eventually it should look like
-this:
+`cdk_workshop/cdk_workshop_stack.py` を開いて削除します。最終的には次のようになります。
 
 ```python
 from constructs import Construct
@@ -29,14 +26,13 @@ class CdkWorkshopStack(Stack):
 
 ## cdk diff
 
-Now that we modified our stack's contents, we can ask the toolkit to show us the difference between our CDK app and
-what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
+スタックの修正によって、`cdk deploy` を実行したらどのような変更が発生するかツールキットで確認できます。（CDK アプリと現在デプロイされているものの違いを確認することができます。）`cdk diff` を実行してみましょう。
 
 ```
 cdk diff
 ```
 
-Output should look like the following:
+出力は次のようになります。
 
 ```
 Stack cdk-workshop
@@ -57,14 +53,14 @@ Resources
 [-] AWS::SNS::Topic CdkworkshopTopic58CFDD3D destroy
 ```
 
-As expected, all of our resources are going to be brutally destroyed.
+想定の通り、既存のリソースがすっかり削除されることになります。
 
 ## cdk deploy
 
-Run `cdk deploy` and __proceed to the next section__ (no need to wait):
+`cdk deploy` を実行したら、__次のセクションに進みます。__ (デプロイ完了を待つ必要はありません)
 
 ```
 cdk deploy
 ```
 
-You should see the resources being deleted.
+リソースが削除されていくのを確認できます。
