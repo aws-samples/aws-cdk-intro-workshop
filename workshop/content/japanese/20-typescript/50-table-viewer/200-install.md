@@ -1,12 +1,11 @@
 +++
-title = "Installing the library"
+title = "ライブラリのインストール"
 weight = 200
 +++
 
 ## npm install
 
-Before you can use the table viewer in your application, you'll need to install
-the npm module:
+アプリケーションで table viewer を使用するために、npm モジュールをインストールする必要があります。
 
 ```
 npm install cdk-dynamo-table-viewer@0.2.0
@@ -14,14 +13,11 @@ npm install cdk-dynamo-table-viewer@0.2.0
 
 {{% notice info %}}
 
-**Windows users**: on Windows, you will have to stop the `npm run watch` command
-that is running in the background, then run `npm install`, then start
-`npm run watch` again. Otherwise you will get an error about files being
-in use.
+**Windowsユーザーへの注意** : Windowsでは、バックグラウンドで動いている、`npm run watch` コマンドを停止する必要があります。 停止後、 `npm install` を実行し、再度 `npm run watch` を実行します。そうしなければ、使用中のファイルに関するエラーが発生します。
 
 {{% /notice %}}
 
-Output should look like this:
+出力は次のようになります。
 
 ```
 + cdk-dynamo-table-viewer@0.2.0
@@ -31,4 +27,4 @@ found 0 vulnerabilities
 
 ----
 
-Now we are ready to add a viewer to our app.
+これで、アプリケーションに table viewer を追加する準備ができました。

@@ -1,11 +1,11 @@
 +++
-title = "Exposing our hit counter table"
+title = "HitCounter テーブルを公開"
 weight = 400
 +++
 
-## Add a table property to our hit counter
+## HitCounter にテーブルのプロパティを追加
 
-Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
+`hitcounter.py` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
 
 {{<highlight ts "hl_lines=15-16 27">}}
 import * as cdk from 'aws-cdk-lib';
@@ -55,9 +55,9 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## これでスタックからテーブルにアクセスできるようになりました
 
-Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
+`cdk-workshop-stack.ts` に戻り、`table` プロパティを指定します。
 
 {{<highlight ts "hl_lines=28">}}
 import * as cdk from 'aws-cdk-lib';
@@ -93,6 +93,4 @@ export class CdkWorkshopStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-We're finished making code changes,
-so once you save this file,
-you can close the `npm run watch` command with `Ctrl-C`.
+コードの変更が完了したので、このファイルを保存し、 `Ctrl-C` で `npm run watch` を終了します。
