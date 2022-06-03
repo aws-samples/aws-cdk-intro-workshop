@@ -3,36 +3,37 @@ title = "npm run watch"
 weight = 200
 +++
 
-## Compiling your TypeScript code
+## TypeScriptコードのコンパイル
 
-Since TypeScript sources need to be compiled to JavaScript, every time we make a
-modification to our source files, we would want them to be compiled to `.js`.
+TypeScriptソースはJavaScriptにコンパイルする必要があるため、ソースファイルに変更を加えるたびに、ソースファイルを.jsにコンパイルする必要があります
 
-{{% notice info %}} This is an important step. Make sure you leave the "watch"
-terminal session open at the end of this step. {{% /notice %}}
+{{% notice info %}}
+このステップの最後に実行する、`npm run watch` コマンドを実行したターミナルのセッションは残したままにしてください。
+{{% /notice %}}
 
-Your project is already configured with a nice little npm script called `watch`.
+`npm run watch` コマンドで呼ばれるスクリプトについては、既に設定されています。
 
-## Open new terminal window
 
-Open a __new__ terminal session (or tab). You will keep this window open in the
-background for the duration of the workshop.
 
-## Start watching for changes
+## 新しいターミナルウィンドウを開く
 
-From your project directory run:
+__新しい__ ターミナルセッション（またはタブ）を開きます。ワークショップの間、このウィンドウをバックグラウンドで開いたままにします。
+
+## 変更を監視する
+
+プロジェクトディレクトリで次のコマンドを実行します。
 
 ```
 cd cdk-workshop
 ```
 
-And:
+続けて、次を実行します。
 
 ```
 npm run watch
 ```
 
-Then, screen will be cleared and you'll see:
+次に、画面がクリアされ、以下が表示されます。
 
 ```
 Starting compilation in watch mode...
@@ -40,13 +41,12 @@ Found 0 errors. Watching for file changes.
 ...
 ```
 
-This will start the TypeScript compiler (`tsc`) in "watch" mode, which will
-monitor your project directory and will automatically compile any changes to
-your `.ts` files to `.js`.
+これにより、TypeScriptコンパイラ（`tsc`）が"watch"モードで起動し、プロジェクトディレクトリが監視され、`.ts` ファイルを変更すると自動的に `.js` へコンパイルされます。
 
 ----
 
-{{% notice info %}} Keep this terminal window open with `watch` running for the
-duration of the workshop. {{% /notice %}}
+{{% notice info %}}
+ワークショップ中は、`watch` コマンドが実行されているターミナルウィンドウを開いたままにしてください。
+{{% /notice %}}
 
 ----

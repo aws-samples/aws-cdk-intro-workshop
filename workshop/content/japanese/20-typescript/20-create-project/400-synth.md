@@ -3,25 +3,22 @@ title = "cdk synth"
 weight = 400
 +++
 
-## Synthesize a template from your app
+## CDK アプリケーションからテンプレートを合成する
 
-AWS CDK apps are effectively only a __definition__ of your infrastructure using
-code. When CDK apps are executed, they produce (or "__synthesize__", in CDK
-parlance) an AWS CloudFormation template for each stack defined in your
-application.
+AWS CDK アプリケーションは、事実上、コードを使用したインフラストラクチャの __定義__ にすぎません。CDK アプリケーションが実行されると、アプリケーションで定義されたスタックごとに AWS CloudFormation テンプレートが生成（ CDK 用語では「 __合成__ 」）されます。
 
-To synthesize a CDK app, use the `cdk synth` command. Let's check out the
-template synthesized from the sample app:
+CDK アプリを合成するには、 `cdk synth` コマンドを使用します。サンプルアプリから合成されたテンプレートを確認してみましょう。
 
-{{% notice info %}} The **CDK CLI** requires you to be in the same directory 
-as your `cdk.json` file. If you have changed directories in your terminal, 
-please navigate back now.{{% /notice %}}
+
+{{% notice info %}} 
+**CDK CLI** はcdk.jsonファイルが配置されているプロジェクトのルートディレクトリで実行する必要があります。ディレクトリを移動している場合はプロジェクトのルートディレクトリに戻ってからCDKコマンドを実行してください。
+{{% /notice %}}
 
 ```
 cdk synth
 ```
 
-Will output the following CloudFormation template:
+すると、次の CloudFormation テンプレートが出力されます。
 
 ```yaml
 Resources:
@@ -141,16 +138,14 @@ Conditions:
               - us-west-2
 ```
 
-As you can see, this template includes four resources:
+ご覧のとおり、このテンプレートにはたくさんのリソースが含まれています。
 
-- **AWS::SQS::Queue** - our queue
-- **AWS::SNS::Topic** - our topic
-- **AWS::SNS::Subscription** - the subscription between the queue and the topic
-- **AWS::SQS::QueuePolicy** - the IAM policy which allows this topic to send messages to the queue
+- **AWS::SQS::Queue** - SQS キュー
+- **AWS::SNS::Topic** - SNS トピック
+- **AWS::SNS::Subscription** - キューとトピックの間のサブスクリプション
+- **AWS::SQS::QueuePolicy** - トピックがキューにメッセージを送信することを許可する IAM ポリシー
 
-{{% notice info %}} The **AWS::CDK::Metadata** resource is automatically added
-by the toolkit to every stack. It is used by the AWS CDK team for analytics and
-to allow us to identify versions with security issues. See [Version Reporting](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) in
-the AWS CDK User Guide for more details. We will omit the metadata resource in
-diff views for the rest of this workshop {{% /notice %}}
+{{% notice info %}} 
+**AWS:: CDK:: Metadata** リソースは、ツールキットによってすべてのスタックに自動的に追加されます。セキュリティ上の問題があるバージョンを特定できるようAWS CDK チームが分析に使用します。詳細については、AWS CDK ユーザーガイドの [バージョンレポート](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) を参照してください。以降、このワークショップではメタデータリソースを省略します。
+{{% /notice %}}
 
