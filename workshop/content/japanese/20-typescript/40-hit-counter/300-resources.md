@@ -1,24 +1,20 @@
 +++
-title = "Define resources"
+title = "リソースの定義"
 weight = 300
 +++
 
-## Add resources to the hit counter construct
+## HitCounter コンストラクトにリソースを追加する
 
-Now, let's define the AWS Lambda function and the DynamoDB table in our
-`HitCounter` construct.
+Lambda 関数と DynamoDB テーブルを `HitCounter` コンストラクトに定義します。
 
 
 {{% notice info %}}
 
-**Windows users**: on Windows, you will have to stop the `npm run watch` command
-that is running in the background, then run `npm install`, then start
-`npm run watch` again. Otherwise you will get an error about files being
-in use.
+**Windowsユーザーへの注意** : Windowsでは、バックグラウンドで動いている、 `npm run watch` コマンドを停止する必要があります。 停止後、 `npm install` を実行し、再度 `npm run watch` を実行します。そうしなければ、使用中のファイルに関するエラーが発生します。
 
 {{% /notice %}}
 
-Now, go back to `lib/hitcounter.ts` and add the following highlighted code:
+さて、 `lib/hitcounter.ts` に戻ります。 次の強調されたコードを追加します。
 
 {{<highlight ts "hl_lines=3 13-14 19-31">}}
 import * as cdk from 'aws-cdk-lib';
@@ -56,21 +52,14 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-## What did we do here?
+## コードの解説
 
-This code is hopefully quite easy to understand:
+このコードはそう難しくはありません。
 
- * We defined a DynamoDB table with `path` as the partition key.
- * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
- * We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
-   of our resources.
+ * DynamoDB テーブルに `path` というパーティションキーを定義しました (すべての DynamoDB テーブルには必ず一つのパーティションキーが必要です)。
+ * `lambda/hitcount.handler` にバインドされる Lambda 関数を定義しました。
+ * Lambda 関数の環境変数をリソースの `function_name` と `table_name` に __紐付け__ しました。
 
-## Late-bound values
+## 遅延バインディング値
 
-The `functionName` and `tableName` properties are values that only resolve when
-we deploy our stack (notice that we haven't configured these physical names when
-we defined the table/function, only logical IDs). This means that if you print
-their values during synthesis, you will get a "TOKEN", which is how the CDK
-represents these late-bound values. You should treat tokens as *opaque strings*.
-This means you can concatenate them together for example, but don't be tempted
-to parse them in your code.
+`function_name` と `table_name` プロパティは、CloudFormation スタックをデプロイするタイミングで解決される値です (テーブル/関数を定義した時点では、まだ物理名が決まっていないことに注目してください)。つまり、それらの値を出力する場合は、仮の文字列として出力されます。CDK は仮の文字列を使って、遅延バインディング値を表現します。この仮の文字列は *未定の値* として扱うべきで、コード上でそれらの値を設定してはいけません。
