@@ -10,13 +10,13 @@ weight = 300
 
 Lambda 関数が機能しているのは素晴らしいことですが、`"Hello, CDK"` の代わりに `"Good Morning, CDK!"` で応答させるよう Lambda 関数のコードを微調整してみましょう。
 
-スタックを更新するため使えるツールは `cdk deploy` ですが、CloudFormation スタックをデプロイし、「lambda」ディレクトリをブートストラップバケットにアップロードする必要があり時間がかかりすぎます。ラムダコードを変更するだけなら、CloudFormation スタックを実際に更新する必要はないので、`cdk deploy` の一部の時間は本来不要です。
+スタックを更新するために使うコマンドは `cdk deploy` ですが、CloudFormation スタックをデプロイし、「lambda」ディレクトリをブートストラップバケットにアップロードする必要があり時間がかかりすぎます。Lambda 関数のコードを変更するだけなら、CloudFormation スタックを実際に更新する必要はないので、`cdk deploy` の一部の時間は本来不要です。
 
-ラムダコードの更新だけを行うための仕組みがあったらいいですよね？
+Lambda 関数のコードの更新だけを行うための仕組みがあったらいいですよね？
 
 ## `cdk deploy` の時間
 
-まず、`cdk deploy` の実行にかかる時間を考えてみましょう。これには、CloudFormation の完全なデプロイにかかる時間が参考になります。これを行うために、`lambda/hello.py` 内のコードを変更します。
+まず、`cdk deploy` の実行にかかる時間を計りましょう。CloudFormation のデプロイを完了させるためにかかる時間が参考になります。そのために、`lambda/hello.py` 内のコードを変更します。
 
 {{<highlight python "hl_lines=10">}}
 import json
@@ -62,10 +62,10 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 
 ## ホットスワップデプロイ
 
-{{% notice info %}} このコマンドは、デプロイを高速化するために CloudFormation スタックにドリフトを意図的に導入します。このため、開発目的でのみ使用してください。実稼働環境ではホットスワップを使用しないでください！
+{{% notice info %}} このコマンドは、デプロイを高速化するために CloudFormation スタックにドリフトを意図的に発生させます。このため、開発目的でのみ使用してください。実稼働環境ではホットスワップを使用しないでください！
 {{% /notice %}}
 
-CloudFormation デプロイの代わりにホットスワップデプロイを実行できるかどうかを評価する `cdk deploy —-hotswap` を使用することで、デプロイ時間を短縮できます。可能であれば、CDK CLI は AWS サービス API を使用して直接変更を行います。それ以外の場合は、CloudFormation の完全なデプロイの実行にフォールバックします。
+デプロイ時間を短縮するために利用する `cdk deploy —-hotswap` では、CloudFormation デプロイの代わりにホットスワップデプロイを実行できるかどうかを評価します。可能であれば、CDK CLI は AWS サービス API を使用して直接変更を行います。それ以外の場合は、CloudFormation の完全なデプロイの実行にフォールバックします。
 
 ここでは、`cdk deploy —-hotswap` を使用して、ホットスワップ可能な変更を AWS Lambda アセットコードにデプロイします。
 
@@ -116,8 +116,8 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 9.51s
 ```
 
-CloudFormation の完全なデプロイには67秒かかったのに対し、ホットスワップされた変更をデプロイするのにかかったのは3秒です。
-しかし、警告メッセージを見てください。（開発目的でのみ使用してください。実稼働環境ではホットスワップを使用しないでください！）
+CloudFormation のデプロイが完了するには 67秒かかったのに対し、ホットスワップされた変更をデプロイするのにかかったのは 3秒です。
+警告メッセージをよく見てください。非常に重要です！（開発目的でのみ使用してください。実稼働環境ではホットスワップを使用しないでください！）
 
 ```
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
@@ -142,13 +142,13 @@ CloudFormation の完全なデプロイには67秒かかったのに対し、ホ
 
 ## CDK Watch
 
-`cdk watch` は 毎回 `cdk deploy` または `cdk deploy -—hotswap` を呼び出すよりも良いことができます。`cdk deploy` に似ていますが、ワンショット操作ではなく、コードとアセットに変更がないか監視し、変更が検出されると自動的にデプロイを試みます。デフォルトでは、`cdk watch` は `—-hotswap` フラグを使います。これは変更を調べ、それらの変更をホットスワップできるかどうかを判断します。`cdk watch —-no-hotswap` を呼び出すと、ホットスワップ動作が無効になります。
+`cdk watch` は 毎回 `cdk deploy` または `cdk deploy -—hotswap` を呼び出すよりも便利です。。`cdk deploy` に似ていますが、ワンショット操作ではなく、コードとアセットに変更がないか監視し、変更が検出されると自動的にデプロイを試みます。デフォルトでは、`cdk watch` は `—-hotswap` フラグを使います。変更内容を調べて、ホットスワップできるかどうかを判断します。`cdk watch —-no-hotswap` を呼び出すと、ホットスワップ動作が無効になります。
 
 一度設定したら、`cdk watch`を使用して、ホットスワップ可能な変更と、完全な CloudFormation デプロイを必要とする変更の両方を検出できます。
 
 ## `cdk.json` ファイルを見てみましょう
 
-`cdk watch` コマンドが実行されると、監視対象のファイルが `cdk.json` ファイルの `"watch"` 設定によって決定されます。これには、`"include"` と `"exclude"` の 2 つのサブキーがあり、それぞれが単一の文字列または文字列の配列のいずれかになります。
+`cdk watch` コマンドが実行されると、監視対象のファイルが `cdk.json` ファイルの `"watch"` 設定によって決定されます。`"include"` と `"exclude"` の 2 つのサブキーがあり、それぞれが単一の文字列または文字列の配列のいずれかになります。
 各エントリは、`cdk.json` ファイルの場所からの相対パスとして解釈されます。なお、`*` と `**` の両方が使えます。
 
 `cdk.json` ファイルは次のようになります。
@@ -188,7 +188,7 @@ CloudFormation の完全なデプロイには67秒かかったのに対し、ホ
 cdk watch
 ```
 
-これにより、初期デプロイがトリガーされ、すぐに `cdk.json` で指定したファイルの監視が開始されます。
+これにより、初期デプロイが実行され、すぐに `cdk.json` で指定したファイルの監視が開始されます。
 `lambda/hello.py` のラムダアセットコードをもう一度変更してみましょう:
 
 {{<highlight python "hl_lines=10">}}
@@ -237,4 +237,4 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 このチュートリアルの残りの部分では、引き続き `cdk watch` の代わりに `cdk deploy` を使用します。
 しかし、もし望むなら、単に `cdk watch` をオンにしておくことができます。完全なデプロイを行う必要がある場合、`cdk watch` は `cdk deploy` を呼び出します。
 
-`cdk watch` のユースケースについてさらに深く掘り下げるには、[Increasing Development Speed with CDK Watch](https://aws.amazon.com/blogs/developer/increasing-development-speed-with-cdk-watch/) をお読みください
+`cdk watch` を使う方法については、[Increasing Development Speed with CDK Watch](https://aws.amazon.com/blogs/developer/increasing-development-speed-with-cdk-watch/) をお読みください

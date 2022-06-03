@@ -3,9 +3,9 @@ title = "API Gateway"
 weight = 400
 +++
 
-次のステップは、Lambda 関数の前に API Gateway を追加することです。API Gateway は、インターネット上の誰でも [curl](https://curl.haxx.se/) などの HTTP クライアントやウェブブラウザでアクセスできるパブリック HTTP エンドポイントを公開します。
+次のステップは、Lambda 関数の前に API Gateway を追加することです。API Gateway は、インターネット経由で [curl](https://curl.haxx.se/) などの HTTP クライアントやウェブブラウザでアクセスできるパブリック HTTP エンドポイントを公開します。
 
-API のルートにマウントされた [Lambda プロキシ統合](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html) を使用します。つまり、任意の URL パスへのリクエストは 全て Lambda 関数に直接プロキシされ、関数からの応答がユーザーに返されます。
+API のルートにマウントされた [Lambda プロキシ統合](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html) を使用します。つまり、任意の URL パスへのリクエストは全て Lambda 関数に直接プロキシされ、関数からの応答がユーザーに返されます。
 
 ## LambdaRestApi コンストラクトをスタックに追加
 
@@ -133,7 +133,7 @@ cdk deploy
 
 ## スタックの出力
 
-デプロイが完了すると、次の行に気付くでしょう。
+デプロイが完了すると、次の行にご注目ください。
 
 ```
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
@@ -143,10 +143,10 @@ CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.ama
 
 ## アプリのテスト
 
-このエンドポイントを `curl` でヒットしてみましょう。URL をコピーして実行します (接頭辞とリージョンは異なる可能性があります)。
+このエンドポイントを `curl` でアクセスしてみましょう。URL をコピーして実行します (プレフィックスとリージョンは異なる可能性があります)。
 
 {{% notice info %}}
-[curl](https://curl.haxx.se/) がインストールされていない場合は、お気に入りのウェブブラウザでいつでもこの URL にアクセスできます。
+[curl](https://curl.haxx.se/) がインストールされていない場合は、お気に入りのウェブブラウザでもこの URL にアクセスできます。
 {{% /notice %}}
 
 ```
@@ -171,7 +171,7 @@ API Gateway から 5xx エラーを受け取った場合、次の 2つの問題�
 
 1. Lambda 関数が返した応答は、API Gateway が期待するものではありません。手順を戻って、Lambda の handler 関数が `statusCode`、`body`、`header` フィールドが含まれているか確認してください。
 
-2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html) にすばやく移動して、Lambda ログを表示する方法を学習します。
+2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html) に先取りして、Lambda 関数のログを表示する方法を学習します。
 
 ---
 

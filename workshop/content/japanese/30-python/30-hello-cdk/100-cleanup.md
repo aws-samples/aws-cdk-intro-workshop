@@ -1,5 +1,5 @@
 +++
-title = "Cleanup sample"
+title = "サンプルコードの削除"
 weight = 100
 +++
 

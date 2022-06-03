@@ -83,7 +83,7 @@ class CdkWorkshopStack(Stack):
 
 1. __`scope`__: 最初の引数は常に、このコンストラクトが作成されるスコープです。ほとんどの場合、_現在_ のスコープ内でコンストラクトを定義することになります。つまり、通常は最初の引数に `self` を渡すだけです。
 2. __`id`__: 二番目の引数はコンストラクトの __ローカルID__ です。これは、同じスコープ内のコンストラクトの中で一意でなければならないIDです。CDK はこの ID を使用して、このスコープ内で定義された各リソースの CloudFormation [論理 ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) を計算します。CDK の ID の詳細については [CDK ユーザーマニュアル](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids) を参照してください。
-3. __`kwargs`__: 最後の (時にはオプションの) 引数は、初期化プロパティのセットです。これらは各構成に固有です。たとえば、例えば、`Lambda.Function` 構文は `runtime`、`code`、`handler`のようなプロパティを受け入れます。IDE のオートコンプリートを使用するか、[オンラインドキュメント](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html) でさまざまなオプションを調べることができます。
+3. __`kwargs`__: 最後の (時にはオプションの) 引数は、初期化プロパティのセットです。これらは各コンストラクトに依存です。例えば、`Lambda.Function` 構文は `runtime`、`code`、`handler`のようなプロパティを受け入れます。IDE のオートコンプリートを使用するか、[オンラインドキュメント](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html) でさまざまなオプションを調べることができます。
 
 ## Diff
 
@@ -123,7 +123,7 @@ Resources
 [+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
-ご覧のとおり、このコードは __AWS:: Lambda:: Function__ 用の CloudFormation テンプレートを生成しました。また、ハンドラーコードの場所を伝達するために [CloudFormation パラメータ](https://docs.aws.amazon.com/cdk/latest/guide/get_cfn_param.html)がツールキットによって使用されます。
+ご覧のとおり、このコードは __AWS::Lambda::Function__ 用の CloudFormation テンプレートを生成しました。ハンドラーコードの場所を伝達するために、ツールキットが利用する [CloudFormation パラメータ](https://docs.aws.amazon.com/cdk/latest/guide/get_cfn_param.html)が生成されています。
 
 ## デプロイ
 
@@ -132,7 +132,7 @@ Resources
 ```
 cdk deploy
 ```
-`cdk deploy` を実行すると、CloudFormation スタックをデプロイするだけでなく、初期構築したS3バケットに対して、ローカルの `lambda` ディレクトリを圧縮後、アップロードしていることがが分かるでしょう。
+`cdk deploy` を実行すると、CloudFormation スタックをデプロイするだけでなく、初期構築した S3 バケットに対して、ローカルの `lambda` ディレクトリを圧縮後、アップロードしていることが分かります。
 
 ## 関数のテスト
 
@@ -140,27 +140,27 @@ AWS Lambda コンソールに移動して、Lambda 関数をテストしまし�
 
 1. [AWS Lambda Console](https://console.aws.amazon.com/lambda/home#/functions) を開きます。(正しいリージョンにいることを確認してください)
 
-    Lambda関数が表示されます。
+    Lambda 関数が表示されます。
 
     ![](./lambda-1.png)
 
 2. 関数名をクリックして、コンソールを移動します。
 
-3. __テスト__ ボタンをクリックして、 __テストイベントの設定__ ダイアログを開きます。
+3. __Test__ ボタンをクリックして、 __テストイベントを設定__ ダイアログが開きます。
 
     ![](./lambda-2.png)
 
-4. __イベントテンプレート__ リストから __Amazon API Gateway AWS Proxy__ を選択します。
+4. __テンプレート__ リストから __API Gateway AWS Proxy__ を選択します。
 
-5. __Event name__ に `test` を入力します。
+5. __イベント名__ に `test` を入力します。
 
     ![](./lambda-3.png)
 
-6. __作成__ をクリック.
+6. 下にスクロールして、 __保存__ をクリック。
 
-7. __テスト__ をもう一度クリックし、実行が完了するまで待ちます。
+7. __Test__ をもう一度クリックし、実行が完了するまで待ちます。
 
-8. __実行結果__ ペインで __詳細__ を展開すると、出力が表示されます。
+8. __Execution results__ ペインで出力が表示されます。
 
     ![](./lambda-4.png)
 
