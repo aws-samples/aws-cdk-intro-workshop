@@ -3,20 +3,13 @@ title = "API Gateway"
 weight = 400
 +++
 
-Next step is to add an API Gateway in front of our function. API Gateway will
-expose a public HTTP endpoint that anyone on the internet can hit with an HTTP
-client such as [curl](https://curl.haxx.se/) or a web browser.
+次のステップは、Lambda 関数の前に API Gateway を追加することです。API Gateway は、インターネット経由で [curl](https://curl.haxx.se/) などの HTTP クライアントやウェブブラウザでアクセスできるパブリック HTTP エンドポイントを公開します。
 
-We will use [Lambda proxy
-integration](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html)
-mounted to the root of the API. This means that any request to any URL path will
-be proxied directly to our Lambda function, and the response from the function
-will be returned back to the user.
+API のルートにマウントされた [Lambda プロキシ統合](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html) を使用します。つまり、任意の URL パスへのリクエストは全て Lambda 関数に直接プロキシされ、関数からの応答がユーザーに返されます。
 
-## Add a LambdaRestApi construct to your stack
+## LambdaRestApi コンストラクトをスタックに追加
 
-Let's define an API endpoint and associate it with our Lambda function. Add this code to `cdk_workshop_stack.py` (which you should
-still have open from the last step):
+API エンドポイントを定義して、それを Lambda 関数に関連付けましょう。次のコードを `cdk_workshop_stack.py` に追加します
 
 {{<highlight python "hl_lines=5 21-24">}}
 from constructs import Construct
@@ -45,18 +38,17 @@ class CdkWorkshopStack(Stack):
         )
 {{</highlight>}}
 
-That's it. This is all you need to do in order to define an API Gateway which
-proxies all requests to an AWS Lambda function.
+AWS Lambda 関数へのすべてのリクエストをプロキシする API Gateway を定義するために必要なことはこれだけです。
 
 ## cdk diff
 
-Let's see what's going to happen when we deploy this:
+これを展開するとどうなるか見てみましょう。
 
 ```
 cdk diff
 ```
 
-Output should look like this:
+出力は次のようになります。
 
 ```
 The cdk-workshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
@@ -129,64 +121,58 @@ Outputs
 [+] Output Endpoint/Endpoint Endpoint8024A810: {"Value":{"Fn::Join":["",["https://",{"Ref":"EndpointEEF1FD8F"},".execute-api.us-east-2.",{"Ref":"AWS::URLSuffix"},"/",{"Ref":"EndpointDeploymentStageprodB78BEEA0"},"/"]]}}
 ```
 
-That's nice. This one line of code added 12 new resources to our stack.
+追加したコードにより、12 個の新しいリソースがスタックに追加されることがわかります。
 
 ## cdk deploy
 
-Okay, ready to deploy?
+デプロイしましょう。
 
 ```
 cdk deploy
 ```
 
-## Stack outputs
+## スタックの出力
 
-When deployment is complete, you'll notice this line:
+デプロイが完了すると、次の行にご注目ください。
 
 ```
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-This is a [stack output](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) that's
-automatically added by the API Gateway construct and includes the URL of the API Gateway endpoint.
+これは、API Gateway コンストラクトによって自動的に追加され、API Gateway エンドポイントの URL を含む [スタック出力値](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) です。
 
-## Testing your app
+## アプリのテスト
 
-Let's try to hit this endpoint with `curl`. Copy the URL and execute (your
-prefix and region will likely be different).
+このエンドポイントを `curl` でアクセスしてみましょう。URL をコピーして実行します (プレフィックスとリージョンは異なる可能性があります)。
 
 {{% notice info %}}
-If you don't have [curl](https://curl.haxx.se/) installed, you can always use
-your favorite web browser to hit this URL.
+[curl](https://curl.haxx.se/) がインストールされていない場合は、お気に入りのウェブブラウザでもこの URL にアクセスできます。
 {{% /notice %}}
 
 ```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-Output should look like this:
+出力は次のようになります。
 
 ```
 Hello, CDK! You've hit /
 ```
 
-You can also use your web browser for this:
+Webブラウザでも確認できます。
 
 ![](./browser.png)
 
-If this is the output you received, your app works!
+この出力がされていれば、アプリは正常に動作しています。
 
-## What if it didn't work?
+## 正常に動作していないとき
 
-If you received a 5xx error from API Gateway, it is likely one of two issues:
+API Gateway から 5xx エラーを受け取った場合、次の 2つの問題のいずれかが該当しています。
 
-1. The response your function returned is not what API Gateway expects. Go back
-   and make sure your handler returns a response that includes a `statusCode`,
-   `body` and `header` fields (see [Write handler runtime
-   code](./200-lambda.html)).
-2. Your function failed for some reason. To debug this, you can quickly jump to [this section](../40-hit-counter/500-logs.html)
-   to learn how to view your Lambda logs.
+1. Lambda 関数が返した応答は、API Gateway が期待するものではありません。手順を戻って、Lambda の handler 関数が `statusCode`、`body`、`header` フィールドが含まれているか確認してください。
+
+2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html) に先取りして、Lambda 関数のログを表示する方法を学習します。
 
 ---
 
-Good job! In the next chapter, we'll write our own reusable construct.
+お疲れさまでした！ 次の章では再利用可能な独自のコンストラクトを作成します。
