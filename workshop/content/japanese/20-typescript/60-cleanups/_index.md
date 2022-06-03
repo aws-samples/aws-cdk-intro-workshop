@@ -1,25 +1,23 @@
 +++
-title = "Clean up"
+title = "クリーンアップ"
 weight = 60
 chapter = true
 +++
 
-# Clean up your stack
+# スタックのクリーンアップ
 
-To avoid unexpected charges to your account, make sure you clean up your CDK
-stack.
+AWS アカウントへの予期しない請求を防ぐために、必ず CDK スタックを削除してください。
 
-You can either delete the stack through the AWS CloudFormation console or use
-`cdk destroy`:
+AWS CloudFormation コンソールで削除するか、`cdk destroy` を実行してください。
 
 ```
 cdk destroy
 ```
 
-You'll be asked:
+次のように確認されたら、
 
 ```
 Are you sure you want to delete: CdkWorkshopStack (y/n)?
 ```
 
-Hit "y" and you'll see your stack being destroyed.
+"y" を入力すれば、スタックが削除されていくことを確認できます。
