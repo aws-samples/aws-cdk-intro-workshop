@@ -3,9 +3,9 @@ title = "API Gateway"
 weight = 400
 +++
 
-次のステップは、Lambda関数の前に API Gateway を追加することです。API Gateway は、インターネット上の誰でも [curl](https://curl.haxx.se/) などの HTTP クライアントやウェブブラウザでアクセスできるパブリック HTTP エンドポイントを公開します。
+次のステップは、Lambda 関数の前に API Gateway を追加することです。API Gateway は、インターネット上の誰でも [curl](https://curl.haxx.se/) などの HTTP クライアントやウェブブラウザでアクセスできるパブリック HTTP エンドポイントを公開します。
 
-API のルートにマウントされた [Lambda プロキシ統合](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html) を使用します。つまり、任意の URL パスへのリクエストは 全てLambda 関数に直接プロキシされ、関数からの応答がユーザーに返されます。
+API のルートにマウントされた [Lambda プロキシ統合](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html) を使用します。つまり、任意の URL パスへのリクエストは 全て Lambda 関数に直接プロキシされ、関数からの応答がユーザーに返されます。
 
 ## LambdaRestApi コンストラクトをスタックに追加
 
@@ -38,7 +38,7 @@ class CdkWorkshopStack(Stack):
         )
 {{</highlight>}}
 
-AWS Lambda関数へのすべてのリクエストをプロキシするAPI Gatewayを定義するために必要なことはこれだけです。
+AWS Lambda 関数へのすべてのリクエストをプロキシする API Gateway を定義するために必要なことはこれだけです。
 
 ## cdk diff
 
@@ -121,7 +121,7 @@ Outputs
 [+] Output Endpoint/Endpoint Endpoint8024A810: {"Value":{"Fn::Join":["",["https://",{"Ref":"EndpointEEF1FD8F"},".execute-api.us-east-2.",{"Ref":"AWS::URLSuffix"},"/",{"Ref":"EndpointDeploymentStageprodB78BEEA0"},"/"]]}}
 ```
 
-追加したコードにより、12個の新しいリソースがスタックに追加されることがわかります。
+追加したコードにより、12 個の新しいリソースがスタックに追加されることがわかります。
 
 ## cdk deploy
 
@@ -167,11 +167,11 @@ Webブラウザでも確認できます。
 
 ## 正常に動作していないとき
 
-API Gatewayから5xxエラーを受け取った場合、次の2つの問題のいずれかが該当しています。
+API Gateway から 5xx エラーを受け取った場合、次の 2つの問題のいずれかが該当しています。
 
-1. Lambda 関数が返した応答は、API Gatewayが期待するものではありません。手順を戻って、Lambdaのhandler関数が`statusCode`、`body`、`header`フィールドが含まれているか確認してください。
+1. Lambda 関数が返した応答は、API Gateway が期待するものではありません。手順を戻って、Lambda の handler 関数が `statusCode`、`body`、`header` フィールドが含まれているか確認してください。
 
-2. 何らかの理由でLambda関数が失敗しました。このLambda関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html) にすばやく移動して、Lambda ログを表示する方法を学習します。
+2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html) にすばやく移動して、Lambda ログを表示する方法を学習します。
 
 ---
 
