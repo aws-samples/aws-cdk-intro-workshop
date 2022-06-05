@@ -87,7 +87,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
+This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate development/test deployment).
 
 Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). A Stage in a CDK Pipeline represents a set of one or more CDK Stacks that should be deployed together, to a particular environment.
 
