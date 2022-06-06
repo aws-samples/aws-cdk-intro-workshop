@@ -6,8 +6,6 @@ weight = 130
 ## Define an Empty Pipeline
 Now we are ready to define the basics of the pipeline.
 
-We will be using a new package here, so first `npm install aws-cdk-lib/pipelines`.
-
 Return to the file `lib/pipeline-stack.ts` and edit as follows:
 
 {{<highlight ts "hl_lines=4 15-31">}}
