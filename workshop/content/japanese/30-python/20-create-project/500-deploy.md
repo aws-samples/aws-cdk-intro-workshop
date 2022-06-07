@@ -17,7 +17,7 @@ cdk bootstrap
 
 すると・・・
 
-```
+```text
  ⏳  Bootstrapping environment 999999999999/us-east-1...
 ...
 ```
@@ -26,7 +26,7 @@ cdk bootstrap
 
 ## デプロイしましょう
 
-`cdk deploy` を使って CDK app をデプロイします。
+`cdk deploy` を使って CDK アプリケーションをデプロイします。
 
 ```
 cdk deploy
@@ -34,7 +34,7 @@ cdk deploy
 
 次のような警告が表示されます。
 
-```
+```text
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
 Please confirm you intend to make the following modifications:
 
@@ -55,7 +55,7 @@ Do you wish to deploy these changes (y/n)?
 
 出力は次のようになります。ACCOUNT-ID はアカウント ID、REGION はアプリケーションを作成したリージョン、STACK-ID はスタックの一意の識別子です。
 
-```
+```text
 cdk-workshop: deploying...
 cdk-workshop: creating CloudFormation changeset...
  0/6 | 1:31:31 PM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata     | CDKMetadata

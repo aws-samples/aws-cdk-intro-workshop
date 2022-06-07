@@ -6,9 +6,9 @@ chapter = true
 
 # スタックのクリーンアップ
 
-AWS アカウントでの予期せぬ費用を防ぐために、必ず CDK スタックを削除してください。
+AWS アカウントへの予期しない請求を防ぐために、必ず CDK スタックを削除してください。
 
-AWS CloudFormation コンソールで削除するか、`cdk destroy` でスタックを削除できます。
+AWS CloudFormation コンソールで削除するか、`cdk destroy` を実行してください。
 
 ```
 cdk destroy
@@ -16,7 +16,7 @@ cdk destroy
 
 以下のように質問が表示されます。
 
-```
+```text
 Are you sure you want to delete: cdk-workshop (y/n)?
 ```
 

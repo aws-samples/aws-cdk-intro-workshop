@@ -98,7 +98,7 @@ HTTP/2 502 Bad Gateway
 
 今回もアクセス権限の問題ですが、よく見てみると・・・
 
-```
+```text
 User: <長い文字列> is not authorized to perform: lambda:InvokeFunction on resource: <長い文字列>"
 ```
 
@@ -164,7 +164,7 @@ cdk diff
 
 **Resource** セクションが以下のように表示されます。IAM 権限が追加されたことを確認できます。
 
-```
+```text
 Resources
 [~] AWS::IAM::Policy HelloHitCounter/HitCounterHandler/ServiceRole/DefaultPolicy HelloHitCounterHitCounterHandlerServiceRoleDefaultPolicy1487A60A
  └─ [~] PolicyDocument
@@ -187,7 +187,7 @@ Resources
             [ ] ]
 ```
 
-Which is exactly what we wanted.
+狙い通りです。
 
 ## デプロイ
 
@@ -205,7 +205,7 @@ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 
 結果は以下の通りになるはずです。
 
-```
+```text
 HTTP/2 200 OK
 ...
 

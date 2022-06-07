@@ -5,10 +5,9 @@ weight = 500
 
 ## cdk diff
 
-デプロイする前に、アプリケーションをデプロイするとどうなるか見てみましょう。
-(以下は `Resources` セクションのみ表示しています)
+デプロイする前に、アプリケーションをデプロイするとどうなるか見てみましょう。(以下は `Resources` セクションのみ表示しています)
 
-```
+```text
 $ cdk diff
 Resources
 [+] AWS::IAM::Role ViewHitCounter/Rendered/ServiceRole ViewHitCounterRenderedServiceRole254DB4EA
@@ -44,10 +43,9 @@ CdkWorkshopStack.ViewHitCounterViewerEndpointCA1B1E4B = https://xxxxxxxxx.execut
 
 viewer のエンドポイントが出力に表示されます。
 
-### Viewing the hit counter table
+### HitCounter テーブルを参照
 
-Open your browser and browse to the hit counter viewer endpoint URL. You should
-see something like this:
+WEB ブラウザで HitCounter viewer のエンドポイントの URL を開きます。以下のような内容が表示されるはずです。
 
 ![](./viewer1.png)
 
@@ -75,6 +73,6 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 
 {{% notice tip %}}
 
-**Table Viewer の仕組みに興味ありますか？** 簡単に見られます！**Ctrl** (あるいは **Command**) を押しながら `TableViewer` 要素をクリックすると、ソースコードに遷移できます。それとも、[こちら](https://github.com/eladb/cdk-dynamo-table-viewer) の GitHub のリポジトリで確認できます。
+**Table Viewer の仕組みに興味ありますか？** 簡単に見られます！**Ctrl** (あるいは **Command**) を押しながら `TableViewer` 要素をクリックすると、ソースコードに遷移できます。それとも、[こちら](https://github.com/eladb/cdk-dynamo-table-viewer)の GitHub のリポジトリで確認できます。
 
 {{% /notice %}}

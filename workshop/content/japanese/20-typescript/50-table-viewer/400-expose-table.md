@@ -5,7 +5,7 @@ weight = 400
 
 ## HitCounter にテーブルのプロパティを追加
 
-`hitcounter.py` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
+`hitcounter.js` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
 
 {{<highlight ts "hl_lines=15-16 27">}}
 import * as cdk from 'aws-cdk-lib';
@@ -93,4 +93,4 @@ export class CdkWorkshopStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-コードの変更が完了したので、このファイルを保存し、 `Ctrl-C` で `npm run watch` を終了します。
+コードの変更が完了したので、このファイルを保存し、`Ctrl-C` で `npm run watch` を終了します。

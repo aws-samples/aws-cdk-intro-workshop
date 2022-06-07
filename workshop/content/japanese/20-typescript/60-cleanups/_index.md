@@ -16,7 +16,7 @@ cdk destroy
 
 次のように確認されたら、
 
-```
+```text
 Are you sure you want to delete: CdkWorkshopStack (y/n)?
 ```
 

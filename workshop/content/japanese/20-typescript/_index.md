@@ -4,8 +4,8 @@ chapter = true
 weight = 20
 +++
 
-# The TypeScript Workshop
+# TypeScript ワークショップ
 
-こちらのワークショップのバリエーションでは、 TypeScript 言語で体験できます。
+こちらのワークショップのバリエーションでは、TypeScript 言語で体験できます。
 
 

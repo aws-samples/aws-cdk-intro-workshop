@@ -32,7 +32,7 @@ def handler(event, context):
     }
 {{</highlight>}}
 
-これで `cdk deploy` を実行することができます
+これで `cdk deploy` を実行することができます。
 
 ```
 cdk deploy
@@ -40,7 +40,7 @@ cdk deploy
 
 出力は次のようになります。
 
-```
+```text
 ✨  Synthesis time: 6s
 
 CdkWorkshopStack: deploying...
@@ -95,7 +95,7 @@ cdk deploy --hotswap
 
 出力は次のようになります。
 
-```
+```text
 ✨  Synthesis time: 6.44s
 
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
@@ -119,7 +119,7 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 CloudFormation のデプロイが完了するには 67秒かかったのに対し、ホットスワップされた変更をデプロイするのにかかったのは 3秒です。
 警告メッセージをよく見てください。非常に重要です！（開発目的でのみ使用してください。実稼働環境ではホットスワップを使用しないでください！）
 
-```
+```text
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
 ⚠️ It should only be used for development - never use it for your production Stacks!
 ```
@@ -148,7 +148,7 @@ CloudFormation のデプロイが完了するには 67秒かかったのに対�
 
 ## `cdk.json` ファイルを見てみましょう
 
-`cdk watch` コマンドが実行されると、監視対象のファイルが `cdk.json` ファイルの `"watch"` 設定によって決定されます。`"include"` と `"exclude"` の 2 つのサブキーがあり、それぞれが単一の文字列または文字列の配列のいずれかになります。
+`cdk watch` コマンドが実行されると、監視対象のファイルが `cdk.json` ファイルの `"watch"` 設定によって決定されます。`"include"` と `"exclude"` の 2つのサブキーがあり、それぞれが単一の文字列または文字列の配列のいずれかになります。
 各エントリは、`cdk.json` ファイルの場所からの相対パスとして解釈されます。なお、`*` と `**` の両方が使えます。
 
 `cdk.json` ファイルは次のようになります。
@@ -189,7 +189,7 @@ cdk watch
 ```
 
 これにより、初期デプロイが実行され、すぐに `cdk.json` で指定したファイルの監視が開始されます。
-`lambda/hello.py` のラムダアセットコードをもう一度変更してみましょう:
+`lambda/hello.py` の Lambda アセットコードをもう一度変更してみましょう。
 
 {{<highlight python "hl_lines=10">}}
 import json
@@ -209,7 +209,7 @@ Lambda 関数のコードファイルを変更すると、`cdk watch` は変更�
 
 どれくらいの時間がかかりましたか？
 
-```
+```text
 Detected change to 'lambda/hello.py' (type: change). Triggering 'cdk deploy'
 
 ✨  Synthesis time: 5.57s
@@ -232,7 +232,7 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 8.11s
 ```
 
-## Wrap Up
+## まとめ
 
 このチュートリアルの残りの部分では、引き続き `cdk watch` の代わりに `cdk deploy` を使用します。
 しかし、もし望むなら、単に `cdk watch` をオンにしておくことができます。完全なデプロイを行う必要がある場合、`cdk watch` は `cdk deploy` を呼び出します。

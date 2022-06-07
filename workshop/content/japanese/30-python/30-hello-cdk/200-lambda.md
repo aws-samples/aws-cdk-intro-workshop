@@ -3,11 +3,11 @@ title = "Hello Lambda"
 weight = 200
 +++
 
-## Lambda handler code
+## Lambda handler のコード
 
 まず、Lambda handlerのコードから記述します。
 
-1. プロジェクトツリーのルート (`cdk_workshop`ディレクトリの隣) に `lambda` ディレクトリを作成します。
+1. プロジェクトツリーのルート (`cdk_workshop` ディレクトリと同階層) に `lambda` ディレクトリを作成します。
 2. `lambda/hello.py` という名前のファイルを作成し、以下のコードを追加します。
 
 ```python
@@ -25,12 +25,13 @@ def handler(event, context):
 ```
 これは __"Hello, CDK! You've hit [url path]"__ を返す単純な Lambda 関数です。HTTP ステータスコードと HTTP ヘッダーが付加された HTTP レスポンスとしてユーザーに応答するために、API Gateway を使用します。
 
-{{% notice info %}} この Lambda 関数 は Python で実装されています。その他の言語での実装については[AWS Lambda のドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/welcome.html)を参照してください。
+{{% notice info %}}
+この Lambda 関数は Python で実装されています。その他の言語での実装については [AWS Lambda のドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/welcome.html)を参照してください。
 {{% /notice %}}
 
 ## AWS Lambda コンストラクトライブラリをインストールする
 
-AWS CDK には、__AWS Construct Library__ と呼ばれるコンストラクトのための様々なライブラリが付属しています。AWS Construct Library は、AWS サービスごとに 1 つずつ、__モジュール__ として提供されます。たとえば、AWS Lambda 関数を定義する場合、AWS Lambda の Construct Library を使用する必要があります。
+AWS CDK には、__AWS Construct Library__ と呼ばれるコンストラクトのための様々なライブラリが付属しています。AWS Construct Library は、AWS サービスごとに 1つずつ、__モジュール__ として提供されます。たとえば、AWS Lambda 関数を定義する場合、AWS Lambda の Construct Library を使用する必要があります。
 
 AWS コンストラクトについて学ぶには、[AWS Construct Library reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html) を参照してください。
 
@@ -75,17 +76,17 @@ class CdkWorkshopStack(Stack):
 - ハンドラーコードは、先ほど作成した `lambda` ディレクトリからロードされます。パスは、プロジェクトのルートディレクトリである `cdk` を実行した場所からの相対パスです。
 - ハンドラー関数の名前は `hello.handler` です (「hello」はファイルの名前で、「handler」は関数名です)
 
-## コンストラクト(constructs)とコンストラクター(constructors)について
+## コンストラクト (constructs) とコンストラクター (constructors) について
 
-ご覧のとおり、`CDKWorkshopStack`と `Lambda.Function`の両方の（および CDK 内の他の多くの）コンストラクタークラスには、`（スコープ、id、**kwargs）`というシグネチャがあります。これは、これらのクラスがすべて __コンストラクト__ であるため、CDK アプリの基本的な構成要素となっています。それらは抽象的な「クラウドコンポーネント」を表し、スコープを介してより高いレベルの抽象化にまとめることができます。スコープにはコンストラクトを含めることができ、そのコンストラクトには他のコンストラクトなどを含めることができます。
+ご覧のとおり、`CDKWorkshopStack`と `Lambda.Function`の両方の（および CDK 内の他の多くの）コンストラクタークラスには、`（スコープ、id、**kwargs）`というシグネチャがあります。これは、これらのクラスがすべて __コンストラクト__ であるため、CDK アプリケーションの基本的な構成要素となっています。それらは抽象的な「クラウドコンポーネント」を表し、スコープを介してより高いレベルの抽象化にまとめることができます。スコープにはコンストラクトを含めることができ、そのコンストラクトには他のコンストラクトなどを含めることができます。
 
 コンストラクトは常に別のコンストラクトのスコープ内に作成され、作成されたスコープ内で一意でなければならない識別子を常に持つ必要があります。したがって、コンストラクト初期化子 (コンストラクター) は常に次のシグネチャを持ちます。
 
 1. __`scope`__: 最初の引数は常に、このコンストラクトが作成されるスコープです。ほとんどの場合、_現在_ のスコープ内でコンストラクトを定義することになります。つまり、通常は最初の引数に `self` を渡すだけです。
-2. __`id`__: 二番目の引数はコンストラクトの __ローカルID__ です。これは、同じスコープ内のコンストラクトの中で一意でなければならないIDです。CDK はこの ID を使用して、このスコープ内で定義された各リソースの CloudFormation [論理 ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) を計算します。CDK の ID の詳細については [CDK ユーザーマニュアル](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids) を参照してください。
-3. __`kwargs`__: 最後の (時にはオプションの) 引数は、初期化プロパティのセットです。これらは各コンストラクトに依存です。例えば、`Lambda.Function` 構文は `runtime`、`code`、`handler`のようなプロパティを受け入れます。IDE のオートコンプリートを使用するか、[オンラインドキュメント](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html) でさまざまなオプションを調べることができます。
+2. __`id`__: 2番目の引数はコンストラクトの __ローカルID__ です。これは、同じスコープ内のコンストラクトの中で一意でなければならないIDです。CDK はこの ID を使用して、このスコープ内で定義された各リソースの CloudFormation [論理 ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) を計算します。CDK の ID の詳細については [CDK ユーザーマニュアル](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)を参照してください。
+3. __`kwargs`__: 最後の (時にはオプションの) 引数は、初期化プロパティのセットです。これらは各コンストラクトに依存です。例えば、`Lambda.Function` 構文は `runtime`、`code`、`handler`のようなプロパティを受け入れます。IDE のオートコンプリートを使用するか、[オンラインドキュメント](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)でさまざまなオプションを調べることができます。
 
-## Diff
+## 差分
 
 コードを保存し、デプロイする前に差分を見てみましょう。
 
@@ -95,7 +96,7 @@ cdk diff
 
 出力は次のようになります。
 
-```
+```text
 The cdk-workshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────────┬────────┬────────────────────────┬────────────────────────┬───────────┐
@@ -123,7 +124,7 @@ Resources
 [+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
-ご覧のとおり、このコードは __AWS::Lambda::Function__ 用の CloudFormation テンプレートを生成しました。ハンドラーコードの場所を伝達するために、ツールキットが利用する [CloudFormation パラメータ](https://docs.aws.amazon.com/cdk/latest/guide/get_cfn_param.html)が生成されています。
+ご覧のとおり、このコードは __AWS::Lambda::Function__ 用の CloudFormation テンプレートを生成しました。ハンドラーコードの場所を伝達するために、ツールキットが利用する [CloudFormation パラメータ](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/parameters.html)が生成されています。
 
 ## デプロイ
 
@@ -134,7 +135,7 @@ cdk deploy
 ```
 `cdk deploy` を実行すると、CloudFormation スタックをデプロイするだけでなく、初期構築した S3 バケットに対して、ローカルの `lambda` ディレクトリを圧縮後、アップロードしていることが分かります。
 
-## 関数のテスト
+## Lambda 関数のテスト
 
 AWS Lambda コンソールに移動して、Lambda 関数をテストしましょう。
 
@@ -156,7 +157,7 @@ AWS Lambda コンソールに移動して、Lambda 関数をテストしまし�
 
     ![](./lambda-3.png)
 
-6. 下にスクロールして、 __保存__ をクリック。
+6. 下にスクロールして、 __保存__ をクリックします。
 
 7. __Test__ をもう一度クリックし、実行が完了するまで待ちます。
 

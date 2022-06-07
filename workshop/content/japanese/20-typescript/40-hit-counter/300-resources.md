@@ -14,7 +14,7 @@ Lambda 関数と DynamoDB テーブルを `HitCounter` コンストラクトに�
 
 {{% /notice %}}
 
-さて、 `lib/hitcounter.ts` に戻ります。 次の強調されたコードを追加します。
+さて、`lib/hitcounter.ts` に戻ります。 次の強調されたコードを追加します。
 
 {{<highlight ts "hl_lines=3 13-14 19-31">}}
 import * as cdk from 'aws-cdk-lib';

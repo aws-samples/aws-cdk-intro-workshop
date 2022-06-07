@@ -50,7 +50,7 @@ cdk diff
 
 出力は次のようになります。
 
-```
+```text
 The cdk-workshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
 ┌───┬────────────────────┬────────┬────────────────────┬────────────────────┬───────────────────────┐
@@ -135,7 +135,7 @@ cdk deploy
 
 デプロイが完了すると、次の行にご注目ください。
 
-```
+```text
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
@@ -155,7 +155,7 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 
 出力は次のようになります。
 
-```
+```text
 Hello, CDK! You've hit /
 ```
 
@@ -169,9 +169,9 @@ Webブラウザでも確認できます。
 
 API Gateway から 5xx エラーを受け取った場合、次の 2つの問題のいずれかが該当しています。
 
-1. Lambda 関数が返した応答は、API Gateway が期待するものではありません。手順を戻って、Lambda の handler 関数が `statusCode`、`body`、`header` フィールドが含まれているか確認してください。
+1. Lambda 関数が返した応答は、API Gateway が期待するものではありません。手順を戻って、Lambda の handler 関数が `statusCode`、`body`、`header` フィールドが含まれているか確認してください ([Lambda handler のコード](./200-lambda.html)を参照)。
 
-2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html) に先取りして、Lambda 関数のログを表示する方法を学習します。
+2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html)に先取りして、Lambda 関数のログを表示する方法を学習します。
 
 ---
 

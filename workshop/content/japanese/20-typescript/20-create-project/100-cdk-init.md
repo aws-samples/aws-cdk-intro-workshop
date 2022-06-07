@@ -22,7 +22,7 @@ cdk init sample-app --language typescript
 次のように出力されます（gitがインストールされていない場合、Gitリポジトリの初期化に関する警告が表示されますが、無視しても問題ありません。）
 
 
-```
+```text
 Applying project template app for typescript
 Initializing a new git repository...
 Executing npm install...

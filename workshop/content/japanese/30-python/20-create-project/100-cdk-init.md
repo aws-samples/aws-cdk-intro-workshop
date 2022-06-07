@@ -21,7 +21,7 @@ cdk init sample-app --language python
 
 次のように出力されます（gitがインストールされていない場合、Gitリポジトリの初期化に関する警告が表示されますが、無視しても問題ありません。）
 
-````bash
+````text
 Applying project template sample-app for python
 Initializing a new git repository...
 Executing Creating virtualenv...

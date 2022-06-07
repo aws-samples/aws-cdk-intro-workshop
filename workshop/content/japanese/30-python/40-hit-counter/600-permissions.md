@@ -94,7 +94,7 @@ HTTP/1.1 502 Bad Gateway
 
 今回もアクセス権限の問題ですが、よく見てみると・・・
 
-```
+```text
 User: <長い文字列> is not authorized to perform: lambda:InvokeFunction on resource: <長い文字列>"
 ```
 
@@ -154,7 +154,7 @@ cdk diff
 
 **Resource** セクションが以下のように表示されます。IAM 権限が追加されたことを確認できます。
 
-```
+```text
 Stack cdk-workshop
 The cdk-workshop stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
 IAM Statement Changes
@@ -207,7 +207,7 @@ curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 
 結果は以下の通りになるはずです。
 
-```
+```text
 HTTP/1.1 200 OK
 ...
 

@@ -10,7 +10,7 @@ API のルートにマウントされた [Lambda プロキシ統合](https://doc
 
 {{% notice info %}}
 
-**Windowsユーザーへの注意** : Windowsでは、バックグラウンドで動いている、`npm run watch` コマンドを停止する必要があります。 停止後、 `npm install` を実行し、再度 `npm run watch` を実行します。そうしなければ、使用中のファイルに関するエラーが発生します。
+**Windowsユーザーへの注意** : Windowsでは、バックグラウンドで動いている、`npm run watch` コマンドを停止する必要があります。 停止後、`npm install` を実行し、再度 `npm run watch` を実行します。そうしなければ、使用中のファイルに関するエラーが発生します。
 
 {{% /notice %}}
 
@@ -136,7 +136,7 @@ cdk deploy
 
 デプロイが完了すると、次の行にご注目ください。
 
-```
+```text
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
@@ -156,7 +156,7 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 
 出力は次のようになります。
 
-```
+```text
 Hello, CDK! You've hit /
 ```
 
@@ -166,17 +166,14 @@ Webブラウザでも確認できます。
 
 この出力がされていれば、アプリは正常に動作しています。
 
-## What if it didn't work?
+## 正常に動作していないとき
 
-If you received a 5xx error from API Gateway, it is likely one of two issues:
+API Gateway から 5xx エラーを受け取った場合、次の 2つの問題のいずれかが該当しています。
 
-1. The response your function returned is not what API Gateway expects. Go back
-   and make sure your handler returns a response that includes a `statusCode`,
-   `body` and `header` fields (see [Write handler runtime
-   code](./200-lambda.html)).
-2. Your function failed for some reason. To debug this, you can quickly jump to [this section](../40-hit-counter/500-logs.html)
-   to learn how to view your Lambda logs.
+1. Lambda 関数が返した応答は、API Gateway が期待するものではありません。手順を戻って、Lambda の handler 関数が `statusCode`、`body`、`header` フィールドが含まれているか確認してください ([Lambda handler のコード](./200-lambda.html)を参照)。
+
+2. 何らかの理由で Lambda 関数が失敗しました。この Lambda 関数をデバッグするには、[このセクション](../40-hit-counter/500-logs.html)に先取りして、Lambda 関数のログを表示する方法を学習します。
 
 ---
 
-Good job! In the next chapter, we'll write our own reusable construct.
+お疲れさまでした！ 次の章では再利用可能な独自のコンストラクトを作成します。

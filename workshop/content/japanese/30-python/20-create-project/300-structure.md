@@ -30,7 +30,7 @@ weight = 300
 
 ## エントリーポイント
 
-`app.py`ファイルを簡単に見てみましょう。
+`app.py` ファイルを簡単に見てみましょう。
 
 ```python
 #!/usr/bin/env python3

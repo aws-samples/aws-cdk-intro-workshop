@@ -7,7 +7,7 @@ weight = 500
 
 ## 環境のブートストラップ
 
-AWS CDK アプリケーションを環境 (アカウント/リージョン) に初めてデプロイするときは、「Bootstrapスタック」をインストールする必要があります。このスタックには、ツールキットの操作に必要なリソースが含まれています。たとえば、このスタックには、デプロイプロセス中にテンプレートとアセットを保存するための S3 バケットが含まれています。
+AWS CDK アプリケーションを環境 (アカウント/リージョン) に初めてデプロイするときは、「 Bootstrap スタック」をインストールする必要があります。このスタックには、ツールキットの操作に必要なリソースが含まれています。たとえば、このスタックには、デプロイプロセス中にテンプレートとアセットを保存するための S3 バケットが含まれています。
 
 `cdk bootstrap` コマンドを使用して、ブートストラップスタックを環境にインストールできます。
 
@@ -19,7 +19,7 @@ cdk bootstrap
 
 すると...
 
-```
+```text
  ⏳  Bootstrapping environment aws://999999999999/us-east-1...
 ...
 ```
@@ -62,7 +62,7 @@ Do you wish to deploy these changes (y/n)?
 
 
 
-```
+```text
 CdkWorkshopStack: deploying...
 CdkWorkshopStack: creating CloudFormation changeset...
 
