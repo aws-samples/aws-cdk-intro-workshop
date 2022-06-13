@@ -16,7 +16,6 @@ from aws_cdk import (
     aws_codecommit as codecommit,
     pipelines as pipelines,
 )
-from cdk_workshop.pipeline_stage import WorkshopPipelineStage
 
 class WorkshopPipelineStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
@@ -36,7 +35,7 @@ class WorkshopPipelineStack(Stack):
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
-                    "npx cdk synth",
+                    "cdk synth",
                 ]
             ),
         )
@@ -54,7 +53,7 @@ All that's left to get our pipeline up and running is to commit our changes and 
 
 ```
 git commit -am "MESSAGE" && git push
-npx cdk deploy
+cdk deploy
 ```
 
 CdkPipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!
