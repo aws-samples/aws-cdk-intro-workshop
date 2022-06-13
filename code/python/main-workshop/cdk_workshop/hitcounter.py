@@ -34,5 +34,5 @@ class HitCounter(Construct):
             },
         )
 
-        self._table.grant_read_write_data(self.handler)
-        downstream.grant_invoke(self.handler)
+        self._table.grant_read_write_data(self._handler)
+        downstream.grant_invoke(self._handler)
