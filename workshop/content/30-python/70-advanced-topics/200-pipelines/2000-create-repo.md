@@ -14,6 +14,7 @@ from aws_cdk import (
     Stack,
     aws_codecommit as codecommit,
 )
+from cdk_workshop.pipeline_stage import WorkshopPipelineStage
 
 class WorkshopPipelineStack(Stack):
 

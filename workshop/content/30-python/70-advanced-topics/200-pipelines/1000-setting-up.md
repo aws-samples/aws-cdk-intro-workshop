@@ -16,7 +16,7 @@ from constructs import Construct
 from aws_cdk import (
     Stack
 )
-from pipeline_stage import WorkshopPipelineStage
+from cdk_workshop.pipeline_stage import WorkshopPipelineStage
 
 class WorkshopPipelineStack(Stack):
 
