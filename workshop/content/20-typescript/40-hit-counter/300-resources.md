@@ -6,19 +6,7 @@ weight = 300
 ## Add resources to the hit counter construct
 
 Now, let's define the AWS Lambda function and the DynamoDB table in our
-`HitCounter` construct.
-
-
-{{% notice info %}}
-
-**Windows users**: on Windows, you will have to stop the `npm run watch` command
-that is running in the background, then run `npm install`, then start
-`npm run watch` again. Otherwise you will get an error about files being
-in use.
-
-{{% /notice %}}
-
-Now, go back to `lib/hitcounter.ts` and add the following highlighted code:
+`HitCounter` construct. Go back to `lib/hitcounter.ts` and add the following highlighted code:
 
 {{<highlight ts "hl_lines=3 13-14 19-31">}}
 import * as cdk from 'aws-cdk-lib';
