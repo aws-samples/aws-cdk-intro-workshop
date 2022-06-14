@@ -10,8 +10,8 @@ We'll start with the AWS Lambda handler code.
 1. Create a directory `lambda` in the root of your project tree (next to `bin`
    and `lib`).
 2. TS CDK projects created with `cdk init` ignore all `.js` files by default. 
-   To track these files, add `!lambda/*.js` to your `.gitignore` file. This 
-   ensures that your Lambda assets are discoverable during the Pipelines 
+   To track these files with git, add `!lambda/*.js` to your `.gitignore` file. 
+   This ensures that your Lambda assets are discoverable during the Pipelines 
    section of this tutorial.
 3. Add a file called `lambda/hello.js` with the following contents:
 
