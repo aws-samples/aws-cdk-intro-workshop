@@ -9,7 +9,9 @@ We'll start with the AWS Lambda handler code.
 
 1. Create a directory `lambda` in the root of your project tree (next to `bin`
    and `lib`).
-2. Add a file called `lambda/hello.js` with the following contents:
+2. Add `!lambda/*.js` to the `.gitignore` file. This ensures that your Lambda 
+   assets are discoverable during the Pipelines section of this tutorial.
+3. Add a file called `lambda/hello.js` with the following contents:
 
 ---
 ```js
@@ -32,8 +34,6 @@ the user.
 on writing lambda functions in your language of choice, please refer to the AWS
 Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 {{% /notice %}}
-
-Also, if you are going to actively use git, consider adding `!lambda/*.js` in `.gitignore` file.
 
 ## Install the AWS Lambda construct library
 
