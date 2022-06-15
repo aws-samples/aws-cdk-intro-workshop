@@ -55,10 +55,9 @@ IAM Statement Changes
 Do you wish to deploy these changes (y/n)?
 ```
 
-This is warning you that deploying the app entails some risk.  Since we need to
-allow the topic to send messages to the queue and we are also creating an IAM
-User and granting access to the new Buckets, enter **y** to deploy the stack
-and create the resources.
+This is warning you that deploying the app contains security-sensitive changes.
+Since we need to allow the topic to send messages to the queue,
+enter **y** to deploy the stack and create the resources.
 
 Output should look like the following, where ACCOUNT-ID is your account ID, REGION is the region in which you created the app,
 and STACK-ID is the unique identifier for your stack:

@@ -56,7 +56,7 @@ IAM Statement Changes
 Do you wish to deploy these changes (y/n)?
 ```
 
-This is warning you that deploying the app entails some risk.
+This is warning you that deploying the app contains security-sensitive changes.
 Since we need to allow the topic to send messages to the queue,
 enter **y** to deploy the stack and create the resources.
 
