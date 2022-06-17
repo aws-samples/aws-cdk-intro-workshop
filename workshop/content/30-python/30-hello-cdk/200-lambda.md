@@ -198,7 +198,7 @@ Let's go to the AWS Lambda Console and test our function.
 
     ![](./lambda-2.png)
 
-4. Select __Amazon API Gateway AWS Proxy__ from the __Event template__ list.
+4. Select __apigateway-aws-proxy__ from the __Event template__ list.
 
 5. Enter `test` under __Event name__.
 
