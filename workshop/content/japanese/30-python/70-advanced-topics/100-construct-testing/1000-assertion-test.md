@@ -129,7 +129,7 @@ def test_lambda_has_env_vars():
 $ pytest
 ```
 
-今回のテストが失敗するが、期待値の出力から環境変数の正しい値を入手できるはずです。
+今回のテストは失敗しますが、期待値の出力から環境変数の正しい値を入手できるはずです。
 
 {{<highlight bash "hl_lines=17">}}
 $ pytest

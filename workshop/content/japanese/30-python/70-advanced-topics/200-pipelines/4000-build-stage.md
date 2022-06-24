@@ -65,7 +65,7 @@ class WorkshopPipelineStack(Stack):
         deploy_stage = pipeline.add_stage(deploy)
 {{</highlight>}}
 
-`WorkshopPipelineStage` をインポートし、インスタンスがさくせされます。
+`WorkshopPipelineStage` をインポートし、インスタンスが作成されます。
 場合によって、このステージの複数のインスタンスを作成することがあります (たとえば、本番環境と開発/テスト環境のデプロイを分ける場合など)。
 
 次に、このステージをパイプラインに追加します (`pipeline.add_stage(deploy)`)。CDK パイプラインの `Stage` とは、特定の環境にて一緒にデプロイする必要のある 1つ以上の CDK スタックのセットを表します。

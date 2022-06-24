@@ -74,7 +74,7 @@ git remote add origin XXXXX
 git push --set-upstream origin master
 ```
 
-ここで CodeCommitの認証情報が求められます。**Git 認証情報** セクションで作成した認証情報を使います。入力するのは 1回めだけです。
+ここで CodeCommitの認証情報が求められます。**Git 認証情報** セクションで作成した認証情報を使います。入力するのは 1回目だけです。
 
 ### 結果の確認
 CodeCommit のコンソールを見ると、コードがプッシュされたことを確認できます！

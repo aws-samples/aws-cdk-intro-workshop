@@ -71,17 +71,17 @@ class CdkWorkshopStack(Stack):
 {{</highlight>}}
 
 `hc_viewer_url` と `hc_endpoint` の出力を追加することで、HitCounter アプリケーションに必要なエンドポイントを公開します。
-そのために、`CfnOutput` コアコンストラクトを使用して、その出力を Cloudformation スタックの出力として宣言しています (後ほど説明)。
+そのために、`CfnOutput` コアコンストラクトを使用して、その出力を CloudFormation スタックの出力として宣言しています (後ほど説明)。
 
 
-今回の変更をリポジトリにコミットし (`git commit -am "MESSAGE" && git push`)、[ Cloudformation コンソール](https://console.aws.amazon.com/cloudformation) を開きます。スタックが 3つあります。
+今回の変更をリポジトリにコミットし (`git commit -am "MESSAGE" && git push`)、[ CloudFormation コンソール](https://console.aws.amazon.com/cloudformation) を開きます。スタックが 3つあります。
 
 * `CDKToolkit`: こちらは統合 CDK スタックです (ブートストラップされたアカウントでは常に存在するはずです)。特に気にする必要がありません。
 * `WorkshopPipelineStack`: こちらはパイプラインを定義するスタックです。今回確認したいものではありません。
-* `Deploy-WebService`: こちらはアプリケーションです。このスタックの名前にクリックし、`出力` タブを選択します。4つのエンドポイント (重複した値 2組) が表示されます。そのうちの 2つ、`EndpointXXXXXX` と `ViewerHitCounterViewerEndpointXXXXXXX` は Cloudformation によってデフォルトで生成されていて、残りの 2つは明示的に宣言した出力になります。
+* `Deploy-WebService`: こちらはアプリケーションです。このスタックの名前にクリックし、`出力` タブを選択します。4つのエンドポイント (重複した値 2組) が表示されます。そのうちの 2つ、`EndpointXXXXXX` と `ViewerHitCounterViewerEndpointXXXXXXX` は CloudFormation によってデフォルトで生成されていて、残りの 2つは明示的に宣言した出力になります。
 
 
-![](./stack-outputs.png)
+![](/stack-outputs.png)
 
 出力 `TableViewerUrl` の値をクリックすると、最初のワークショップで作成した hitcounter テーブルが表示されます。
 
@@ -207,4 +207,4 @@ class WorkshopPipelineStage(Stage):
 
 ![](./pipeline-tests.png)
 
-おめでとうございます！アプリケーションのテストも含む完璧な CD パイプラインを作成できました！興味があれば、コンソールで作成されたスタックの詳細を確認したり、[API リファレンス](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html) の CDK パイプラインのセクションを確認しみてください。お持ちのアプリケーションにも CDK パイプラインを作ってみたらいかがでしょうか？
+おめでとうございます！アプリケーションのテストも含む完璧な CD パイプラインを作成できました！興味があれば、コンソールで作成されたスタックの詳細を確認したり、[API リファレンス](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html) の CDK パイプラインのセクションを確認してみてください。お持ちのアプリケーションにも CDK パイプラインを作ってみるのはいかがでしょうか？

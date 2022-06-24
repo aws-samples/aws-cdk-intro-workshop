@@ -1,12 +1,12 @@
 +++
-title = "Add Application to Pipeline"
+title = "アプリケーションの追加"
 weight = 140
 +++
 
-## Create Stage
-At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
+## ステージの作成
+この時点では、自動的に自分を更新する CDK パイプラインができています。*しかし*、それ以外は何もしていません。アプリケーションをデプロイするには、そのためのステージを追加する必要があります。
 
-Create a new file in `lib` called `pipeline-stage.ts` with the code below:
+`cdk_wolibrkshop` フォルダに新規に `pipeline-stage.ts` というファイルを以下の内容で作成します。
 
 {{<highlight ts>}}
 import { CdkWorkshopStack } from './cdk-workshop-stack';
@@ -22,10 +22,10 @@ export class WorkshopPipelineStage extends Stage {
 }
 {{</highlight>}}
 
-All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
+これは新しい `Stage` (パイプラインのコンポーネント) を宣言し、そのステージでアプリケーションスタックをインスタンス化します。
 
-Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack as it stands now is not configured to be deployed by a pipeline.
-Open `lib/cdk-workshop-stack.ts` and make the following changes:
+この時点であなたのエディターは、あなたが何か間違ったことをしていると言っているかもしれません。これは、現在のアプリケーションスタックが、パイプラインによってデプロイされるように構成されていないためです。 `lib/cdk-workshop-stack.ts` を開き、次の変更を加えます。
+
 
 {{<highlight ts "hl_lines=9">}}
 import * as cdk from 'aws-cdk-lib';
@@ -42,10 +42,10 @@ export class CdkWorkshopStack extends cdk.Stack {
     // The rest of your code...
 {{</highlight>}}
 
-This stack's `scope` parameter was defined as being a `cdk.App`, which means that in the construct tree, it must be a child of the app. Since the stack is being deployed by the pipeline, it is no longer a child of the app, so its type must be changed to `Construct`.
+このスタックの `scope` パラメータは、`cdk.App` として定義されていました。つまり、コンストラクトツリーでは、app の子である必要があります。スタックはパイプラインによってデプロイされるため、app の子ではなくなり、タイプを `Construct` に変更する必要があります。
 
-## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
+## パイプラインにステージを追加する
+次のコードを `lib/pipeline-stack.ts` に追加して、ステージをパイプラインに追加する必要があります。
 
 {{<highlight ts "hl_lines=4 18 34-35">}}
 import * as cdk from 'aws-cdk-lib';
@@ -87,18 +87,20 @@ export class WorkshopPipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate devlopment/test deployment).
+`WorkshopPipelineStage` をインポートし、インスタンスが作成されます。
+場合によって、このステージの複数のインスタンスを作成することがあります (たとえば、本番環境と開発/テスト環境のデプロイを分ける場合など)。
 
-Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). A Stage in a CDK Pipeline represents a set of one or more CDK Stacks that should be deployed together, to a particular environment.
+次に、このステージをパイプラインに追加します (`pipeline.addStage(deploy);`)。CDK パイプラインの `Stage` とは、特定の環境にて一緒にデプロイする必要のある 1つ以上の CDK スタックのセットを表します。
 
-## Commit/Deploy
-Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
+## コミット/デプロイ
+アプリケーションをデプロイするためのコードを追加できたので、後は変更をコミットしてリポジトリにプッシュするだけです。
+
 
 ```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+プッシュが完了したら、[CodePipeline コンソール](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) でパイプラインの実行状況を確認できます (しばらく時間がかかる場合があります)。
 
 <!--
 ![](./pipeline-fail.png)
@@ -141,4 +143,4 @@ If we commit the change (`git commit -am "fix lambda path" && git push`) and tak
 
 ![](./pipeline-succeed.png)
 
-Success!
+成功しました !

@@ -1,18 +1,17 @@
 +++
-title = "Validation Tests"
+title = "バリデーションテスト"
 weight = 300
 +++
 
-### Validation Tests
+### バリデーションテスト
 
-Sometimes we want the inputs to be configurable, but we also want to put constraints on those inputs or validate
-that the input is valid.
+場合によって、入力値を可変にする必要がありますが、その値に対して制約を設定したり、値の有効性を検証したりすることも必要です。
 
-Suppose for the `HitCounter` construct we want to allow the user to specify the `readCapacity` on the DynamoDB
-table, but we also want to ensure the value is within a reasonable range. We can write a test to make sure
-that the validation logic works: pass in invalid values and see what happens.
+例えば、`HitCounter` コンストラクトに対して、 DynamoDB の `readCapacity` を指定できるようにします。
+ユーザにリーズナブルな範囲で値を指定してもらいたいです。ひとまず、バリデーションロジックが正常に動作していることを確認するためのテストを書きます。
+敢えて無効な値を指定して、結果を確認します。
 
-First, add a `readCapacity` property to the `HitCounterProps` interface:
+まず、`HitCounterProps` インタフェースに、 `readCapacity` プロパティーを追加します。
 
 {{<highlight ts "hl_lines=12">}}
 export interface HitCounterProps {
@@ -30,7 +29,7 @@ export interface HitCounterProps {
 }
 {{</highlight>}}
 
-Then update the DynamoDB table resource to add the `readCapacity` property.
+次は、DynamoDB テーブルのリソースに `readCapacity` プロパティを追加します。
 
 {{<highlight ts "hl_lines=4">}}
 const table = new dynamodb.Table(this, 'Hits', {
@@ -40,7 +39,8 @@ const table = new dynamodb.Table(this, 'Hits', {
 });
 {{</highlight>}}
 
-Now add a validation which will throw an error if the readCapacity is not in the allowed range.
+以下のように、`readCapacity` が範囲外である時にエラーを渡すバリデーションを追加します。
+
 
 {{<highlight ts "hl_lines=9-11">}}
 export class HitCounter extends Construct {
@@ -61,7 +61,7 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-Now lets add a test that validates the error is thrown.
+最後に、エラーが渡されることを確認するテストを追加します。
 
 ```typescript
 test('read capacity can be configured', () => {
@@ -80,13 +80,13 @@ test('read capacity can be configured', () => {
 });
 ```
 
-Run the test.
+テストを実行すると
 
 ```bash
 $ npm run test
 ```
 
-You should see an output like this:
+以下のような出力を確認できるはずです。
 
 ```bash
 $ npm run test
