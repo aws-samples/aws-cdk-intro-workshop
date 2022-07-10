@@ -153,7 +153,7 @@ namespace CdkWorkshop
 {{</highlight>}}
 
 Now we can add those values to our actions in `CdkWorkshop/PipelineStack.cs` by getting the `CfnOutput` of our deploy stage:
-{{<highlight ts "hl_lines=6 15">}}
+{{<highlight ts "hl_lines=5 11">}}
 // CODE HERE...
 
 deployStage.AddPost(new ShellStep("TestViewerEndpoint", new ShellStepProps{

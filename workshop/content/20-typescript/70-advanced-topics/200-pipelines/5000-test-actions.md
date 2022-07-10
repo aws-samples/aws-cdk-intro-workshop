@@ -145,7 +145,7 @@ export class WorkshopPipelineStage extends Stage {
 {{</highlight>}}
 
 Now we can add those values to our actions in `lib/pipeline-stack.ts` by getting the `stackOutput` of our pipeline stack:
-{{<highlight ts "hl_lines=6 17">}}
+{{<highlight ts "hl_lines=6 15">}}
     // CODE HERE...
     deployStage.addPost(
             new CodeBuildStep('TestViewerEndpoint', {
