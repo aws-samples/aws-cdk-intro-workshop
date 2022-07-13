@@ -38,4 +38,4 @@ Each package is owned by its publisher, so contributions, such as bug reports an
 For additional information and to submit your own construct, please see our [contributing page](https://constructs.dev/contribute)
 
 ## Internal Use
-If you are interested in using an instance of the Construct Hub for internal purposes, we are [developing a library](https://github.com/cdklabs/construct-hub) to allow anyone to deploy their own instance. This library is currently in the proof of concept stage and we would appreciate any feedback or assistance you can give on that repo!
+If you are interested in using an instance of the Construct Hub for internal purposes, we are [developing a library](https://github.com/cdklabs/construct-hub) to allow anyone to deploy their own instance. This library is currently in active development and should be considered _experimental_. We would appreciate any feedback or assistance you can give on that repo!
