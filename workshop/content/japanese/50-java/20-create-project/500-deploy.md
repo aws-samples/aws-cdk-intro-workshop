@@ -3,41 +3,37 @@ title = "cdk deploy"
 weight = 500
 +++
 
-Okay, we've got a CloudFormation template. What's next? __Let's deploy it into our account!__
+さて、CloudFormation テンプレートが得られました。早速、 __それを使ってデプロイしましょう！__
 
-## Bootstrapping an environment
+## 環境のブートストラップ
 
-The first time you deploy an AWS CDK app into an environment (account/region),
-you'll need to install a "bootstrap stack". This stack includes resources that
-are needed for the toolkit's operation. For example, the stack includes an S3
-bucket that is used to store templates and assets during the deployment process.
+AWS CDK アプリケーションを環境 (アカウント/リージョン) に初めてデプロイするときは、「 Bootstrap スタック」をインストールする必要があります。このスタックには、ツールキットの操作に必要なリソースが含まれています。たとえば、このスタックには、デプロイプロセス中にテンプレートとアセットを保存するための S3 バケットが含まれています。
 
-You can use the `cdk bootstrap` command to install the bootstrap stack into an
-environment:
+`cdk bootstrap` コマンドを使用して、ブートストラップスタックを環境にインストールできます。
 
 ```
 cdk bootstrap
 ```
 
-Then:
+すると...
 
 ```
  ⏳  Bootstrapping environment 999999999999/us-west-2...
 ...
 ```
 
-Hopefully this command finished successfully and we can move on to deploy our app.
+問題なくできればこのコマンドは正常に終了し、アプリのデプロイに進むことができます。
 
-## Let's deploy
+## デプロイしましょう
 
-Use `mvn package` to compile the code, then `cdk deploy` to deploy a CDK app:
+`mvn package` でコードをコンパイルし、 `cdk deploy` を使って CDK アプリケーションをデプロイします。
 
 ```
 mvn package
 cdk deploy
 ```
 
-You should see a warning like the following:
+次のような警告が表示されます。
 
 ```
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
@@ -57,12 +53,9 @@ IAM Statement Changes
 Do you wish to deploy these changes (y/n)?
 ```
 
-This is warning you that deploying the app contains security-sensitive changes.
-Since we need to allow the topic to send messages to the queue,
-enter **y** to deploy the stack and create the resources.
+これは、デプロイにセキュリティに関するリスクが伴うことを警告するものです。SNS トピックが SQS キューにメッセージを送信できるようアクセスポリシーを作成してアクセス権を付与する必要があります。**y** と入力してスタックをデプロイし、リソースを作成します。
 
-Output should look like the following, where ACCOUNT-ID is your account ID, REGION is the region in which you created the app,
-and STACK-ID is the unique identifier for your stack:
+出力は次のようになります。ACCOUNT-ID はアカウント ID、REGION はアプリケーションを作成したリージョン、STACK-ID はスタックの一意の識別子です。
 
 ```
 CdkWorkshopStack: deploying...
@@ -80,24 +73,22 @@ Stack ARN:
 arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ```
 
-## The CloudFormation Console
+## CloudFormation コンソール
 
-CDK apps are deployed through AWS CloudFormation. Each CDK stack maps 1:1 with
-CloudFormation stack.
+CDK アプリケーションは AWS CloudFormation を通じてデプロイされます。各 CDK スタックは CloudFormation スタックと 1:1 でマッピングされます。
 
-This means that you can use the AWS CloudFormation console in order to manage
-your stacks.
+つまり、AWS CloudFormation コンソールを使用してスタックを管理できます。
 
-Let's take a look at the [AWS CloudFormation
-console](https://console.aws.amazon.com/cloudformation/home).
+[AWS CloudFormation
+コンソール](https://console.aws.amazon.com/cloudformation/home) を見てみましょう。
 
-You will likely see something like this (if you don't, make sure you are in the correct region):
+次のような内容が表示されているはずです。 (表示されない場合は、正しいリージョンを選択しているか確認してください)
 
 ![](./cfn1.png)
 
-If you select `CdkWorkshopStack` and open the __Resources__ tab, you will see the
-physical identities of our resources:
+`CdkWorkshopStack` を選択し、 __リソース__ タブを開けば、リソースの物理IDを確認できます。
+
 
 ![](./cfn2.png)
 
-# I am ready for some actual coding!
+# これでコーディングの準備が整いました

@@ -1,33 +1,33 @@
 +++
-title = "Project structure"
+title = "プロジェクトの構造"
 weight = 300
 +++
 
-## Open your IDE
+## IDEを開く
 
-Now's a good time to open the project in your favorite IDE and explore.
+お気に入りのIDEでプロジェクトを開き、ディレクトリの中身を見てみましょう。
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> VSCodeを使用する場合は、プロジェクトディレクトリ内で `code .` と入力するだけです。
 
-## Explore your project directory
+## プロジェクトディレクトリを探索する
 
-You'll see something like this:
+次のような内容が表示されます。
 
 ![](./structure.png)
 
-* `src/main/java/com/myorg/` is the main project directory for Java code in the app, and will be henceforth referred to (to shorten the paths) as `~/`
-* `~/CdkWorkshopApp.java` is the entrypoint for the CDK application it will load the stack defined in `~/CdkWorkshopStack.java`
-* `~/CdkWorkshopStack.java` is where your CDK application's main stack is defined. This is the file we'll be spending most of our time in.
-* `cdk.json` tells the toolkit how to run your app. In our case it will be
-  `"mvn -q exec:java"`
-* `pom.xml` is the Maven project file. It is an xml file and contains information on build properties, dependencies, and app information. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
-* `test/java/com/myorg/CdkWorkshopStackTest.java` Is a build test that is run againt the Java application on build and will indicated success or failure in the terminal. We will not be using this for the purposes of the workshop.
-* `.gitignore` tells git which files to include/exclude from source control.
-* `.classpath`, `.project`, `.settings/`, and `target/` files/folders are automated Java/Maven project files. These should be ignored.
+* `src/main/java/com/myorg/`  Javaのメインとなるプロジェクトディレクトリです。以降は `~/` で表現します。 
+* `~/CdkWorkshopApp.java` CDKアプリケーションのエントリポイントです。 `~/CdkWorkshopStack.java` で定義されたスタックをロードします。
+* `~/CdkWorkshopStack.java` CDKアプリケーションのメインスタックが定義されます。今回のワークショップでほとんどの時間を費やすことになるファイルです。
 
-## Your app's entry point
+* `cdk.json` アプリの実行方法をツールキットに指示させるためのファイルです。今回の場合は、 `mvn -q exec:java`です。
+* `pom.xml` Mavenのプロジェクトファイルです。ビルド、依存関係、アプリケーションに関する情報がXMLで表現されています。 これは、将来的に役立つものですが、このワークショップの目的には関係ありません。
+* `test/java/com/myorg/CdkWorkshopStackTest.java` アプリケーションがビルドされた時に実行されるテストコードです。テストが成功したか否かをターミナル上で確認することもできます。 今回のワークショップでは触れません。
+* `.gitignore` Git用のファイルです。ソースコードの管理に含める/除外するファイルの設定が含まれています。
+* `.classpath`, `.project`, `.settings/` および `target/` ava、Mavenによって自動生成されるファイル、フォルダです。これらは無視してください。
 
-Let's have a quick look at `~/CdkWorkshopApp.java`:
+## エントリーポイント
+
+`~/CdkWorkshopApp.java` を簡単に見てみましょう。
 
 ```java
 package com.myorg;
@@ -45,13 +45,11 @@ public final class CdkWorkshopApp {
 }
 ```
 
-This code loads and instantiates the `CdkWorkshopStack` class from the
-`~/CdkWorkshopStack.java` file. We won't need to look at this file anymore.
+このコードは、`~/CdkWorkshopStack.java` から `CdkWorkshopStack` クラス をロードしてインスタンス化するものです。もうこのファイルを見る必要はないでしょう。
 
-## The main stack
+## メインスタック
 
-Open up `~/CdkWorkshopStack.java`. This is where the meat of our application
-is:
+`~/CdkWorkshopStack.java` を開いてください。これがアプリケーションの要のファイルです。
 
 ```java
 package com.myorg;
@@ -85,11 +83,10 @@ public class CdkWorkshopStack extends Stack {
 }
 ```
 
-As you can see, our app was created with a sample CDK stack
-(`CdkWorkshopStack`).
+ご覧のとおり、CDK スタック(`CdkWorkshopStack`)によってアプリケーションが作成されます。
 
-The stack includes:
+このスタックは次のリソースを含んでいます。
 
-- SQS Queue (`final Queue queue`)
-- SNS Topic (`final Topic topic`)
-- Subscribing the queue to receive any messages published to the topic (`topic.AddSubscription`)
+- SQS キュー (`final Queue queue`)
+- SNS トピック (`final Topic topic`)
+- SNS トピックにパブリッシュされたメッセージを受信するように SQS キューをサブスクライブします。 (`topic.AddSubscription`)
