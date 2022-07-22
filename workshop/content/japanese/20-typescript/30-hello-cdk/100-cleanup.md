@@ -7,7 +7,7 @@ weight = 100
 
 `cdk init sample-app` によって作成されたプロジェクトには、SQSキューとSNSトピックが含まれます。今回のプロジェクトではそれらを使用する予定はないので、 `CdkWorkshopStack` コンストラクタから削除しましょう。
 
-`lib/cdk-workshop-stack.ts` を開きそれらを削除します。最終的には次のようになります。
+`lib/cdk-workshop-stack.ts` を開き、それらを削除します。最終的には次のようになります。
 
 ```ts
 import * as cdk from 'aws-cdk-lib';

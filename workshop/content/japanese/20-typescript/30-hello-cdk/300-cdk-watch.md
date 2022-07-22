@@ -66,7 +66,7 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 
 ここでは、`cdk deploy —-hotswap` を使用して、ホットスワップ可能な変更を AWS Lambda アセットコードにデプロイします。
 
-## `cdk deploy --hotswap`の時間
+## `cdk deploy --hotswap` の時間
 
 `lambda/hello.js` の Lambda 関数のコードをもう一度変更してみましょう
 
