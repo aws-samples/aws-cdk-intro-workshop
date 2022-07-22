@@ -13,16 +13,6 @@ mounted to the root of the API. This means that any request to any URL path will
 be proxied directly to our Lambda function, and the response from the function
 will be returned back to the user.
 
-
-{{% notice info %}}
-
-**Windows users**: on Windows, you will have to stop the `npm run watch` command
-that is running in the background, then run `npm install`, then start
-`npm run watch` again. Otherwise you will get an error about files being
-in use.
-
-{{% /notice %}}
-
 ## Add a LambdaRestApi construct to your stack
 
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:

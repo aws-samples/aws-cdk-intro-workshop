@@ -10,11 +10,11 @@ To perform this workshop, you'll need the following:
 
 {{% children showhidden="false" %}}
 
+Node.js is always required to use CDK, but all other language prerequisites 
+are only required if building a CDK app in that specific language
+
 You can skip any of these steps if you have these tools already installed on
 your machine.
-
-Some steps are language-specific to the workshop you are doing, so you can skip
-any steps related to other languages.
 
 Click on the arrow to the right to continue to the first step.
 

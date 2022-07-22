@@ -71,7 +71,7 @@ def test_dynamodb_raises():
     with pytest.raises(Exception):
         HitCounter(stack, "HitCounter",
                 downstream=_lambda.Function(stack, "TestFunction",
-                    runtime=_lambda.Runtime.NODEJS_14_X,
+                    runtime=_lambda.Runtime.PYTHON_3_7,
                     handler='hello.handler',
                     code=_lambda.Code.from_asset('lambda')),
                 read_capacity=1,

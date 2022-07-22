@@ -10,7 +10,7 @@ The [Construct Hub](https://constructs.dev/) is a one-stop destination for findi
 
 We define [constructs](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html) as classes, which define a “piece of system state”. Constructs can be composed together to form higher-level building blocks which represent more complex state. AWS, enterprises, start-ups, and individual developers use CDK constructs to share proven architecture patterns as reusable code libraries, so that everyone can benefit from the collective wisdom of the community.
 
-In addition to AWS' cloud servce offerings, you can find hundreds of integrations with cloud service providers and utilities, products and technologies like: Twitter, Slack. Grafana, Prometheus, Next.js, Gitlab and more.
+In addition to AWS' cloud service offerings, you can find hundreds of integrations with cloud service providers and utilities, products and technologies like: Twitter, Slack. Grafana, Prometheus, Next.js, Gitlab and more.
 
 The Construct Hub is the central location where CDK users can find a comprehensive collection of constructs to help them build their applications. The Construct Hub makes it easier for developers to find the high-level building blocks they need to build their applications by listing publicly released construct libraries.
 
@@ -38,4 +38,4 @@ Each package is owned by its publisher, so contributions, such as bug reports an
 For additional information and to submit your own construct, please see our [contributing page](https://constructs.dev/contribute)
 
 ## Internal Use
-If you are interested in using an instance of the Construct Hub for internal purposes, we are [developing a library](https://github.com/cdklabs/construct-hub) to allow anyone to deploy their own instance. This library is currently in the proof of concept stage and we would appreciate any feedback or assistance you can give on that repo!
+If you are interested in using an instance of the Construct Hub for internal purposes, we are [developing a library](https://github.com/cdklabs/construct-hub) to allow anyone to deploy their own instance. This library is currently in active development and should be considered _experimental_. We would appreciate any feedback or assistance you can give on that repo!

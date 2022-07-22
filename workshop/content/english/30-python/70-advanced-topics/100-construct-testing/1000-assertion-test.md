@@ -41,7 +41,7 @@ def test_dynamodb_table_created():
     stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
-                runtime=_lambda.Runtime.NODEJS_14_X,
+                runtime=_lambda.Runtime.PYTHON_3_7,
                 handler='hello.handler',
                 code=_lambda.Code.from_asset('lambda')),
     )
@@ -104,7 +104,7 @@ def test_lambda_has_env_vars():
     stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
-                runtime=_lambda.Runtime.NODEJS_14_X,
+                runtime=_lambda.Runtime.PYTHON_3_7,
                 handler='hello.handler',
                 code=_lambda.Code.from_asset('lambda')))
 
@@ -166,7 +166,7 @@ def test_lambda_has_env_vars():
     stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
-                runtime=_lambda.Runtime.NODEJS_14_X,
+                runtime=_lambda.Runtime.PYTHON_3_7,
                 handler='hello.handler',
                 code=_lambda.Code.from_asset('lambda')))
     template = assertions.Template.from_stack(stack)
@@ -215,7 +215,7 @@ def test_dynamodb_with_encryption():
     stack = Stack()
     HitCounter(stack, "HitCounter",
             downstream=_lambda.Function(stack, "TestFunction",
-                runtime=_lambda.Runtime.NODEJS_14_X,
+                runtime=_lambda.Runtime.PYTHON_3_7,
                 handler='hello.handler',
                 code=_lambda.Code.from_asset('lambda')))
 

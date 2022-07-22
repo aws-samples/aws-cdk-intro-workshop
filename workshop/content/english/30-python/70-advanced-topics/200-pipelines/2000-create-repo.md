@@ -32,7 +32,7 @@ class WorkshopPipelineStack(Stack):
 ## Deploy
 
 ```
-npx cdk deploy
+cdk deploy
 ```
 
 ## Get Repo Info and Commit
@@ -70,6 +70,8 @@ git push --set-upstream origin master
 ```
 
 Here, CodeCommit will request the credentials you generated in the **Git Credentials** section. You will only have to provide them once.
+
+> Note: If the `git push` command hangs indefinitely, you may need to follow [these instructions](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html) to set up your git CLI.
 
 ### See Result
 Now you can return to the CodeCommit console and see that your code is all there!
