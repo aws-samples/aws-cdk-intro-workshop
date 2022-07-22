@@ -36,7 +36,7 @@ class WorkshopPipelineStack(Stack):
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
-                    "npx cdk synth",
+                    "cdk synth",
                 ]
             ),
         )
@@ -54,7 +54,7 @@ class WorkshopPipelineStack(Stack):
 
 ```
 git commit -am "MESSAGE" && git push
-npx cdk deploy
+cdk deploy
 ```
 
 CDK パイプラインはソースリポジトリのコミットごとに自動的に更新するので、このコマンドを実行するのはこれで *最後* です！
