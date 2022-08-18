@@ -1,15 +1,16 @@
 +++
-title = "Getting Started with Pipelines"
+title = "パイプライン入門"
 weight = 110
 +++
 
-> Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/csharp/main-workshop) that represents the last state of the project after adding the tests.
+> 注意 : このワークショップの章は、前の全ての章を完了していることを前提としています。完了していないか、またはこの部分のみ検証する場合は、[こちら](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/csharp/main-workshop) のコードを利用すれば、テストを追加した直後のプロジェクトの状態に設定することができます。
 
-## Create Pipeline Stack
-The first step is to create the stack that will contain our pipeline.
-Since this is separate from our actual "production" application, we want this to be entirely self-contained.
+## パイプラインのスタックの作成
+最初のステップでは、パイプラインを持つスタックを作成します。
+実際の「本番」アプリケーションとは分離するので、完全に独立させる必要があります。
 
-Create a new file under `src/CdkWorkshop` called `CdkWorkshop/PipelineStack.cs`. Add the following to that file.
+`src/CdkWorkshop` フォルダの中で `CdkWorkshop/PipelineStack.cs`　という新しいファイルを作成します。ファイルに以下の内容を追加します。
+
 
 {{<highlight ts>}}
 using Amazon.CDK;
@@ -27,12 +28,12 @@ namespace CdkWorkshop
 }
 {{</highlight>}}
 
-Look familiar? At this point, the pipeline is like any other CDK stack.
+内容に見覚えがありますか？この時点では、パイプラインも他の CDK スタックと同じです。
 
-## Update CDK Deploy Entrypoint
-Next, since the purpose of our pipeline is to deploy our application stack, we no longer want the main CDK application to deploy our original app. Instead, we can change the entry point to deploy our pipeline, which will in turn deploy the application.
+## CDK デプロイのエントリーポイントの変更
+パイプラインはアプリケーションスタックをデプロイするためにあるので、メインの CDK アプリケーションに実際のアプリケーションをデプロイすることはもう必要ありません。代わりに、エントリポイントを変更してパイプラインをデプロイするようにすれば、アプリケーションはそのパイプラインにデプロイされます。
 
-To do this, edit the code in `CdkWorkshop/Program.cs` as follows:
+それを実現するために、`CdkWorkshop/Program.cs` のコードを以下のように編集します。
 
 {{<highlight ts "hl_lines=10">}}
 using Amazon.CDK;
@@ -54,6 +55,6 @@ namespace CdkWorkshop
 {{</highlight>}}
 
 
-And now we're ready!
+これで準備が整いました！
 
-# Lets build a pipeline!
+# パイプラインを作りましょう！

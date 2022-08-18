@@ -3,9 +3,9 @@ title = "cdk init"
 weight = 100
 +++
 
-## Create project directory
+## プロジェクトディレクトリの作成
 
-Create an empty directory on your system:
+空のディレクトリを作成し、カレントディレクトリを変更します。
 
 ```
 mkdir cdk-workshop && cd cdk-workshop
@@ -13,15 +13,13 @@ mkdir cdk-workshop && cd cdk-workshop
 
 ## cdk init
 
-We will use `cdk init` to create a new C# CDK project:
+新しい C# CDK プロジェクトを作成するために `cdk init` を使います。
 
 ```
 cdk init sample-app --language csharp
 ```
 
-Output should look like this (you can safely ignore warnings about
-initialization of a git repository, this probably means you don't have git
-installed, which is fine for this workshop):
+次のように出力されます（gitがインストールされていない場合、Gitリポジトリの初期化に関する警告が表示されますが、無視しても問題ありません。）
 
 ```
 Applying project template sample-app for csharp
@@ -49,8 +47,8 @@ Enjoy!
 
 ```
 
-As you can see, it shows us a bunch of useful commands to get us started.
+ご覧のとおり、作業を開始するのに役立つコマンドがたくさん表示されています。
 
-## See Also
+## 参考情報
 
 - [AWS CDK Command Line Toolkit (cdk) in the AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide/tools.html)

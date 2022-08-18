@@ -1,16 +1,17 @@
 +++
-title = "Writing constructs"
+title = "コンストラクトを書く"
 chapter = true
 weight = 40
 +++
 
-# Writing constructs
+# コンストラクトを書く
 
-In this chapter we will define a new construct called `HitCounter`. This
-construct can be attached to any Lambda function that's used as an API Gateway
-backend, and it will count how many requests were issued to each URL path. It
-will store this in a DynamoDB table.
+この章では、`HitCounter` という新しいコンストラクトを定義します。このコンストラクトは
+API Gateway のバックエンドで利用する Lambda 関数にアタッチすれば、各 URL
+のパス毎に何回のアクセスがあったかをカウントできます。その情報を DynamoDB のテーブルに格納します。
 
-## See Also
+![](/images/hit-counter.png)
 
-- [Writing Constructs in the AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide/writing_constructs.html)
+## 参考情報
+
+- [AWS CDK ユーザガイド - コンストラクトの書き方](https://docs.aws.amazon.com/ja_jp/cdk/v1/guide/constructs.html#constructs_author)

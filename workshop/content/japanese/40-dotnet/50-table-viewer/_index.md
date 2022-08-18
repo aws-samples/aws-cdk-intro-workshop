@@ -1,14 +1,12 @@
 +++
-title = "Using construct libraries"
+title = "コンストラクトライブラリの利用"
 weight = 50
 chapter = true
 +++
 
-# Using construct libraries
+# コンストラクトライブラリの利用
 
-In this chapter we will import a construct library called
-[DynamoTableViewer](https://www.nuget.org/packages/Cdklabs.DynamoTableViewer/)
-into our project and install it on our hit counter table.
+このチャプターでは、[DynamoTableViewer](https://www.nuget.org/packages/Cdklabs.DynamoTableViewer/)
+というコンストラクトライブラリをプロジェクトにインポートし、HitCounter テーブルに利用します。
 
 ![](/images/table-viewer.png)
-

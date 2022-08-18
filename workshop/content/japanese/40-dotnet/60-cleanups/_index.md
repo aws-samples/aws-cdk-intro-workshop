@@ -1,94 +1,31 @@
 +++
-title = "Clean up"
+title = "クリーンアップ"
 weight = 60
 chapter = true
 +++
 
-# Clean up your stack
+# スタックのクリーンアップ
+AWS アカウントへの予期しない請求を防ぐために、必ず CDK スタックを削除してください。
 
-When destroying a stack, resources may be deleted, retained, or snapshotted according to their deletion policy.
-By default, most resources will get deleted upon stack deletion, however that's not the case for all resources.
-The DynamoDB table will be retained by default. If you don't want to retain this table, we can set this in CDK
-code by using `RemovalPolicy`:
+AWS CloudFormation コンソールで削除するか、`cdk destroy` を実行してください。
 
-## Set the DynamoDB table to be deleted upon stack deletion
-
-Edit `hitcounter.ts` and add the `removalPolicy` prop to the table
-
-{{<highlight ts "hl_lines=25-26">}}
-import * as cdk from 'aws-cdk-lib';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import { Construct } from 'constructs';
-
-export interface HitCounterProps {
-  /** the function for which we want to count url hits **/
-  downstream: lambda.IFunction;
-}
-
-export class HitCounter extends Construct {
-  /** allows accessing the counter function */
-  public readonly handler: lambda.Function;
-
-  /** the hit counter table */
-  public readonly table: dynamodb.Table;
-
-  constructor(scope: Construct, id: string, props: HitCounterProps) {
-    super(scope, id);
-
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: {
-        name: "path",
-        type: dynamodb.AttributeType.STRING
-      },
-      removalPolicy: cdk.RemovalPolicy.DESTROY
-    });
-    this.table = table;
-
-    this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'hitcounter.handler',
-      code: lambda.Code.fromAsset('lambda'),
-      environment: {
-        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-        HITS_TABLE_NAME: table.tableName
-      }
-    });
-
-    // grant the lambda role read/write permissions to our table
-    table.grantReadWriteData(this.handler);
-
-    // grant the lambda role invoke permissions to the downstream function
-    props.downstream.grantInvoke(this.handler);
-  }
-}
-{{</highlight>}}
-
-Additionally, the Lambda function created will generate CloudWatch logs that are
-permanently retained. These will not be tracked by CloudFormation since they are
-not part of the stack, so the logs will still persist. You will have to manually
-delete these in the console if desired.
-
-Now that we know which resources will be deleted, we can proceed with deleting the
-stack. You can either delete the stack through the AWS CloudFormation console or use
-`cdk destroy`:
+スタックを破棄するとき、リソースはその削除ポリシーに従って削除、保持、スナップショットされます。
+デフォルトでは、ほとんどのリソースはスタック削除時に削除されますが、すべてのリソースがそうなるわけではありません。
+DynamoDBのテーブルは、デフォルトで保持されます。もし、このテーブルを保持したくない場合は、`RemovalPolicy` を使って設定することができます。
 
 ```
 cdk destroy
 ```
 
-You'll be asked:
+次のように確認されたら、
 
-```
+```text
 Are you sure you want to delete: CdkWorkshopStack (y/n)?
 ```
 
-Hit "y" and you'll see your stack being destroyed.
+"y" を入力すれば、スタックが削除されていくことを確認できます。
 
-The bootstrapping stack created through `cdk bootstrap` still exists. If you plan
-on using the CDK in the future (we hope you do!) do not delete this stack.
-
-If you would like to delete this stack, it will have to be done through the CloudFormation
-console. Head over to the CloudFormation console and delete the `CDKToolkit` stack. The S3
-bucket created will be retained by default, so if you want to avoid any unexpected charges,
-be sure to head to the S3 console and empty + delete the bucket generated from bootstrapping.
+`cdk bootstrap` で作成されたブートストラップスタックはまだ存在しています。もし、将来CDKを使う予定があるなら（使用することを願っています！）、このスタックを削除しないでください。
+このスタックを削除したい場合は、CloudFormationの コンソールから削除する必要があります。
+CloudFormationコンソールを開き、`CDKToolkit`スタックを削除してください。
+作成されたS3バケットはデフォルトで保持されますので、予期せぬ請求を回避したい場合は S3コンソールを開き、ブートストラップで生成されたバケットを空にして削除してください。

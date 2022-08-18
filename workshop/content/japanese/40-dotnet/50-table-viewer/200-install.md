@@ -1,18 +1,18 @@
 +++
-title = "Installing the library"
+title = "ライブラリのインストール"
 weight = 200
 +++
 
 ## Install Package
 
-Before you can use the table viewer in your application, you'll need to install
-the Nuget package:
+アプリケーションで table viewer を使用するために、Nuget パッケージをインストールする必要があります。
+
 
 ```
 dotnet add package Cdklabs.DynamoTableViewer --version 0.2.4
 ```
 
-Output should look similar to this:
+出力は次のようになります。
 
 ```
 info : Adding PackageReference for package 'Eladb.DynamoTableViewer' into project '~/cdk-workshop/src/CdkWorkshop/CdkWorkshop.csproj'.
@@ -32,7 +32,6 @@ log  : Restore completed in 1.31 sec for ~/cdk-workshop/src/CdkWorkshop/CdkWorks
 {{% notice info %}}
 **NOTE:** You must be in the same directory as the `*.csproj` file to install a Nuget package
 {{% /notice %}}
-
 ----
 
-Now we are ready to add a viewer to our app.
+これで、アプリケーションに table viewer を追加する準備ができました。

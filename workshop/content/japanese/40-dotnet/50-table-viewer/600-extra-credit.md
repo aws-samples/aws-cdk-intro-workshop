@@ -1,12 +1,10 @@
 +++
-title = "Extra credit"
+title = "追加課題"
 weight = 600
 +++
 
-## Sort hits by descending order
+## アクセス数を降順に並び替える
 
-You'll notice that the hits in the table are not sorted. Figure out how to
-configure the table viewer to sort the table by "hits" in descending order (top
-path is first).
+テーブルのアクセス数がソートされていないことに気づいたことでしょう。テーブルのデータを "hits" の降順 (多い方が上) にソートするための設定方法を見つけ出してみてはいかがでしょうか？
 
 ![](./viewer2.png)

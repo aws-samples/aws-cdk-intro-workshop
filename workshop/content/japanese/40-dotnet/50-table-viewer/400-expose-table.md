@@ -1,11 +1,11 @@
 +++
-title = "Exposing our hit counter table"
+title = "HitCounter テーブルを公開"
 weight = 400
 +++
 
-## Add a table property to our hit counter
+## HitCounter にテーブルのプロパティを追加
 
-Edit `src/CdkWorkshop/HitCounter.cs` and modify it so that `table` is exposed as a public property called `MyTable`.
+`src/CdkWorkshop/HitCounter.cs` を編集し、`table` が `MyTable` というパブリックプロパティとして公開されるように変更します。
 
 {{<highlight csharp "hl_lines=18 30">}}
 using Amazon.CDK;
@@ -61,9 +61,9 @@ namespace CdkWorkshop
 }
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## これでスタックからテーブルにアクセスできるようになりました
 
-Go back to `CdkWorkshopStack.cs` and assign the `Table` property of the table viewer:
+`CdkWorkshopStack.cs` に戻り、 `Table` プロパティを指定します。
 
 {{<highlight csharp "hl_lines=37">}}
 using Amazon.CDK;
@@ -110,5 +110,4 @@ namespace CdkWorkshop
 
 {{</highlight>}}
 
-We're finished making code changes, congratulations!
-You can now save and exit out of your code editor if you want.
+コードの変更が完了したので、このファイルを保存し、`Ctrl-C` で `npm run watch` を終了します。

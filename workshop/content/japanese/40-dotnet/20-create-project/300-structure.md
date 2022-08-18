@@ -1,17 +1,15 @@
 +++
-title = "Project structure"
+title = "プロジェクトの構造"
 weight = 300
 +++
 
-## Open your IDE
+## IDEを開く
 
-Now's a good time to open the project in your favorite IDE and explore.
+使い慣れたIDEでプロジェクトを開いてみましょう。
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> VSCodeを使用する場合は、プロジェクトディレクトリ内で `code .` と入力するだけです。
 >
-> You may see a notification saying `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?`
->
-> This can be ignored for our purposes.
+> また、次のようなメッセージが出ることがありますが、今回は無視しても問題ありません。 `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?`
 
 ## Explore your project directory
 
@@ -19,19 +17,18 @@ You'll see something like this:
 
 ![](./structure.png)
 
-* `src/CdkWorkshop/Program.cs` is the entrypoint for the CDK application it will load the stack defined in `src/CdkWorkshop/CdkWorkshopStack.cs`
-* `src/CdkWorkshop/CdkWorkshopStack.cs` is where your CDK application's main stack is defined. This is the file we'll be spending most of our time in.
-* `cdk.json` tells the toolkit how to run your app. In our case it will be `"dotnet run -p src/CdkWorkshop/CdkWorkshop.csproj"`
-* `src/CdkWorkshop/CdkWorkshop.csproj` is the C# project file. It is an xml file and contains information on references. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
-* `src/CdkWorkshop/GlobalSuppressions.cs` disables the Roslyn analyzer for `RECS0026:Possible unassigned object created by 'new'` as this generates many false positives with CDK.
-* `src/CdkWorkshop.sln` is the C# solution file that provides build information. You should not need to interface with this file.
-* `.gitignore` tells git which files to include/exclude
-  from source control and when publishing this module to the package manager.
-* The `src/CdkWorkshop/bin` and `src/CdkWorkshop/obj` folders are the build folders for the project and can be ignored.
+* `src/CdkWorkshop/Program.cs` CDKアプリケーションのエントリポイントです。`src/CdkWorkshop/CdkWorkshopStack.cs` で定義されたスタックをロードします。
+* `src/CdkWorkshop/CdkWorkshopStack.cs` CDKアプリケーションのメインスタックが定義されます。今回のワークショップでほとんどの時間を費やすことになるファイルです。
+* `cdk.json` アプリの実行方法をツールキットに指示させるためのファイルです。今回の場合は、 `"dotnet run -p src/CdkWorkshop/CdkWorkshop.csproj"`で実行します。
+* `src/CdkWorkshop/CdkWorkshop.csproj` C#のプロジェクトファイルです。パッケージの依存関係がXMLで表現されています。将来的に役に立つこともありますが、今回のワークショップでは触れません。
+* `src/CdkWorkshop/GlobalSuppressions.cs` CDKの動作と相性の悪いソースコードアナライザーを無効化しています。
+* `src/CdkWorkshop.sln` ビルドに必要となる情報を提供するC#ソリューションファイルです。直接このファイルを編集することはありません。
+* `.gitignore` Gitによるソースコード管理の除外設定を定義するファイルです。
+* `src/CdkWorkshop/bin` と src/CdkWorkshop/obj ビルドに使うディレクトリです。基本的には気にすることはありません。
 
-## Your app's entry point
+## エントリーポイント
 
-Let's have a quick look at `src/CdkWorkshop/Program.cs`:
+`src/CdkWorkshop/Program.cs` ファイルを簡単に見てみましょう。
 
 ```c#
 using Amazon.CDK;
@@ -51,12 +48,11 @@ namespace CdkWorkshop
 }
 ```
 
-This code loads and instantiates the `CdkWorkshopStack` class from the
-`src/CdkWorkshop/CdkWorkshopStack.cs` file. We won't need to look at this file anymore.
+このコードは、src/CdkWorkshop/CdkWorkshopStack.csファイルを開き、 CdkWorkshopStack クラス を初期化してロードするものです。一度読んだら、もうこのファイルを見る必要はありません。
 
-## The main stack
+## メインスタック
 
-Open up `src/CdkWorkshop/CdkWorkshopStack.cs`. This is where the meat of our application
+`src/CdkWorkshop/CdkWorkshopStack.cs` を開いてみましょう。これがアプリケーションの要です。
 is:
 
 ```cs
@@ -86,11 +82,10 @@ namespace CdkWorkshop
 }
 ```
 
-As you can see, our app was created with a sample CDK stack
-(`CdkWorkshopStack`).
+ご覧のとおり、CDK スタック(`CdkWorkshopStack`)によってアプリケーションが作成されます。
 
-The stack includes:
+このスタックは次のリソースを含んでいます。
 
-- SQS Queue (`new Queue`)
-- SNS Topic (`new Topic`)
-- Subscribing the queue to receive any messages published to the topic (`topic.AddSubscription`)
+- SQS キュー (`new sqs.Queue`)
+- SNS トピック (`new sns.Topic`)
+- SNS トピックにパブリッシュされたメッセージを受信するように SQS キューをサブスクライブします。 (`topic.AddSubscription`)

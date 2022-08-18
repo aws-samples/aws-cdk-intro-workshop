@@ -1,14 +1,12 @@
 +++
-title = "New Project"
+title = "新しいプロジェクト"
 chapter = true
 weight = 20
 +++
 
-# Creating your first CDK project
+# 初めての CDK プロジェクトを作成する
 
-In this chapter we will use `cdk init` to create a new AWS CDK .NET project.
+この章では、`cdk init` を使用して新しい AWS CDK TypeScript プロジェクトを作成します。
 
-We will also learn how to use the CDK Toolkit to synthesize an AWS
-CloudFormation template for the starter app and how to deploy your app into your
-account.
+また、CDK Toolkit を使用してサンプルアプリケーション用の AWS CloudFormation テンプレートを合成する方法とアプリケーションをデプロイする方法について学習します。
 

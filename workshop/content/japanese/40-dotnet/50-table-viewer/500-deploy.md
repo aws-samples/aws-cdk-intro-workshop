@@ -1,12 +1,11 @@
 +++
-title = "Deploying our app"
+title = "アプリのデプロイ"
 weight = 500
 +++
 
 ## cdk diff
 
-Before we deploy, let's take a look at what will happen when we deploy our app
-(this is just the `Resources` section of the output):
+デプロイする前に、アプリケーションをデプロイするとどうなるか見てみましょう。(以下は `Resources` セクションのみ表示しています)
 
 ```
 $ cdk diff
@@ -49,21 +48,19 @@ $ cdk deploy
 CdkWorkshopStack.ViewHitCounterViewerEndpointCA1B1E4B = https://xxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-You'll see the viewer endpoint as an output.
+viewer のエンドポイントが出力に表示されます。
 
-### Viewing the hit counter table
+### HitCounter テーブルを参照
 
-Open your browser and browse to the hit counter viewer endpoint URL. You should
-see something like this:
+WEB ブラウザで HitCounter viewer のエンドポイントの URL を開きます。以下のような内容が表示されるはずです。
 
 ![](./viewer1.png)
 
-### Send a few requests
+### 複数のリクエストを送信
 
-Send a few more requests to your "hello" endpoint and monitor your hit counter
-viewer. You should see the values update in real-time.
+"hello" エンドポイントにいくつかのリクエストを送信し、HitCounter viewer で結果を確認します。リアルタイムにアップデートされることを確認できるはずです。
 
-Use `curl` or your web browser to produce a few hits:
+`curl` またはウェブブラウザを使って、アクセスカウントを増やします。
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
@@ -83,8 +80,6 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 
 {{% notice tip %}}
 
-**Interested in how the Table Viewer works?** It's easy to find out!
-Hold **Ctrl** (or **Command**) and click on the `TableViewer`
-identifier to navigate to its source code.
+**Table Viewer の仕組みに興味ありますか？** 簡単に見られます！**Ctrl** (あるいは **Command**) を押しながら `TableViewer` 要素をクリックすると、ソースコードに遷移できます。
 
 {{% /notice %}}

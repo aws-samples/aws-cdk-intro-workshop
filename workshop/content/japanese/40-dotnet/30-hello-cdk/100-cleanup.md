@@ -1,15 +1,13 @@
 +++
-title = "Cleanup sample"
+title = "サンプルコードの削除"
 weight = 100
 +++
 
-## Delete the sample code from your stack
+## スタックからサンプルコードを削除する
 
-The project created by `cdk init sample-app` includes an SQS queue, and an SNS topic. We're
-not going to use them in our project, so remove them from the
-`CdkWorkshopStack` constructor.
+`cdk init sample-app` によって作成されたプロジェクトには、SQSキューとSNSトピックが含まれます。今回のプロジェクトではそれらを使用する予定はないので、 `CdkWorkshopStack` コンストラクタから削除しましょう。
 
-Open `src/CdkWorkshop/CdkWorkshopStack.cs` and clean it up. Eventually it should look like this:
+`src/CdkWorkshop/CdkWorkshopStack.cs` を開きそれらを削除します。最終的には次のようになります。
 
 ```csharp
 using Amazon.CDK;
@@ -29,14 +27,13 @@ namespace CdkWorkshop
 
 ## cdk diff
 
-Now that we modified our stack's contents, we can ask the toolkit to show us the difference between our CDK app and
-what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
+スタックのコンテンツを変更したため、ツールキットによって CDK アプリケーションと現在デプロイされているものの違いを確認することができます。 これは `cdk deploy` を実行したときに何が起こるかを確認するための安全な方法であり良い習慣です。
 
 ```
 cdk diff
 ```
 
-Output should look like the following:
+出力は次のようになります。
 
 ```
 IAM Statement Changes
@@ -56,14 +53,14 @@ Resources
 [-] AWS::SNS::Subscription CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 destroy
 ```
 
-As expected, all of our resources are going to be brutally destroyed.
+想定の通り、既存のリソースがすっかり削除されることになります。
 
 ## cdk deploy
 
-Run `cdk deploy` and __proceed to the next section__ (no need to wait):
+`cdk deploy` を実行したら、次のセクションに進みます。（完了を見届ける必要はありません）
 
 ```
 cdk deploy
 ```
 
-You should see the resources being deleted.
+リソースが削除されていくのを確認できます。
