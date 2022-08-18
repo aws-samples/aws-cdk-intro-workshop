@@ -26,7 +26,7 @@ def handler(event, context):
 これは __"Hello, CDK! You've hit [url path]"__ を返す単純な Lambda 関数です。HTTP ステータスコードと HTTP ヘッダーが付加された HTTP レスポンスとしてユーザーに応答するために、API Gateway を使用します。
 
 {{% notice info %}}
-この Lambda 関数は Python で実装されています。その他の言語での実装については [AWS Lambda のドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/welcome.html)を参照してください。
+この Lambda 関数は Python で実装されています。その他の言語での実装については [AWS Lambda のドキュメント](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)を参照してください。
 {{% /notice %}}
 
 ## AWS Lambda コンストラクトライブラリをインストールする
@@ -84,7 +84,7 @@ class CdkWorkshopStack(Stack):
 
 1. __`scope`__: 最初の引数は常に、このコンストラクトが作成されるスコープです。ほとんどの場合、_現在_ のスコープ内でコンストラクトを定義することになります。つまり、通常は最初の引数に `self` を渡すだけです。
 2. __`id`__: 2番目の引数はコンストラクトの __ローカルID__ です。これは、同じスコープ内のコンストラクトの中で一意でなければならないIDです。CDK はこの ID を使用して、このスコープ内で定義された各リソースの CloudFormation [論理 ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) を計算します。CDK の ID の詳細については [CDK ユーザーマニュアル](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)を参照してください。
-3. __`kwargs`__: 最後の (時にはオプションの) 引数は、初期化プロパティのセットです。これらは各コンストラクトに依存です。例えば、`Lambda.Function` 構文は `runtime`、`code`、`handler`のようなプロパティを受け入れます。IDE のオートコンプリートを使用するか、[オンラインドキュメント](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html)でさまざまなオプションを調べることができます。
+3. __`kwargs`__: 最後の (時にはオプションの) 引数は、初期化プロパティのセットです。これらは各コンストラクトに依存です。例えば、`Lambda.Function` 構文は `runtime`、`code`、`handler`のようなプロパティを受け入れます。IDE のオートコンプリートを使用するか、[オンラインドキュメント](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html)でさまざまなオプションを調べることができます。
 
 ## 差分
 
@@ -124,7 +124,7 @@ Resources
 [+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
-ご覧のとおり、このコードは __AWS::Lambda::Function__ 用の CloudFormation テンプレートを生成しました。ハンドラーコードの場所を伝達するために、ツールキットが利用する [CloudFormation パラメータ](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/parameters.html)が生成されています。
+ご覧のとおり、このコードは __AWS::Lambda::Function__ 用の CloudFormation テンプレートを生成しました。ハンドラーコードの場所を伝達するために、ツールキットが利用する [CloudFormation パラメータ](https://docs.aws.amazon.com/cdk/latest/guide/parameters.html)が生成されています。
 
 ## デプロイ
 

@@ -20,7 +20,7 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
 1. [DynamoDB console](https://console.aws.amazon.com/dynamodb/home) にアクセスする。
 2. テーブルを作成したリージョンにいることを確認してください。
 3. ナビゲーションペインから `テーブル` を選択し、`cdkworkshop-HelloHitCounterHits` で始まるテーブルを選択します。
-4. テーブルを開き、`テーブルアイテムの検索` ボタンをクリックします。
+4. テーブルを開き、`テーブルアイテムの探索` ボタンをクリックします。
 5. パス毎のアクセス回数を確認できます。
 
     ![](./dynamo1.png)

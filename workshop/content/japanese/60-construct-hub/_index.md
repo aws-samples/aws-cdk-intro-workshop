@@ -4,7 +4,7 @@ weight = 60
 chapter = true
 +++
 
-# The Construct Hub
+# Construct Hub
 
 [Construct Hub](https://constructs.dev/) では、AWS や  [AWS パートナーネットワーク](https://aws.amazon.com/partners/)、サードパーティ、および開発者コミュニティによって作成されたコンストラクトを、ワンストップで検索、再利用、共有することが出来ます。 このサイトには、現在サポートされているプログラミング言語 Typescript、Java、Python、.NET のコンストラクトがリストされています（Go のリストは近日公開予定）。CDK コンストラクトは、本番環境のクラウドアプリケーションを立ち上げるためにも使用できるクラウドアーキテクチャのビルディングブロックおよびパターンです。 Construct Hubにリストされているコンストラクトは、[AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK)、[CDK for Kubernetes](https://cdk8s.io/) (CDK8s)、および [CDK for Terraform](https://github.com/hashicorp/terraform-cdk) (CDKtf)を使用して作成されています。これらの各CDKライブラリの詳細については、個々のサイト/リポジトリを参照してください。
 

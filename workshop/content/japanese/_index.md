@@ -1,49 +1,39 @@
 ---
-title: "AWS CDK Intro Workshop"
+title: "AWS CDK イントロワークショップ"
 chapter: true
 weight: 1
 ---
 
-# Welcome Developers!
+# 開発者の皆様、ようこそ！
 
-Hey there, and thanks for joining us! Hope you can't wait to play
-with this new thing we call the "AWS Cloud Development Kit" or in short, the AWS
-CDK.
+本日、このワークショップにご参加いただき、誠にありがとうございます。このワークショップでは、"AWS Cloud Development Kit" (AWS CDK) を紹介します。
 
-The AWS CDK is a new software development framework from AWS with the sole
-purpose of making it fun and easy to define cloud infrastructure in your
-favorite programming language and deploy it using AWS CloudFormation.
 
-So what are we going to build? Nothing too fancy...
+AWS CDK は AWS が提供する新しいソフトウェア開発フレームワークです。楽しくかつ簡単にクラウドのインフラストラクチャーを自分に好きな開発言語で定義ができて、最終的に AWS CloudFormation を用いてデプロイできることを目的としています。
 
-We'll spend some time setting up your development environment and learning a
-little about how to work with the CDK Toolkit to deploy your app to an AWS
-environment.
+このワークショップで何を作りますか？簡単なものから始めます。
 
-Then, you'll write a little "Hello, world" Lambda function and front it with an
-API Gateway endpoint so users can call it via an HTTP request.
+ひとまず、開発環境をセットアップし、CDK Toolkit を用いて AWS 環境にどうアプリケーションをデプロイするかを学びます。
 
-Next, we'll introduce the powerful concept of __CDK constructs__.
-Constructs allow you to bundle up a bunch of infrastructure into reusable
-components which anyone can compose into their apps. We'll walk you through
-writing your own construct.
+準備ができたら、API Gateway 経由でアクセスする簡単な "Hello World" Lambda 関数を作ります。
 
-Finally, we'll show you how to use a construct from a pre-packaged library in your
-stack.
+次は、__CDK コンストラクト__ という協力なコンセプトを紹介します。コンストラクトを使って、複数のインフラストラクチャーコンポーネントを一つの再利用可能なコンポーネントにパッケージできます。自分でコンストラクトを書く方法も紹介します。
 
-By the end of this workshop, you'll be able to:
+最後に、パッケージ済みライブラリのコンストラクトを自分のスタックに利用する方法を紹介します。
 
-- Create new CDK applications.<br/>
-- Define your app's infrastructure using the AWS Construct Library<br/>
-- Deploy your CDK apps to your AWS account<br/>
-- Define your own reusable constructs<br/>
-- Consume constructs published by other people<br/>
+このワークショップが終わったら、以下の作業ができるようになります。
 
-You can also find a short guide on utilizing our [Construct Hub](./300-nodejs.html) at the end of this workshop. This will be a useful tool for all future endeavors with the CDKs.
+- 新しい CDK アプリケーションの作成
+- AWS コンストラクトライブラリを使用してアプリケーションのインフラストラクチャの定義
+- AWS アカウントへの CDK アプリケーションのデプロイ
+- 独自の再利用可能なコンストラクトの定義
+- 他の人が公開したコンストラクトの利用
 
-## See Also
+このワークショップの最後には、[Construct Hub](./60-construct-hub.html) の利用に関する短いガイドもあります。CDKの今後のあらゆる取り組みに役立つツールとなるでしょう。
 
-- [AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide)
-- [AWS CDK Reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
+## 参考情報
 
-![](images/cdk-logo.png)
+- [AWS CDK ユーザガイド](https://docs.aws.amazon.com/CDK/latest/userguide)
+- [AWS CDK リファレンス](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)
+
+![](/images/cdk-logo.png)

@@ -5,7 +5,7 @@ weight = 400
 
 ## HitCounter にテーブルのプロパティを追加
 
-`hitcounter.js` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
+`hitcounter.ts` を編集して、`table` をパブリックプロパティとして公開されるように設定します。
 
 {{<highlight ts "hl_lines=15-16 27">}}
 import * as cdk from 'aws-cdk-lib';

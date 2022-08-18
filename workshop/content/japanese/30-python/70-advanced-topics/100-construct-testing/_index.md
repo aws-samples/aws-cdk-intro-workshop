@@ -5,7 +5,7 @@ weight = 100
 
 ## コンストラクトのテスト (オプション)
 
-[CDK デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/testing.html) には、コンストラクトのテストについてのガイドがあります。
+[CDK デベロッパーガイド](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) には、コンストラクトのテストについてのガイドがあります。
 このワークショップのセクションでは [きめ細かな(fine-grained) アサーション](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained) と [検証(validation)](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) の種類のテストを利用します。
 
 ### 前提条件

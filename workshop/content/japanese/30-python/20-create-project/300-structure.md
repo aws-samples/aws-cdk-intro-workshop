@@ -15,18 +15,18 @@ weight = 300
 
 ![](./structure.png)
 
-* .venv — 前のセクションで説明したPython 仮想環境の情報。
-* cdk_workshop — Python のモジュールディレクトリ。
+* .venv - 前のセクションで説明したPython 仮想環境の情報。
+* cdk_workshop - Python のモジュールディレクトリ。
   <!-- * cdk_workshop.egg-info - Folder that contains build information relevant for the packaging on the project -->
   * cdk_workshop_stack.py - サンプルアプリケーションで使用するカスタム CDK スタックです。
-* tests — すべてのテストを含んでいます。
-  * unit — 単体テストを含んでいます。
-    * test_cdk_workshop.py — CDK パッケージで作成されたカスタム CDK スタックをテストするための簡単なコード。これは、プロジェクトにテストを組み込むための一例として参考になります。
-* app.py — サンプルアプリケーションの「メイン」です。
-* cdk.json — CDK の設定ファイル。コンストラクトツリーの生成をどのように実行するか定義します。
-* README.md — このプロジェクトの始め方を説明しています。
-* requirements.txt — このファイルは依存関係のあるパッケージを pip でインストールするために利用されます。<!-- In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk_workshop module so that it can be edited in place. -->
-<!-- * setup.py — この Python パッケージの構築方法と依存関係を定義します。 -->
+* tests - すべてのテストを含んでいます。
+  * unit - 単体テストを含んでいます。
+    * test_cdk_workshop.py - CDK パッケージで作成されたカスタム CDK スタックをテストするための簡単なコード。これは、プロジェクトにテストを組み込むための一例として参考になります。
+* app.py - サンプルアプリケーションの「メイン」です。
+* cdk.json - CDK の設定ファイル。コンストラクトツリーの生成をどのように実行するか定義します。
+* README.md - このプロジェクトの始め方を説明しています。
+* requirements.txt - このファイルは依存関係のあるパッケージを pip でインストールするために利用されます。<!-- In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk_workshop module so that it can be edited in place. -->
+<!-- * setup.py - この Python パッケージの構築方法と依存関係を定義します。 -->
 
 ## エントリーポイント
 

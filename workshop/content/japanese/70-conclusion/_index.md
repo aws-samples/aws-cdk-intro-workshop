@@ -1,76 +1,60 @@
 +++
-title = "Congrats!"
+title = "まとめ"
 weight = 70
 chapter = true
 +++
 
-# Congratulations!
+# お疲れ様でした！
 
-You've successfully finished our __Introduction to the CDK__ workshop!
+無事に __AWS CDK イントロワークショップ__ を完了することができました。
 
-In this workshop, you've learned how to:
+このワークショップでは、以下のやり方を学びました。
 
-- Create a new CDK project in TypeScript using `cdk init`
-- Add resources to your CDK application stack
-- Use `cdk diff` and `cdk deploy` to deploy your app to an AWS environment
-- Author and use your own custom construct (`HitCounter`)
-- Consume a construct from another npm module (`cdk-dynamo-table-viewer`)
-- Use the AWS Lambda, API Gateway and DynamoDB AWS construct libraries
+- `cdk init` を使って新しい TypeScript の CDK プロジェクトの作成
+- CDK アプリケーションのスタックへのにリソースの追加
+- `cdk diff` と `cdk deploy` を使ってアプリケーションを AWS の環境へのデプロイ
+- 独自のコンストラクト (`HitCounter`) の作成と使用
+- 別の npm モジュールからコンストラクト (`cdk-dynamo-table-viewer`) の利用
+- AWS Lambda、API Gateway、および DynamoDB の AWS コンストラクトライブラリの使用
+## 次は？
 
-## What's next?
+AWS CDK はまだ開発中です。現在、開発者プレビュー中です。このフレームワークについて思ったことを聞かせていただければ幸いです。
 
-The AWS CDK is a work in progress. It is currently in Developer Preview. We'd
-love to hear what you think about every aspect of the framework.
+ここからできることはいくつかあります。
 
-Here are a few things you can do from here:
-
-* __Build something__: build something real with the CDK and let us know how it
-  went. What worked? What was intuitive? What was completely misleading?
-* __Publish construct libraries__: start thinking about infrastructure in terms
-  of small reusable modules instead of monolithic templates. Pick up a useful
-  thing you've built and try to design a beautiful API for it. Share it with the
-  community and let us know about it. We'll be curating a list of constructs,
-  and would love to list yours.
-* Create a simple app in the [Hello World Tutorial](https://docs.aws.amazon.com/CDK/latest/userguide/hello_world_tutorial.html)
-  with the CDK in one of the supported languages: Java, .NET, JavaScript and TypeScript
-* Dive deeper into [CDK
-  Concepts](https://docs.aws.amazon.com/cdk/latest/guide/core_concepts.html):
-  [Constructs](https://docs.aws.amazon.com/CDK/latest/userguide/constructs.html),
-  [Apps](https://docs.aws.amazon.com/CDK/latest/userguide/apps.html) and [Stacks](https://docs.aws.amazon.com/CDK/latest/userguide/stacks.html),
-  [Logical IDs](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids),
-  [Environments](https://docs.aws.amazon.com/cdk/latest/guide/apps_and_stacks.html#environments),
-  [Contexts](https://docs.aws.amazon.com/cdk/latest/guide/context.html),
-  and [Assets](https://docs.aws.amazon.com/CDK/latest/userguide/assets.html)
-* Explore the [AWS Construct
-  Library](https://docs.aws.amazon.com/CDK/latest/userguide/aws_construct_lib.html) and the
-  [reference documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
-  which already contains constructs for many AWS resources such as
-  [EC2](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-ec2-readme.html),
-  [AutoScaling](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-autoscaling-readme.html),
-  [S3](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-readme.html),
-  [SNS](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-sns-readme.html),
-  [SQS](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-sqs-readme.html),
-  [CodePipeline](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-codepipeline-readme.html),
-  [Step Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-stepfunctions-readme.html)
-  and many more...
-* Read guidelines on how to [write your own
-  constructs](https://docs.aws.amazon.com/CDK/latest/userguide/writing_constructs.html)
-* Learn about [__jsii__](https://github.com/awslabs/jsii), the technology
-  behind the CDK's multi-language support
-* Browse some [examples](https://github.com/aws-samples/aws-cdk-examples) on our GitHub repository
+* __何かを作る__ : CDKでリアルなものを作って、どうだったか教えてください。うまくいったこと？直感的だったのは何ですか？誤解を招くところがありましたか？
+* __コンストラクトライブラリの公開__ : インフラはモノリシックなテンプレートではなく、再利用可能なモジュールとして考え始めてみてください。構築された素敵な部品を選んで、API化してみてください。コミュニティに共有したら、教えてください。公開なコンストラクトのリストを提供しているので、あなたのコンストラクトもリストに追加させたいただければと思っています。
+* [Hello World チュートリアル](https://docs.aws.amazon.com/CDK/latest/userguide/hello_world_tutorial.html) で簡単なアプリケーションを好きな言語 Java、.NET、JavaScript または TypeScript で作ってみてください。
+* [CDK コンセプト](https://docs.aws.amazon.com/cdk/latest/guide/core_concepts.html) の深堀 :
+  [コンストラクト](https://docs.aws.amazon.com/CDK/latest/userguide/constructs.html)、
+  [アプリケーション](https://docs.aws.amazon.com/CDK/latest/userguide/apps.html) と [スタック](https://docs.aws.amazon.com/CDK/latest/userguide/stacks.html)、
+  [ロジカル IDs](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids)、
+  [環境](https://docs.aws.amazon.com/cdk/latest/guide/environments.html)、
+  [コンテキスト](https://docs.aws.amazon.com/cdk/latest/guide/context.html)、
+  [アセット](https://docs.aws.amazon.com/CDK/latest/userguide/assets.html)
+* [AWS コンストラクトライブラリ](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html#constructs_lib) と
+  [リファレンスドキュメンテーション](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html) を探索して、
+  [EC2](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ec2-readme.html)、
+  [AutoScaling](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_autoscaling-readme.html)、
+  [S3](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3-readme.html)、
+  [SNS](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sns-readme.html)、
+  [SQS](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_sqs-readme.html)、
+  [CodePipeline](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codepipeline-readme.html)、
+  [Step Functions](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_stepfunctions-readme.html)
+  のような AWS リソースに対応したコンストラクトが多数提供されています。
+* [コンストラクトの書き方](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html#constructs_author) のガイドラインを読んでください。
+* CDK のマルチ言語対応の裏にある [__jsii__](https://github.com/aws/jsii) について学べます。
+* GitHub リポジトリで [サンプル](https://github.com/aws-samples/aws-cdk-examples) を参考できます。
 
 -----
 
-* Join the conversation on our [Gitter channel](https://gitter.im/awslabs/aws-cdk)
-* Ask questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/aws-cdk)
-* Raise [an issue](https://github.com/awslabs/aws-cdk/issues/new) on GitHub
-* Learn how to submit
-  [contributions](https://github.com/awslabs/aws-cdk/blob/master/CONTRIBUTING.md)
-  to the project.
+* [Gitter チャンネル](https://gitter.im/awslabs/aws-cdk) に参加
+* [Stack Overflow](https://stackoverflow.com/questions/tagged/aws-cdk) で質問
+* GitHub で [issue](https://github.com/aws/aws-cdk/issues/new) を作成
+* プロジェクトに [コントリビュート](https://github.com/aws/aws-cdk/blob/v1-main/CONTRIBUTING.md)
 
 -----
 
-<center>
-___Thank you!___<br/>
-The AWS CDK Team
-</center>
+___ありがとうございました！___
+
+AWS CDK チームより
