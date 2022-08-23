@@ -51,6 +51,16 @@ func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorksh
 
 	return stack
 }
+
+func main() {
+	defer jsii.Close()
+
+	app := awscdk.NewApp(nil)
+
+	NewCdkWorkshopStack(app, "CdkWorkshopStack", &CdkWorkshopStackProps{})
+
+	app.Synth(nil)
+}
 {{</highlight>}}
 
 That's it. This is all you need to do in order to define an API Gateway which

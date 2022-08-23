@@ -114,4 +114,14 @@ func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorksh
 
 	return stack
 }
+
+func main() {
+	defer jsii.Close()
+
+	app := awscdk.NewApp(nil)
+
+	NewCdkWorkshopStack(app, "CdkWorkshopStack", &CdkWorkshopStackProps{})
+
+	app.Synth(nil)
+}
 {{</highlight>}}
