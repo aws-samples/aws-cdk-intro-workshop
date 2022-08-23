@@ -7,7 +7,7 @@ weight = 200
 
 We'll start with the AWS Lambda handler code.
 
-1. Create a directory `lambda` in the root of your project tree (next to `src`).
+1. Create a directory `lambda` in the root of your project tree.
 2. Add a file called `lambda/hello.js` with the following contents:
 
 ---
@@ -43,54 +43,47 @@ To discover and learn about AWS constructs, you can browse the [AWS Construct
 Library reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html).
 
 ![](/images/apiref.png)
-## A few words about copying & pasting in this workshop
-
-In this workshop, we highly recommended to type CDK code instead of copying &
-pasting (there's usually not much to type). This way, you'll be able to fully
-experience what it's like to use the CDK. It's especially cool to see your IDE
-help you with auto-complete, inline documentation and type safety.
-
-![](./auto-complete.png)
 
 ## Add an AWS Lambda Function to your stack
 
-Add the `import` statements at the beginning of `~/CdkWorkshopStack.java`, and a
-`Function` to your stack.
+Add an `import` statement at the beginning of `cdk-workshop.go`, and a
+`awslambda.NewFunction` to your stack.
 
 
-{{<highlight java "hl_lines=7-9 19-24">}}
-package com.myorg;
+{{<highlight ts "hl_lines=5 7 21-25">}}
+package main
 
-import software.constructs.Construct;
-import software.amazon.awscdk.Stack;
-import software.amazon.awscdk.StackProps;
+import (
+	"github.com/aws/aws-cdk-go/awscdk/v2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
+	"github.com/aws/constructs-go/constructs/v10"
+	"github.com/aws/jsii-runtime-go"
+)
 
-import software.amazon.awscdk.services.lambda.Code;
-import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.Runtime;
-
-public class CdkWorkshopStack extends Stack {
-    public CdkWorkshopStack(final Construct parent, final String id) {
-        this(parent, id, null);
-    }
-
-    public CdkWorkshopStack(final Construct parent, final String id, final StackProps props) {
-        super(parent, id, props);
-
-        // Defines a new lambda resource
-        final Function hello = Function.Builder.create(this, "HelloHandler")
-            .runtime(Runtime.NODEJS_14_X)    // execution environment
-            .code(Code.fromAsset("lambda"))  // code loaded from the "lambda" directory
-            .handler("hello.handler")        // file is "hello", function is "handler"
-            .build();
-    }
+type CdkWorkshopStackProps struct {
+	awscdk.StackProps
 }
 
+func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorkshopStackProps) awscdk.Stack {
+	var sprops awscdk.StackProps
+	if props != nil {
+		sprops = props.StackProps
+	}
+	stack := awscdk.NewStack(scope, &id, &sprops)
+
+	awslambda.NewFunction(stack, jsii.String("HelloHandler"), &awslambda.FunctionProps{
+		Code: awslambda.Code_FromAsset(jsii.String("lambda"), nil),
+		Runtime: awslambda.Runtime_NODEJS_16_X(),
+		Handler: jsii.String("hello.handler"),
+	})
+
+	return stack
+}
 {{</highlight>}}
 
 A few things to notice:
 
-- Our function uses the NodeJS (`NODEJS_14_X`) runtime
+- Our function uses the NodeJS (`NODEJS_16_X`) runtime
 - The handler code is loaded from the `lambda` directory which we created
   earlier. Path is relative to where you execute `cdk` from, which is the
   project's root directory
@@ -99,8 +92,8 @@ A few things to notice:
 
 ## A word about constructs and constructors
 
-As you can see, the class constructors of both `CdkWorkshopStack` and
-`Function` (and many other classes in the CDK) have the signature
+As you can see, the class constructors of both `awscdk.NewStack` and
+`awslambda.NewFunction` (and many other classes in the CDK) have the signature
 `(scope, id, props)`. This is because all of these classes are __constructs__.
 Constructs are the basic building block of CDK apps. They represent abstract
 "cloud components" which can be composed together into higher level abstractions
@@ -117,14 +110,14 @@ signature:
    scope of _current_ construct, which means you'll usually just want to pass
    `this` for the first argument. Make a habit out of it.
 2. __`id`__: the second argument is the __local identity__ of the construct.
-   It's an ID that has to be unique amongst constructs within the same scope. The
+   It's an ID that has to be unique amongst construct within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
    for each resource defined within this scope. *To read more about IDs in the
    CDK, see the* [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
 3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
-   the `lambda.Function` construct accepts properties like `runtime`, `code` and
+   the `awslambda.NewFunction` construct accepts properties like `runtime`, `code` and
    `handler`. You can explore the various options using your IDE's auto-complete
    or in the [online
    documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html).
@@ -134,14 +127,13 @@ signature:
 Save your code, and let's take a quick look at the diff before we deploy:
 
 ```
-mvn package
 cdk diff
 ```
 
 Output would look like this:
 
-```
-The CdkWorkshopStack stack uses assets, which are currently not accounted for in the diff output! See https://github.com/awslabs/aws-cdk/issues/395
+```text
+Stack CdkWorkshopStack
 IAM Statement Changes
 ┌───┬─────────────────────────────────┬────────┬────────────────┬──────────────────────────────┬───────────┐
 │   │ Resource                        │ Effect │ Action         │ Principal                    │ Condition │
@@ -154,12 +146,12 @@ IAM Policy Changes
 ├───┼─────────────────────────────┼────────────────────────────────────────────────────────────────────────────────┤
 │ + │ ${HelloHandler/ServiceRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole │
 └───┴─────────────────────────────┴────────────────────────────────────────────────────────────────────────────────┘
-(NOTE: There may be security-related changes not in this list. See http://bit.ly/cdk-2EhF7Np)
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
 Parameters
-[+] Parameter HelloHandler/Code/S3Bucket HelloHandlerCodeS3Bucket4359A483: {"Type":"String","Description":"S3 bucket for asset \"CdkWorkshopStack/HelloHandler/Code\""}
-[+] Parameter HelloHandler/Code/S3VersionKey HelloHandlerCodeS3VersionKey07D12610: {"Type":"String","Description":"S3 key for asset version \"CdkWorkshopStack/HelloHandler/Code\""}
-[+] Parameter HelloHandler/Code/ArtifactHash HelloHandlerCodeArtifactHash5DF4E4B6: {"Type":"String","Description":"Artifact hash for asset \"CdkWorkshopStack/HelloHandler/Code\""}
+[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/S3Bucket AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7S3BucketEB5CA0D6: {"Type":"String","Description":"S3 bucket for asset \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
+[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/S3VersionKey AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7S3VersionKeyC5F120D1: {"Type":"String","Description":"S3 key for asset version \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
+[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/ArtifactHash AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7ArtifactHashBAACCCD2: {"Type":"String","Description":"Artifact hash for asset \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
 
 Resources
 [+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63
