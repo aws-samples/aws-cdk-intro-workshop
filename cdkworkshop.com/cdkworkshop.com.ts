@@ -126,7 +126,9 @@ export class CdkWorkshop extends Stack {
             priceClass: cloudfront.PriceClass.PRICE_CLASS_ALL,
             certificate: cert,
             domainNames: [ props.domain ],
-        })
+        });
+
+        (cdn.node.defaultChild as cloudfront.CfnDistribution).overrideLogicalId('CloudFrontCFDistribution57EFBAC6');
 
         // TODO: Model dependency from CloudFront Web Distribution on S3 Bucket Deployment
 
