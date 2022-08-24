@@ -10,6 +10,7 @@ import (
 
 type HitCounterProps struct {
 	Downstream awslambda.IFunction
+	ReadCapacity float64
 }
 
 type hitCounter struct {
@@ -25,11 +26,17 @@ type HitCounter interface {
 }
 
 func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps) HitCounter {
+	if props.ReadCapacity < 5 || props.ReadCapacity > 20 {
+		panic("ReadCapacity must be between 5 and 20")
+	}
+
 	this := constructs.NewConstruct(scope, &id)
 
 	table := awsdynamodb.NewTable(this, jsii.String("Hits"), &awsdynamodb.TableProps{
 		PartitionKey: &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
 		RemovalPolicy: awscdk.RemovalPolicy_DESTROY,
+		Encryption: awsdynamodb.TableEncryption_AWS_MANAGED,
+		ReadCapacity: jsii.Number(props.ReadCapacity),
 	})
 
 	handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslambda.FunctionProps{

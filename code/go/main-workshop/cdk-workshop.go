@@ -29,6 +29,7 @@ func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorksh
 
 	hitcounter := hitcounter.NewHitCounter(stack, "HelloHitCounter", &hitcounter.HitCounterProps{
 		Downstream: helloHandler,
+		ReadCapacity: 10,
 	})
 
 	awsapigateway.NewLambdaRestApi(stack, jsii.String("Endpoint"), &awsapigateway.LambdaRestApiProps{
