@@ -6,6 +6,7 @@ import {
     aws_route53_targets as route53Targets,
     aws_s3 as s3,
     aws_s3_deployment as s3deploy,
+    aws_cloudfront_origins as cloudfrontOrigins,
     App, CfnOutput, Duration, Fn, Stack, StackProps, Stage,
 } from 'aws-cdk-lib';
 import { GuardDutyNotifier } from './guardduty';
@@ -102,25 +103,32 @@ export class CdkWorkshop extends Stack {
 
         // CloudFront distribution
         const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
-        const cdn = new cloudfront.CloudFrontWebDistribution(this, 'CloudFront', {
-            viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        const cdn = new cloudfront.Distribution(this, 'CloudFrontDistribution', {
+            defaultBehavior: {
+                viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                origin: new cloudfrontOrigins.S3Origin(bucket, {
+                    originAccessIdentity: origin, originPath: `/${contentHash}`
+                }),
+                cachePolicy: new cloudfront.CachePolicy(this, 'CachePolicy', {
+                    maxTtl,
+                }),
+                responseHeadersPolicy: new cloudfront.ResponseHeadersPolicy(this, 'ResponseHeadersPolicy', {
+                    securityHeadersBehavior: {
+                        frameOptions: { frameOption: cloudfront.HeadersFrameOption.DENY, override: true },
+                        contentTypeOptions: { override: true },
+                        xssProtection: { protection: true, modeBlock: true, override: true },
+                        referrerPolicy: { referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN, override: true },
+                        strictTransportSecurity: { accessControlMaxAge: Duration.seconds(31536000), includeSubdomains: true, override: true },
+                    }
+                }),
+            },
+            webAclId: acl,
             priceClass: cloudfront.PriceClass.PRICE_CLASS_ALL,
-            webACLId: acl,
-            originConfigs: [{
-                behaviors: [{
-                    isDefaultBehavior: true,
-                    maxTtl
-                }],
-                s3OriginSource: {
-                    s3BucketSource: bucket,
-                    originAccessIdentity: origin,
-                    originPath: `/${contentHash}`,
-                }
-            }],
-            viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(cert, {
-                aliases: [props.domain],
-            }),
-        })
+            certificate: cert,
+            domainNames: [ props.domain ],
+        });
+
+        (cdn.node.defaultChild as cloudfront.CfnDistribution).overrideLogicalId('CloudFrontCFDistribution57EFBAC6');
 
         // TODO: Model dependency from CloudFront Web Distribution on S3 Bucket Deployment
 
