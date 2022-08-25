@@ -16,7 +16,6 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - -approved-reviews-by~=author
       - "#changes-requested-reviews-by=0"
-      - status-success=validate-pr
       - "#review-threads-unresolved=0"
       - status-success~=Build using Hugo
       - author!=dependabot[bot]
