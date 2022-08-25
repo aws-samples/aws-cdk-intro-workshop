@@ -19,12 +19,6 @@ go: upgraded github.com/aws/jsii-runtime-go v1.63.2 => v1.65.0
 go: added github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer v0.2.248
 ```
 
-Now we can install with `go install`
-
-```
-go install github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer
-```
-
 ----
 
 Now we are ready to add a viewer to our app.

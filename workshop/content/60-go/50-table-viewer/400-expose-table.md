@@ -7,7 +7,7 @@ weight = 400
 
 Edit `hitcounter.go` and modify it so that `table` is exposed as a public property.
 
-{{<highlight go "hl_lines=17 46 53-55">}}
+{{<highlight go "hl_lines=17 23 46 53-55">}}
 package hitcounter
 
 import (
@@ -45,7 +45,7 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 		Handler: jsii.String("hitcounter.handler"),
 		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Environment: &map[string]*string{
-			"DOWNSTREAM_FUNCTION_NAME": (*props).Downstream.FunctionName(),
+			"DOWNSTREAM_FUNCTION_NAME": props.Downstream.FunctionName(),
 			"HITS_TABLE_NAME":          table.TableName(),
 		},
 	})

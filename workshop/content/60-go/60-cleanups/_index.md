@@ -55,7 +55,7 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 		Handler: jsii.String("hitcounter.handler"),
 		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Environment: &map[string]*string{
-			"DOWNSTREAM_FUNCTION_NAME": (*props).Downstream.FunctionName(),
+			"DOWNSTREAM_FUNCTION_NAME": props.Downstream.FunctionName(),
 			"HITS_TABLE_NAME":          table.TableName(),
 		},
 	})

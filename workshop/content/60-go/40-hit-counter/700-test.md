@@ -36,7 +36,7 @@ allows anyone to "attach" it to any Lambda function that serves as an API
 Gateway proxy backend and it will log hits to this API.
 
 Since our hit counter is a simple Go module, you could [publish](https://pkg.go.dev/about#adding-a-package) it to [pkg.go.dev](https://pkg.go.dev/), which is the
-Go module index. Then, anyone could `go install` it and add it to
+Go module index. Then, anyone could `go get` it and add it to
 their CDK apps.
 
 -----

@@ -14,9 +14,10 @@ that the validation logic works: pass in invalid values and see what happens.
 
 First, add a `ReadCapacity` property to the `HitCounterProps` struct:
 
-{{<highlight go "hl_lines=3">}}
+{{<highlight go "hl_lines=4">}}
 type HitCounterProps struct {
-	Downstream awslambda.IFunction
+  // Downstream is the function for which we want to count hits
+	Downstream   awslambda.IFunction
 	ReadCapacity float64
 }
 {{</highlight>}}
@@ -25,16 +26,16 @@ Then update the DynamoDB table resource to add the `ReadCapacity` property.
 
 {{<highlight go "hl_lines=5">}}
 	table := awsdynamodb.NewTable(this, jsii.String("Hits"), &awsdynamodb.TableProps{
-		PartitionKey: &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
+		PartitionKey:  &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
 		RemovalPolicy: awscdk.RemovalPolicy_DESTROY,
-		Encryption: awsdynamodb.TableEncryption_AWS_MANAGED,
-		ReadCapacity: jsii.Number(props.ReadCapacity)
+		Encryption:    awsdynamodb.TableEncryption_AWS_MANAGED,
+		ReadCapacity:  &props.ReadCapacity,
 	})
 {{</highlight>}}
 
 Now add a validation which will throw an error if the `ReadCapacity` is not in the allowed range.
 
-{{<highlight go "hl_lines=9-11">}}
+{{<highlight go "hl_lines=2-4">}}
 func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps) HitCounter {
 	if props.ReadCapacity < 5 || props.ReadCapacity > 20 {
 		panic("ReadCapacity must be between 5 and 20")
@@ -45,7 +46,7 @@ Don't forget to pass in the ReadCapacity both in our app where we create a HitCo
 
 {{<highlight go "hl_lines=3">}}
 hitcounter := hitcounter.NewHitCounter(stack, "HelloHitCounter", &hitcounter.HitCounterProps{
-	Downstream: helloHandler,
+	Downstream:   helloHandler,
 	ReadCapacity: 10,
 })
 {{</highlight>}}
@@ -54,12 +55,13 @@ Now lets add a test that validates the error is thrown.
 
 ```go
 func TestCanPassReadCapacity(t *testing.T) {
+  defer jsii.Close()
   defer func() {
     if r := recover(); r == nil {
       t.Error("Did not throw ReadCapacity error")
     }
   }()
-  
+
   // GIVEN
   stack := awscdk.NewStack(nil, nil, nil)
 
@@ -102,7 +104,7 @@ func TestCanPassReadCapacity(t *testing.T) {
       t.Error("Did not throw ReadCapacity error")
     }
   }()
-  
+
   // GIVEN
   stack := awscdk.NewStack(nil, nil, nil)
 

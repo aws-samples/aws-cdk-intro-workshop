@@ -4,7 +4,7 @@ weight = 70
 chapter = true
 +++
 
-# The Construct Hub
+# Construct Hub
 
 The [Construct Hub](https://constructs.dev/) is a one-stop destination for finding, reusing and sharing constructs authored by AWS, [AWS Partner Network partners](https://aws.amazon.com/partners/), third parties, and the developer community. The site currently lists constructs for our supported programming languages Typescript, Java, Python, and .NET (with listings for Go coming soon). CDK constructs are cloud architecture building blocks and patterns that you can use to stand up complete production-ready cloud applications. The constructs listed in the Construct Hub are authored using the [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK), [CDK for Kubernetes](https://cdk8s.io/) (CDK8s) and [CDK for Terraform](https://github.com/hashicorp/terraform-cdk) (CDKtf). Please see the individual product sites/repositories for more in-depth information on each of these CDK libraries.
 

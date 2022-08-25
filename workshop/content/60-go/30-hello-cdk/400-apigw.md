@@ -17,7 +17,7 @@ will be returned back to the user.
 
 Going back to `cdk-workshop.go`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight go "hl_lines=6 28-30">}}
+{{<highlight go "hl_lines=6 22 28-30">}}
 package main
 
 import (
@@ -40,7 +40,7 @@ func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorksh
 	stack := awscdk.NewStack(scope, &id, &sprops)
 
 	helloHandler := awslambda.NewFunction(stack, jsii.String("HelloHandler"), &awslambda.FunctionProps{
-		Code: awslambda.Code_FromAsset(jsii.String("lambda"), nil),
+		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("hello.handler"),
 	})

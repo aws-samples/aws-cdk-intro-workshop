@@ -6,7 +6,7 @@ weight = 300
 ## Faster personal deployments
 
 {{% notice info %}} This section is not necessary to complete the workshop, but we
-recommend that you take the time to see how `cdk deploy --hotswap` and `cdk watch` 
+recommend that you take the time to see how `cdk deploy --hotswap` and `cdk watch`
 can speed up your personal deployments.
 {{% /notice %}}
 
@@ -26,7 +26,7 @@ some other mechanism for doing only that...
 ## Timing `cdk deploy`
 
 First, let's time how long it takes to run `cdk deploy`. It will help us baseline how
-long a full CloudFormation deployment takes. To do this, we are going to change the code 
+long a full CloudFormation deployment takes. To do this, we are going to change the code
 inside `lambda/hello.js`:
 
 {{<highlight js "hl_lines=6">}}
@@ -71,8 +71,8 @@ deployment takes!
 
 ## Hotswap deployments
 
-{{% notice info %}} This command deliberately introduces drift in CloudFormation 
-stacks in order to speed up deployments. For this reason, only use it for 
+{{% notice info %}} This command deliberately introduces drift in CloudFormation
+stacks in order to speed up deployments. For this reason, only use it for
 development purposes. Never use hotswap for your production deployments!
 {{% /notice %}}
 
@@ -82,7 +82,7 @@ deployment. If possible, the CDK CLI will use AWS service APIs to directly make
 the changes; otherwise it will fall back to performing a full CloudFormation
 deployment.
 
-Here, we will use `cdk deploy --hotswap` to deploy a hotswappable change to your 
+Here, we will use `cdk deploy --hotswap` to deploy a hotswappable change to your
 AWS Lambda asset code.
 
 ## Timing `cdk deploy --hotswap`
@@ -129,7 +129,7 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 9.51s
 ```
 
-Wow, deploying a hotswapped change took 3 seconds, while a full deployment took 67 seconds! 
+Wow, deploying a hotswapped change took 3 seconds, while a full deployment took 67 seconds!
 But take a look and read the warning message thoroughly - it's important!
 
 ```
@@ -160,10 +160,10 @@ double check!
 
 We can do better than calling `cdk deploy` or `cdk deploy --hotswap` each time.
 `cdk watch` is similar to `cdk deploy` except that instead of being a one-shot
-operation, it monitors your code and assets for changes and attempts to perform a 
-deployment automatically when a change is detected. By default, `cdk watch` will 
-use the `--hotswap` flag, which inspects the changes and determines if those 
-changes can be hotswapped. Calling `cdk watch --no-hotswap` will disable the 
+operation, it monitors your code and assets for changes and attempts to perform a
+deployment automatically when a change is detected. By default, `cdk watch` will
+use the `--hotswap` flag, which inspects the changes and determines if those
+changes can be hotswapped. Calling `cdk watch --no-hotswap` will disable the
 hotswap behavior.
 
 Once we set it up, we can use `cdk watch` to detect both hotswappable changes and
@@ -181,7 +181,7 @@ Your `cdk.json` file should look similar to this:
 
 ```json
 {
-  "app": "npx ts-node --prefer-ts-exts bin/cdk-workshop.ts",
+  "app": "go mod download && go run cdk-workshop.go",
   "watch": {
     "include": [
       "**"
@@ -200,7 +200,7 @@ Your `cdk.json` file should look similar to this:
 }
 ```
 
-As you can see, the sample app comes with a suggested `"watch"` setting. 
+As you can see, the sample app comes with a suggested `"watch"` setting.
 We don’t need to change anything for our use case, but if you did want `cdk watch`
 to watch other files, you can change the settings here.
 
@@ -208,7 +208,7 @@ You’re all set to start watching!
 
 ## Timing `cdk watch`
 
-First, call `cdk watch`: 
+First, call `cdk watch`:
 
 ```
 cdk watch
