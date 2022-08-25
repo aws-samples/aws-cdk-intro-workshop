@@ -18,7 +18,7 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - status-success=validate-pr
       - "#review-threads-unresolved=0"
-      - status-success~=Build workshop site
+      - status-success~=Build using Hugo
       - author!=dependabot[bot]
       - author!=dependabot-preview[bot]
   - name: automatic merge of Dependabot PRs
@@ -36,9 +36,7 @@ pull_request_rules:
       - -merged
       - -closed
       - author=dependabot[bot]
-      - "#approved-reviews-by>=1"
-      - "#changes-requested-reviews-by=0"
-      - status-success~=Build workshop site
+      - status-success~=Build using Hugo
   - name: if fails conventional commits
     actions:
       comment:
