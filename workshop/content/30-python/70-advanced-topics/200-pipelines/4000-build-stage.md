@@ -73,8 +73,7 @@ Then we add that stage to our pipeline (`pipeline.add_stage(deploy);`). A `Stage
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
 
 ```
-git add .
-git commit -am "Add deploy stage to pipeline" && git push
+git commit -a -m "Add deploy stage to pipeline" && git push
 ```
 
 Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
