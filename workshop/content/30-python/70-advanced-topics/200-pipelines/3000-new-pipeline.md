@@ -52,7 +52,7 @@ The above code does several things:
 All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
 
 ```
-git commit -a -m "MESSAGE" && git push
+git commit -am "MESSAGE" && git push
 cdk deploy
 ```
 
