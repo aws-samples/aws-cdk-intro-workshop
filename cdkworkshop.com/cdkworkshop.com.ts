@@ -131,6 +131,27 @@ export class CdkWorkshop extends Stack {
             target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(cdn)),
         });
 
+        // Email security records
+        const emailRecordComment = 'This record restricts email functionality to help prevent spoofing and impersonation events.';
+        new route53.TxtRecord(this, 'EmailSpfRecord', {
+            recordName: '',
+            zone,
+            values: ['v=spf1 -all'],
+            comment: emailRecordComment,
+        })
+        new route53.TxtRecord(this, 'EmailDkimRecord', {
+            recordName: '*._domainkey.cdkworkshop.com',
+            zone,
+            values: ['v=DKIM1; p='],
+            comment: emailRecordComment,
+        })
+        new route53.TxtRecord(this, 'EmailDmarcRecord', {
+            recordName: '_dmarc.cdkworkshop.com',
+            zone,
+            values: ['v=DMARC1; p=reject; rua=mailto:report@dmarc.amazon.com; ruf=mailto:report@dmarc.amazon.com'],
+            comment: emailRecordComment,
+        })
+
         // Configure Outputs
 
         new CfnOutput(this, 'URL', {
