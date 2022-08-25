@@ -21,14 +21,17 @@ package main
 import (
 	"testing"
 
+	"cdk-workshop/hitcounter"
+
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/assertions"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
 	"github.com/aws/jsii-runtime-go"
-	"cdk-workshop/hitcounter"
 )
 
 func TestHitCounterConstruct(t *testing.T) {
+	defer jsii.Close()
+
 	// GIVEN
 	stack := awscdk.NewStack(nil, nil, nil)
 
@@ -79,7 +82,7 @@ handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslam
 	Handler: jsii.String("hitcounter.handler"),
 	Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 	Environment: &map[string]*string{
-		"DOWNSTREAM_FUNCTION_NAME": (*props).Downstream.FunctionName(),
+		"DOWNSTREAM_FUNCTION_NAME": props.Downstream.FunctionName(),
 		"HITS_TABLE_NAME":          table.TableName(),
 	},
 })
@@ -98,16 +101,17 @@ go get github.com/google/go-cmp/cmp
 
 Don't forget to add this module to our imports
 
-{{<highlight go "hl_lines=8">}}
+{{<highlight go "hl_lines=10">}}
 import (
 	"testing"
+
+	"cdk-workshop/hitcounter"
 
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/assertions"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
 	"github.com/aws/jsii-runtime-go"
 	"github.com/google/go-cmp/cmp"
-	"cdk-workshop/hitcounter"
 )
 {{</highlight>}}
 
@@ -115,6 +119,8 @@ Create a new test in `cdk-workshop_test.go` with the below code:
 
 ```go
 func TestLambdaFunction(t *testing.T) {
+	defer jsii.Close()
+
 	// GIVEN
 	stack := awscdk.NewStack(nil, nil, nil)
 
@@ -228,14 +234,16 @@ requirement that our DynamoDB table be encrypted.
 
 First we'll update the first test to reflect this new requirement.
 
-{{<highlight go "hl_lines=1 17-21">}}
+{{<highlight go "hl_lines=1 19-23">}}
 func TestTableCreatedWithEncryption(t *testing.T) {
+	defer jsii.Close()
+
 	// GIVEN
 	stack := awscdk.NewStack(nil, nil, nil)
 
 	// WHEN
 	testFn := awslambda.NewFunction(stack, jsii.String("TestFunction"), &awslambda.FunctionProps{
-		Code: awslambda.Code_FromAsset(jsii.String("lambda"), nil),
+		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("hello.handler"),
 	})
@@ -289,9 +297,9 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 	this := constructs.NewConstruct(scope, &id)
 
 	table := awsdynamodb.NewTable(this, jsii.String("Hits"), &awsdynamodb.TableProps{
-		PartitionKey: &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
+		PartitionKey:  &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
 		RemovalPolicy: awscdk.RemovalPolicy_DESTROY,
-		Encryption: awsdynamodb.TableEncryption_AWS_MANAGED,
+		Encryption:    awsdynamodb.TableEncryption_AWS_MANAGED,
 	})
 
 	handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslambda.FunctionProps{
@@ -299,7 +307,7 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 		Handler: jsii.String("hitcounter.handler"),
 		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Environment: &map[string]*string{
-			"DOWNSTREAM_FUNCTION_NAME": (*props).Downstream.FunctionName(),
+			"DOWNSTREAM_FUNCTION_NAME": props.Downstream.FunctionName(),
 			"HITS_TABLE_NAME":          table.TableName(),
 		},
 	})
@@ -313,20 +321,7 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 
 Now run the test again, which should now pass.
 
-```bash
-npm run test
-
-> cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
-> jest
-
- PASS  test/hitcounter.test.ts
-  ✓ DynamoDB Table Created (171ms)
-  ✓ Lambda Has Environment Variables (52ms)
-  ✓ DynamoDB Table Created With Encryption (47ms)
-
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
-Snapshots:   0 total
-Time:        3.913s
-Ran all test suites.
+```console
+$ go test
+ok      cdk-workshop    42.069s
 ```

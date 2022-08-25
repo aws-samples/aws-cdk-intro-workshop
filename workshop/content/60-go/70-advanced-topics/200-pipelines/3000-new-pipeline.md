@@ -8,7 +8,7 @@ Now we are ready to define the basics of the pipeline.
 
 Return to the file `infra/pipeline-stack.go` and edit as follows:
 
-{{<highlight go "hl_lines=6 26-37">}}
+{{<highlight go "hl_lines=6 22 26-37">}}
 package infra
 
 import (
@@ -37,7 +37,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 	pipelines.NewCodePipeline(stack, jsii.String("Pipeline"), &pipelines.CodePipelineProps{
 		PipelineName: jsii.String("WorkshopPipeline"),
 		Synth: pipelines.NewCodeBuildStep(jsii.String("SynthStep"), &pipelines.CodeBuildStepProps{
-			Input: pipelines.CodePipelineSource_CodeCommit(repo, jsii.String("master"), nil),
+			Input: pipelines.CodePipelineSource_CodeCommit(repo, jsii.String("main"), nil),
 			Commands: jsii.Strings(
 				"npm install -g aws-cdk",
                 "goenv install 1.18.3",
@@ -59,7 +59,7 @@ The above code does several things:
   * The `Input` of the synth step specifies the repository where the CDK source code is stored.
 
 ## Deploy Pipeline and See Result
-All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
+All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
 ```
 git commit -am "MESSAGE" && git push

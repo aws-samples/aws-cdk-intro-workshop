@@ -50,7 +50,7 @@ Add an `import` statement at the beginning of `cdk-workshop.go`, and a
 `awslambda.NewFunction` to your stack.
 
 
-{{<highlight go "hl_lines=5 7 21-25">}}
+{{<highlight go "hl_lines=5 21-25">}}
 package main
 
 import (
@@ -72,7 +72,7 @@ func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorksh
 	stack := awscdk.NewStack(scope, &id, &sprops)
 
 	awslambda.NewFunction(stack, jsii.String("HelloHandler"), &awslambda.FunctionProps{
-		Code: awslambda.Code_FromAsset(jsii.String("lambda"), nil),
+		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("hello.handler"),
 	})

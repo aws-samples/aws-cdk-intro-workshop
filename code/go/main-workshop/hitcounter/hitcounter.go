@@ -9,14 +9,14 @@ import (
 )
 
 type HitCounterProps struct {
-	Downstream awslambda.IFunction
+	Downstream   awslambda.IFunction
 	ReadCapacity float64
 }
 
 type hitCounter struct {
 	constructs.Construct
 	handler awslambda.IFunction
-	table awsdynamodb.Table
+	table   awsdynamodb.Table
 }
 
 type HitCounter interface {
@@ -33,10 +33,10 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 	this := constructs.NewConstruct(scope, &id)
 
 	table := awsdynamodb.NewTable(this, jsii.String("Hits"), &awsdynamodb.TableProps{
-		PartitionKey: &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
+		PartitionKey:  &awsdynamodb.Attribute{Name: jsii.String("path"), Type: awsdynamodb.AttributeType_STRING},
 		RemovalPolicy: awscdk.RemovalPolicy_DESTROY,
-		Encryption: awsdynamodb.TableEncryption_AWS_MANAGED,
-		ReadCapacity: jsii.Number(props.ReadCapacity),
+		Encryption:    awsdynamodb.TableEncryption_AWS_MANAGED,
+		ReadCapacity:  jsii.Number(props.ReadCapacity),
 	})
 
 	handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslambda.FunctionProps{

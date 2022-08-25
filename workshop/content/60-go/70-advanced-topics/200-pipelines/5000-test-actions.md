@@ -8,16 +8,17 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `infra/workshop-stack.go` to get these values and expose them as properties of our stack:
 
-{{<highlight go "hl_lines=19-20 25-26 47 51 56-62 67-73">}}
+{{<highlight go "hl_lines=18-30 48 52 57-63 65 68-74">}}
 package infra
 
 import (
+	"cdk-workshop/hitcounter"
+
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsapigateway"
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"cdk-workshop/hitcounter"
 	"github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer"
 )
 
@@ -28,7 +29,7 @@ type CdkWorkshopStackProps struct {
 type cdkWorkshopStack struct {
 	awscdk.Stack
 	hcViewerUrl awscdk.CfnOutput
-	hcEndpoint awscdk.CfnOutput
+	hcEndpoint  awscdk.CfnOutput
 }
 
 type CdkWorkshopStack interface {
@@ -131,7 +132,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 	pipeline := pipelines.NewCodePipeline(stack, jsii.String("Pipeline"), &pipelines.CodePipelineProps{
 		PipelineName: jsii.String("WorkshopPipeline"),
 		Synth: pipelines.NewCodeBuildStep(jsii.String("SynthStep"), &pipelines.CodeBuildStepProps{
-			Input: pipelines.CodePipelineSource_CodeCommit(repo, jsii.String("master"), nil),
+			Input: pipelines.CodePipelineSource_CodeCommit(repo, jsii.String("main"), nil),
 			Commands: jsii.Strings(
 				"npm install -g aws-cdk",
 				"goenv install 1.18.3",
@@ -192,7 +193,7 @@ type WorkshopPipelineStageProps struct {
 type workshopPipelineStage struct {
 	stage awscdk.Stage
 	hcViewerUrl awscdk.CfnOutput
-	hcEndpoint awscdk.CfnOutput
+	hcEndpoint  awscdk.CfnOutput
 }
 
 type WorkshopPipelineStage interface {
@@ -227,8 +228,10 @@ func (s *workshopPipelineStage) HcEndpoint() awscdk.CfnOutput {
 {{</highlight>}}
 
 Now we can add those values to our actions in `lib/pipeline-stack.ts` by getting the `stackOutput` of our pipeline stack:
-{{<highlight go "hl_lines=6 13">}}
-    // CODE HERE...
+{{<highlight go "hl_lines=2 8 15">}}
+	// CODE HERE...
+	deployStage := pipeline.AddStage(deploy.Stage(), nil)
+
 	deployStage.AddPost(
 		pipelines.NewCodeBuildStep(jsii.String("TestViewerEndpoint"), &pipelines.CodeBuildStepProps{
 			ProjectName: jsii.String("TestViewerEndpoint"),

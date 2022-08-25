@@ -52,7 +52,7 @@ class WorkshopPipelineStack(Stack):
             "Pipeline",
             synth=pipelines.ShellStep(
                 "Synth",
-                input=pipelines.CodePipelineSource.code_commit(repo, "master"),
+                input=pipelines.CodePipelineSource.code_commit(repo, "main"),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages

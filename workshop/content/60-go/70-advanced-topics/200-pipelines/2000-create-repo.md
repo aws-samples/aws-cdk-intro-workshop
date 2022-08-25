@@ -8,7 +8,7 @@ The first step in any good CD pipeline is source control. Here we will create a 
 
 Edit the file `infra/pipeline-stack.go` as follows.
 
-{{<highlight go "hl_lines=7 21-23">}}
+{{<highlight go "hl_lines=5 7 21-23">}}
 package infra
 
 import (
@@ -71,10 +71,10 @@ Next, we add the remote repo to our Git config. You can do this with the command
 git remote add origin XXXXX
 ```
 
-Now all we need to do is to push our code to the repo (`--set-upstream` tells Git to override the current empty master branch on your repo):
+Now all we need to do is to push our code to the repo (`--set-upstream` tells Git to override the current empty main branch on your repo):
 
 ```
-git push --set-upstream origin master
+git push --set-upstream origin main
 ```
 
 Here, CodeCommit will request the credentials you generated in the **Git Credentials** section. You will only have to provide them once.

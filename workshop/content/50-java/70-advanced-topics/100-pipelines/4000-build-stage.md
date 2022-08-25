@@ -66,7 +66,7 @@ public class WorkshopPipelineStack extends Stack {
         final CodePipeline pipeline = CodePipeline.Builder.create(this, "Pipeline")
                 .pipelineName("WorkshopPipeline")
                 .synth(CodeBuildStep.Builder.create("SynthStep")
-                        .input(CodePipelineSource.codeCommit(repo, "master"))
+                        .input(CodePipelineSource.codeCommit(repo, "main"))
                         .installCommands(List.of(
                                 "npm install -g aws-cdk"   // Commands to run before build
                         ))

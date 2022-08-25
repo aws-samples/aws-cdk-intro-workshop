@@ -26,7 +26,7 @@ func NewWorkshopPipelineStage(scope constructs.Construct, id string, props *Work
 		sprops = props.StageProps
 	}
 	stage := awscdk.NewStage(scope, &id, &sprops)
-	
+
 	NewCdkWorkshopStack(stage, "WebService", nil)
 
 	return stage
@@ -67,7 +67,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 	pipeline := pipelines.NewCodePipeline(stack, jsii.String("Pipeline"), &pipelines.CodePipelineProps{
 		PipelineName: jsii.String("WorkshopPipeline"),
 		Synth: pipelines.NewCodeBuildStep(jsii.String("SynthStep"), &pipelines.CodeBuildStepProps{
-			Input: pipelines.CodePipelineSource_CodeCommit(repo, jsii.String("master"), nil),
+			Input: pipelines.CodePipelineSource_CodeCommit(repo, jsii.String("main"), nil),
 			Commands: jsii.Strings(
 				"npm install -g aws-cdk",
                 "goenv install 1.18.3",

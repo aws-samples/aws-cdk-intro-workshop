@@ -10,9 +10,9 @@ type WorkshopPipelineStageProps struct {
 }
 
 type workshopPipelineStage struct {
-	stage awscdk.Stage
+	stage       awscdk.Stage
 	hcViewerUrl awscdk.CfnOutput
-	hcEndpoint awscdk.CfnOutput
+	hcEndpoint  awscdk.CfnOutput
 }
 
 type WorkshopPipelineStage interface {

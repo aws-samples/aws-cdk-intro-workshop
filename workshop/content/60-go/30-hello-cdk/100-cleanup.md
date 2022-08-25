@@ -8,7 +8,7 @@ weight = 100
 The project created by `cdk init sample-app` includes an SQS queue, and an SNS topic. We're
 not going to use them in our project, so remove them from the
 `NewCdkWorkshopStack` function. We won't need to import these modules anymore either, so we can
-remove them from the imports (though we will need the `jsii-runtime-go` import for later). 
+remove them from the imports (though we will need the `jsii-runtime-go` import for later).
 Additionally, we won't need to pass in the environment being used to the stack.
 
 Open `cdk-workshop.go` and clean it up. Eventually it should look like this:
@@ -19,7 +19,7 @@ package main
 import (
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/constructs-go/constructs/v10"
-	// "github.com/aws/jsii-runtime-go"
+	"github.com/aws/jsii-runtime-go"
 )
 
 type CdkWorkshopStackProps struct {

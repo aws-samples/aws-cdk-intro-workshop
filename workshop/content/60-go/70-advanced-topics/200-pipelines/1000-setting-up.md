@@ -14,12 +14,13 @@ with the contents we've declared in `cdk-workshop.go`, aside from the `main()` f
 package infra
 
 import (
+	"cdk-workshop/hitcounter"
+
 	"github.com/aws/aws-cdk-go/awscdk/v2"
-	"github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsapigateway"
+	"github.com/aws/aws-cdk-go/awscdk/v2/awslambda"
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"cdk-workshop/hitcounter"
 	"github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer"
 )
 
@@ -27,7 +28,7 @@ type CdkWorkshopStackProps struct {
 	awscdk.StackProps
 }
 
-func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorkshopStackProps) awscdk.Stack {
+func NewCdkWorkshopStack(scope constructs.Construct, id string, props *cdkWorkshopStackProps) awscdk.Stack {
 	var sprops awscdk.StackProps
 	if props != nil {
 		sprops = props.StackProps
@@ -35,13 +36,13 @@ func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorksh
 	stack := awscdk.NewStack(scope, &id, &sprops)
 
 	helloHandler := awslambda.NewFunction(stack, jsii.String("HelloHandler"), &awslambda.FunctionProps{
-		Code: awslambda.Code_FromAsset(jsii.String("lambda"), nil),
+		Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("hello.handler"),
 	})
 
 	hitcounter := hitcounter.NewHitCounter(stack, "HelloHitCounter", &hitcounter.HitCounterProps{
-		Downstream: helloHandler,
+		Downstream:   helloHandler,
 		ReadCapacity: 10,
 	})
 
@@ -67,7 +68,7 @@ package main
 import (
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/jsii-runtime-go"
-)
+)pip
 
 func main() {
 	defer jsii.Close()
@@ -116,13 +117,14 @@ Next, since the purpose of our pipeline is to deploy our application stack, we n
 
 To do this, edit the code in `cdk-workshop.go` as follows:
 
-{{<highlight ts "hl_lines=6 14">}}
+{{<highlight ts "hl_lines=4 15">}}
 package main
 
 import (
+	"cdk-workshop/infra"
+
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/jsii-runtime-go"
-	"cdk-workshop/infra"
 )
 
 func main() {
