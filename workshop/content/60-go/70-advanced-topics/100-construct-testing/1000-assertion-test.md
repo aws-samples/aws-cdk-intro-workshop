@@ -1,6 +1,6 @@
 +++
 title = "Assertion Tests"
-weight = 200
+weight = 1000
 +++
 
 ### Fine-Grained Assertion Tests
@@ -73,7 +73,7 @@ it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `H
 Add another test below the DynamoDB test. If you remember, when we created the lambda function the
 environment variable values were references to other constructs.
 
-{{<highlight ts "hl_lines=6-7">}}
+{{<highlight go "hl_lines=6-7">}}
 handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslambda.FunctionProps{
 	Runtime: awslambda.Runtime_NODEJS_16_X(),
 	Handler: jsii.String("hitcounter.handler"),
@@ -98,7 +98,7 @@ go get github.com/google/go-cmp/cmp
 
 Don't forget to add this module to our imports
 
-{{<highlight ts "hl_lines=8">}}
+{{<highlight go "hl_lines=8">}}
 import (
 	"testing"
 
@@ -171,7 +171,7 @@ FAIL    cdk-workshop    5.960s
 
 Grab the real values for the environment variables and update your test
 
-{{<highlight ts "hl_lines=25 28">}}
+{{<highlight go "hl_lines=25 28">}}
 func TestLambdaFunction(t *testing.T) {
 	// GIVEN
 	stack := awscdk.NewStack(nil, nil, nil)

@@ -50,7 +50,7 @@ Add an `import` statement at the beginning of `cdk-workshop.go`, and a
 `awslambda.NewFunction` to your stack.
 
 
-{{<highlight ts "hl_lines=5 7 21-25">}}
+{{<highlight go "hl_lines=5 7 21-25">}}
 package main
 
 import (

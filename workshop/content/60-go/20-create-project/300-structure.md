@@ -116,7 +116,7 @@ contains the infrastructure that we want to deploy. The stack includes:
 
 - SQS Queue (`sqs.Queue`)
 - SNS Topic (`sns.Topic`)
-- Subscribes the queue to receive any messages published to the topic (`topic.add_subscription`)
+- Subscribes the queue to receive any messages published to the topic (`topic.AddSubscription`)
 
 Next, in `main()` the code creates an app and defines an instance of the `NewCdkWorkshopStack`
 within the scope of the app. This will allow the stack to be synthesized and deployed. A null

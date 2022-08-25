@@ -8,7 +8,7 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct. Go back to `hitcounter/hitcounter.go` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=4 7 16 21 27-41 44-46">}}
+{{<highlight go "hl_lines=4 7 16 21 27-41 44-46">}}
 package hitcounter
 
 import (

@@ -9,7 +9,7 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `hitcounter.go` and add the following highlighted lines:
 
-{{<highlight ts "hl_lines=41">}}
+{{<highlight go "hl_lines=41">}}
 package hitcounter
 
 import (
@@ -127,7 +127,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `hitcounter.go`:
 
-{{<highlight ts "hl_lines=43">}}
+{{<highlight go "hl_lines=43">}}
 package hitcounter
 
 import (

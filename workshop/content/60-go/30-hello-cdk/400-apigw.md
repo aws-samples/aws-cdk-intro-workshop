@@ -17,7 +17,7 @@ will be returned back to the user.
 
 Going back to `cdk-workshop.go`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=6 28-30">}}
+{{<highlight go "hl_lines=6 28-30">}}
 package main
 
 import (

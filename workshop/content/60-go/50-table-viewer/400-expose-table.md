@@ -7,7 +7,7 @@ weight = 400
 
 Edit `hitcounter.go` and modify it so that `table` is exposed as a public property.
 
-{{<highlight ts "hl_lines=17 46 53-55">}}
+{{<highlight go "hl_lines=17 46 53-55">}}
 package hitcounter
 
 import (
@@ -69,7 +69,7 @@ func (h *hitCounter) Table() awsdynamodb.Table {
 
 Go back to `cdk-workshop.go` and assign the `Table` property of the table viewer:
 
-{{<highlight ts "hl_lines=40">}}
+{{<highlight go "hl_lines=40">}}
 package main
 
 import (
