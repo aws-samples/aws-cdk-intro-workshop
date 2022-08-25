@@ -134,19 +134,18 @@ export class CdkWorkshop extends Stack {
         // Email security records
         const emailRecordComment = 'This record restricts email functionality to help prevent spoofing and impersonation events.';
         new route53.TxtRecord(this, 'EmailSpfRecord', {
-            recordName: '', // Intentionally empty.
             zone,
             values: ['v=spf1 -all'],
             comment: emailRecordComment,
         })
         new route53.TxtRecord(this, 'EmailDkimRecord', {
-            recordName: `*._domainkey.${props.domain}`,
+            recordName: "*._domainkey",
             zone,
             values: ['v=DKIM1; p='],
             comment: emailRecordComment,
         })
         new route53.TxtRecord(this, 'EmailDmarcRecord', {
-            recordName: `_dmarc.${props.domain}`,
+            recordName: "_dmarc",
             zone,
             values: ['v=DMARC1; p=reject; rua=mailto:report@dmarc.amazon.com; ruf=mailto:report@dmarc.amazon.com'],
             comment: emailRecordComment,
