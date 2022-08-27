@@ -24,7 +24,6 @@ pull_request_rules:
     actions:
       comment:
         message: Thanks Dependabot!
-<<<<<<< HEAD
       review:
         type: APPROVE
         message: Automatically approving PRs from Dependabot
