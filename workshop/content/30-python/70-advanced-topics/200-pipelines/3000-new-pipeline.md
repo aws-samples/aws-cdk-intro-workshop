@@ -31,7 +31,7 @@ class WorkshopPipelineStack(Stack):
             "Pipeline",
             synth=pipelines.ShellStep(
                 "Synth",
-                input=pipelines.CodePipelineSource.code_commit(repo, "master"),
+                input=pipelines.CodePipelineSource.code_commit(repo, "main"),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
@@ -49,7 +49,7 @@ The above code does several things:
       * The `input` of the synth step specifies the repository where the CDK source code is stored.
 
 ## Deploy Pipeline and See Result
-All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
+All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
 ```
 git add .
