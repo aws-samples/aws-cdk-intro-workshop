@@ -19,7 +19,7 @@ export class PipelineStack extends Stack {
             pipelineName: 'WorkshopPipeline',
 
             synth: new pipelines.ShellStep('Synth', {
-                input: pipelines.CodePipelineSource.gitHub('kellertk/aws-cdk-intro-workshop', 'master', {
+                input: pipelines.CodePipelineSource.gitHub('aws-samples/aws-cdk-intro-workshop', 'master', {
                     authentication: SecretValue.secretsManager('github-token'),
                 }),
                 commands: [
