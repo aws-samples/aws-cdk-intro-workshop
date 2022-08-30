@@ -193,10 +193,6 @@ Now we can add those values to our actions in `cdk_workshop/pipeline_stack.py` b
 
 {{</highlight>}}
 
-## Add table viewer to the ```requirements.txt``` file.
-
-```cdk-dynamo-table-view==0.2.0```
-
 ## Commit and View!
 Commit those changes, wait for the pipeline to re-deploy the app, and navigate back to the [CodePipeline Console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and you can now see that there are two test actions contained within the `Deploy` stage!
 
