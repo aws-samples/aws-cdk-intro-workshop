@@ -1,9 +1,11 @@
 +++
-title = "Advanced Topics"
+title = "アドバンスドトピック"
 weight = 70
 chapter = true
 +++
 
-# Advanced Topics
+# アドバンスドトピック
 
-In this chapter we will explore some advanced topics in the CDK that are not required in order to complete the workshop.
+この章では、CDK のいくつかのアドバンスドトピックに触れます。これらのトピックはオプションであり、このワークショップを完了するためには必須ではありません。
+
+

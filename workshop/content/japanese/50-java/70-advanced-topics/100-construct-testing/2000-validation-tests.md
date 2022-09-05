@@ -1,20 +1,20 @@
 +++
-title = "Validation Tests"
+title = "バリデーションテスト"
 weight = 300
 +++
 
-### Validation Tests
+### バリデーションテスト
 
-Sometimes we want the inputs to be configurable, but we also want to put constraints on those inputs or validate
-that the input is valid.
+場合によって、入力値を可変にする必要がありますが、その値に対して制約を設定したり、値の有効性を検証したりすることも必要です。
 
-Suppose for the `HitCounter` construct we want to allow the user to specify the `readCapacity` on the DynamoDB
-table, but we also want to ensure the value is within a reasonable range. We can write a test to make sure
-that the validation logic works: pass in invalid values and see what happens.
+例えば、`HitCounter` コンストラクトに対して、 DynamoDB の `readCapacity` を指定できるようにします。
+ユーザにリーズナブルな範囲で値を指定してもらいたいです。ひとまず、バリデーションロジックが正常に動作していることを確認するためのテストを書きます。
+敢えて無効な値を指定して、結果を確認します。
 
-First, add a `readCapacity` property to `HitCounterProps`:
+まず、`HitCounterProps` インタフェースに、 `readCapacity` プロパティーを追加します。
 
-Edit `HitCounterProps.java`
+`HitCounterProps.java` を編集します。
+
 {{<highlight java "hl_lines=14 19 26-29 42-45">}}
 package com.myorg;
 
@@ -67,7 +67,7 @@ public interface HitCounterProps {
 }
 {{</highlight>}}
 
-Then update the DynamoDB table resource to add the `readCapacity` property.
+次に、DynamoDB テーブルのリソースに `readCapacity` プロパティを追加します。
 
 {{<highlight java "hl_lines=1 9">}}
 Number readCapacity = (props.getReadCapacity() == null) ? 5 : props.getReadCapacity();
@@ -82,7 +82,7 @@ this.table = Table.Builder.create(this, "Hits")
     .build();
 {{</highlight>}}
 
-Now add a validation which will throw an error if the readCapacity is not in the allowed range.
+以下のように、`readCapacity` が範囲外である時にエラーを渡すバリデーションを追加します。
 
 {{<highlight java "hl_lines=5 8-12">}}
 public class HitCounter extends Construct {
@@ -104,7 +104,7 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-Now lets add a test that validates the error is thrown.
+最後に、エラーが投げられることを確認するテストを追加します。
 
 ```java
     @Test
@@ -126,13 +126,13 @@ Now lets add a test that validates the error is thrown.
     }
 ```
 
-Run the test.
+テストを実行すると
 
 ```bash
 $ mvn test
 ```
 
-You should see an output like this:
+以下のような出力を確認できるはずです。
 
 ```bash
 $ mvn test

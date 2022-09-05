@@ -1,15 +1,15 @@
 +++
 title = "CDK Pipelines"
-weight = 100
+weight = 200
 chapter = true
 +++
 
 # CDK Pipelines
 
-In this chapter we will create a Continuous Deployment (CD) pipeline for the app developed in previous chapters.
+この章では、前の章で開発したアプリの継続的デプロイメントパイプライン (CD パイプライン) を作成します。
 
-CD is an important component to most web projects, but can be challenging to set up with all the moving parts required. The [CDK Pipelines](https://docs.aws.amazon.com/cdk/latest/guide/cdk_pipeline.html) construct makes that process easy and streamlined from within your existing CDK infrastructure design.
+継続的デプロイメントはほとんどのウェブプロジェクトにとって重要なコンポーネントですが、網羅的にテストを行うのは難しい場合があります。[CDK Pipelines](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/cdk_pipeline.html) コンストラクトは、既存の CDK インフラストラクチャ設計からそのプロセスを容易かつ合理的に実現します。
 
-These pipelines consist of "stages" that represent the phases of your deployment process from how the source code is managed, to how the fully built artifacts are deployed.
+それぞれのパイプラインは、ソースコードの管理方法から、ビルドされた全てのアーティファクトのデプロイ方法まで、デプロイプロセスのフェーズを表す「ステージ」で構成されます。
 
 ![](./pipeline-stages.png)

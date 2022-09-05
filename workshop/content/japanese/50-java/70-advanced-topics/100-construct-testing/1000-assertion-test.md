@@ -1,25 +1,23 @@
 +++
-title = "Assertion Tests"
+title = "アサーションテスト"
 weight = 200
 +++
 
-### Fine-Grained Assertion Tests
+### きめ細かな(fine-grained) アサーションテスト
 
-#### Create a test for the DynamoDB table
+#### DynamoDB テーブルのためのテストの作成
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/50-java/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} このセクションでは、[hit counter コンストラクトの作成](/50-java/40-hit-counter.html) が完了していることを前提としています。 {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+`HitCounter` コンストラクトはシンプルな DynamoDB テーブルを作成します。テーブルが作成されていることを検証するテストを作りましょう。
 
-Since we removed the `src/test` directory (usually created automatically when you run `cdk init`), we need to create a new `test` directory
-under `src`:
+`src/test` ディレクトリ (通常は `cdk init` を実行すると自動的に作成される) を削除したので、`src` ディレクトリ配下で新しい `test` ディレクトリを作成する必要があります
 
 ```bash
 mkdir -p src/test/java/com/myorg
 ```
 
-And then create a file called `HitCounterTest.java` with the following code.
+そして、次のコードが含まれる `HitCountertest.java` という名前のファイルを作成します。
 
 ```java
 package com.myorg;
@@ -64,15 +62,15 @@ public class HitCounterTest {
 }
 ```
 
-This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
+このテストは、生成 (synthesize) されたスタックに DynamoDB テーブルが含まれていることを確認します。
 
-Run the test.
+テストを実行します。
 
 ```bash
 $ mvn test
 ```
 
-You should see output like this:
+以下のような出力が表示されるはずです。
 
 ```bash
 $ mvn test
@@ -98,14 +96,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 ```
 
-#### Create a test for the Lambda function
+#### Lambda 関数のためのテストの作成
 
-Now lets add another test, this time for the Lambda function that the `HitCounter` construct creates.
-This time in addition to testing that the Lambda function is created, we also want to test that
-it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
+次は、`HitCounter` コンストラクトが作成する Lambda 関数のためのテストを追加します。
+今回は、Lambda 関数が作成されたことのテストに加えて、その関数には
+`DOWNSTREAM_FUNCTION_NAME` と `HITS_TABLE_NAME` の2つの環境変数があることをテストします。
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+DynamoDB のテストの下に新規のテストを追加します。
+Lambda 関数を作成した時に、環境変数の値は他のコンストラクトへの参照だったことを覚えていますか？
 
 {{<highlight java "hl_lines=2-3 9">}}
 final Map<String, String> environment = new HashMap<>();
@@ -120,11 +118,11 @@ this.handler = Function.Builder.create(this, "HitCounterHandler")
     .build();
 {{</highlight>}}
 
-At this point we don't really know what the value of the `functionName` or `tableName` will be since the
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
-dummy value for now. Once we run the test it will fail and show us the expected value.
+この時点では、`functionName` と `tableName` の値がわかりません。
+CDK はハッシュを計算して、コンストラクトの名前の末尾に追加するからです。
+そのため、一旦ダミーな値をセットして、最初のテストの実行が失敗し、実際の期待値が明らかになります。
 
-Create a new test in `HitCounterTest.Java` with the below code:
+`HitCounterTest.Java` に以下のコードを追加し、新しいテストを作成します。
 
 ```java
 @Test
@@ -160,14 +158,13 @@ public void testLambdaEnvVars() throws IOException {
 }
 ```
 
-Save the file and run the test again.
+ファイルを保存して、テストをもう一度実行します。
 
 ```bash
 $ mvn test
 ```
 
-This time the test should fail and you should be able to grab the correct value for the
-variables from the expected output.
+今回のテストは失敗しますが、期待値の出力から環境変数の正しい値を入手できるはずです。
 
 {{<highlight bash "hl_lines=11-14">}}
 $ mvn test
@@ -206,7 +203,7 @@ Tests run: 2, Failures: 1, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 {{</highlight>}}
 
-Grab the real values for the environment variables and update your test
+環境変数の実際の値を取得し、テストの内容を更新します。
 
 {{<highlight java "hl_lines=26-27">}}
 @Test
@@ -242,13 +239,13 @@ public void testLambdaEnvVars() throws IOException {
 }
 {{</highlight>}}
 
-Now run the test again. This time is should pass.
+ここで、テストをもう一度実行します。今回は成功するはずです。
 
 ```bash
 $ mvn test
 ```
 
-You should see output like this:
+次のような出力が表示されるはずです。
 
 ```bash
 $ mvn test
@@ -272,10 +269,10 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 ```
 
-You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
-requirement that our DynamoDB table be encrypted.
+CDK コンストラクトの開発をテスト駆動開発手法 (Test Driven Development) でできます。
+単純な例として、DynamoDB テーブルを暗号化する要件を追加しましょう。
 
-First we'll update the test to reflect this new requirement.
+まず、この新しい要件を反映するために、テストを更新します。
 
 {{<highlight java>}}
 @Test
@@ -302,7 +299,7 @@ public void testDynamoDBEncryption() throws IOException {
 }
 {{</highlight>}}
 
-Now run the test, which should fail.
+ここでテストを実行すると、失敗するはずです。
 
 ```bash
 $ mvn test
@@ -383,7 +380,7 @@ Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 ```
 
-Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
+次に、壊れたテストを直しましょう。hitcounter のコードを更新して、デフォルトで暗号化を有効にします。
 
 {{<highlight java "hl_lines=11 28">}}
 package com.myorg;
@@ -444,7 +441,7 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-Now run the test again, which should now pass.
+次にテストを実行します。成功するはずです。
 
 ```bash
 $ mvn test

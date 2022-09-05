@@ -1,12 +1,12 @@
 +++
-title = "Add Application to Pipeline"
+title = "アプリケーションの追加"
 weight = 140
 +++
 
-## Create Stage
-At this point, you have a fully operating CodePipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
+## ステージの作成
+この時点では、自動的に自分を更新する CDK パイプラインができています。*しかし*、それ以外は何もしていません。アプリケーションをデプロイするには、そのためのステージを追加する必要があります。
 
-Create a new file in `CdkWorkshop` called `WorkshopPipelineStage.java` with the code below:
+`CdkWorkshop` 内に `WorkshopPipelineStage.java` を作成し、以下のコードを含めるようにします。
 
 {{<highlight java>}}
 package com.myorg;
@@ -28,10 +28,11 @@ public class WorkshopPipelineStage extends Stage {
 }
 {{</highlight>}}
 
-All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
+これは新しい `Stage` (パイプラインのコンポーネント) を宣言し、そのステージでアプリケーションスタックをインスタンス化します。
 
-## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `WorkshopPipelineStack.java`:
+## パイプラインにステージを追加する
+次のコードを `WorkshopPipelineStack.java` に追加して、ステージをパイプラインに追加する必要があります。
+
 
 {{<highlight java "hl_lines=43-44">}}
 package com.myorg;
@@ -82,19 +83,20 @@ public class WorkshopPipelineStack extends Stack {
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate development/test deployment).
 
-Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). An `ApplicationStage` in a CodePipeline represents any CDK deployment action.
+これにより、 `WorkshopPipelineStage` のインスタンスがインポートされ、作成されます。場合によって、このステージの複数のインスタンスを作成することがあります (たとえば、本番環境と開発/テスト環境のデプロイを分ける場合など)。
 
-## Commit/Deploy
-Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
+次に、このステージをパイプラインに追加します (`pipeline.addStage(deploy);`)。 CodePipeline の `ApplicationStage` は、すべての CDK デプロイメントアクションを表します。
+
+## コミット/デプロイ
+アプリケーションをデプロイするためのコードを追加できたので、後は変更をコミットしてリポジトリにプッシュするだけです。
 
 ```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+プッシュが完了したら、[CodePipeline コンソール](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) でパイプラインの実行状況を確認できます (しばらく時間がかかる場合があります)。
 
 ![](./pipeline-succeed.png)
 
-Success!
+成功しました !

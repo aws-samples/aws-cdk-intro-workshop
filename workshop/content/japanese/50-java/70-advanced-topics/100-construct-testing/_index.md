@@ -1,19 +1,18 @@
 +++
-title = "Testing Constructs"
+title = "コンストラクトのテスト"
 weight = 100
 +++
 
-## Testing Constructs (Optional)
+## コンストラクトのテスト (オプション)
 
-The [CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) has a good guide on
-testing constructs. For this section of the workshop we are going to use the [Fine-Grained Assertions](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained)
-and [Validation](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) type tests.
+[CDK デベロッパーガイド](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/testing.html) には、コンストラクトのテストについてのガイドがあります。
+このワークショップのセクションでは [きめ細かな(fine-grained) アサーション](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained) と [検証(validation)](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) の種類のテストを利用します。
 
-### Prerequisites
+### 前提条件
 
-1. Install the required testing packages.
+1. 必要なテストパッケージをインストールします
 
-Edit the `pom.xml` to add the following deps
+`pom.xml` を編集して、次の依存ライブラリを追加します
 
 {{<highlight xml "hl_lines=8-13">}}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -33,17 +32,15 @@ Edit the `pom.xml` to add the following deps
 </project>
 {{</highlight>}}
 
-#### CDK assert Library
+#### CDK アサートライブラリ
 
-We will be using the CDK `assertions` (`software.amazon.awscdk.assertions`) library throughout this section.
-The library contains several helper functions for writing unit and integration tests.
+このセクションでは CDK の `assertions` (`software.amazon.awscdk.assertions`) ライブラリを利用します。
+このライブラリはユニットテストとインテグレーションテストを書くためのヘルパー関数が含まれています。
 
+このワークショップでは主に `hasResourceProperties` 関数を使います。
+このヘルパー関数は特定のタイプのリソースの存在 (論理IDに関係なく) と、_特定_ のプロパティの値を検証する時に使います。
 
-For this workshop we will mostly be using the `hasResourceProperties` function. This helper is used when you
-only care that a resource of a particular type exists (regardless of its logical identfier), and that _some_
-properties are set to specific values.
-
-Example:
+例:
 
 ```java
 Map<String, Object> expected = Map.of(
@@ -52,4 +49,4 @@ Map<String, Object> expected = Map.of(
 template.hasResourceProperties("AWS::CertificateManager::Certificate", expected);
 ```
 
-To see the rest of the documentation, please read the docs [here](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assertions/README.md).
+詳しい説明は、[こちら](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assertions/README.md)のドキュメントを参照してください。
