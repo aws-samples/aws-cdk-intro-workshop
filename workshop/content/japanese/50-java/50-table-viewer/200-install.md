@@ -1,11 +1,11 @@
 +++
-title = "Installing the library"
+title = "ライブラリのインストール"
 weight = 200
 +++
 
-## Add Artifact
+## アーティファクトの追加
 
-Before you can use the table viewer in your application, you'll need to add the artifact to your `pom.xml` file:
+アプリケーションでテーブルビューアを使用する前に、アーティファクトを `pom.xml` ファイルに追加する必要があります。
 
 {{<highlight xml "hl_lines=27-38">}}
 ...
@@ -35,4 +35,4 @@ Before you can use the table viewer in your application, you'll need to add the 
 
 ----
 
-Now we are ready to add a viewer to our app.
+これで、アプリケーションに table viewer を追加する準備ができました。

@@ -1,17 +1,15 @@
 +++
-title = "Learning about the Table Viewer construct"
+title = "Table Viewer コンストラクト"
 weight = 100
 +++
 
-## Reading documentation
+## ドキュメンテーションの確認
 
-Browse to the [cdk-dynamo-table-viewer
-page](https://github.com/cdklabs/cdk-dynamo-table-viewer) on Github if
-you want to read the module documentation.
+GitHub の [cdk-dynamo-table-viewer
+page](https://github.com/cdklabs/cdk-dynamo-table-viewer) にアクセスして、モジュールのドキュメンテーションを確認しましょう。
 
 {{% notice warning %}}
-As mentioned in the README page of this library, it is not intended for production use. Namely because
-it will expose contents from your DynamoDB table to anyone without authentication.
+ライブラリの README に記載されているように、本番環境での使用を意図したものではありません。ユーザを認証せずに、テーブルへのアクセスを可能にするからです。
 {{% /notice %}}
 
 ![](./table-viewer.png)

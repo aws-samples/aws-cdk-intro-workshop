@@ -4,10 +4,8 @@ weight = 50
 chapter = true
 +++
 
-# Using construct libraries
+# コンストラクトライブラリの利用
 
-In this chapter we will import a construct library called
-[cdk-dynamo-table-view](https://search.maven.org/artifact/io.github.cdklabs/cdk-dynamo-table-view/0.2.0/jar)
-into our project and install it on our hit counter table.
+このチャプターでは、[cdk-dynamo-table-view](https://search.maven.org/artifact/io.github.cdklabs/cdk-dynamo-table-view/0.2.0/jar) というコンストラクトライブラリをプロジェクトにインポートし、HitCounter テーブルに利用します。
 
 ![](/images/table-viewer.png)
