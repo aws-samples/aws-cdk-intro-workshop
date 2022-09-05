@@ -52,7 +52,7 @@ class WorkshopPipelineStack(Stack):
             "Pipeline",
             synth=pipelines.ShellStep(
                 "Synth",
-                input=pipelines.CodePipelineSource.code_commit(repo, "master"),
+                input=pipelines.CodePipelineSource.code_commit(repo, "main"),
                 commands=[
                     "npm install -g aws-cdk",  # Installs the cdk cli on Codebuild
                     "pip install -r requirements.txt",  # Instructs Codebuild to install required packages
@@ -73,7 +73,8 @@ Then we add that stage to our pipeline (`pipeline.add_stage(deploy);`). A `Stage
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
 
 ```
-git commit -am "Add deploy stage to pipeline" && git push
+git add .
+git commit -m "Add deploy stage to pipeline" && git push
 ```
 
 Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).

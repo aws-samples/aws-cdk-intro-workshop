@@ -11,6 +11,6 @@ Fixes # <!-- Please create a new issue if none exists yet -->
 
 ---
 
-By submitting this pull request, I confirm that my contribution is made under the terms of the [Apache 2.0 license].
+By submitting this pull request, I confirm that my contribution is made under the terms of the [MIT-0 License].
 
-[Apache 2.0 license]: https://www.apache.org/licenses/LICENSE-2.0
+[MIT-0 License]: https://github.com/aws/mit-0/blob/master/MIT-0

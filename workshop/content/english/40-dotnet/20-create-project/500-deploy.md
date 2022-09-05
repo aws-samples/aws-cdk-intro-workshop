@@ -22,11 +22,14 @@ cdk bootstrap
 Then:
 
 ```
- ⏳  Bootstrapping environment 999999999999/us-west-2...
+ ⏳  Bootstrapping environment 123456789012/us-west-2...
 ...
 ```
 
-Hopefully this command finished successfully and we can move on to deploy our app.
+{{% notice info %}}
+If you are returned an Access Denied message at this step, verify that
+you have [configured the AWS CLI correctly]((/15-prerequisites/200-account.html)) (or, specified an appropriate secret/access key), and also verify that you have permission to call `cloudformation:CreateChangeSet` within the scope of your [account/session](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+{{% /notice %}}
 
 ## Let's deploy
 
@@ -36,7 +39,7 @@ Use `cdk deploy` to deploy a CDK app:
 cdk deploy
 ```
 
-You should see a warning like the following:
+You will first be informed of security-related changes that the CDK is going to perform on your behalf, if there are any security-related changes
 
 ```
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).

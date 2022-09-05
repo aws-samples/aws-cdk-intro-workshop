@@ -4,6 +4,7 @@
 *.d.ts
 node_modules
 workshop/public/**
+workshop/.hugo_build.lock
 .DS_Store
 obj/
 cdk.out/
