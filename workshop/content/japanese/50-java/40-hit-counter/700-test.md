@@ -1,12 +1,11 @@
 +++
-title = "Test the hit counter"
+title = "HitCounter のテスト"
 weight = 700
 +++
 
-## Issue a few test requests
+## いくつかのテストリクエストを実行してみる
 
-Let's issue a few requests and see if our hit counter works. You can also use
-your web browser to do that:
+いくつかのリクエストを実行して、HitCounter が動作するかどうかを確認しましょう。ウェブブラウザでもできます。
 
 ```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
@@ -16,24 +15,24 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello/world
 ```
 
-## Open DynamoDB console
+## DynamoDB コンソールを開く
 
-1. Go to the [DynamoDB console](https://console.aws.amazon.com/dynamodb/home).
-2. Make sure you are in the region where you created the table.
-3. Select `Tables` in the navigation pane and select the table that starts with `CdkWorkdShopStack-HelloHitCounterHits`.
-4. Open the table and select "Items".
-5. You should see how many hits you got for each path.
+1. [DynamoDB console](https://console.aws.amazon.com/dynamodb/home) にアクセスする。
+2. テーブルを作成したリージョンにいることを確認してください。
+3. ナビゲーションペインから `テーブル` を選択し、`CdkWorkdShopStack-HelloHitCounterHits` で始まるテーブルを選択します。
+4. テーブルを開き、`テーブルアイテムの検索` ボタンをクリックします。
+5. パス毎のアクセス回数を確認できます。
 
     ![](./dynamo1.png)
 
-6. Try hitting a new path and refresh the Items view.
-   You should see a new item with a `hits` count of one.
+6. 新しいパスにアクセスして、 テーブルの項目の表示を更新すると、新しいアイテムには `hits` カウントが設定されています。
 
 ## Good job!
 
-The cool thing about our `HitCounter` is that it's quite useful. It basically
-allows anyone to "attach" it to any Lambda function that serves as an API
-Gateway proxy backend and it will log hits to this API.
+`HitCounter` は大変便利だということがご理解いただけたと思います。基本的に、誰でも API Gateway
+のプロキシバックエンドとして機能する Lambda 関数にアタッチでき、この API のアクセスを記録できます。
+
+HitCounter はシンプルな Java クラスであるため、Maven アーティファクトとしてパッケージ化して、Maven パッケージレポジトリである [Central Repository](https://central.sonatype.org/) に公開できます。公開後は 誰でも`pom.xml`に加えることでインストールでき、CDKアプリに追加できます。
 
 Since our hit counter is a simple Java class, you could package it into a
 Maven artifact and publish it to [Central Repository](https://central.sonatype.org/), which is

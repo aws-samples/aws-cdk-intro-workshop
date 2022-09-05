@@ -1,15 +1,13 @@
 +++
-title = "Define resources"
+title = "リソースの定義"
 weight = 300
 +++
 
-## Add resources to the hit counter construct
+## HitCounter コンストラクトにリソースを追加する
 
-Now, let's define the AWS Lambda function and the DynamoDB table in our
-`HitCounter` construct.
+Lambda 関数と DynamoDB テーブルを `HitCounter` コンストラクトに定義します。
 
-
-Now, go back to `~/HitCounter.java` and add the following highlighted code:
+さて、`~/HitCounter.java`  に戻ります。 次の強調されたコードを追加します。
 
 {{<highlight java "hl_lines=3-4 8-13 16-17 22-38 41-53">}}
 package com.myorg;
@@ -68,20 +66,14 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-## What did we do here?
+## コードの解説
 
-This code is hopefully easy to understand:
+このコードはそう難しくはありません。
 
- * We defined a DynamoDB table, `table`, with `path` as the partition key (every DynamoDB table must have a single partition key).
- * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
- * We __wired__ the Lambda's environment variables to the `Function.name` and `Table.name` of our resources via `environment.put(...)`.
+ * DynamoDB テーブルに `path` というパーティションキーを定義しました (すべての DynamoDB テーブルには必ず一つのパーティションキーが必要です)。
+ * `lambda/hitcount.handler` にバインドされる Lambda 関数を定義しました。
+ * Lambda 関数の環境変数をリソースの `Function.name` と `Table.name` に `environment.put(...)` のように__紐付け__ しました。
 
-## Late-bound values
+## 遅延バインディング値
 
-The `FunctionName` and `TableName` properties are values that only resolve when
-we deploy our stack (notice that we haven't configured these physical names when
-we defined the table/function, only logical IDs). This means that if you print
-their values during synthesis, you will get a "TOKEN", which is how the CDK
-represents these late-bound values. You should treat tokens as *opaque strings*.
-This means you can concatenate them together for example, but don't be tempted
-to parse them in your code.
+`FunctionName` と `TableName` プロパティは、CloudFormation スタックをデプロイするタイミングで解決される値です (テーブル/関数を定義した時点では、まだ物理名が決まっていないことに注目してください)。つまり、それらの値を出力する場合は、仮の文字列として出力されます。CDK は仮の文字列を使って、遅延バインディング値を表現します。この仮の文字列は *未定の値* として扱うべきで、コード上でそれらの値を設定してはいけません。

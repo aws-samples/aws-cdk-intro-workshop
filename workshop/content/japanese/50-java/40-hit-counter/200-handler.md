@@ -1,13 +1,13 @@
 +++
-title = "Hit counter handler"
-weight = 100
+title = "HitCounter ハンドラー"
+weight = 200
 +++
 
-## Hit counter Lambda handler
+## HitCounter Lambda ハンドラー
 
-Okay, now let's write the Lambda handler code for our hit counter.
+HitCounter の Lambda ハンドラーのコードを記述しましょう。
 
-Create the file `lambda/hitcounter.js`:
+`lambda/hitcounter.js` というファイルを作成します。
 
 ```js
 const { DynamoDB, Lambda } = require('aws-sdk');
@@ -40,13 +40,11 @@ exports.handler = async function(event) {
 };
 ```
 
-## Discovering resources at runtime
+## 実行時のリソース検出
 
-You'll notice that this code relies on two environment variables:
+このコードは、次の2つの環境変数を参照していることがわかります。
 
- * `HITS_TABLE_NAME` is the name of the DynamoDB table to use for storage.
- * `DOWNSTREAM_FUNCTION_NAME` is the name of the downstream AWS Lambda function.
+ * `HITS_TABLE_NAME` データストアとして使用する DynamoDB のテーブル名
+ * `DOWNSTREAM_FUNCTION_NAME` ダウンストリームの Lambda 関数の名前
 
-Since the actual name of the table and the downstream function will only be
-decided when we deploy our app, we need to wire up these values from our
-construct code. We'll do that in the next section.
+テーブルとダウンストリーム関数の名前はアプリをデプロイするときに決まるため、これらの値をコンストラクトのコードから関連付ける必要があります。次のセクションでそれを行います。

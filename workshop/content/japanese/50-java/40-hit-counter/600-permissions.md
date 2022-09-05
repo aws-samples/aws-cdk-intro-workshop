@@ -1,13 +1,13 @@
 +++
-title = "Granting permissions"
+title = "アクセス権限の付与"
 weight = 600
 +++
 
-## Allow Lambda to read/write our DynamoDB table
+## Lambda 関数に DynamoDB テーブルの読み書き権限を付与
 
-Let's give our Lambda's execution role permissions to read/write from our table.
+Lambda 関数の実行ロールに、テーブルに対しての読み取り/書き込み権限を与えましょう。
 
-Go back to `~/HitCounter.java` and add the following highlighted lines:
+`~/HitCounter.java` を開き、次のようなハイライトされたコードを追加します。
 
 {{<highlight java "hl_lines=40-41">}}
 package com.myorg;
@@ -70,25 +70,24 @@ public class HitCounter extends Construct {
 
 {{</highlight>}}
 
-## Deploy
+## デプロイ
 
-Save & deploy:
+保存して、デプロイします。
 
 ```
 mvn package
 cdk deploy
 ```
 
-## Test again
+## 再テスト
 
-Okay, deployment is complete. Let's run our test again (either use `curl` or
-your web browser):
+デプロイが完了したら、もう一度テストを実行します。 (`curl` やウェブブラウザーでアクセスします)
 
 ```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-Again?
+また？
 
 ```
 HTTP/1.1 502 Bad Gateway
@@ -99,8 +98,7 @@ HTTP/1.1 502 Bad Gateway
 
 # 😢
 
-Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
-(click "Refresh"):
+まだこの厄介な 5xx エラーが発生しています！CloudWatch ログをもう一度見てみましょう (「再表示」を忘れずに)。
 
 ```json
 {
@@ -122,22 +120,22 @@ Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
 }
 ```
 
-Another access denied, but this time, if you take a close look:
+今回もアクセス権限の問題ですが、よく見てみると・・・
 
-```
-User: <VERY-LONG-STRING> is not authorized to perform: lambda:InvokeFunction on resource: <VERY-LONG-STRING>"
+```text
+User: <長い文字列> is not authorized to perform: lambda:InvokeFunction on resource: <長い文字列>"
 ```
 
-So it seems like our hit counter actually managed to write to the database. We can confirm by
-going to the [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home):
+HitCounter が正常にテーブルに書き込みできたようです。[DynamoDB コンソール](https://console.aws.amazon.com/dynamodb/home) で確認できます。
+
 
 ![](./logs5.png)
 
-But, we must also give our hit counter permissions to invoke the downstream lambda function.
+しかし、HitCounter にダウンストリームの Lambda 関数を呼び出す権限も付与する必要があります。
 
-## Grant invoke permissions
+## 呼び出し権限を付与
 
-Add the highlighted lines to `src/CdkWorkshop/HitCounter.java`:
+`src/CdkWorkshop/HitCounter.java` にハイライトされたコードを追加します。
 
 {{<highlight java "hl_lines=43-44">}}
 package com.myorg;
@@ -202,17 +200,15 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-## Diff
+## 差分確認
 
-You can check what this did using `cdk diff`:
+`cdk diff` で変更点を確認することができます。
 
 ```
-mvn package
 cdk diff
 ```
 
-The **Resource** section should look something like this,
-which shows the IAM statement was added to the role:
+**Resource** セクションが以下のように表示されます。IAM 権限が追加されたことを確認できます。
 
 ```
 IAM Statement Changes
@@ -247,32 +243,32 @@ Resources
 
 ```
 
-Which is exactly what we wanted.
+狙い通りです。
 
-## Deploy
+## デプロイ
 
-Okay... let's give this another shot:
+もう一度やってみましょう！
 
 ```
 cdk deploy
 ```
 
-Then hit your endpoint with `curl` or with your web browser:
+次にエンドポイントを `curl` またはウェブブラウザーでアクセスします。
 
 ```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-Output should look like this:
+結果は以下の通りになるはずです。
 
-```
-HTTP/1.1 200 OK
+```text
+HTTP/2 200 OK
 ...
 
 Hello, CDK! You've hit /
 ```
 
-> If you still get 5xx, give it a few seconds and try again. Sometimes API
-Gateway takes a little bit to "flip" the endpoint to use the new deployment.
+> もし、まだ 5xx エラーが出たら、数秒待ってからもう一度アクセスしてみてください。API Gateway
+のエンドポイントに新しいデプロイを適用するのに少し時間がかかることがあります。
 
 # 😲
