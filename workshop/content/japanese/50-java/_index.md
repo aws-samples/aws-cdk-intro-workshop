@@ -1,18 +1,17 @@
 +++
-title = "Java Workshop"
+title = "Java ワークショップ"
 chapter = true
 weight = 50
 +++
 
 # The Java Workshop
 
-This version of the workshop will guide you through a "getting started" experience in Java.
+本バージョンでは、Java による入門編をご案内します。
 
 {{% notice info %}}
 
-**A disclaimer about cost**: Some of the steps in this workshop will create resources that
-may bill your account. If you do not complete the workshop, you may still have AWS resources 
-that are unknowingly charging your account. To ensure your account is clean after starting
-this workshop, check out the [cleanup section]({{< ref "/50-java/60-cleanups" >}}) at the end of the Java Workshop.
+**費用についての免責事項** このワークショップの手順の一部は、リソースを作成します。
+このワークショップを完了しなくても、あなたのAWS アカウントに課金が発生する可能性があります。
+このワークショップを開始した後、あなたのアカウントにリソースが残っていないことを確認するために、Java ワークショップの最後にある[クリーンアップセクション]({{< ref "/50-java/60-cleanups" >}})をチェックしてください。
 
 {{% /notice %}}
