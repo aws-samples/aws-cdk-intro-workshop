@@ -28,7 +28,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
        const pipeline = new CodePipeline(this, 'Pipeline', {
             pipelineName: 'WorkshopPipeline',
             synth: new CodeBuildStep('SynthStep', {
-                    input: CodePipelineSource.codeCommit(repo, 'master'),
+                    input: CodePipelineSource.codeCommit(repo, 'main'),
                     installCommands: [
                         'npm install -g aws-cdk'
                     ],
@@ -52,7 +52,7 @@ The above code does several things:
   * The `input` of the synth step specifies the repository where the CDK source code is stored.
 
 ## Deploy Pipeline and See Result
-All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy. 
+All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
 ```
 git commit -am "MESSAGE" && git push

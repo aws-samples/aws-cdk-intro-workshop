@@ -43,7 +43,7 @@ public class WorkshopPipelineStack extends Stack {
         final CodePipeline pipeline = CodePipeline.Builder.create(this, "Pipeline")
                 .pipelineName("WorkshopPipeline")
                 .synth(CodeBuildStep.Builder.create("SynthStep")
-                        .input(CodePipelineSource.codeCommit(repo, "master"))
+                        .input(CodePipelineSource.codeCommit(repo, "main"))
                         .installCommands(List.of(
                                 "npm install -g aws-cdk"   // Commands to run before build
                         ))
@@ -60,8 +60,8 @@ public class WorkshopPipelineStack extends Stack {
 The above code does several things:
 
 * `CodePipeline.Builder.create(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `synth(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `input` and build the application based on the `commands`. This is always followed by `npx cdk synth`. 
-  The `input` of the synth step will check the designated repository for source code and generate an artifact. 
+    * `synth(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `input` and build the application based on the `commands`. This is always followed by `npx cdk synth`.
+  The `input` of the synth step will check the designated repository for source code and generate an artifact.
 
 ## Deploy Pipeline and See Result
 All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
