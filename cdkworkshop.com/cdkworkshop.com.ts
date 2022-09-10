@@ -123,6 +123,11 @@ export class CdkWorkshop extends Stack {
                             referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
                             override: true,
                         },
+                        contentSecurityPolicy: {
+                            override: true,
+                            contentSecurityPolicy:
+                                "default-src 'self'; script-src 'self' google-analytics.com; img-src 'self' shortbread.aws.dev;",
+                        },
                         strictTransportSecurity: {
                             accessControlMaxAge: Duration.seconds(31536000),
                             includeSubdomains: true,
