@@ -154,7 +154,7 @@ export class CdkWorkshop extends Stack {
                         },
                         contentSecurityPolicy: {
                             override: true,
-                            contentSecurityPolicy: `default-src 'self'; script-src 'self' *.google-analytics.com ${inlineScriptSha}; img-src 'self' *.shortbread.aws.dev; style-src 'self' ${inlineStyleSha};`,
+                            contentSecurityPolicy: `default-src 'self'; connect-src 'self' *.shortbread.aws.dev; script-src 'self' *.google-analytics.com ${inlineScriptSha}; img-src 'self' *.shortbread.aws.dev; style-src 'unsafe-hashes' 'self' ${inlineStyleSha};`,
                         },
                         strictTransportSecurity: {
                             accessControlMaxAge: Duration.seconds(31536000),
