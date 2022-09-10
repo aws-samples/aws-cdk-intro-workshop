@@ -119,6 +119,10 @@ export class CdkWorkshop extends Stack {
             "'sha256-P2hn+VwIP1QpDbViEeyBpSYd56z000KQL1wYKl4fOn4='",
             "'sha256-XMx/51OWXQv5SQUZixnfEaRbvQbG4b+l60m6mdp/wZo='",
             "'sha256-EXGBthQ+1jugtiaEvJFuOn63vodYXHv5jgJxlfOCKxk='",
+            "'sha256-OnU0/ZM3Ss8isHqfdfFOgBAOgZWtTD+nHOOv6pp4mEA='",
+            "'sha256-xelWXnqN51+81jzAN/+Dsx4rrOWcoBFozmA/WqAZRSc='",
+            "'sha256-mFNr2NQYXlFnoGPo5ZrXEvWx5Qz6mwmUBRAIEgshwMg='",
+            "'sha256-Y6md+aHyc5K3QvKXrCB9LaE4UC85kA0+bGRTq6vrW8w='",
         ].join(' ');
         const inlineScriptSha = [
             "'sha256-nP0EI9B9ad8IoFUti2q7EQBabcE5MS5v0nkvRfUbYnM='",
@@ -150,7 +154,7 @@ export class CdkWorkshop extends Stack {
                         },
                         contentSecurityPolicy: {
                             override: true,
-                            contentSecurityPolicy: `default-src 'self'; script-src 'self' google-analytics.com ${inlineScriptSha}; img-src 'self' shortbread.aws.dev; style-src 'self' ${inlineStyleSha};`,
+                            contentSecurityPolicy: `default-src 'self'; script-src 'self' *.google-analytics.com ${inlineScriptSha}; img-src 'self' *.shortbread.aws.dev; style-src 'self' ${inlineStyleSha};`,
                         },
                         strictTransportSecurity: {
                             accessControlMaxAge: Duration.seconds(31536000),
