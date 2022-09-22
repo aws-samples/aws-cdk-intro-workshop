@@ -1,6 +1,6 @@
 +++
 title = "まとめ"
-weight = 70
+weight = 80
 chapter = true
 +++
 

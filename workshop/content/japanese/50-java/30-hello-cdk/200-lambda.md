@@ -35,7 +35,8 @@ AWS CDK には、__AWS Construct Library__ と呼ばれるコンストラクト�
 
 AWS コンストラクトについて学ぶには、[AWS Construct Library reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html) を参照してください。
 
-![](./clib.png)
+![](/images/apiref.png)
+
 ## コピー＆ペーストは使わずにコードを書いてみましょう
 
 このワークショップでは、コピー&ペーストをするのではなく、実際に CDK のコードを入力することを強く推奨します（通常、入力する量は多くありません）。これにより、CDK の使い方についてより理解していただけるものとなります。さらに、IDE がオートコンプリート、インラインドキュメント及びタイプセーフに対応していることをご理解いただけるでしょう。

@@ -37,7 +37,7 @@ AWS CDK には、__AWS Construct Library__ と呼ばれるコンストラクト�
 
 AWS コンストラクトについて学ぶには、[AWS Construct Library reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html) を参照してください。
 
-![](./clib.png)
+![](/images/apiref.png)
 
 ## コピー＆ペーストは使わずにコードを書いてみましょう
 
