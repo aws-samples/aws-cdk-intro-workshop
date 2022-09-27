@@ -69,9 +69,15 @@ permanently retained. These will not be tracked by CloudFormation since they are
 not part of the stack, so the logs will still persist. You will have to manually
 delete these in the console if desired.
 
-Now that we know which resources will be deleted, we can proceed with deleting the
-stack. You can either delete the stack through the AWS CloudFormation console or use
-`cdk destroy`:
+To apply the policy changes we need to run `cdk deploy`:
+
+```
+cdk deploy
+```
+
+Now that we know which resources will be deleted and we've deployed the policy 
+changes, we can proceed with deleting the stack. You can either delete the 
+stack through the AWS CloudFormation console or use `cdk destroy`:
 
 ```
 cdk destroy
