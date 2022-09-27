@@ -18,12 +18,13 @@ will be returned back to the user.
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
 {{<highlight ts "hl_lines=3 16-19">}}
-import * as cdk from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 
-export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class CdkWorkshopStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     // defines an AWS Lambda resource
