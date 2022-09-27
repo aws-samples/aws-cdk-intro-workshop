@@ -288,6 +288,8 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 8.11s
 ```
 
+To exit `cdk watch`, you can perform a `ctrl-c` in the terminal (i.e. hold `ctrl` and hit `c`).
+
 ## Wrap Up
 
 The rest of this tutorial will continue using `cdk deploy` instead of `cdk watch`.

@@ -65,11 +65,12 @@ Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 
 
 {{<highlight ts "hl_lines=2 8-13">}}
-import * as cdk from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 
-export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class CdkWorkshopStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     // defines an AWS Lambda resource
@@ -78,6 +79,7 @@ export class CdkWorkshopStack extends cdk.Stack {
       code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
+
   }
 }
 {{</highlight>}}
@@ -136,27 +138,26 @@ Output would look like this:
 ```text
 Stack CdkWorkshopStack
 IAM Statement Changes
-┌───┬─────────────────────────────────┬────────┬────────────────┬──────────────────────────────┬───────────┐
-│   │ Resource                        │ Effect │ Action         │ Principal                    │ Condition │
-├───┼─────────────────────────────────┼────────┼────────────────┼──────────────────────────────┼───────────┤
-│ + │ ${HelloHandler/ServiceRole.Arn} │ Allow  │ sts:AssumeRole │ Service:lambda.amazonaws.com │           │
-└───┴─────────────────────────────────┴────────┴────────────────┴──────────────────────────────┴───────────┘
+┌───┬────────────────┬────────┬────────────────┬──────────────────┬───────────┐
+│   │ Resource       │ Effect │ Action         │ Principal        │ Condition │
+├───┼────────────────┼────────┼────────────────┼──────────────────┼───────────┤
+│ + │ ${HelloHandler │ Allow  │ sts:AssumeRole │ Service:lambda.a │           │
+│   │ /ServiceRole.A │        │                │ mazonaws.com     │           │
+│   │ rn}            │        │                │                  │           │
+└───┴────────────────┴────────┴────────────────┴──────────────────┴───────────┘
 IAM Policy Changes
-┌───┬─────────────────────────────┬────────────────────────────────────────────────────────────────────────────────┐
-│   │ Resource                    │ Managed Policy ARN                                                             │
-├───┼─────────────────────────────┼────────────────────────────────────────────────────────────────────────────────┤
-│ + │ ${HelloHandler/ServiceRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole │
-└───┴─────────────────────────────┴────────────────────────────────────────────────────────────────────────────────┘
+┌───┬────────────────────────────────────┬────────────────────────────────────┐
+│   │ Resource                           │ Managed Policy ARN                 │
+├───┼────────────────────────────────────┼────────────────────────────────────┤
+│ + │ ${HelloHandler/ServiceRole}        │ arn:${AWS::Partition}:iam::aws:pol │
+│   │                                    │ icy/service-role/AWSLambdaBasicExe │
+│   │                                    │ cutionRole                         │
+└───┴────────────────────────────────────┴────────────────────────────────────┘
 (NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
-Parameters
-[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/S3Bucket AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7S3BucketEB5CA0D6: {"Type":"String","Description":"S3 bucket for asset \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
-[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/S3VersionKey AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7S3VersionKeyC5F120D1: {"Type":"String","Description":"S3 key for asset version \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
-[+] Parameter AssetParameters/3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7/ArtifactHash AssetParameters3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7ArtifactHashBAACCCD2: {"Type":"String","Description":"Artifact hash for asset \"3342065582ab8a3599385f447c9f5d5b141c726eb5dc468594ec8450a97f3cb7\""}
-
 Resources
-[+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63
-[+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
+[+] AWS::IAM::Role HelloHandler/ServiceRole HelloHandlerServiceRole11EF7C63 
+[+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D 
 ```
 
 As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
@@ -194,17 +195,17 @@ Let's go to the AWS Lambda Console and test our function.
 
     ![](./lambda-2.png)
 
-4. Select __Amazon API Gateway AWS Proxy__ from the __Event template__ list.
+4. Enter `test` under __Event name__.
 
-5. Enter `test` under __Event name__.
+5. Select __apigateway-aws-proxy__ from the __Template__ list.
 
     ![](./lambda-3.png)
 
-6. Hit __Create__.
+6. Hit __Save__.
 
 7. Click __Test__ again and wait for the execution to complete.
 
-8. Expand __Details__ in the __Execution result__ pane and you should see our expected output:
+8. Look at the __Execution results__ tab and you should see our expected output:
 
     ![](./lambda-4.png)
 

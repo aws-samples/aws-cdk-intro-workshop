@@ -23,7 +23,7 @@ You'll see something like this:
   name of your app, version, dependencies and build scripts like "watch" and
   "build" (`package-lock.json` is maintained by npm)
 * `cdk.json` tells the toolkit how to run your app. In our case it will be
-  `"npx ts-node bin/cdk-workshop.ts"`
+  `"npx ts-node --prefer-ts-exts bin/cdk-workshop.ts"`
 * `tsconfig.json` your project's [typescript
   configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 * `.gitignore` and `.npmignore` tell git and npm which files to include/exclude

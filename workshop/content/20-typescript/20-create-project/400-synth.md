@@ -13,8 +13,8 @@ application.
 To synthesize a CDK app, use the `cdk synth` command. Let's check out the
 template synthesized from the sample app:
 
-{{% notice info %}} The **CDK CLI** requires you to be in the same directory 
-as your `cdk.json` file. If you have changed directories in your terminal, 
+{{% notice info %}} The **CDK CLI** requires you to be in the same directory
+as your `cdk.json` file. If you have changed directories in your terminal,
 please navigate back now.{{% /notice %}}
 
 ```
@@ -29,6 +29,8 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       VisibilityTimeout: 300
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: CdkWorkshopStack/CdkWorkshopQueue/Resource
   CdkWorkshopQueuePolicyAF2494A5:
@@ -72,12 +74,17 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Modules: aws-cdk=1.21.1,@aws-cdk/aws-cloudwatch=1.21.1,@aws-cdk/aws-iam=1.21.1,@aws-cdk/aws-kms=1.21.1,@aws-cdk/aws-sns=1.21.1,@aws-cdk/aws-sns-subscriptions=1.21.1,@aws-cdk/aws-sqs=1.21.1,@aws-cdk/core=1.21.1,@aws-cdk/cx-api=1.21.1,@aws-cdk/region-info=1.21.1,jsii-runtime=node.js/v13.6.0
+      Analytics: v2:deflate64:H4sIAAAAAAAA/1WNQQ7CIBBFz9I9jNYaL9ALaOvetIDJtBUqAxpDuLsFEhM38/9/eckc4NhAXQ1v4kLOfMERQu8GMbMN3QI9CcLFK69Ye9el5Hs2C4rPD5YZGenN7/1IwuLq0Ohk/O2rWVEkmkuMqXaKjLci/2iNlpjMyLSRCibaveoT1A3sq4kQufXa4UNBV/ILgJb0MsEAAAA=
+    Metadata:
+      aws:cdk:path: CdkWorkshopStack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
 Conditions:
   CDKMetadataAvailable:
     Fn::Or:
       - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
           - Fn::Equals:
               - Ref: AWS::Region
               - ap-east-1
@@ -105,13 +112,16 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - cn-northwest-1
-          - Fn::Equals:
-              - Ref: AWS::Region
-              - eu-central-1
       - Fn::Or:
           - Fn::Equals:
               - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
               - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
           - Fn::Equals:
               - Ref: AWS::Region
               - eu-west-1
@@ -133,12 +143,31 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-east-2
+      - Fn::Or:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-west-1
           - Fn::Equals:
               - Ref: AWS::Region
               - us-west-2
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Rules:
+  CheckBootstrapVersion:
+    Assertions:
+      - Assert:
+          Fn::Not:
+            - Fn::Contains:
+                - - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
+                - Ref: BootstrapVersion
+        AssertDescription: CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.
 ```
 
 As you can see, this template includes four resources:
@@ -153,4 +182,3 @@ by the toolkit to every stack. It is used by the AWS CDK team for analytics and
 to allow us to identify versions with security issues. See [Version Reporting](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) in
 the AWS CDK User Guide for more details. We will omit the metadata resource in
 diff views for the rest of this workshop {{% /notice %}}
-
