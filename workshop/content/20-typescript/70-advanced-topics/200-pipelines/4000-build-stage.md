@@ -24,26 +24,6 @@ export class WorkshopPipelineStage extends Stage {
 
 All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
 
-Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack as it stands now is not configured to be deployed by a pipeline.
-Open `lib/cdk-workshop-stack.ts` and make the following changes:
-
-{{<highlight ts "hl_lines=9">}}
-import * as cdk from 'aws-cdk-lib';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as apigw from 'aws-cdk-lib/aws-apigateway';
-import { Construct } from 'constructs';
-import { HitCounter } from './hitcounter';
-import { TableViewer } from 'cdk-dynamo-table-viewer';
-
-export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
-
-    // The rest of your code...
-{{</highlight>}}
-
-This stack's `scope` parameter was defined as being a `cdk.App`, which means that in the construct tree, it must be a child of the app. Since the stack is being deployed by the pipeline, it is no longer a child of the app, so its type must be changed to `Construct`.
-
 ## Add stage to pipeline
 Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
 
@@ -95,7 +75,7 @@ Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). A Stage i
 Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
 
 ```
-git commit -am "Add deploy stage to pipeline" && git push
+git add -A && git commit -m "Add deploy stage to pipeline" && git push
 ```
 
 Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).

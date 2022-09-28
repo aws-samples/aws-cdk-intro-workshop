@@ -58,6 +58,11 @@ All that's left to get our pipeline up and running is to commit our changes and 
 git commit -am "MESSAGE" && git push
 npx cdk deploy
 ```
+{{% notice info %}}
+We use the `npx` command here instead of cdk directly. This command is used when you want
+to use the local version of the cdk cli instead of your global version. More info on this
+can be found on the [cdk toolkit docs](https://docs.aws.amazon.com/cdk/v2/guide/cli.html) page.
+{{% /notice %}}
 
 CDK Pipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!
 

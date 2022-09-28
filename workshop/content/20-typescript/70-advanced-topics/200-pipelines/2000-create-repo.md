@@ -37,6 +37,10 @@ npx cdk deploy
 Before we can do anything with our repo, we must add our code to it!
 
 ### Git Credentials
+{{% notice info %}}
+If you are using Cloud9 you can skip this `Git Credentials` section.
+{{% /notice %}}
+
 Before we can do that, we will need Git credentials for the repo. To do this, go to the [IAM Console](https://console.aws.amazon.com/iam), then navigate to `Users` and then your user of choice.
 Inside the manage user interface, navigate to the `Security credentials` tab and scroll until you see "HTTPS Git credentials for AWS CodeCommit". Click generate credentials and follow the instructions on downloading those credentials. We will need them in a moment.
 
@@ -51,7 +55,7 @@ The last console step we will need here is to navigate to the [CodeCommit Consol
 
 > While you are here, feel free to explore your repo. You will see that it is still empty, but you do have access to the repo configuration information.
 
-In your terminal, first make sure that all the changes you have made during the workshop are committed by issuing `git status`. If you have unstaged or uncommitted changes, you can execute `git commit -am "SOME_COMMIT_MESSAGE_HERE"`. This will stage and commit all your files so you are ready to go!
+In your terminal, first make sure that all the changes you have made during the workshop are committed by issuing `git status`. If you have unstaged or uncommitted changes, you can execute `git add -A && git commit -m "SOME_COMMIT_MESSAGE_HERE"`. This will stage and commit all your files so you are ready to go!
 
 > Note: If you copied the code from the repo rather than following through the workshop from the beginning, first issue `git init && git add -A && git commit -m "init"`
 
@@ -81,13 +85,18 @@ Next, we add the remote repo to our Git config. You can do this with the command
 git remote add origin XXXXX
 ```
 
+Ensure you are on the `main` branch locally by either creating it and switching to it:
+```
+git checkout main || git checkout -b main
+```
+
 Now all we need to do is to push our code to the repo (`--set-upstream` tells Git to override the current empty main branch on your repo):
 
 ```
 git push --set-upstream origin main
 ```
 
-Here, CodeCommit will request the credentials you generated in the **Git Credentials** section. You will only have to provide them once.
+Unless you skipped the **Git Credentials** section, CodeCommit will request the credentials you generated there. You will only have to provide them once.
 
 ### See Result
 Now you can return to the CodeCommit console and see that your code is all there!

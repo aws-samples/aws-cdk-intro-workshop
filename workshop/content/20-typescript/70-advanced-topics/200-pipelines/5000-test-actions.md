@@ -6,21 +6,21 @@ weight = 150
 ## Get Endpoints
 Stepping back, we can see a problem now that our app is being deployed by our pipeline. There is no easy way to find the endpoints of our application (the `TableViewer` and `APIGateway` endpoints), so we can't call it! Let's add a little bit of code to expose these more obviously.
 
-First edit `lib/cdk-workshop-stack.ts` to get these values and expose them as properties of our stack:
+First edit `lib/cdk-workshop-stack.ts` to get these values and expose them as properties of our stack and import `CfnOutput` from the main cdk library:
 
 {{<highlight ts "hl_lines=9-10 26 30 36-42">}}
-import * as cdk from 'aws-cdk-lib';
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
-import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 
-export class CdkWorkshopStack extends cdk.Stack {
-  public readonly hcViewerUrl: cdk.CfnOutput;
-  public readonly hcEndpoint: cdk.CfnOutput;
+export class CdkWorkshopStack extends Stack {
+  public readonly hcViewerUrl: CfnOutput;
+  public readonly hcEndpoint: CfnOutput;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
@@ -44,11 +44,11 @@ export class CdkWorkshopStack extends cdk.Stack {
       sortBy: '-hits'
     });
 
-    this.hcEndpoint = new cdk.CfnOutput(this, 'GatewayUrl', {
+    this.hcEndpoint = new CfnOutput(this, 'GatewayUrl', {
       value: gateway.url
     });
 
-    this.hcViewerUrl = new cdk.CfnOutput(this, 'TableViewerUrl', {
+    this.hcViewerUrl = new CfnOutput(this, 'TableViewerUrl', {
       value: tv.endpoint
     });
   }
