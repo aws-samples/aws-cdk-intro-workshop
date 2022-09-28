@@ -51,6 +51,10 @@ The above code does several things:
     * `synth(...)`: The `synthAction` of the pipeline describes the commands necessary to install dependencies, build, and synth the CDK application from source. This should always end in a *synth* command, for NPM-based projects this is always `npx cdk synth`.
   * The `input` of the synth step specifies the repository where the CDK source code is stored.
 
+{{% notice warning %}}
+We've instructed the pipeline to use `npm ci` which will look for a `package-lock.json` file and will use that to peform the package installs. There is a slight chance this can get corrupted if you add a new package and build locally (i.e. you are using a npm repo that is not accessible through a public connection so CodeBuild cannot connect to it). If you run into issues throughout the rest of the workshop due to package-lock issues, you can remove the `package-lock.json` file and update the pipeline to use `npm i` instead of `npm ci`.
+{{% /notice %}}
+
 ## Deploy Pipeline and See Result
 All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
 
