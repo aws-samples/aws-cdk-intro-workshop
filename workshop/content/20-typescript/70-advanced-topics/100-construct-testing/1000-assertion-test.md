@@ -245,14 +245,9 @@ Ran all test suites.
 You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
 requirement that our DynamoDB table be encrypted.
 
-First we'll update the test to reflect this new requirement.
+First we'll create a new test file to reflect this new requirement.
 
 {{<highlight ts "hl_lines=6-23">}}
-import { Template, Capture } from 'aws-cdk-lib/assertions';
-import cdk = require('aws-cdk-lib');
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { HitCounter }  from '../lib/hitcounter';
-
 test('DynamoDB Table Created With Encryption', () => {
   const stack = new cdk.Stack();
   // WHEN

@@ -12,7 +12,7 @@ Suppose for the `HitCounter` construct we want to allow the user to specify the 
 table, but we also want to ensure the value is within a reasonable range. We can write a test to make sure
 that the validation logic works: pass in invalid values and see what happens.
 
-First, add a `readCapacity` property to the `HitCounterProps` interface:
+First, add a `readCapacity` property to the `HitCounterProps` interface in `hitcounter.ts`:
 
 {{<highlight ts "hl_lines=12">}}
 export interface HitCounterProps {
