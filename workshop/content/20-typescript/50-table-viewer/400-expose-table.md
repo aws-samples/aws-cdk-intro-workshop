@@ -7,7 +7,7 @@ weight = 400
 
 Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
 
-{{<highlight ts "hl_lines=15-16 27">}}
+{{<highlight ts "hl_lines=15-16 28">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -32,7 +32,8 @@ export class HitCounter extends Construct {
       partitionKey: {
         name: "path",
         type: dynamodb.AttributeType.STRING
-      }
+      },
+      removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     this.table = table;
 

@@ -8,7 +8,7 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct. Go back to `lib/hitcounter.ts` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=3 13-14 19-31">}}
+{{<highlight ts "hl_lines=3 13-14 19-32">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -28,7 +28,8 @@ export class HitCounter extends Construct {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {
-        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
+        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+        removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
@@ -43,6 +44,12 @@ export class HitCounter extends Construct {
   }
 }
 {{</highlight>}}
+
+{{% notice info %}}
+When destroying a stack, resources may be deleted, retained, or snapshotted according to their deletion policy.
+By default, most resources will get deleted upon stack deletion, however that's not the case for all resources.
+The DynamoDB table will be retained by default. Since this is a workshop we want to have a clean destroy so we have set the removal policy to delete. It is not advisable to do this in a production environment.
+{{% /notice %}}
 
 ## What did we do here?
 

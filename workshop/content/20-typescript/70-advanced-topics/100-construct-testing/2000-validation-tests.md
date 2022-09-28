@@ -35,6 +35,7 @@ Then update the DynamoDB table resource to add the `readCapacity` property.
 {{<highlight ts "hl_lines=4">}}
 const table = new dynamodb.Table(this, 'Hits', {
   partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+  removalPolicy: cdk.RemovalPolicy.DESTROY,
   encryption: dynamodb.TableEncryption.AWS_MANAGED,
   readCapacity: props.readCapacity ?? 5
 });

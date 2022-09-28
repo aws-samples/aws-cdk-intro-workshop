@@ -9,75 +9,18 @@ chapter = true
 When destroying a stack, resources may be deleted, retained, or snapshotted according to their deletion policy.
 By default, most resources will get deleted upon stack deletion, however that's not the case for all resources.
 The DynamoDB table will be retained by default. If you don't want to retain this table, we can set this in CDK
-code by using `RemovalPolicy`:
+code by using `RemovalPolicy`.
 
-## Set the DynamoDB table to be deleted upon stack deletion
-
-Edit `hitcounter.ts` and add the `removalPolicy` prop to the table
-
-{{<highlight ts "hl_lines=25-26">}}
-import * as cdk from 'aws-cdk-lib';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import { Construct } from 'constructs';
-
-export interface HitCounterProps {
-  /** the function for which we want to count url hits **/
-  downstream: lambda.IFunction;
-}
-
-export class HitCounter extends Construct {
-  /** allows accessing the counter function */
-  public readonly handler: lambda.Function;
-
-  /** the hit counter table */
-  public readonly table: dynamodb.Table;
-
-  constructor(scope: Construct, id: string, props: HitCounterProps) {
-    super(scope, id);
-
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: {
-        name: "path",
-        type: dynamodb.AttributeType.STRING
-      },
-      removalPolicy: cdk.RemovalPolicy.DESTROY
-    });
-    this.table = table;
-
-    this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'hitcounter.handler',
-      code: lambda.Code.fromAsset('lambda'),
-      environment: {
-        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-        HITS_TABLE_NAME: table.tableName
-      }
-    });
-
-    // grant the lambda role read/write permissions to our table
-    table.grantReadWriteData(this.handler);
-
-    // grant the lambda role invoke permissions to the downstream function
-    props.downstream.grantInvoke(this.handler);
-  }
-}
-{{</highlight>}}
+We have already set this policy during the workshop but if it was not set you will need to manually remove the table after running the destroy commands.
 
 Additionally, the Lambda function created will generate CloudWatch logs that are
 permanently retained. These will not be tracked by CloudFormation since they are
 not part of the stack, so the logs will still persist. You will have to manually
 delete these in the console if desired.
 
-To apply the policy changes we need to run `cdk deploy`:
-
-```
-cdk deploy
-```
-
-Now that we know which resources will be deleted and we've deployed the policy 
-changes, we can proceed with deleting the stack. You can either delete the 
-stack through the AWS CloudFormation console or use `cdk destroy`:
+Now that we know which resources will be deleted we can proceed with deleting the 
+stack. You can either delete the stack through the AWS CloudFormation console or 
+use `cdk destroy`:
 
 ```
 cdk destroy

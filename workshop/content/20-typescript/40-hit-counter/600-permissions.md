@@ -9,7 +9,7 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `hitcounter.ts` and add the following highlighted lines:
 
-{{<highlight ts "hl_lines=33-34">}}
+{{<highlight ts "hl_lines=34-35">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -29,7 +29,8 @@ export class HitCounter extends Construct {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {
-        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
+        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+        removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
@@ -115,7 +116,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `lib/hitcounter.ts`:
 
-{{<highlight ts "hl_lines=36-37">}}
+{{<highlight ts "hl_lines=37-38">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -135,7 +136,8 @@ export class HitCounter extends Construct {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {
-        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
+        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+        removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
