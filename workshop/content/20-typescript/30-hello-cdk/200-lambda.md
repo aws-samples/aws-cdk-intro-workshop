@@ -64,7 +64,7 @@ Add an `import` statement at the beginning of `lib/cdk-workshop-stack.ts`, and a
 `lambda.Function` to your stack.
 
 
-{{<highlight ts "hl_lines=2 8-13">}}
+{{<highlight ts "hl_lines=3 9-14">}}
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';

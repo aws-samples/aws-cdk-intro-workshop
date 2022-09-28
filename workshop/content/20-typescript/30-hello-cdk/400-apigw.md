@@ -17,7 +17,7 @@ will be returned back to the user.
 
 Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and associate it with our Lambda function:
 
-{{<highlight ts "hl_lines=3 16-19">}}
+{{<highlight ts "hl_lines=4 17-20">}}
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';

@@ -59,7 +59,7 @@ export class HitCounter extends Construct {
 
 Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
 
-{{<highlight ts "hl_lines=28">}}
+{{<highlight ts "hl_lines=29">}}
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';

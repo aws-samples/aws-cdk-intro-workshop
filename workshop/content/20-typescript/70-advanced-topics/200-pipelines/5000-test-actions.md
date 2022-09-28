@@ -8,7 +8,7 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `lib/cdk-workshop-stack.ts` to get these values and expose them as properties of our stack and import `CfnOutput` from the main cdk library:
 
-{{<highlight ts "hl_lines=9-10 26 30 36-42">}}
+{{<highlight ts "hl_lines=1 9-10 26 30 36-42">}}
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -71,7 +71,7 @@ If you click the `TableViewerUrl` value, you should see our pretty hitcounter ta
 Now we have our application deployed, but no CD pipeline is complete without tests!
 
 Let's start with a simple test to ping our endpoints to see if they are alive.
-Return to `lib/pipeline-stack.ts` and add the following:
+Return to `lib/pipeline-stack.ts` and add the following highlighted code:
 
 {{<highlight ts "hl_lines=16-38">}}
 import * as cdk from 'aws-cdk-lib';
