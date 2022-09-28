@@ -31,6 +31,10 @@ Next, since the purpose of our pipeline is to deploy our application stack, we n
 
 To do this, edit the code in `bin/cdk-workshop.ts` as follows:
 
+{{% notice warning %}}
+Completely replace the contents of `bin/cdk-workshop.ts` with the following code.
+{{% /notice %}}
+
 {{<highlight ts "hl_lines=2 5">}}
 import * as cdk from 'aws-cdk-lib';
 import { WorkshopPipelineStack } from '../lib/pipeline-stack';
