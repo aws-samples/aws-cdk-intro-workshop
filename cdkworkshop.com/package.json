@@ -15,10 +15,10 @@
     },
     "devDependencies": {
         "@types/node": "^18.8.0",
-        "@typescript-eslint/eslint-plugin": "^5.38.1",
+        "@typescript-eslint/eslint-plugin": "^5.39.0",
         "@typescript-eslint/parser": "^5.38.1",
         "aws-cdk": "^2.44.0",
-        "eslint": "^8.24.0",
+        "eslint": "^8.25.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
         "prettier": "^2.7.1",
@@ -30,7 +30,7 @@
     },
     "dependencies": {
         "aws-cdk-lib": "^2.44.0",
-        "constructs": "^10.1.120"
+        "constructs": "^10.1.127"
     },
     "engines": {
         "node": ">= 10.0.0"
