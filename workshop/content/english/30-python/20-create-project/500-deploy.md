@@ -28,7 +28,7 @@ Then:
 
 {{% notice info %}}
 If you are returned an Access Denied message at this step, verify that
-you have [configured the AWS CLI correctly]((/15-prerequisites/200-account.html)) (or, specified an appropriate secret/access key), and also verify that you have permission to call `cloudformation:CreateChangeSet` within the scope of your [account/session](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+you have [configured the AWS CLI correctly](/15-prerequisites/200-account.html) (or, specified an appropriate secret/access key), and also verify that you have permission to call `cloudformation:CreateChangeSet` within the scope of your [account/session](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
 {{% /notice %}}
 ## Let's deploy
 

@@ -13,70 +13,54 @@ code by using `RemovalPolicy`:
 
 ## Set the DynamoDB table to be deleted upon stack deletion
 
-Edit `src/CdkWorkshop/HitCounter.java` and add the `removalPolicy` prop to the table
+Edit `hitcounter.ts` and add the `removalPolicy` prop to the table
 
-{{<highlight java "hl_lines=8 28">}}
-package com.myorg;
+{{<highlight ts "hl_lines=25-26">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
 
-import java.util.HashMap;
-import java.util.Map;
+export interface HitCounterProps {
+  /** the function for which we want to count url hits **/
+  downstream: lambda.IFunction;
+}
 
-import software.constructs.Construct;
+export class HitCounter extends Construct {
+  /** allows accessing the counter function */
+  public readonly handler: lambda.Function;
 
-import software.amazon.awscdk.RemovalPolicy;
-import software.amazon.awscdk.services.dynamodb.Attribute;
-import software.amazon.awscdk.services.dynamodb.AttributeType;
-import software.amazon.awscdk.services.dynamodb.Table;
-import software.amazon.awscdk.services.lambda.Code;
-import software.amazon.awscdk.services.lambda.Function;
-import software.amazon.awscdk.services.lambda.Runtime;
+  /** the hit counter table */
+  public readonly table: dynamodb.Table;
 
-public class HitCounter extends Construct {
-    private final Function handler;
-    private final Table table;
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
+    super(scope, id);
 
-    public HitCounter(final Construct scope, final String id, final HitCounterProps props) {
-        super(scope, id);
+    const table = new dynamodb.Table(this, "Hits", {
+      partitionKey: {
+        name: "path",
+        type: dynamodb.AttributeType.STRING
+      },
+      removalPolicy: cdk.RemovalPolicy.DESTROY
+    });
+    this.table = table;
 
-        this.table = Table.Builder.create(this, "Hits")
-            .partitionKey(Attribute.builder()
-                .name("path")
-                .type(AttributeType.STRING)
-                .build())
-            .removalPolicy(RemovalPolicy.DESTROY)
-            .build();
+    this.handler = new lambda.Function(this, 'HitCounterHandler', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'hitcounter.handler',
+      code: lambda.Code.fromAsset('lambda'),
+      environment: {
+        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
+        HITS_TABLE_NAME: table.tableName
+      }
+    });
 
-        final Map<String, String> environment = new HashMap<>();
-        environment.put("DOWNSTREAM_FUNCTION_NAME", props.getDownstream().getFunctionName());
-        environment.put("HITS_TABLE_NAME", this.table.getTableName());
+    // grant the lambda role read/write permissions to our table
+    table.grantReadWriteData(this.handler);
 
-        this.handler = Function.Builder.create(this, "HitCounterHandler")
-            .runtime(Runtime.NODEJS_14_X)
-            .handler("hitcounter.handler")
-            .code(Code.fromAsset("lambda"))
-            .environment(environment)
-            .build();
-
-        // Grants the lambda function read/write permissions to our table
-        this.table.grantReadWriteData(this.handler);
-
-        // Grants the lambda function invoke permissions to the downstream function
-        props.getDownstream().grantInvoke(this.handler);
-    }
-
-    /**
-     * @return the counter definition
-     */
-    public Function getHandler() {
-        return this.handler;
-    }
-
-    /**
-     * @return the counter table
-     */
-    public Table getTable() {
-        return this.table;
-    }
+    // grant the lambda role invoke permissions to the downstream function
+    props.downstream.grantInvoke(this.handler);
+  }
 }
 {{</highlight>}}
 

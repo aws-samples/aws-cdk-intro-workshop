@@ -11,4 +11,4 @@ GitHubの [DynamoTableViewer page](https://github.com/cdklabs/cdk-dynamo-table-v
 ライブラリの README に記載されているように、本番環境での使用を意図したものではありません。ユーザを認証せずに、テーブルへのアクセスを可能にするからです。
 {{% /notice %}}
 
-![](./table-viewer-npm.png)
+![](./table-viewer.png)

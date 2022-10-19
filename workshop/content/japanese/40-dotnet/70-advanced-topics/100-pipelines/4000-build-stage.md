@@ -91,3 +91,7 @@ git commit -am "Add deploy stage to pipeline" && git push
 ```
 
 プッシュが完了したら、[CodePipeline コンソール](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) でパイプラインの実行状況を確認できます (しばらく時間がかかる場合があります)。
+
+![](./pipeline-succeed.png)
+
+成功しました !

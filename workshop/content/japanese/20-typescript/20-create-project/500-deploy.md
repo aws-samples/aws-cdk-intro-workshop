@@ -19,7 +19,7 @@ cdk bootstrap
 
 すると...
 
-```text
+```
  ⏳  Bootstrapping environment aws://999999999999/us-east-1...
 ...
 ```
@@ -38,7 +38,7 @@ cdk deploy
 
 次のような警告が表示されます。
 
-```text
+```
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
 Please confirm you intend to make the following modifications:
 
@@ -62,7 +62,7 @@ Do you wish to deploy these changes (y/n)?
 
 
 
-```text
+```
 CdkWorkshopStack: deploying...
 CdkWorkshopStack: creating CloudFormation changeset...
 

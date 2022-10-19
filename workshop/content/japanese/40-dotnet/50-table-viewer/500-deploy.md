@@ -27,18 +27,11 @@ Resources
 [+] AWS::ApiGateway::Method ViewHitCounter/ViewerEndpoint/ANY ViewHitCounterViewerEndpointANY66F2285B
 ```
 
-You'll notice that the table viewer adds another API Gateway endpoint, a Lambda
-function, permissions, outputs, all sorts of goodies.
+Table viewer は API Gateway のエンドポイント、Lambda 関数、権限、出力などを追加していることがわかります。
 
-{{% notice warning %}} Construct libraries are a very powerful concept. They
-allow you to add complex capabilities to your apps with minimum effort. However,
-you must understand that with great power comes great responsibility. Constructs
-can add IAM permissions, expose data to the public or cause your application not
-to function. We are working on providing you tools for protecting your app, and
-identifying potential security issues with your stacks, but it is your
-responsibility to understand how certain constructs that you use impact your
-application, and to make sure you only use construct libraries from vendors you
-trust  {{% /notice %}}
+{{% notice warning %}}
+コンストラクトライブラリは強力な概念です。最小限の労力で複雑な機能をアプリケーションに追加できます。しかし、大いなる力には、大いなる責任が伴うことです。コンストラクトは IAM 権限を追加したり、データを外部に公開したり、またはアプリケーションの動作に悪影響を与えることもできます。アプリケーションを保護したり、潜在的なセキュリティリスクを発見できるためのツールの提供に取り組んでいますが、ご利用のコンストラクトがアプリケーションに与える影響を理解するのはお客様の責任となります。コンストラクトライブラリが信頼できる提供者から提供されていることを必ず確認してください。
+{{% /notice %}}
 
 ### cdk deploy
 

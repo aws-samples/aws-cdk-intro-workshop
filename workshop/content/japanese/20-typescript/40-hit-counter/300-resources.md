@@ -7,13 +7,6 @@ weight = 300
 
 Lambda 関数と DynamoDB テーブルを `HitCounter` コンストラクトに定義します。
 
-
-{{% notice info %}}
-
-**Windowsユーザーへの注意** : Windowsでは、バックグラウンドで動いている、 `npm run watch` コマンドを停止する必要があります。 停止後、 `npm install` を実行し、再度 `npm run watch` を実行します。そうしなければ、使用中のファイルに関するエラーが発生します。
-
-{{% /notice %}}
-
 さて、`lib/hitcounter.ts` に戻ります。 次の強調されたコードを追加します。
 
 {{<highlight ts "hl_lines=3 13-14 19-31">}}

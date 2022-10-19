@@ -14,9 +14,8 @@ weight = 110
 {{<highlight python>}}
 from constructs import Construct
 from aws_cdk import (
-    Stack
+Stack
 )
-from pipeline_stage import WorkshopPipelineStage
 
 class WorkshopPipelineStack(Stack):
 
@@ -24,6 +23,25 @@ class WorkshopPipelineStack(Stack):
         super().__init__(scope, id, **kwargs)
 
         # Pipeline code will go here
+{{</highlight>}}
+
+Look familiar? At this point, the pipeline is like any other CDK stack.
+
+## Update CDK Deploy Entrypoint
+Next, since the purpose of our pipeline is to deploy our application stack, we no longer want the main CDK application to deploy our original app. Instead, we can change the entry point to deploy our pipeline, which will in turn deploy the application.
+
+To do this, edit the code in `app.py` as follows:
+
+{{<highlight python "hl_lines=4 7">}}
+#!/usr/bin/env python3
+
+import aws_cdk as cdk
+from cdk_workshop.pipeline_stack import WorkshopPipelineStack
+
+app = cdk.App()
+WorkshopPipelineStack(app, "WorkshopPipelineStack")
+
+app.synth()
 {{</highlight>}}
 
 内容に見覚えがありますか？この時点では、パイプラインも他の CDK スタックと同じです。
