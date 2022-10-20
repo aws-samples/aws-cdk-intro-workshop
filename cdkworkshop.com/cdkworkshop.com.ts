@@ -129,6 +129,7 @@ export class CdkWorkshop extends Stack {
             "'sha256-nP0EI9B9ad8IoFUti2q7EQBabcE5MS5v0nkvRfUbYnM='",
             "'sha256-XZMS7TQuhm1YtWZnGpxhrWZ2iILFJ4l7BKaRD+I+bZw='",
             "'sha256-kZZqSw0cnJ4oaS+J/5tiiM2yM4TblrjZzKS357jxk44='",
+            "'sha256-Uzqn2zgXJz5HYkJlYClq6z9lkyJLuYMt2If0BPRiRxg='",
         ].join(' ');
 
         // CloudFront distribution
