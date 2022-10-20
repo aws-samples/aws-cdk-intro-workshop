@@ -124,6 +124,15 @@ export class CdkWorkshop extends Stack {
             "'sha256-mFNr2NQYXlFnoGPo5ZrXEvWx5Qz6mwmUBRAIEgshwMg='",
             "'sha256-Y6md+aHyc5K3QvKXrCB9LaE4UC85kA0+bGRTq6vrW8w='",
             "'sha256-ov4Wov8WyHnhk7NTMz+SwlCEtXNoJlKWGC38zc+jxrw='",
+            "'sha256-mhN3gpwX/xTgtH0pwpPH9ydLzWJz3VMmt9f7Qb7Nu5M='",
+            "'sha256-Isjf6GAChrKWENuFE9soGexQHUjw9Ud7fG5e4yD/CVw='",
+            "'sha256-PiGr5/XCDBUIftEuxoF9eQWfbgUdnct9G96aU2QzPvE='",
+            "'sha256-TnygcBzo3pCESk6f1cPu+Q/O01I+ZFAyLS5d50xO4r4='",
+            "'sha256-14RFOZyTXi065dRjpJJXLAMi28EgteRcQhZ+PK10Wcs='",
+            "'sha256-qtAQa+uAIx3gQuwyhGyZXJW6E2Axew+35Zg8NMnYJEY='",
+            "'sha256-w8B/fJx+20Jv6473iPMvte2ge4Jl8iNSimfk8YEXvw4='",
+            "'sha256-mhN3gpwX/xTgtH0pwpPH9ydLzWJz3VMmt9f7Qb7Nu5M='",
+            "'sha256-mW0fu5NM3URGUu99n5Tu4DWk1ylbi94n0UhRFDTcai0='",
         ].join(' ');
         const inlineScriptSha = [
             "'sha256-nP0EI9B9ad8IoFUti2q7EQBabcE5MS5v0nkvRfUbYnM='",
@@ -156,7 +165,7 @@ export class CdkWorkshop extends Stack {
                         },
                         contentSecurityPolicy: {
                             override: true,
-                            contentSecurityPolicy: `default-src 'self'; connect-src 'self' *.shortbread.aws.dev *.google-analytics.com; script-src 'self' *.google-analytics.com ${inlineScriptSha}; img-src 'self' *.shortbread.aws.dev; style-src 'unsafe-hashes' 'self' ${inlineStyleSha};`,
+                            contentSecurityPolicy: `default-src 'self'; connect-src 'self' *.shortbread.aws.dev *.google-analytics.com; script-src 'self' *.google-analytics.com 'unsafe-hashes' ${inlineScriptSha}; img-src 'self' *.shortbread.aws.dev; style-src 'unsafe-hashes' 'self' ${inlineStyleSha};`,
                         },
                         strictTransportSecurity: {
                             accessControlMaxAge: Duration.seconds(31536000),
