@@ -123,6 +123,7 @@ export class CdkWorkshop extends Stack {
             "'sha256-xelWXnqN51+81jzAN/+Dsx4rrOWcoBFozmA/WqAZRSc='",
             "'sha256-mFNr2NQYXlFnoGPo5ZrXEvWx5Qz6mwmUBRAIEgshwMg='",
             "'sha256-Y6md+aHyc5K3QvKXrCB9LaE4UC85kA0+bGRTq6vrW8w='",
+            "'sha256-ov4Wov8WyHnhk7NTMz+SwlCEtXNoJlKWGC38zc+jxrw='",
         ].join(' ');
         const inlineScriptSha = [
             "'sha256-nP0EI9B9ad8IoFUti2q7EQBabcE5MS5v0nkvRfUbYnM='",
