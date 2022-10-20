@@ -102,19 +102,8 @@ export class CdkWorkshop extends Stack {
         const maxTtl = props.disableCache ? Duration.seconds(0) : undefined;
         // inline SHA is used for CSP policy
         const inlineStyleSha = [
-            "'sha256-1o81pz7f/AiJyQQR7T2XZfvOL7Evb0dl0Kb+COb800c='",
             "'sha256-lyvsfvzlCPk86VDhFvfEbsKDNH8m7RquDGMXgr/rXvs='",
-            "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
-            "'sha256-9YGxn2EDc7klQzQghEvJzPqTNMt+NDID+gpX0Ijax2o='",
-            "'sha256-qJ7M/0zJ2S1ttJNaPKSOuBfHtoiq6FoDGs6chIFxhFI='",
-            "'sha256-wDBA+KuK56x2KELtCBH1T5iyAJgM6N85P0XJ8scS+60='",
-            "'sha256-N96idNQ8aHBQwxA/g2AlnH6W2PHKJKMtWrTJsvEK1n8='",
-            "'sha256-VYcLDb4amCd5/sMXNcFnl5yO/ZHpGikkxA46IxJ5ls4='",
-            "'sha256-uKb965C8DZ35gHStaTha4jCB76DyWnvasSXFVOGeSss='",
-            "'sha256-MpuiN7U1aKpBijo0AFzwmYoAMXQMqNdNfLuOz5RycnM='",
-            "'sha256-P2hn+VwIP1QpDbViEeyBpSYd56z000KQL1wYKl4fOn4='",
-            "'sha256-XMx/51OWXQv5SQUZixnfEaRbvQbG4b+l60m6mdp/wZo='",
-            "'sha256-EXGBthQ+1jugtiaEvJFuOn63vodYXHv5jgJxlfOCKxk='",
+            "'sha256-1o81pz7f/AiJyQQR7T2XZfvOL7Evb0dl0Kb+COb800c='",
             "'sha256-OnU0/ZM3Ss8isHqfdfFOgBAOgZWtTD+nHOOv6pp4mEA='",
             "'sha256-xelWXnqN51+81jzAN/+Dsx4rrOWcoBFozmA/WqAZRSc='",
             "'sha256-mFNr2NQYXlFnoGPo5ZrXEvWx5Qz6mwmUBRAIEgshwMg='",
@@ -128,6 +117,16 @@ export class CdkWorkshop extends Stack {
             "'sha256-w8B/fJx+20Jv6473iPMvte2ge4Jl8iNSimfk8YEXvw4='",
             "'sha256-mhN3gpwX/xTgtH0pwpPH9ydLzWJz3VMmt9f7Qb7Nu5M='",
             "'sha256-mW0fu5NM3URGUu99n5Tu4DWk1ylbi94n0UhRFDTcai0='",
+            "'sha256-N96idNQ8aHBQwxA/g2AlnH6W2PHKJKMtWrTJsvEK1n8='",
+            "'sha256-VYcLDb4amCd5/sMXNcFnl5yO/ZHpGikkxA46IxJ5ls4='",
+            "'sha256-uKb965C8DZ35gHStaTha4jCB76DyWnvasSXFVOGeSss='",
+            "'sha256-MpuiN7U1aKpBijo0AFzwmYoAMXQMqNdNfLuOz5RycnM='",
+            "'sha256-P2hn+VwIP1QpDbViEeyBpSYd56z000KQL1wYKl4fOn4='",
+            "'sha256-XMx/51OWXQv5SQUZixnfEaRbvQbG4b+l60m6mdp/wZo='",
+            "'sha256-EXGBthQ+1jugtiaEvJFuOn63vodYXHv5jgJxlfOCKxk='",
+            "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+            "'sha256-9YGxn2EDc7klQzQghEvJzPqTNMt+NDID+gpX0Ijax2o='",
+            "'sha256-qJ7M/0zJ2S1ttJNaPKSOuBfHtoiq6FoDGs6chIFxhFI='",
         ].join(' ');
         const inlineScriptSha = [
             "'sha256-nP0EI9B9ad8IoFUti2q7EQBabcE5MS5v0nkvRfUbYnM='",
