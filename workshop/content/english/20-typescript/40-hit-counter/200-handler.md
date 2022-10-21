@@ -5,6 +5,8 @@ weight = 100
 
 ## Hit counter Lambda handler
 
+First, we need to install the AWS SDK. While in the root directory of the project, run `npm i aws-sdk`.
+
 Okay, now let's write the Lambda handler code for our hit counter.
 
 Create the file `lambda/hitcounter.js`:
