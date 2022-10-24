@@ -1,7 +1,7 @@
 +++
 title = "Using construct libraries"
 weight = 50
-chapter = true
+bookFlatSection = true
 +++
 
 # Using construct libraries

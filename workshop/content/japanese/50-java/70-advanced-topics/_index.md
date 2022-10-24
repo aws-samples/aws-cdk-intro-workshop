@@ -1,7 +1,7 @@
 +++
 title = "アドバンスドトピック"
 weight = 70
-chapter = true
+bookFlatSection = true
 +++
 
 # アドバンスドトピック

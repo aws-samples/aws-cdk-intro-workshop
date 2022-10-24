@@ -1,7 +1,7 @@
 +++
 title = "まとめ"
 weight = 80
-chapter = true
+bookCollapseSection = true
 +++
 
 # お疲れ様でした！

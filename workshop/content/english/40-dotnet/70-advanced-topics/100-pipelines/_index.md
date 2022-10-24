@@ -1,7 +1,7 @@
 +++
 title = "CDK Pipelines"
 weight = 100
-chapter = true
+bookCollapseSection = true
 +++
 
 # CDK Pipelines

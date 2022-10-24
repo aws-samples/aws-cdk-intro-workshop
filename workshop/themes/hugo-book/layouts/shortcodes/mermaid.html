@@ -1,0 +1,16 @@
+{{ if not (.Page.Scratch.Get "mermaid") }}
+<!-- Include mermaid only first time -->
+{{- $mermaidJS := resources.Get "js/mermaid.min.js" }}
+<script defer src="{{ $mermaidJS.RelPermalink }}" {{template "integrity" $mermaidJS }} ></script>
+
+{{ with resources.Get "mermaid.json" }}
+  {{$mermaidConfig := resources.Get "js/mermaid.conf.js" | resources.ExecuteAsTemplate "mermaid.conf.js . "}}
+  {{$mermaidConfigFP := $mermaidConfig | resources.Fingerprint "sha512" }}
+  <script src="{{ $mermaidConfigFP.RelPermalink }}" integrity="{{ $mermaidConfigFP.Data.Integrity }}"></script>
+{{ end }}
+{{ .Page.Scratch.Set "mermaid" true }}
+{{ end }}
+
+<p class="mermaid{{ with .Get "class" }} {{ . }}{{ end }}">
+  {{- .Inner -}}
+</p>

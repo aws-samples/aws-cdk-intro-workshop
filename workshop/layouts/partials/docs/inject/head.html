@@ -1,0 +1,2 @@
+{{$chromaCSS := resources.Get "css/chroma.css"  | resources.Minify | resources.Fingerprint}}
+<link rel="stylesheet" href="{{ $chromaCSS.RelPermalink}}" {{template "integrity" $chromaCSS}} />

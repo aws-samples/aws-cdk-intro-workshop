@@ -1,6 +1,6 @@
 +++
 title = "必要条件"
-chapter = true
+bookCollapseSection = true
 weight = 15
 +++
 

@@ -1,6 +1,6 @@
 +++
 title = "Hello, CDK!"
-chapter = true
+bookFlatSection = true
 weight = 30
 +++
 

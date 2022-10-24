@@ -1,6 +1,6 @@
 +++
 title = "Go Workshop"
-chapter = true
+bookCollapseSection = true
 weight = 60
 +++
 

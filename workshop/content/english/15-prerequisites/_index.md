@@ -1,6 +1,7 @@
 +++
 title = "Prerequisites"
-chapter = true
+bookCollapseSection = true
+bookFlatSection = true 
 weight = 15
 +++
 

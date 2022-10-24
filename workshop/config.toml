@@ -1,13 +1,12 @@
 baseURL = "https://cdkworkshop.com"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-title = "AWS Cloud Development Kit (AWS CDK) Workshop"
-theme = "learn"
+title = "CDK Workshop"
+theme = "hugo-book"
 uglyurls = true
-googleAnalytics = "UA-127749520-1"
 sectionPagesMenu = "main"
-pygmentsCodeFences = true
-pygmentsStyle = "monokai"
+
+hasCJKLanguage = true
 
 [languages]
   [languages.en]
@@ -17,46 +16,111 @@ pygmentsStyle = "monokai"
     languageName = "日本語"
     contentDir = "content/japanese"
 
+[markup]
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 1
+
+  [markup.highlight]
+    noClasses = false
+
 [params]
-themeVariant = "mine"
-showVisitedLinks = false
-author = "Elad Ben-Israel"
-description = "AWS Cloud Development Kit (AWS CDK) Workshop"
-disableSearch = true
-disableAssetsBusting = true
-disableLanguageSwitchingButton = false
-disableShortcutsTitle = true
+  # (Optional, default light) Sets color theme: light, dark or auto.
+  # Theme 'auto' switches between dark and light modes based on browser/os preferences
+  BookTheme = 'light'
 
-[[menu.shortcuts]]
-name = "<i class='fab fa-github fa-lg'></i> aws/aws-cdk"
-identifier = "gh"
+  # (Optional, default true) Controls table of contents visibility on right side of pages.
+  # Start and end levels can be controlled with markup.tableOfContents setting.
+  # You can also specify this parameter per page in front matter.
+  BookToC = false
+
+  # (Optional, default none) Set the path to a logo for the book. If the logo is
+  # /static/logo.png then the path would be logo.png
+  BookLogo = 'images/favicon.png'
+
+  # (Optional, default none) Set leaf bundle to render as side menu
+  # When not specified file structure and weights will be used
+  # BookMenuBundle = '/menu'
+
+  # (Optional, default docs) Specify root page to render child pages as menu.
+  # Page is resoled by .GetPage function: https://gohugo.io/functions/getpage/
+  # For backward compatibility you can set '*' to render all sections to menu. Acts same as '/'
+  BookSection = '/'
+
+  # Set source repository location.
+  # Used for 'Last Modified' and 'Edit this page' links.
+  BookRepo = 'https://github.com/aws-samples/aws-cdk-intro-workshop'
+
+  # (Optional, default 'commit') Specifies commit portion of the link to the page's last modified
+  # commit hash for 'doc' page type.
+  # Requires 'BookRepo' param.
+  # Value used to construct a URL consisting of BookRepo/BookCommitPath/<commit-hash>
+  # Github uses 'commit', Bitbucket uses 'commits'
+  BookCommitPath = 'commit'
+
+  # Enable "Edit this page" links for 'doc' page type.
+  # Disabled by default. Uncomment to enable. Requires 'BookRepo' param.
+  # Edit path must point to root directory of repo.
+  BookEditPath = 'edit/master/workshop'
+
+  # Configure the date format used on the pages
+  # - In git information
+  # - In blog posts
+  BookDateFormat = 'January 2, 2006'
+
+  # (Optional, default true) Enables search function with flexsearch,
+  # Index is built on fly, therefore it might slowdown your website.
+  # Configuration for indexing can be adjusted in i18n folder per language.
+  BookSearch = true
+
+  # (Optional, default true) Enables comments template on pages
+  # By default partals/docs/comments.html includes Disqus template
+  # See https://gohugo.io/content-management/comments/#configure-disqus
+  # Can be overwritten by same param in page frontmatter
+  # BookComments = true
+
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables portable links and link checks in markdown pages.
+  # Portable links meant to work with text editors and let you write markdown without {{< relref >}} shortcode
+  # Theme will print warning if page referenced in markdown does not exists.
+  BookPortableLinks = false
+
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables service worker that caches visited pages and resources for offline use.
+  BookServiceWorker = false
+
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables a drop-down menu for translations only if a translation is present.
+  BookTranslatedOnly = false
+
+
+
+[menu]
+
+[[menu.after]]
+name = "CDK on GitHub"
 url = "https://github.com/awslabs/aws-cdk"
-weight = 1
-
-[[menu.shortcuts]]
-name = "<i class='fab fa-stack-overflow fa-lg'></i> stack-overflow"
-identifier = "so"
-url = "https://stackoverflow.com/questions/tagged/aws-cdk"
 weight = 2
 
-[[menu.shortcuts]]
-name = "<i class='fab fa-gitter fa-lg'></i> gitter"
-identifier = "gt"
-url = "https://gitter.im/awslabs/aws-cdk"
+[[menu.after]]
+name = "CDK on StackOverflow"
+url = "https://stackoverflow.com/questions/tagged/aws-cdk"
 weight = 3
 
-[[menu.shortcuts]]
-name = "<i class='fab fa-github fa-lg'></i> workshop (issues/PRs)"
-identifier = "fb"
-url = "https://github.com/aws-samples/aws-cdk-intro-workshop"
+[[menu.after]]
+name = "CDK on Gitter"
+identifier = "gt"
+url = "https://gitter.im/awslabs/aws-cdk"
 weight = 4
 
-[[menu.shortcuts]]
-name = "<i class='fab fa-twitter fa-lg'></i> @emeshbi"
-identifier = "mm"
-url = "https://twitter.com/intent/user?screen_name=emeshbi"
-weight = 5
+[[menu.after]]
+name = "Submit a correction"
+url = "https://github.com/aws-samples/aws-cdk-intro-workshop"
+weight = 1
+
 
 [outputs]
-home = [ "HTML", "AMP", "RSS", "JSON"]
+home = [ "HTML", "AMP", "RSS"]
 page = [ "HTML", "AMP"]

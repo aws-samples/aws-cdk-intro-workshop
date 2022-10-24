@@ -1,6 +1,6 @@
 +++
 title = ".NET Workshop"
-chapter = true
+bookCollapseSection = true
 weight = 40
 +++
 
