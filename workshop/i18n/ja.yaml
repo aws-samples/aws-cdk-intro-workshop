@@ -1,0 +1,8 @@
+- id: fontUrl
+  translation: "https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+- id: bodyFontFamily
+  translation: "'M PLUS Rounded 1c', sans-serif"
+- id: headingFontFamily
+  translation: "'Noto Sans JP', sans-serif"
+- id: codeFontFamily
+  translation: "'Nanum Gothic Coding', monospace"

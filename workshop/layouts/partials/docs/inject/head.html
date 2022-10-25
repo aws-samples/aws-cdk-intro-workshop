@@ -1,2 +1,5 @@
-{{$chromaCSS := resources.Get "css/style.scss" | resources.ToCSS  | resources.Minify | resources.Fingerprint}}
-<link rel="stylesheet" href="{{ $chromaCSS.RelPermalink}}" {{template "integrity" $chromaCSS}} />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link rel="stylesheet" href='{{ i18n "fontUrl" }}' />
+{{$styleCSS := resources.Get "css/style.scss" | resources.ExecuteAsTemplate (printf "css/style.%s.scss" .Lang) . | resources.ToCSS  | resources.Minify | resources.Fingerprint}}
+<link rel="stylesheet" href="{{ $styleCSS.RelPermalink}}" {{template "integrity" $styleCSS}} />

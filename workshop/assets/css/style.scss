@@ -1,6 +1,45 @@
 @import "chroma";
 
+$bodyFF: {{ i18n "bodyFontFamily" }};
+$headingFF: {{ i18n "headingFontFamily" }};
+$codeFF: {{ i18n "codeFontFamily" }};
+
 // Patch the Chroma style
 .chroma .hl {
         background: #afaf7f11 !important;
     }
+
+.markdown {
+    
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: $headingFF;
+    }
+
+    code {
+        font-family: $codeFF;
+    }
+    strong {
+        font-weight: bold;
+    }
+}
+
+.container {
+    font-family: $bodyFF;
+    h2.book-brand {
+        font-family: $headingFF;
+    }
+}
+
+.book-menu {
+    font-size: 0.98rem;
+}
+
+body {
+    font-size: 1.2rem;
+}
