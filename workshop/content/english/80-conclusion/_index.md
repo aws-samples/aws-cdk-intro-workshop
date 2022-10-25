@@ -1,7 +1,7 @@
 +++
 title = "Congrats!"
 weight = 80
-bookCollapseSection = true
+bookCollapseSection = false
 +++
 
 # Congratulations!
