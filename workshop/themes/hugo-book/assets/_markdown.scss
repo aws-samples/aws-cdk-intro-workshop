@@ -69,16 +69,18 @@
   }
 
   code {
+    background-color: var(--gray-200);
     padding: 0 $padding-4;
-    background: var(--gray-200);
     border-radius: $border-radius;
     font-size: 0.875em;
   }
 
   pre {
     padding: $padding-16;
-    background: var(--gray-100);
+    border-color: var(--gray-100);
     border-radius: $border-radius;
+    border-width: 0.2em;
+    border-style: solid;
     overflow-x: auto;
 
     code {
@@ -86,6 +88,16 @@
       background: none;
     }
   }
+
+  /* Don't mess with the colors of backgrounds specified by the code highlighter. */
+  &:not(div.highlight) > pre {
+    background-color: var(--gray-100);
+    code {
+      background:none !important;
+    }
+  }
+
+
 
   p {
     word-wrap:break-word;
