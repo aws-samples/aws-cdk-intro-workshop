@@ -5,6 +5,8 @@
     @import "chroma";
 }
 
+
+
 $bodyFF: {{ i18n "bodyFontFamily" }};
 $headingFF: {{ i18n "headingFontFamily" }};
 $codeFF: {{ i18n "codeFontFamily" }};
@@ -46,5 +48,5 @@ $codeFF: {{ i18n "codeFontFamily" }};
 }
 
 body {
-    font-size: 1.2rem;
+    font-size:calc(14pt + 0.081vw);
 }
