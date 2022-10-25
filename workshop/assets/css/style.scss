@@ -1,4 +1,9 @@
-@import "chroma";
+@media (prefers-color-scheme: dark) {
+    @import "chroma.dark";
+}
+@media (prefers-color-scheme: light) {
+    @import "chroma";
+}
 
 $bodyFF: {{ i18n "bodyFontFamily" }};
 $headingFF: {{ i18n "headingFontFamily" }};

@@ -1,0 +1,17 @@
+.book-menu {
+    .book-menu-content {
+        background: #232F3E; // Squid Ink Black
+        color: white;
+    }
+
+    a.active {
+        color: #95b0ff; // AMZN light blue
+
+    }
+}
+
+aside nav ul a:hover {
+    color: #527fff; // AMZN Blue 
+
+    opacity: 1;
+}
