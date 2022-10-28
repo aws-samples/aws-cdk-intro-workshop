@@ -22,5 +22,7 @@
 
 </div>
 
+{{ if $.Site.Params.ClickToClipboard }}
 {{ $script := resources.Get "clipboard.js" | resources.Minify | resources.Fingerprint }}
 <script src="{{ $script.RelPermalink }}" {{template "integrity" $script }} defer></script>
+{{ end }}
