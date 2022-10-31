@@ -11,6 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Hugo dependency
+        working-directory: ./cdkworkshop.com
         run: sudo tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo
 
       - name: Install NPM dependencies
