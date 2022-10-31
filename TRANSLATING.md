@@ -1,11 +1,25 @@
 # Adding translations to the AWS CDK Worshop
 
-In order to create a new localization of the AWS CDK Workshop:
+Thank you for your interest in translating the CDK workshop!
+
+To add a translation (here for the fictitious 'MyLang' language)
+
+* Copy the English content into a new directory and begin localizing.
+  
+  ```
+  mv content/english content/mylang
+  ```
 
 * Update `config.toml` to include a new language
-* Create the appropriate i18n file. In `i18n`, create `my-ln.yaml` based on
+
+  ```toml
+    [languages.ml]
+      languageName="MyLang"
+      contentDir="content/mylang"
+  ```
+
+* Create the appropriate i18n file. In `i18n`, create `ml.yaml` based on
   the `en.yaml` file
-* Copy the English content into a new directory and begin localizing.
 
 
 
@@ -20,7 +34,6 @@ tweaks to that language. In particular:
 
 * Font to use for the main body/headings/code, as well as a Google Fonts URL
   that is used to import any non-system fonts that might be used.
-* Strings used to define the missing-translated-content flag. 
 
 The *Roboto* font is included by default. The English localization uses the
 PT Mono typeface for code samples, falling back to Monospace (as defined by
