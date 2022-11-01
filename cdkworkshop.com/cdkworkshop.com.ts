@@ -102,7 +102,7 @@ export class CdkWorkshop extends Stack {
         const maxTtl = props.disableCache ? Duration.seconds(0) : undefined;
 
         const cspPolicyContent = [
-            "default-src 'self' https://cdkworkshop.com'",
+            "default-src 'self' https://cdkworkshop.com",
             "style-src 'self' https://fonts.googleapis.com/*",
             "script-src 'self'",
             "connect-src 'self' *.shortbread.aws.dev"

@@ -8,11 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Install Hugo dependency
-        working-directory: ./cdkworkshop.com
-        run: sudo tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
 
       - name: Install NPM dependencies
         working-directory: ./cdkworkshop.com
