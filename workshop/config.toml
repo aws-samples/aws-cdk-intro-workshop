@@ -1,7 +1,7 @@
 baseURL = "https://cdkworkshop.com"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-title = "CDK Workshop"
+title = "AWS CDK Workshop"
 theme = "hugo-book"
 uglyurls = true
 sectionPagesMenu = "main"
