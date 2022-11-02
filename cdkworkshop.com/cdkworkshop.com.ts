@@ -107,7 +107,7 @@ export class CdkWorkshop extends Stack {
             "script-src 'self'",
             "connect-src 'self' *.shortbread.aws.dev"
 
-        ].join('; ')
+        ].join('; ');
 
         // CloudFront distribution
         const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
