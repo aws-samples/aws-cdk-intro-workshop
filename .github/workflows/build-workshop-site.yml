@@ -13,7 +13,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.105.0'
           extended: true
 
       - name: Install NPM dependencies
