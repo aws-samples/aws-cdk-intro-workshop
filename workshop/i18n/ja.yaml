@@ -6,3 +6,8 @@
   translation: "'Noto Sans JP', sans-serif"
 - id: codeFontFamily
   translation: "'Nanum Gothic Coding' 'M PLUS Rounded 1c', monospace"
+
+- id: menuAwsPrivacy
+  translation: "プライバシー"
+- id: menuAwsTerms
+  translation: " サイト規約"

@@ -6,3 +6,8 @@
   translation: "'Roboto', sans-serif"
 - id: codeFontFamily
   translation: "'PT Mono', monospace"
+
+- id: menuAwsPrivacy
+  translation: Privacy
+- id: menuAwsTerms
+  translation: "Site Terms"
