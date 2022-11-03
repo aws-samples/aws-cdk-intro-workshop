@@ -38,5 +38,3 @@ AWS CDK は AWS が提供する新しいソフトウェア開発フレームワ�
 
 - [AWS CDK ユーザガイド](https://docs.aws.amazon.com/CDK/latest/userguide)
 - [AWS CDK リファレンス](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)
-
-![](/images/cdk-logo.png)
