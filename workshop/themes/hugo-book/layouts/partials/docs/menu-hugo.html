@@ -7,7 +7,7 @@
 {{ end }}
 
 {{ define "book-menu-hugo" }}
-<ul>
+<ul class="menu-additional">
   {{ range . }}
   <li>
     <a href="{{ .URL }}" {{ if not .Page }}target="_blank" rel="noopener"{{ end }}>

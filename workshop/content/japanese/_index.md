@@ -3,6 +3,9 @@ title: "AWS CDK イントロワークショップ"
 chapter: true
 weight: 1
 ---
+![](/images/favicon.png)
+{.right-aligned}
+
 
 # 開発者の皆様、ようこそ！
 

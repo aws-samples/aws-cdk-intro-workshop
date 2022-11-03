@@ -19,6 +19,9 @@ hasCJKLanguage = true
 [markup]
 [markup.goldmark.renderer]
   unsafe = true
+[markup.goldmark.parser.attribute]
+block = true
+title = true
 
 [markup.tableOfContents]
   startLevel = 1

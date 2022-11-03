@@ -15,3 +15,30 @@ aside nav ul a:hover {
 
     opacity: 1;
 }
+
+
+// Logo in the sidebar 
+nav img.awslogo {
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: 5rem;
+    display: block;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+p.right-aligned img {
+    margin-left: 2em;;
+    float:right;
+}
+
+p.left-aligned img {
+    margin-right: 2em;
+    float:left;
+}
+
+.menu-additional {
+    padding-top:1em;
+}
