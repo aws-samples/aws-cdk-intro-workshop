@@ -1,7 +1,7 @@
 +++
 title = "クリーンアップ"
 weight = 60
-chapter = true
+bookFlatSection = true
 +++
 
 # スタックのクリーンアップ

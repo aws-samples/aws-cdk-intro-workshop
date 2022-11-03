@@ -1,7 +1,7 @@
 +++
 title = "CDK パイプライン"
 weight = 200
-chapter = true
+bookCollapseSection = true
 +++
 
 # CDK パイプライン

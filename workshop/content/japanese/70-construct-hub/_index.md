@@ -1,7 +1,7 @@
 +++
 title = "Construct Hub"
 weight = 70
-chapter = true
+bookCollapseSection = true
 +++
 
 # Construct Hub

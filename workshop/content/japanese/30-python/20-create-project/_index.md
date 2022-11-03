@@ -1,6 +1,6 @@
 +++
 title = "新しいプロジェクト"
-chapter = true
+bookFlatSection = true
 weight = 20
 +++
 

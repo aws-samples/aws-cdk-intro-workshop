@@ -1,6 +1,6 @@
 +++
 title = ".NET ワークショップ"
-chapter = true
+bookCollapseSection = true
 weight = 40
 +++
 

@@ -1,9 +1,12 @@
 *.js
 !**/lambda/*.js
-!workshop/static/js/*
+!workshop/static/**
+!workshop/assets/**
+!workshop/themes/**
 *.d.ts
 node_modules
 workshop/public/**
+workshop/resources/**
 workshop/.hugo_build.lock
 .DS_Store
 obj/

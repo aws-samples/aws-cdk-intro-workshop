@@ -1,6 +1,6 @@
 +++
 title = "Python ワークショップ"
-chapter = true
+bookCollapseSection = true
 weight = 30
 +++
 

@@ -1,6 +1,6 @@
 +++
 title = "Python Workshop"
-chapter = true
+bookCollapseSection = true
 weight = 30
 +++
 

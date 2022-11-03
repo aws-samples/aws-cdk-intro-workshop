@@ -1,6 +1,8 @@
 +++
 title = "Testing Constructs"
 weight = 100
+bookCollapseSection = true
+
 +++
 
 ## Testing Constructs (Optional)

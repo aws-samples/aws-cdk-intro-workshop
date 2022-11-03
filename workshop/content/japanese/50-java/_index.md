@@ -1,6 +1,6 @@
 +++
 title = "Java ワークショップ"
-chapter = true
+bookCollapseSection = true
 weight = 50
 +++
 

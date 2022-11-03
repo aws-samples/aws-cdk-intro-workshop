@@ -1,7 +1,7 @@
 +++
 title = "Clean up"
 weight = 60
-chapter = true
+bookFlatSection = true
 +++
 
 # Clean up your stack

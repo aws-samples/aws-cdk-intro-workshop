@@ -1,6 +1,6 @@
 +++
 title = "TypeScript Workshop"
-chapter = true
+bookCollapseSection = true
 weight = 20
 +++
 

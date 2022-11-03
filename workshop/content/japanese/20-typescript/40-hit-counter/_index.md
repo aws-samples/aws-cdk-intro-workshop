@@ -1,6 +1,6 @@
 +++
 title = "コンストラクトを書く"
-chapter = true
+bookFlatSection = true
 weight = 40
 +++
 

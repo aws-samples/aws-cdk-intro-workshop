@@ -1,6 +1,6 @@
 +++
 title = "Writing constructs"
-chapter = true
+bookFlatSection = true
 weight = 40
 +++
 

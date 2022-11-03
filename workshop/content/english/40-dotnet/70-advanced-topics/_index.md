@@ -1,7 +1,7 @@
 +++
 title = "Advanced Topics"
 weight = 70
-chapter = true
+bookFlatSection = true
 +++
 
 # Advanced Topics

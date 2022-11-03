@@ -1,0 +1,5 @@
+{{$shortbread := resources.Get "js/shortbreadv1.js" | resources.Fingerprint }}
+<script src="{{ $shortbread.RelPermalink}} " {{template "integrity" $shortbread}}></script>
+{{$analytics := resources.Get "js/ga-shortbread.js" | resources.Fingerprint}}
+<script src="{{ $analytics.RelPermalink}} " {{template "integrity" $analytics}}></script>
+

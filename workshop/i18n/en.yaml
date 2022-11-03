@@ -1,0 +1,13 @@
+- id: fontUrl
+  translation: "https://fonts.googleapis.com/css2?family=PT+Mono&display=swap"
+- id: bodyFontFamily
+  translation: "'Roboto', sans-serif"
+- id: headingFontFamily
+  translation: "'Roboto', sans-serif"
+- id: codeFontFamily
+  translation: "'PT Mono', monospace"
+
+- id: menuAwsPrivacy
+  translation: Privacy
+- id: menuAwsTerms
+  translation: "Site Terms"

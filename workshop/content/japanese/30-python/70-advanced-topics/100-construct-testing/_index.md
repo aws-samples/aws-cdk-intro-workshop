@@ -1,6 +1,7 @@
 +++
 title = "コンストラクトのテスト"
 weight = 100
+bookCollapseSection = true
 +++
 
 ## コンストラクトのテスト (オプション)

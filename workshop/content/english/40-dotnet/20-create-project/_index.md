@@ -1,6 +1,6 @@
 +++
 title = "New Project"
-chapter = true
+bookFlatSection = true
 weight = 20
 +++
 

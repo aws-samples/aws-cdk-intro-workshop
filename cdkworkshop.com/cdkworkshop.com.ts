@@ -100,40 +100,13 @@ export class CdkWorkshop extends Stack {
         }
 
         const maxTtl = props.disableCache ? Duration.seconds(0) : undefined;
-        // inline SHA is used for CSP policy
-        const inlineStyleSha = [
-            "'sha256-lyvsfvzlCPk86VDhFvfEbsKDNH8m7RquDGMXgr/rXvs='",
-            "'sha256-1o81pz7f/AiJyQQR7T2XZfvOL7Evb0dl0Kb+COb800c='",
-            "'sha256-OnU0/ZM3Ss8isHqfdfFOgBAOgZWtTD+nHOOv6pp4mEA='",
-            "'sha256-xelWXnqN51+81jzAN/+Dsx4rrOWcoBFozmA/WqAZRSc='",
-            "'sha256-mFNr2NQYXlFnoGPo5ZrXEvWx5Qz6mwmUBRAIEgshwMg='",
-            "'sha256-Y6md+aHyc5K3QvKXrCB9LaE4UC85kA0+bGRTq6vrW8w='",
-            "'sha256-ov4Wov8WyHnhk7NTMz+SwlCEtXNoJlKWGC38zc+jxrw='",
-            "'sha256-Isjf6GAChrKWENuFE9soGexQHUjw9Ud7fG5e4yD/CVw='",
-            "'sha256-PiGr5/XCDBUIftEuxoF9eQWfbgUdnct9G96aU2QzPvE='",
-            "'sha256-TnygcBzo3pCESk6f1cPu+Q/O01I+ZFAyLS5d50xO4r4='",
-            "'sha256-14RFOZyTXi065dRjpJJXLAMi28EgteRcQhZ+PK10Wcs='",
-            "'sha256-qtAQa+uAIx3gQuwyhGyZXJW6E2Axew+35Zg8NMnYJEY='",
-            "'sha256-w8B/fJx+20Jv6473iPMvte2ge4Jl8iNSimfk8YEXvw4='",
-            "'sha256-mhN3gpwX/xTgtH0pwpPH9ydLzWJz3VMmt9f7Qb7Nu5M='",
-            "'sha256-mW0fu5NM3URGUu99n5Tu4DWk1ylbi94n0UhRFDTcai0='",
-            "'sha256-N96idNQ8aHBQwxA/g2AlnH6W2PHKJKMtWrTJsvEK1n8='",
-            "'sha256-VYcLDb4amCd5/sMXNcFnl5yO/ZHpGikkxA46IxJ5ls4='",
-            "'sha256-uKb965C8DZ35gHStaTha4jCB76DyWnvasSXFVOGeSss='",
-            "'sha256-MpuiN7U1aKpBijo0AFzwmYoAMXQMqNdNfLuOz5RycnM='",
-            "'sha256-P2hn+VwIP1QpDbViEeyBpSYd56z000KQL1wYKl4fOn4='",
-            "'sha256-XMx/51OWXQv5SQUZixnfEaRbvQbG4b+l60m6mdp/wZo='",
-            "'sha256-EXGBthQ+1jugtiaEvJFuOn63vodYXHv5jgJxlfOCKxk='",
-            "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
-            "'sha256-9YGxn2EDc7klQzQghEvJzPqTNMt+NDID+gpX0Ijax2o='",
-            "'sha256-qJ7M/0zJ2S1ttJNaPKSOuBfHtoiq6FoDGs6chIFxhFI='",
-        ].join(' ');
-        const inlineScriptSha = [
-            "'sha256-nP0EI9B9ad8IoFUti2q7EQBabcE5MS5v0nkvRfUbYnM='",
-            "'sha256-XZMS7TQuhm1YtWZnGpxhrWZ2iILFJ4l7BKaRD+I+bZw='",
-            "'sha256-kZZqSw0cnJ4oaS+J/5tiiM2yM4TblrjZzKS357jxk44='",
-            "'sha256-Uzqn2zgXJz5HYkJlYClq6z9lkyJLuYMt2If0BPRiRxg='",
-        ].join(' ');
+
+        const cspPolicyContent = [
+            "default-src 'self' https://cdkworkshop.com",
+            "style-src 'self' https://fonts.googleapis.com/*",
+            "script-src 'self'",
+            "connect-src 'self' *.shortbread.aws.dev",
+        ].join('; ');
 
         // CloudFront distribution
         const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
@@ -159,7 +132,7 @@ export class CdkWorkshop extends Stack {
                         },
                         contentSecurityPolicy: {
                             override: true,
-                            contentSecurityPolicy: `default-src 'self'; connect-src 'self' *.shortbread.aws.dev *.google-analytics.com; script-src 'self' *.google-analytics.com ${inlineScriptSha}; img-src 'self' *.shortbread.aws.dev; style-src 'unsafe-hashes' 'self' ${inlineStyleSha};`,
+                            contentSecurityPolicy: cspPolicyContent,
                         },
                         strictTransportSecurity: {
                             accessControlMaxAge: Duration.seconds(31536000),
