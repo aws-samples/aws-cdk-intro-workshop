@@ -105,7 +105,7 @@ export class CdkWorkshop extends Stack {
             "default-src 'self' https://cdkworkshop.com",
             "style-src 'self' https://fonts.googleapis.com/*",
             "script-src 'self'",
-            "connect-src 'self' *.shortbread.aws.dev"
+            "connect-src 'self' *.shortbread.aws.dev",
         ].join('; ');
 
         // CloudFront distribution
