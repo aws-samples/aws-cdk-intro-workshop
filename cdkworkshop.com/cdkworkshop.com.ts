@@ -152,7 +152,7 @@ export class CdkWorkshop extends Stack {
                 }),
                 // Rewrite "some/" as "some/index.html"
                 edgeLambdas: [
-                    { functionVersion: indexHandlerFunc.currentVersion, eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST }
+//                    { functionVersion: indexHandlerFunc.currentVersion, eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST }
                 ],
 
             },
