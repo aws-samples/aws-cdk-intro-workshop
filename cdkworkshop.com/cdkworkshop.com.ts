@@ -110,12 +110,15 @@ export class CdkWorkshop extends Stack {
             "connect-src 'self' *.shortbread.aws.dev",
         ].join('; ');
 
+        /*
 
         const indexHandlerFunc = new cloudfront.experimental.EdgeFunction(this, 'IndexRewriteFunc', {
             runtime: lambda.Runtime.NODEJS_16_X,
             handler: 'index.handler',
             code: lambda.Code.fromAsset(path.join(__dirname, 'indexhandler')),
           });        
+*/
+
 
         // CloudFront distribution
         const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
