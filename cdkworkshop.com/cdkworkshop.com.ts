@@ -7,7 +7,7 @@ import {
     aws_s3 as s3,
     aws_s3_deployment as s3deploy,
     aws_cloudfront_origins as cloudfrontOrigins,
-    aws_lambda as lambda,
+//    aws_lambda as lambda,
     App,
     CfnOutput,
     Duration,
