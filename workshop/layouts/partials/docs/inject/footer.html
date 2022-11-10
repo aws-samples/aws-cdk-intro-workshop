@@ -1,2 +1,2 @@
-{{$analytics := resources.Get "js/ga-shortbread.js" | resources.Fingerprint}}
+{{$analytics := resources.Get "js/rum.js" | resources.Fingerprint}}
 <script src="{{ $analytics.RelPermalink}} " integrity="{{ $analytics.Data.Integrity}}"></script>
