@@ -12,8 +12,7 @@ weight = 200
 Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
 validates that the table is getting created.
 
-If `cdk init` created a test directory for you, then you should have a `cdk-workshop.test.ts` file. Delete this file.
-
+If `cdk init` created a test directory for you, then you should have a `cdk-workshop.test.ts` file.
 If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the
 same level as `bin` and `lib` and then create a file called `hitcounter.test.ts` with the following code.
 
