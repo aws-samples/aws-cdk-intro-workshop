@@ -72,8 +72,7 @@ Now lets add another test, this time for the Lambda function that the `HitCounte
 This time in addition to testing that the Lambda function is created, we also want to test that
 it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+If you remember, when we created the lambda function the environment variable values were references to other constructs.
 
 {{<highlight ts "hl_lines=6-7">}}
 this.handler = new lambda.Function(this, 'HitCounterHandler', {
@@ -87,6 +86,7 @@ this.handler = new lambda.Function(this, 'HitCounterHandler', {
 });
 {{</highlight>}}
 
+Lets add another test below the DynamoDB test. 
 At this point we don't really know what the value of the `functionName` or `tableName` will be since the
 CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
 dummy value for now. Once we run the test it will fail and show us the expected value.
