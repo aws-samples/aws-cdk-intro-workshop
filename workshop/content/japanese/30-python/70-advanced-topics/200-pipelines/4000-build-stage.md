@@ -36,7 +36,7 @@ from aws_cdk import (
     aws_codecommit as codecommit,
     pipelines as pipelines,
 )
-from pipeline_stage import WorkshopPipelineStage
+from cdk_workshop.pipeline_stage import WorkshopPipelineStage
 
 class WorkshopPipelineStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:

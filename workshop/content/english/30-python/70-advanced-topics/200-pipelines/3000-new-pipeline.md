@@ -9,7 +9,7 @@ Now we are ready to define the basics of the pipeline.
 
 Return to the file `pipeline_stack.py` and edit as follows:
 
-{{<highlight python "hl_lines=13 18-30">}}
+{{<highlight python "hl_lines=12 17-29">}}
 from constructs import Construct
 from aws_cdk import (
     Stack,
