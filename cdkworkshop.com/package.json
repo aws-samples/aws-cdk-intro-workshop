@@ -14,11 +14,11 @@
         "cdk": "cdk"
     },
     "devDependencies": {
-        "@types/node": "^18.11.9",
-        "@typescript-eslint/eslint-plugin": "^5.44.0",
-        "@typescript-eslint/parser": "^5.44.0",
-        "aws-cdk": "^2.51.1",
-        "eslint": "^8.28.0",
+        "@types/node": "^18.11.13",
+        "@typescript-eslint/eslint-plugin": "^5.46.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "aws-cdk": "^2.54.0",
+        "eslint": "^8.29.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
         "prettier": "^2.8.0",
@@ -29,8 +29,8 @@
         "type": "git"
     },
     "dependencies": {
-        "aws-cdk-lib": "^2.52.0",
-        "constructs": "^10.1.173"
+        "aws-cdk-lib": "^2.54.0",
+        "constructs": "^10.1.187"
     },
     "engines": {
         "node": ">= 10.0.0"
