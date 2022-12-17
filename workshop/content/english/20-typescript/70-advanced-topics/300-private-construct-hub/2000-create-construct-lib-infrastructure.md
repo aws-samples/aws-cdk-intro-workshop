@@ -1,33 +1,38 @@
 +++
 title = "Create Construct Lib - Infrastructure"
-weight = 110
+weight = 200
 +++
 
 ## Create Construct Lib infrastructure
 
-The first step is to create a infrastructure that could deploy the construct Library into private Construct Hub
-Since this is separate from our "private construct hub" infrastructure, we want this to be entirely self-contained in a
+Create an infrastructure that could deploy the construct Library into private Construct Hub.   Since this is separate from "private construct hub" infrastructure, create this to be entirely self-contained in a
 separate repository.
 
 Navigate to [**CodeCommit**](https://aws.amazon.com/codecommit/) repository and create a repository named "
 construct-lib-repo". Clone the repository, "construct-lib-repo" in your local. Follow instructions as
 detailed [here](../200-pipelines/2000-create-repo.html).
 
+{{<highlight bash>}}
 git clone <<construct-lib-repo>>
+{{</highlight>}}
 
 Open this in your editor of choice.
 
 Note: Since we will be working with Typescript, have it installed
 
+{{<highlight bash>}}
 npm install -g typescript
+{{</highlight>}}
 
 Create a new folder called `pipeline`. This would have all the pipeline infrstructure in it. Then create a typescript
 project.
-mkdir 'pipeline'
-cd 'pipeline'
+{{<highlight bash>}}
+mkdir pipeline
+cd pipeline
 cdk init app --language typescript
+{{</highlight>}}
 
-Create a new file under `lib` called `lib/pipeline-stack.ts`. Add the following to that file.
+Create a new file under `lib` called `lib/pipeline-stack.ts`. Add the following to that file.  This creates a CodePipline pipeline with two stages, a source stage linked to CodeCommit GIT repository and a CodeBuild project that does build and release of the transpiled packaged artifacts.
 
 {{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
@@ -157,7 +162,19 @@ And now we're ready!
 
 ## CodeBuild 
 
-You might have observed that we were referring to `build-spec/projen-release.yml` while creating the CodeBuild project.  Create it with the following content
+CodeBuild project has two phases,
+
+### `install` Phase
+
+As part of install phase, we get the project build requirements configured
+
+### `build` Phase
+
+As part of the build phase, we first do `projen release`.   [Projen](https://projen.io) helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will look into more about Projen in next section.  Projen creates the transpiled packages and places them on `dist` directory.
+
+Rest of build phase, looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using [publib](https://github.com/cdklabs/publib/blob/main/README.md).
+
+You might have observed that we were referring to `build-spec/projen-release.yml` while creating the CodeBuild project.  Create the build specification with the following content.
 
 {{<highlight yml>}}
 version: 0.2
@@ -238,13 +255,4 @@ reports:
 
 We could adjust the runtime-versions needed based on all the target languages we are transpiling the construct to.  
 
-### `install` Phase
-
-As part of install phase, we get the project build requirements configured
-
-### `build` Phase
-
-As part of the build phase, we first do `projen release`.   [Projen](https://projen.io) helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will look into more about Projen in next section.  Projen creates the transpiled packages and places them on `dist` directory.
-
-Rest of build phase, looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using [publib](https://github.com/cdklabs/publib/blob/main/README.md).
 
