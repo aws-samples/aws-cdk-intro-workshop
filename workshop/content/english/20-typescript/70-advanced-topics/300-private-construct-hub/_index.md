@@ -10,7 +10,7 @@ As demonstrated in previous modules, creating your own CDK constructs is easy an
 
 Lucky for you, the Construct Hub itself is a CDK Construct! This means you can deploy this in an AWS account and only allow access to internal resources. This way you can share your constructs with members of your team or organization without exposing them to the outside world.
 
-![](./private-construct-hub.png)
+![](./300-private-construct-hub/private-construct-hub.png)
 
 To enable this functionality, you'll deploy the architecture shown in the above diagram.
 
