@@ -1,5 +1,5 @@
 +++
-title = "create pipeline and publish construct"
+title = "Create pipeline and publish construct"
 weight = 400
 +++
 
