@@ -1,5 +1,5 @@
 +++
-title = "Publish Construct"
+title = "create pipeline and publish construct"
 weight = 400
 +++
 
@@ -12,7 +12,9 @@ cd pipeline
 cdk deploy
 {{</highlight>}}
 
-## Observe pipeline run and published artifact
+## Publish artifact
+
+Once `cdk deploy` creates pipeline, it runs and publishes artifact
 
 In AWS Console, go to [CodePipeline](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and see the pipeline run.  The pipeline would push the artifact to CodeArtifact.  Navigate to [CodeArtifact](https://console.aws.amazon.com/codesuite/codeartifact/repositories) and observe that it has version `1.0.0` of the artifact
 
@@ -31,9 +33,9 @@ Now when the pipeline runs, it should publish an updated artifact with the last 
 
 ## Observe the artifacts in private construct hub
 
-Navigate to the private construct hub URL detailed in [private construct Hub section](../1000-create-construct-hub.md)
+Navigate to the private construct hub URL detailed in [private construct Hub section](../1000-create-construct-hub.html)
 
 Click on `Find constructs` button to view the published constructs.
 
 ## Summary
-In this section, we have created the pipeline instance from the pipeline CDK code.  Also we saw that the pipeline ran, transpiled, packaged and published the artifacts into private ConstructHub.  Next we will now look into how to consume the transpiled artifacts from private ConstructHub.
+In this section, we have created the pipeline instance from the pipeline CDK code.  We saw that the pipeline built, transpiled, packaged and published the artifacts into private ConstructHub.  Next we will now look into how to consume the transpiled artifacts from private ConstructHub.

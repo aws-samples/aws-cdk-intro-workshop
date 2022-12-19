@@ -1,5 +1,5 @@
 +++
-title = "Create Construct Lib - pipeline"
+title = "Create Construct Lib - pipeline code"
 weight = 200
 +++
 
@@ -9,7 +9,7 @@ Create an infrastructure that could deploy the construct Library into private Co
 separate repository.
 
 Navigate to [**CodeCommit**](https://aws.amazon.com/codecommit/) repository and create a repository named "
-construct-lib-repo". Clone the repository, "construct-lib-repo" in your local. 
+construct-lib-repo". Clone the repository, "construct-lib-repo" to your local. 
 
 {{<highlight bash>}}
 git clone <<construct-lib-repo>>

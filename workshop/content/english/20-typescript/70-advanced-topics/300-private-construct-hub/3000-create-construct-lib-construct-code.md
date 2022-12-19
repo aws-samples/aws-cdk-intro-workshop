@@ -1,11 +1,11 @@
 +++
-title = "Create Construct Lib - Construct"
+title = "Create Construct Lib - Construct Code"
 weight = 300
 +++
 
 ## Create Construct Lib - Construct
 
-Create a construct library project leveraging Projen to synthesize and manage project configuration files.  Then add the HitCounter Construct to project structure.  Then configure it to transpile Construct to selected targets.  We will use the [HitCounter Construct](../../40-hit-counter) built earlier in this workshop.
+Create a construct library project leveraging Projen to synthesize and manage project configuration files.  Then add the HitCounter Construct to project structure.  Then configure it to transpile Construct to selected targets.  We will use the [HitCounter Construct](../../40-hit-counter/200-handler.html) built earlier in this workshop.
 
 ### Setup Projen project
 
@@ -115,7 +115,7 @@ project.synth();
 
 ### Add HitCounter Construct 
 
-Copy `hitcounter.ts` into the `constructs/src` folder.  You would have created `hitcounter.ts` file as part of instructions in [hit-counter](../../40-hit-counter/300-resources.md) section.
+Copy `hitcounter.ts` into the `constructs/src` folder.  You would have created `hitcounter.ts` file as part of instructions in [hit-counter](../../40-hit-counter/300-resources.html) section.
 Update `index.ts` in `constructs/src` folder with the following content.
 {{<highlight js>}}
 export * from './hitcounter';
@@ -155,4 +155,4 @@ Inspect `dist/js/` directory contents to see the generated artifact.
 
 
 ## Summary
-In this section, we have created the ConstructLib code in a structure expected by the ConstructLib pipline code (that we created in previous section).  Next section we will look into how to create the pipeline instance from the pipeline CDK code.
+In this section, we have created the ConstructLib code in a structure expected by the ConstructLib pipline code (that we created in previous section).  Next section we will look into how to create the pipeline instance from the pipeline CDK code which will then build, transpile, publish artifacts to private ConstructHub.
