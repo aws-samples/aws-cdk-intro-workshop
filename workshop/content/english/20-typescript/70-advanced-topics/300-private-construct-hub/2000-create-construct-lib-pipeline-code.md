@@ -1,16 +1,15 @@
 +++
-title = "Create Construct Lib - Infrastructure"
+title = "Create Construct Lib - pipeline"
 weight = 200
 +++
 
-## Create Construct Lib infrastructure
+## Create Construct Lib pipeline
 
 Create an infrastructure that could deploy the construct Library into private Construct Hub.   Since this is separate from "private construct hub" infrastructure, create this to be entirely self-contained in a
 separate repository.
 
 Navigate to [**CodeCommit**](https://aws.amazon.com/codecommit/) repository and create a repository named "
-construct-lib-repo". Clone the repository, "construct-lib-repo" in your local. Follow instructions as
-detailed [here](../200-pipelines/2000-create-repo.html).
+construct-lib-repo". Clone the repository, "construct-lib-repo" in your local. 
 
 {{<highlight bash>}}
 git clone <<construct-lib-repo>>
@@ -172,9 +171,9 @@ As part of install phase, we get the project build requirements configured
 
 As part of the build phase, we first do `projen release`.   [Projen](https://projen.io) helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will look into more about Projen in next section.  Projen creates the transpiled packages and places them on `dist` directory.
 
-Rest of build phase, looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using [publib](https://github.com/cdklabs/publib/blob/main/README.md).
+Rest of build phase commands (Look into section in YAML below `phases/build/commands`), looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using [publib](https://github.com/cdklabs/publib/blob/main/README.md).
 
-You might have observed that we were referring to `build-spec/projen-release.yml` while creating the CodeBuild project.  Create the build specification with the following content.
+Create the build specification for the CodeBuild project with the following content at location `pipeline/build-spec/projen-release.yml`.
 
 {{<highlight yml>}}
 version: 0.2
@@ -255,4 +254,5 @@ reports:
 
 We could adjust the runtime-versions needed based on all the target languages we are transpiling the construct to.  
 
-
+## Summary
+In this section, we have created the pipeline code that would be used to build, package and push the ConstructLib code.  Next section we will look into how to structure the ConstructLib code.

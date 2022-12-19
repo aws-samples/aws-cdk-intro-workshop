@@ -3,9 +3,9 @@ title = "Publish Construct"
 weight = 400
 +++
 
-## Publish Construct
+## Create ConstructLib Pipeline
 
-We have so far created the construct in the `constructs/` directory and the pipeline in the `pipeline/` directory.  Now deploy the infrastructure.
+We have so far created the construct code in the `constructs/` directory and the pipeline code in the `pipeline/` directory.  Now deploy the Constructs pipeline.
 
 {{<highlight bash>}}
 cd pipeline
@@ -31,6 +31,9 @@ Now when the pipeline runs, it should publish an updated artifact with the last 
 
 ## Observe the artifacts in private construct hub
 
-Navigate to the private construct hub URL detailed in [private construct Hub section](../100-TODO)
+Navigate to the private construct hub URL detailed in [private construct Hub section](../1000-create-construct-hub.md)
 
-Click on `Find constructs` button to view the published constructs. 
+Click on `Find constructs` button to view the published constructs.
+
+## Summary
+In this section, we have created the pipeline instance from the pipeline CDK code.  Also we saw that the pipeline ran, transpiled, packaged and published the artifacts into private ConstructHub.  Next we will now look into how to consume the transpiled artifacts from private ConstructHub.

@@ -67,7 +67,7 @@ Open the file `.projenrc.js` and make the following changes.  After the `reposit
 Run `projen` from the `constructs` directory.  This will make projen synthesize configurations.  For instance, the package.json will have `cdk-dynamo-table-viewer` dependency base on what was added in `dependencies` section of `.projenrc.js`.
 
 {{<highlight bash>}}
-projen
+npx projen
 {{</highlight>}}
 
 After updating your `.projenrc.js` Projen configuration file will look like this, with perhaps differences in repositoryUrl and other changes you might have chosen
@@ -130,12 +130,15 @@ Projen is opinionated and mandates that all project configuration be done throug
 
 Commit and push code with the specific Git commit message.  The commit message hints how the version number should be incremented, whether this is a major, minor or hot fix.  For details refer, [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification)
 {{<highlight bash>}}
+# This is to avoid Projen tamper related errors
+npx projen
+# This is to push to GIT
 git add .
 git commit -m 'feat: add HitCounter to Construct Library'
 git push
 {{</highlight>}}
 
-### Extra credits
+### Extra credits (Optional)
 #### How to generate jssi transpiled and jsii-packmak packaged target on my machine?
 
 The `compile` command below needs to be run on `constructs` folder where `.projenrc.js` file is.  It will compile the typescript files in `src/` folder and place it on to `lib/` folder.
@@ -149,3 +152,7 @@ npx projen package:js
 {{</highlight>}}
 
 Inspect `dist/js/` directory contents to see the generated artifact.
+
+
+## Summary
+In this section, we have created the ConstructLib code in a structure expected by the ConstructLib pipline code (that we created in previous section).  Next section we will look into how to create the pipeline instance from the pipeline CDK code.
