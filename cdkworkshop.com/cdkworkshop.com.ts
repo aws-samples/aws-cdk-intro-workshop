@@ -110,12 +110,11 @@ export class CdkWorkshop extends Stack {
             "connect-src 'self' dataplane.rum.us-west-2.amazonaws.com",
         ].join('; ');
 
-    
         const indexHandlerFunc = new cloudfront.experimental.EdgeFunction(this, 'IndexRewriteFunc', {
             runtime: lambda.Runtime.NODEJS_16_X,
             handler: 'index.handler',
             code: lambda.Code.fromAsset(path.join(__dirname, 'indexhandler')),
-          });        
+        });
 
         // CloudFront distribution
         const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
@@ -152,9 +151,11 @@ export class CdkWorkshop extends Stack {
                 }),
                 // Rewrite "some/" as "some/index.html"
                 edgeLambdas: [
-                    { functionVersion: indexHandlerFunc.currentVersion, eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST }
+                    {
+                        functionVersion: indexHandlerFunc.currentVersion,
+                        eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
+                    },
                 ],
-
             },
             defaultRootObject: 'index.html',
             webAclId: acl,

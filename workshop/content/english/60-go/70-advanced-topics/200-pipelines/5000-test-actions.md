@@ -227,7 +227,7 @@ func (s *workshopPipelineStage) HcEndpoint() awscdk.CfnOutput {
 }
 {{</highlight>}}
 
-Now we can add those values to our actions in `lib/pipeline-stack.ts` by getting the `stackOutput` of our pipeline stack:
+Now we can add those values to our actions in `infra/pipeline-stack.go` by getting the `stackOutput` of our pipeline stack:
 {{<highlight go "hl_lines=2 8 15">}}
 	// CODE HERE...
 	deployStage := pipeline.AddStage(deploy.Stage(), nil)
