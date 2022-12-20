@@ -11,3 +11,11 @@
   translation: Privacy
 - id: menuAwsTerms
   translation: "Site Terms"
+- id: trackingBannerMessage
+  translation: We use analytics to make this content better, but only with your permission.
+- id: trackingBannerMoreInfo
+  translation: More information
+- id: trackingBannerAccept
+  translation: Accept
+- id: trackingBannerDecline
+  translation: Decline

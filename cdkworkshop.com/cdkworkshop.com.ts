@@ -104,10 +104,10 @@ export class CdkWorkshop extends Stack {
 
         const cspPolicyContent = [
             "default-src 'self' https://cdkworkshop.com",
-            "style-src 'self' fonts.googleapis.com ",
+            "style-src 'self' fonts.googleapis.com",
             "font-src 'self' fonts.gstatic.com",
-            "script-src 'self' www.google-analytics.com",
-            "connect-src 'self' *.shortbread.aws.dev",
+            "script-src 'self' client.rum.us-east-1.amazonaws.com",
+            "connect-src 'self' dataplane.rum.us-west-2.amazonaws.com",
         ].join('; ');
 
         const indexHandlerFunc = new cloudfront.experimental.EdgeFunction(this, 'IndexRewriteFunc', {
