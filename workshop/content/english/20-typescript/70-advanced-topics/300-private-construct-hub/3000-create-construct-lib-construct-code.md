@@ -62,7 +62,7 @@ Open the file `.projenrc.js` and make the following changes.  After the `reposit
 
 `majorVersion` attribute is set to `1`, so we start with version `1.0.0` of packaged artifacts.
 
-`releaseTrigger` is set to `manual`.  For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number.  Projen uses [SEMVER](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification) to figure out which part of the version to increment, for details refer [Projen release documentation](https://projen.io/releases.html).
+`releaseTrigger` is set to `manual`.  For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number.  Projen uses <a href="https://semver.org/" target="_blank">SEMVER</a> and <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to figure out which part of the version to increment, for details refer <a href="https://projen.io/releases.html" target="_blank">Projen release documentation</a>.
 
 Run `projen` from the `constructs` directory.  This will make projen synthesize configurations.  For instance, the package.json will have `cdk-dynamo-table-viewer` dependency base on what was added in `dependencies` section of `.projenrc.js`.
 
@@ -77,8 +77,8 @@ const { awscdk } = require('projen');
 const { ReleaseTrigger } = require('projen/lib/release');
 
 const project = new awscdk.AwsCdkConstructLibrary({
-  author: 'BEx',
-  authorAddress: 'aplatono@amazon.com',
+  author: 'CDK Workshop',
+  authorAddress: 'cdkworkshop@amazon.com',
   buildWorkflow: false,
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
@@ -128,7 +128,8 @@ Projen is opinionated and mandates that all project configuration be done throug
 
 ### Push code to CodeCommit repository
 
-Commit and push code with the specific Git commit message.  The commit message hints how the version number should be incremented, whether this is a major, minor or hot fix.  For details refer, [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#specification)
+Commit and push code with the specific Git commit message.  The commit message hints how the version number should be incremented, whether this is a major, minor or hot fix.  For details refer, <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a>.
+
 {{<highlight bash>}}
 # This is to avoid Projen tamper related errors
 npx projen

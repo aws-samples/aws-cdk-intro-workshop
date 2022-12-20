@@ -2,8 +2,8 @@ const { awscdk } = require('projen');
 const { ReleaseTrigger } = require('projen/lib/release');
 
 const project = new awscdk.AwsCdkConstructLibrary({
-  author: 'BEx',
-  authorAddress: 'aplatono@amazon.com',
+  author: 'CDK Workshop',
+  authorAddress: 'cdkworkshop@amazon.com',
   buildWorkflow: false,
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',

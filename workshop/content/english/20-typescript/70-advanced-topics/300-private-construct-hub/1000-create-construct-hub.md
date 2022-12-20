@@ -5,9 +5,9 @@ weight = 100
 
 ## Create ConstructHub Infrastructure
 
-{{% notice info %}} Please note that the [ConstructHub library](https://github.com/cdklabs/construct-hub) is currently in active development and should be considered _experimental_. We welcome any feedback (good or bad) from your experience in using that repo! {{% /notice %}}
+{{% notice info %}} Please note that the <a href="https://github.com/cdklabs/construct-hub" target="_blank">ConstructHub library</a> is currently in active development and should be considered _experimental_. We welcome any feedback (good or bad) from your experience in using that repo! {{% /notice %}}
 
-{{% notice info %}} This section of the workshop assumes that you have at least created the [hit counter construct](/20-typescript/40-hit-counter.html) in the main module of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/typescript/main-workshop) that represents the last state of the project after completing the main module. {{% /notice %}}
+{{% notice info %}} This section of the workshop assumes that you have at least created the [hit counter construct](/20-typescript/40-hit-counter.html) in the main module of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code <a href="https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/typescript/main-workshop" target="_blank">here</a> that represents the last state of the project after completing the main module. {{% /notice %}}
 
 ### Create ConstructHub Stack
 

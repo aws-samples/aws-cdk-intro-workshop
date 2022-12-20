@@ -21,14 +21,14 @@ export class ConstructHubStack extends cdk.Stack {
     
     repository.addDependsOn(domain);
     
-    // Define the IP set for allowed IP address ranges
+    // Define the IP Set for allowed origin IP range addresses
     const ipSet = new waf.CfnIPSet(this, 'ConstructHubIPSet', {
-        addresses: ['72.21.196.65/32', '192.0.2.0/24'],
+        addresses: ['192.0.2.0/24', '192.0.4.0/24'],
         ipAddressVersion: 'IPV4',
         scope: 'CLOUDFRONT',
     });    
 
-    // Define the web ACL for ContructHub web app CloudFront
+    // Define the Web ACL with IP Set rule for ContructHub CloudFront distribution
     const webACL = new waf.CfnWebACL(this, 'ConstructHubWebACL', {
         name: 'ConstructHubWebACL',
         description: 'Web ACL for ConstructHub web app CloudFront distribution',
@@ -66,12 +66,7 @@ export class ConstructHubStack extends cdk.Stack {
     new ConstructHub(this, 'ConstructHub', {
         packageSources: [
             new sources.CodeArtifact({ repository: repository }),
-        ],
-        /*
-        cloudFront: {
-            webAclId: webACL.attrArn
-        },
-        */
+        ]
     });
   }
 }

@@ -8,7 +8,7 @@ weight = 200
 Create an infrastructure that could deploy the construct Library into private Construct Hub.   Since this is separate from "private construct hub" infrastructure, create this to be entirely self-contained in a
 separate repository.
 
-Navigate to [**CodeCommit**](https://aws.amazon.com/codecommit/) repository and create a repository named "
+Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a repository named "
 construct-lib-repo". Clone the repository, "construct-lib-repo" to your local. 
 
 {{<highlight bash>}}
@@ -169,9 +169,9 @@ As part of install phase, we get the project build requirements configured
 
 ### `build` Phase
 
-As part of the build phase, we first do `projen release`.   [Projen](https://projen.io) helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will look into more about Projen in next section.  Projen creates the transpiled packages and places them on `dist` directory.
+As part of the build phase, we first do `projen release`.  <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will look into more about Projen in next section.  Projen creates the transpiled packages and places them on `dist` directory.
 
-Rest of build phase commands (Look into section in YAML below `phases/build/commands`), looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using [publib](https://github.com/cdklabs/publib/blob/main/README.md).
+Rest of build phase commands (Look into section in YAML below `phases/build/commands`), looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
 
 Create the build specification for the CodeBuild project with the following content at location `pipeline/build-spec/projen-release.yml`.
 
