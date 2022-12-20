@@ -17,6 +17,12 @@ Currently ConstructHub web interface does not restrict access to authenticated u
 
 {{% notice warning %}} AWS WAF is available globally for CloudFront distributions, but you must use the Region US East (N. Virginia) to create your web ACL and any resources used in the web ACL, such as rule groups, IP sets, and regex pattern sets. Some interfaces offer a region choice of "Global (CloudFront)". Choosing this is identical to choosing Region US East (N. Virginia) or "us-east-1". {{% /notice %}}
 
+Before you can use the ConstructHub library in your stack, you'll need to install the npm module:
+
+{{<highlight bash>}}
+npm install construct-hub@0.4.156
+{{</highlight>}}
+
 Create a new file under `lib` called `lib/construct-hub-stack.ts`. Add the following to that file and replace _<your_ip_address>_ with your IP address (origin of the web requests):
 
 {{<highlight ts>}}
@@ -45,7 +51,7 @@ export class ConstructHubStack extends cdk.Stack {
     
     // Define the IP Set for allowed origin IP range addresses
     const ipSet = new waf.CfnIPSet(this, 'ConstructHubIPSet', {
-        addresses: ['<your_ip_address>'],
+        addresses: ['<your_ip_address>/32'],
         ipAddressVersion: 'IPV4',
         scope: 'CLOUDFRONT',
     });    
