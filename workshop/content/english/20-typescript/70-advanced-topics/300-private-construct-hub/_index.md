@@ -14,4 +14,12 @@ Lucky for you, the Construct Hub itself is a CDK Construct! This means you can d
 
 To enable this functionality, you'll deploy the architecture shown in the above diagram.
 
-[Explain Diagram]
+There are typically 3 types of users who will leverage the private construct hub in some way:
+1. Construct Hub Consumers - Developers who will navigate to the Private Construct Hub looking for helpful CDK constructs
+2. Construct Hub Producers - Developers who publish constructs to the Private Construct Hub
+3. Construct Hub Administrators - These individuals are responsible for managing the overall pipeline that deploys constructs to the Private Construct Hub
+
+The upcoming steps in this module are mapped to the needs of these types of users. In the next lab, you'll start by deploying the front-end for the Private Construct Hub (The box labeled "Private ConstructHub").
+
+
+
