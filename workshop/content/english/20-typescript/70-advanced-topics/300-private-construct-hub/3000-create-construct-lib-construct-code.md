@@ -16,7 +16,7 @@ mkdir constructs
 cd constructs
 {{</highlight>}}
 
-Run `projen init` to scaffold an awscdk-construct type Projen project
+Run `projen new` to scaffold an awscdk-construct type Projen project
 
 {{<highlight js>}}
 npx projen new awscdk-construct \
@@ -27,10 +27,16 @@ npx projen new awscdk-construct \
   --name "cdkworkshop-lib"
 {{</highlight>}}
 
-This would scaffold Projen awscdk-construct type project.
+This `projen new` command scaffold Projen awscdk-construct type project, with .projenrc.js file holding the Projen configurations.  
 
-Open the file `.projenrc.js` and make the following changes.  After the `repositoryUrl` attribute add the following attributes listed below.  
+Open the file `.projenrc.js` and make the following two changes.
 
+1. Import the ReleaseTrigger class from projen's library.
+{{<highlight js>}}
+const { ReleaseTrigger } = require("projen/lib/release");
+{{</highlight>}}
+
+2. After the `repositoryUrl` attribute add the following attributes listed below.  
 {{<highlight js>}}
 
   description: 'CDK Construct Library by projen/jsii',
@@ -63,6 +69,8 @@ Open the file `.projenrc.js` and make the following changes.  After the `reposit
 `majorVersion` attribute is set to `1`, so we start with version `1.0.0` of packaged artifacts.
 
 `releaseTrigger` is set to `manual`.  For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number.  Projen uses <a href="https://semver.org/" target="_blank">SEMVER</a> and <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to figure out which part of the version to increment, for details refer <a href="https://projen.io/releases.html" target="_blank">Projen release documentation</a>.
+
+#### Projen synth
 
 Run `projen` from the `constructs` directory.  This will make projen synthesize configurations.  For instance, the package.json will have `cdk-dynamo-table-viewer` dependency base on what was added in `dependencies` section of `.projenrc.js`.
 

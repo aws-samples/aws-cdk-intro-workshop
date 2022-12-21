@@ -144,7 +144,6 @@ We change the entry point to deploy Construct's pipeline.
 To do this, edit the code in `bin/pipeline.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
-#!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import {PipelineStack} from '../lib/pipeline-stack';
