@@ -9,9 +9,10 @@ Create an infrastructure that could deploy the construct Library into private Co
 separate repository.
 
 Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a repository named "
-construct-lib-repo". Clone the repository, "construct-lib-repo" to your local. 
+construct-lib-repo". Clone the repository, "construct-lib-repo" to your local to the parent directory of `aws-cdk-workshop` directory. 
 
 {{<highlight bash>}}
+
 git clone <<construct-lib-repo>>
 {{</highlight>}}
 
