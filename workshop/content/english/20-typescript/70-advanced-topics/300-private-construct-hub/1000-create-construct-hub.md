@@ -55,7 +55,7 @@ export class ConstructHubStack extends cdk.Stack {
 
     // Define the IP Set for allowed origin IP range addresses
     const ipSet = new waf.CfnIPSet(this, "ConstructHubIPSet", {
-      addresses: ["71.190.189.46/32"],
+      addresses: ["<your_ip_address>/32"],
       ipAddressVersion: "IPV4",
       scope: "CLOUDFRONT",
     });
