@@ -5,7 +5,7 @@ weight = 400
 
 ## Create ConstructLib Pipeline
 
-We have so far created the construct code in the `constructs/` directory and the pipeline code in the `pipeline/` directory.  Now deploy the Constructs pipeline.
+Up to this point we have created the construct code in the `constructs/` directory and the pipeline code in the `pipeline/` directory.  Now deploy the Constructs pipeline:
 
 {{<highlight bash>}}
 cd pipeline
@@ -14,9 +14,9 @@ cdk deploy
 
 ## Publish artifact
 
-Once `cdk deploy` creates pipeline, it runs and publishes artifact
+Once `cdk deploy` creates the pipeline, it runs and publishes artifacts
 
-In AWS Console, go to <a href="https://console.aws.amazon.com/codesuite/codepipeline/pipelines" target="_blank">CodePipeline</a> and see the pipeline run.  The pipeline would push the artifact to CodeArtifact.  Navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a> and observe that it has version `1.0.0` of the artifact
+In the AWS Console, go to <a href="https://console.aws.amazon.com/codesuite/codepipeline/pipelines" target="_blank">CodePipeline</a> and check out the pipeline run.  The pipeline will push the artifact to CodeArtifact.  Navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a> and observe that it has version `1.0.0` of the artifact
 
 
 ## Make a patch change and observe new version of artifact
