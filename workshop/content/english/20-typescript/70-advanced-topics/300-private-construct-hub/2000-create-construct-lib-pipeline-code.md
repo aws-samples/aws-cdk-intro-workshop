@@ -5,11 +5,10 @@ weight = 200
 
 ## Create Construct Lib pipeline
 
-Create an infrastructure that could deploy the construct Library into private Construct Hub.   Since this is separate from "private construct hub" infrastructure, create this to be entirely self-contained in a
-separate repository.
+Next, we'll set up the infrastructure that will deploy the construct Library into our private Construct Hub. Since this is separate from the "Private Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the parent directory of 'aws-cdk-workshop'
 
 Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a repository named "
-construct-lib-repo". Clone the repository, "construct-lib-repo" to your local to the parent directory of `aws-cdk-workshop` directory. 
+construct-lib-repo". Then clone the repository "construct-lib-repo" to your local machine. 
 
 {{<highlight bash>}}
 
@@ -18,13 +17,13 @@ git clone <<construct-lib-repo>>
 
 Open this in your editor of choice.
 
-Note: Since we will be working with Typescript, have it installed
+Note: We will be working with Typescript, so make sure you have it installed. If not, run the following command in your terminal:
 
 {{<highlight bash>}}
 npm install -g typescript
 {{</highlight>}}
 
-Create a new folder called `pipeline`. This would have all the pipeline infrstructure in it. Then create a typescript
+Create a new folder called `pipeline`. This will contain all the pipeline infrstructure. Then initialize a cdk typescript application
 project.
 {{<highlight bash>}}
 mkdir pipeline
@@ -32,7 +31,7 @@ cd pipeline
 cdk init app --language typescript
 {{</highlight>}}
 
-Create a new file under `lib` called `lib/pipeline-stack.ts`. Add the following to that file.  This creates a CodePipline pipeline with two stages, a source stage linked to CodeCommit GIT repository and a CodeBuild project that does build and release of the transpiled packaged artifacts.
+Open the `lib/pipeline-stack.ts`file and replace the code with the following:
 
 {{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
@@ -136,11 +135,11 @@ export class PipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-Looks familiar? At this point, the pipeline is like any other CDK stack. Let us utilize the stack from our CDK app.
+This creates a CodePipline pipeline with two stages, a source stage linked to the CodeCommit GIT repository, and a CodeBuild project that does the build and release of the transpiled packaged artifacts.
 
 ## Update CDK Deploy Entrypoint
 
-We change the entry point to deploy Construct's pipeline.
+We change the entry point to deploy our pipeline.
 
 To do this, edit the code in `bin/pipeline.ts` as follows:
 
@@ -161,20 +160,17 @@ And now we're ready!
 
 ## CodeBuild 
 
-CodeBuild project has two phases,
+We'll use CodeBuild to actually build our project. CodeBuild needs a 'buildspec' file. A buildspec is a collection of build commands and related settings, in YAML format, that CodeBuild uses to run a build.
 
-### `install` Phase
+Run the following commands to create the buildspec file:
 
-As part of install phase, we get the project build requirements configured
+{{<highlight bash>}}
+mkdir build-spec
+touch build-spec/projen-release.yml
+{{<highlight bash>}}
 
-### `build` Phase
-
-As part of the build phase, we first do `projen release`.  <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will look into more about Projen in next section.  Projen creates the transpiled packages and places them on `dist` directory.
-
-Rest of build phase commands (Look into section in YAML below `phases/build/commands`), looks for existence of runtime specific `dist` directory and sets the runtime specific CodeArtifact's environmental variables, before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
-
-Create the build specification for the CodeBuild project with the following content at location `pipeline/build-spec/projen-release.yml`.
-
+Now copy the following code and paste it into 'projen-release.yml'
+    
 {{<highlight yml>}}
 version: 0.2
 
@@ -252,7 +248,10 @@ reports:
 
 {{</highlight>}}
 
-We could adjust the runtime-versions needed based on all the target languages we are transpiling the construct to.  
+
+The first command in the build phase of this YAML file is `projen release`.  <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will dive deeper into Projen in next section.  Projen creates the transpiled packages and places them in the `dist` directory.
+
+The other build phase commands look for the existence of runtime specific `dist` directories and set the runtime specific CodeArtifact environmental variables before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
 
 ## Summary
-In this section, we have created the pipeline code that would be used to build, package and push the ConstructLib code.  Next section we will look into how to structure the ConstructLib code.
+In this section, we created the pipeline code that will be used to build, package and push the ConstructLib code to our Private Construct Hub. In the next section we will set up Projen to create a construct library
