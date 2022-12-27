@@ -8,6 +8,7 @@ weight = 400
 Up to this point we have created the construct code in the `constructs/` directory and the pipeline code in the `pipeline/` directory.  Now deploy the Constructs pipeline:
 
 {{<highlight bash>}}
+cd ..
 cd pipeline
 cdk deploy
 {{</highlight>}}
@@ -21,21 +22,67 @@ In the AWS Console, go to <a href="https://console.aws.amazon.com/codesuite/code
 
 ## Make a patch change and observe new version of artifact
 
-Make small change to `constructs/src/hitcounter.ts`, perhaps to the Error message and commit with the following commit message (Commit message has to be crafted specifically since Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer the new version for the artifact)
+Let's make a small change to our construct library code and commit the changes to CodeCommit. Open the file `constructs/lambda/hitcounter.js` and modify the log message to read the following:
+
+{{<highlight ts>}}
+  console.log('downstream function response:', JSON.stringify(resp, undefined, 2));
+{{</highlight>}}
+
+The whole code will look as follows:
+
+{{<highlight ts>}}
+const { DynamoDB, Lambda } = require('aws-sdk');
+
+exports.handler = async function(event) {
+  console.log("request:", JSON.stringify(event, undefined, 2));
+
+  // create AWS SDK clients
+  const dynamo = new DynamoDB();
+  const lambda = new Lambda();
+
+  // update dynamo entry for "path" with hits++
+  await dynamo.updateItem({
+    TableName: process.env.HITS_TABLE_NAME,
+    Key: { path: { S: event.path } },
+    UpdateExpression: 'ADD hits :incr',
+    ExpressionAttributeValues: { ':incr': { N: '1' } }
+  }).promise();
+
+  // call downstream function and capture response
+  const resp = await lambda.invoke({
+    FunctionName: process.env.DOWNSTREAM_FUNCTION_NAME,
+    Payload: JSON.stringify(event)
+  }).promise();
+
+  console.log('downstream function response:', JSON.stringify(resp, undefined, 2));
+
+  // return response back to upstream caller
+  return JSON.parse(resp.Payload);
+};
+{{</highlight>}}
+
+Commit the changes to CodeCommit with the following commit message (Commit message has to be crafted specifically since Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer the new version for the artifact):
 
 {{<highlight bash>}}
+cd ..
+cd constructs
 git add .
-git commit -m 'fix: fix error message'
+git commit -m 'fix: modified log message'
 git push
 {{</highlight>}}
 
 Now when the pipeline runs, it should publish an updated artifact with the last (Patch) part alone updated.   Navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a> and observe that it has version `1.0.1` of the artifact.
 
-## Observe the artifacts in private construct hub
+![](./code-artifact-cdkworkshop-lib-1.0.1.png)
 
-Navigate to the private construct hub URL detailed in [private construct Hub section](./1000-create-construct-hub.html)
+## Observe the artifacts in private ConstructHub
 
-Click on `Find constructs` button to view the published constructs.
+Navigate to the private construct hub URL detailed in [Create ConstructHub](./1000-create-construct-hub.html) section. Click on `Find constructs` button to view the published constructs.
 
+![](./private-construct-hub-website-search.png)
+
+Click the `cdkworkshop-lib` tile to display the details of the published construct.
+
+![](./private-construct-hub-website-details.png)
 ## Summary
 In this section, we have created the pipeline instance from the pipeline CDK code.  We saw that the pipeline built, transpiled, packaged and published the artifacts into private ConstructHub.  Next we will now look into how to consume the transpiled artifacts from private ConstructHub.
