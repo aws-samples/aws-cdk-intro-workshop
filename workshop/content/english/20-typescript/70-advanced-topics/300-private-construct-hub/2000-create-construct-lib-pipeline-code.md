@@ -161,13 +161,12 @@ And now we're ready!
 We'll use CodeBuild to actually build our project. CodeBuild needs a 'buildspec' file. A buildspec is a collection of build commands and related settings, in YAML format, that CodeBuild uses to run a build.
 
 Run the following commands to create the buildspec file:
-
-```
+{{<highlight bash>}}
 mkdir build-spec
 touch build-spec/projen-release.yml
-{{<highlight bash>}}
+{{</highlight>}}
 
-Now copy the following code and paste it into 'projen-release.yml'
+Now copy the following code and paste it into 'projen-release.yml':
     
 {{<highlight yaml>}}
 version: 0.2
@@ -176,9 +175,9 @@ env:
   shell: "bash"
   git-credential-helper": "yes"
 
-phases: 
-  install: 
-    runtime-versions: 
+phases:
+  install:
+    runtime-versions:
       python: "3.10"
       nodejs: "16"
       java: "corretto17"
@@ -188,7 +187,7 @@ phases:
       - "npm install --location=global projen yarn"
       - "yarn install --check-files"
       - pip install git-remote-codecommit
-#      Avoid detached head
+      #      Avoid detached head
       - git checkout main
       - git remote set-url origin `git remote -v | head -1 | cut -f1 -d " " | cut -f2 | sed 's/https:\/\/git-codecommit./codecommit::/g' | sed 's/.amazonaws.com\/v1\/repos\//:\/\//g'`
       - git config --global user.email "build-automation@amazon.com"
@@ -238,14 +237,13 @@ phases:
           echo "dist/java was not found. Skipping Java package upload."
         fi
 
-reports: 
-  test-reports: 
-    files: 
+reports:
+  test-reports:
+    files:
       - "**/test-reports/junit.xml"
     file-format: "JUNITXML"
-
-```
-
+    
+{{</highlight>}}
 
 The first command in the build phase of this YAML file is `projen release`.  <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will dive deeper into Projen in next section.  Projen creates the transpiled packages and places them in the `dist` directory.
 
