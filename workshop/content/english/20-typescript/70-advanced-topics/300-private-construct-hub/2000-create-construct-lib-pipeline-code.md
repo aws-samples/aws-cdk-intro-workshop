@@ -11,8 +11,8 @@ Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">
 construct-lib-repo". Then clone the repository "construct-lib-repo" to your local machine. 
 
 {{<highlight bash>}}
-
 git clone <<construct-lib-repo>>
+cd construct-lib-repo
 {{</highlight>}}
 
 Open this in your editor of choice.
@@ -23,7 +23,7 @@ Note: We will be working with Typescript, so make sure you have it installed. If
 npm install -g typescript
 {{</highlight>}}
 
-Create a new folder called `pipeline`. This will contain all the pipeline infrstructure. Then initialize a cdk typescript application
+Create a new folder called `pipeline` within the `/construct-lib-repo` directory. This will contain all the pipeline infrstructure. Then initialize a cdk typescript application
 project.
 {{<highlight bash>}}
 mkdir pipeline
