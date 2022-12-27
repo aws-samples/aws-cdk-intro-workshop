@@ -23,7 +23,7 @@ Before you can use the ConstructHub library in your stack, you'll need to instal
 npm install construct-hub@0.4.156
 {{</highlight>}}
 
-Create a new file under `lib` called `lib/private-construct-hub-stack.ts`. Add the following to that file and replace `_<your_ip_address>_` with your IPV4 address:
+Create a new file under `lib` called `lib/private-construct-hub-stack.ts`. Add the following to that file and replace `<your_ip_address>` with your IPV4 address:
 
 {{<highlight ts>}}
 import * as cdk from "aws-cdk-lib";
