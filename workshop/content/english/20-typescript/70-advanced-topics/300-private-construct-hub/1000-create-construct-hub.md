@@ -28,78 +28,82 @@ Before we begin, ,ake sure you're outside of the cdkworkshop directory. If you c
 mkdir private-construct-hub
 cdk init app --language typescript {{}}
 
-Create a new file under `lib` called `lib/construct-hub-stack.ts`. Add the following to that file and replace _<your_ip_address>_ with your IP address (origin of the web requests):
+Create a new file under `lib` called `lib/private-construct-hub-stack.ts`. Add the following to that file and replace _<your_ip_address>_ with your IP address (origin of the web requests):
 
 {{<highlight ts>}}
-import * as cdk from 'aws-cdk-lib';
-import * as waf from 'aws-cdk-lib/aws-wafv2';
-import * as codeartifact from 'aws-cdk-lib/aws-codeartifact';
-import { ConstructHub } from 'construct-hub';
-import * as sources from 'construct-hub/lib/package-sources';
-import { Construct } from 'constructs';
+import * as cdk from "aws-cdk-lib";
+import * as waf from "aws-cdk-lib/aws-wafv2";
+import * as codeartifact from "aws-cdk-lib/aws-codeartifact";
+import { ConstructHub } from "construct-hub";
+import * as sources from "construct-hub/lib/package-sources";
+import { Construct } from "constructs";
 
 export class ConstructHubStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // Create a CodeArtifact domain and repo for user construct packages
-    const domain = new codeartifact.CfnDomain(this, 'CodeArtifactDomain', {
-        domainName: 'cdkworkshop-domain',
+    const domain = new codeartifact.CfnDomain(this, "CodeArtifactDomain", {
+      domainName: "cdkworkshop-domain",
     });
-    
-    const repository = new codeartifact.CfnRepository(this, 'CodeArtifactRepository', {
+
+    const repository = new codeartifact.CfnRepository(
+      this,
+      "CodeArtifactRepository",
+      {
         domainName: domain.domainName,
-        repositoryName: 'cdkworkshop-repository',
-    });
-    
+        repositoryName: "cdkworkshop-repository",
+      }
+    );
+
     repository.addDependsOn(domain);
-    
+
     // Define the IP Set for allowed origin IP range addresses
-    const ipSet = new waf.CfnIPSet(this, 'ConstructHubIPSet', {
-        addresses: ['<your_ip_address>/32'],
-        ipAddressVersion: 'IPV4',
-        scope: 'CLOUDFRONT',
-    });    
+    const ipSet = new waf.CfnIPSet(this, "ConstructHubIPSet", {
+      addresses: ["71.190.189.46/32"],
+      ipAddressVersion: "IPV4",
+      scope: "CLOUDFRONT",
+    });
 
     // Define the Web ACL with IP Set rule for ContructHub CloudFront distribution
-    const webACL = new waf.CfnWebACL(this, 'ConstructHubWebACL', {
-        name: 'ConstructHubWebACL',
-        description: 'Web ACL for ConstructHub web app CloudFront distribution',
-        defaultAction: {
-            block: {}
-        },
-        scope: 'CLOUDFRONT',
-        rules: [{
-            name: 'ConstructHubIPSetAllowRule',
-            priority: 0,
-            statement: {
-                ipSetReferenceStatement: {
-                    arn: ipSet.attrArn
-                }
+    const webACL = new waf.CfnWebACL(this, "ConstructHubWebACL", {
+      name: "ConstructHubWebACL",
+      description: "Web ACL for ConstructHub web app CloudFront distribution",
+      defaultAction: {
+        block: {},
+      },
+      scope: "CLOUDFRONT",
+      rules: [
+        {
+          name: "ConstructHubIPSetAllowRule",
+          priority: 0,
+          statement: {
+            ipSetReferenceStatement: {
+              arn: ipSet.attrArn,
             },
-            action: {
-                allow: {}
-            },
-            visibilityConfig: {
-                sampledRequestsEnabled: true,
-                cloudWatchMetricsEnabled: true,
-                metricName: 'MetricForConstructHubIPSetAllowRule'
-            }
-        }],
-        visibilityConfig: {
+          },
+          action: {
+            allow: {},
+          },
+          visibilityConfig: {
             sampledRequestsEnabled: true,
             cloudWatchMetricsEnabled: true,
-            metricName:'MetricForConstructHubWebACL'
-        }
+            metricName: "MetricForConstructHubIPSetAllowRule",
+          },
+        },
+      ],
+      visibilityConfig: {
+        sampledRequestsEnabled: true,
+        cloudWatchMetricsEnabled: true,
+        metricName: "MetricForConstructHubWebACL",
+      },
     });
-    
+
     webACL.addDependsOn(ipSet);
 
     // Create private instance of ConstructHub, register the new CodeArtifact repo
-    new ConstructHub(this, 'ConstructHub', {
-        packageSources: [
-            new sources.CodeArtifact({ repository: repository }),
-        ],
+    new ConstructHub(this, "ConstructHub", {
+      packageSources: [new sources.CodeArtifact({ repository: repository })],
     });
   }
 }
@@ -110,15 +114,15 @@ export class ConstructHubStack extends cdk.Stack {
 Next, modify the main CDK application to deploy new ConstructHub stack. To do this, edit the code in `bin/cdk-workshop.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
-import * as cdk from 'aws-cdk-lib'
-import { ConstructHubStack } from '../lib/construct-hub-stack'
+import * as cdk from "aws-cdk-lib";
+import { ConstructHubStack } from "../lib/private-construct-hub-stack";
 
 const app = new cdk.App();
-new ConstructHubStack(app, 'ConstructHubStack', {
+new ConstructHubStack(app, "ConstructHubStack", {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION
-  }
+    region: process.env.CDK_DEFAULT_REGION,
+  },
 });
 {{</highlight>}}
 
