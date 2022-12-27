@@ -5,7 +5,7 @@ weight = 300
 
 ## Create Construct Lib - Construct
 
-Create a construct library project leveraging Projen to synthesize and manage project configuration files.  Then add the HitCounter Construct to project structure.  Then configure it to transpile Construct to selected targets.  We will use the [HitCounter Construct](../../40-hit-counter/200-handler.html) built earlier in this workshop.
+Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files.  Then we'll add the HitCounter Construct from a previous lab to our project.  Lastly, we'll edit the configure to transpile our Constructs to the selected targets.
 
 ### Setup Projen project
 
@@ -16,7 +16,7 @@ mkdir constructs
 cd constructs
 {{</highlight>}}
 
-Run `projen new` to scaffold an awscdk-construct type Projen project
+Run the following command to scaffold an awscdk-construct type Projen project
 
 {{<highlight js>}}
 npx projen new awscdk-construct \
@@ -27,7 +27,7 @@ npx projen new awscdk-construct \
   --name "cdkworkshop-lib"
 {{</highlight>}}
 
-This `projen new` command scaffold Projen awscdk-construct type project, with .projenrc.js file holding the Projen configurations.  
+The '.projenrc.js' file holds the Projen configurations.  
 
 Open the file `.projenrc.js` and make the following two changes.
 
@@ -62,23 +62,7 @@ const { ReleaseTrigger } = require("projen/lib/release");
 
 {{</highlight>}}
 
-`deps` attribute adds the dependency which projen will in turn add it to the `package.json` file.  
-
-`python`, `dotnet` and `publishToMaven` attributes configures Projen telling it we are interested in transpiling the CDK Construct to those target runtimes.
-
-`majorVersion` attribute is set to `1`, so we start with version `1.0.0` of packaged artifacts.
-
-`releaseTrigger` is set to `manual`.  For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number.  Projen uses <a href="https://semver.org/" target="_blank">SEMVER</a> and <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to figure out which part of the version to increment, for details refer <a href="https://projen.io/releases.html" target="_blank">Projen release documentation</a>.
-
-#### Projen synth
-
-Run `projen` from the `constructs` directory.  This will make projen synthesize configurations.  For instance, the package.json will have `cdk-dynamo-table-viewer` dependency base on what was added in `dependencies` section of `.projenrc.js`.
-
-{{<highlight bash>}}
-npx projen
-{{</highlight>}}
-
-After updating your `.projenrc.js` Projen configuration file will look like this, with perhaps differences in repositoryUrl and other changes you might have chosen
+The file should look something like this:
 
 {{<highlight js>}}
 const { awscdk } = require('projen');
@@ -119,12 +103,75 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.synth();
 {{</highlight>}}
 
+The `deps` attribute adds the dependency which projen will in turn add to the `package.json` file.  
 
+The `python`, `dotnet` and `publishToMaven` attributes tell Projen it we are interested in transpiling the CDK Construct to those target runtimes.
+
+The `majorVersion` attribute is set to `1`, so we start with version `1.0.0` of packaged artifacts.
+
+The `releaseTrigger` attribute is set to `manual`.  For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number.  Projen uses <a href="https://semver.org/" target="_blank">SEMVER</a> and <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to figure out which part of the version to increment, for details refer <a href="https://projen.io/releases.html" target="_blank">Projen release documentation</a>.
+
+#### Projen synth
+
+Run `projen` from the `constructs` directory.  This will make projen synthesize configurations.  For instance, the package.json will have `cdk-dynamo-table-viewer` dependency base on what was added in `dependencies` section of `.projenrc.js`.
+
+{{<highlight bash>}}
+npx projen
+{{</highlight>}}
 
 ### Add HitCounter Construct 
 
-Copy `hitcounter.ts` into the `constructs/src` folder.  You would have created `hitcounter.ts` file as part of instructions in [hit-counter](../../40-hit-counter/300-resources.html) section.
-Update `index.ts` in `constructs/src` folder with the following content.
+Create a new file `hitcounter.ts` in the `constructs/src` folder. Use the following code:
+
+{{<highlight js>}}
+import * as cdk from "aws-cdk-lib";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+
+import { Construct } from "constructs";
+
+export interface HitCounterProps {
+  /** the function for which we want to count url hits **/
+  readonly downstream: lambda.IFunction;
+}
+
+export class HitCounter extends Construct {
+  /** allows accessing the counter function */
+  public readonly handler: lambda.Function;
+
+  /** the hit counter table */
+  public readonly table: dynamodb.Table;
+
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
+    super(scope, id);
+
+    const table = new dynamodb.Table(this, "Hits", {
+      partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
+    });
+    this.table = table;
+
+    this.handler = new lambda.Function(this, "HitCounterHandler", {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: "hitcounter.handler",
+      code: lambda.Code.fromAsset("lambda"),
+      environment: {
+        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
+        HITS_TABLE_NAME: table.tableName,
+      },
+    });
+
+    // grant the lambda role read/write permissions to our table
+    table.grantReadWriteData(this.handler);
+
+    // grant the lambda role invoke permissions to the downstream function
+    props.downstream.grantInvoke(this.handler);
+  }
+}
+{{</highlight>}}
+
+This is very similar to the [hit-counter](../../40-hit-counter/300-resources.html) construct from a previous section with some slight modiifcations.
+
+Next, update `index.ts` in `constructs/src` folder with the following content.
 {{<highlight js>}}
 export * from './hitcounter';
 {{</highlight>}}
@@ -132,16 +179,20 @@ export * from './hitcounter';
 Note: Projen only transpiles Typescript files in `src` folder 
 
 ### Projen tamper detection
-Projen is opinionated and mandates that all project configuration be done through `.projenrc.js` file.  For instance if you directly change `package.json` then Projen would detect that during the release phase and would fail the release attempt.  Hence it is a good idea to do projen synth by running `projen` command on the `constructs/` directory where `.projenrc.js` file is, before pushing the code to Git repository.
+Projen is opinionated and mandates that all project configuration be done through `.projenrc.js` file.  For instance if you directly change `package.json` then Projen will detect that during the release phase and will fail the release attempt. Hence, it is a good idea to do projen synth by running the `projen` command on the `constructs/` directory where the `.projenrc.js` file is before pushing the code to our CodeCommit repository.
+
+{{<highlight bash>}}
+# This is to avoid Projen tamper related errors
+npx projen
+{{</highlight>}}
 
 ### Push code to CodeCommit repository
 
 Commit and push code with the specific Git commit message.  The commit message hints how the version number should be incremented, whether this is a major, minor or hot fix.  For details refer, <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a>.
 
+Ensure you push from the `construct-lib-repo` directory
+
 {{<highlight bash>}}
-# This is to avoid Projen tamper related errors
-npx projen
-# This is to push to GIT
 git add .
 git commit -m 'feat: add HitCounter to Construct Library'
 git push
