@@ -11,7 +11,7 @@ weight = 100
 
 ### Create ConstructHub Stack
 
-The first step is to create an instance of ConstructHub in our AWS Account. By default, ConstructHub has a single package source configured – the public npmjs.com registry. Self-hosted instances typically should list packages from alternate sources, either in addition to packages from npmjs.com. In addition to packages from nmpjs.com, ConstructHub supports CodeArtifact repositories as well as custom package source implementations. In our case, we will create a CodeArtifact domain and a repository to add as a package source to our Private ConstructHub.
+The first step is to create an instance of ConstructHub in our AWS Account. By default, ConstructHub has a single package source configured – the public npmjs.com registry. In addition to packages from nmpjs.com, ConstructHub supports CodeArtifact repositories as well as custom package source implementations. In our case, we will create a CodeArtifact domain and a repository to add as a package source to our Private ConstructHub.
 
 Currently, the ConstructHub web interface does not restrict access to specific users. Therefore, in order to make our ConstructHub "Private",  we will use AWS Web Application Firewall (WAF) to create a web access control list (web ACL) with a rule allowing requests based on specific IPs. 
 
@@ -23,12 +23,7 @@ Before you can use the ConstructHub library in your stack, you'll need to instal
 npm install construct-hub@0.4.156
 {{</highlight>}}
 
-Before we begin, ,ake sure you're outside of the cdkworkshop directory. If you continue to work within this directory, you'll end up with nested git repositories which may cause problems. Run the following command to create a new folder as a sibling of the cdkworkshop directory and initialize a new cdk application.
-
-mkdir private-construct-hub
-cdk init app --language typescript {{}}
-
-Create a new file under `lib` called `lib/private-construct-hub-stack.ts`. Add the following to that file and replace _<your_ip_address>_ with your IP address (origin of the web requests):
+Create a new file under `lib` called `lib/private-construct-hub-stack.ts`. Add the following to that file and replace `_<your_ip_address>_` with your IPV4 address:
 
 {{<highlight ts>}}
 import * as cdk from "aws-cdk-lib";
@@ -111,7 +106,7 @@ export class ConstructHubStack extends cdk.Stack {
 
 ### Update CDK Deploy Entrypoint
 
-Next, modify the main CDK application to deploy new ConstructHub stack. To do this, edit the code in `bin/cdk-workshop.ts` as follows:
+Next, modify the main CDK application to deploy the new ConstructHub stack. Edit the code in `bin/cdk-workshop.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
 import * as cdk from "aws-cdk-lib";
@@ -136,9 +131,9 @@ npx cdk deploy
 
 ### Associate Web ACL with CloudFront Distribution
 
-At the moment ConstructHub construct does not allow associating a web ACL programmatically with the CloudFront distribution created as part of the ConstructHub instance. We will manually create this association using AWS Console:
+At the moment ConstructHub construct does not allow associating a web ACL programmatically with the CloudFront distribution created as part of the ConstructHub instance. We will manually create this association using the AWS Console:
 
-1. Navigate to the <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> page, click the `ConstructHubStack` stack, and open the Output tab. Find the value of the key starting with `ConstructHubWebAppDomainName`. This is the domain name of the CloudFront distribution created for the ConstructHub web application.
+1. Navigate to the <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> page, click the `ConstructHubStack` stack, and select the Output tab. Find the value of the key starting with `ConstructHubWebAppDomainName`. This is the domain name of the CloudFront distribution created for the ConstructHub web application.
 
 2. Navigate to the <a href="https://console.aws.amazon.com/cloudfront" target="_blank">CloudFront</a> page, find and open the distribution with the domain name matching the one found in the previous step.
 
