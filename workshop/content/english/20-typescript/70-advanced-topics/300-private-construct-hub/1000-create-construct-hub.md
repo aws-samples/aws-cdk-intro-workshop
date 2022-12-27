@@ -11,17 +11,22 @@ weight = 100
 
 ### Create ConstructHub Stack
 
-The first step is to create an instance of ConstructHub in our AWS Account. By default, ConstructHub has a single package source configured – the public npmjs.com registry. Self-hosted instances typically should list packages from alternate sources, either in addition to packages from npmjs.com, or instead of those. In addition to packages from nmpjs.com, ConstructHub provides support for CodeArtifact repositories as well as custom package source implementations. In our case, we will create a CodeArtifact domain and a repository and add it as a package source to our instance of ConstructHub.
+The first step is to create an instance of ConstructHub in our AWS Account. By default, ConstructHub has a single package source configured – the public npmjs.com registry. Self-hosted instances typically should list packages from alternate sources, either in addition to packages from npmjs.com. In addition to packages from nmpjs.com, ConstructHub supports CodeArtifact repositories as well as custom package source implementations. In our case, we will create a CodeArtifact domain and a repository to add as a package source to our Private ConstructHub.
 
-Currently ConstructHub web interface does not restrict access to authenticated users. Therefore, in order to protect our ConstructHub instance so it can be used for internal purposes only, we will create a web access control list (web ACL) with a rule blocking requests based on IP address origin of the request and associate it with the CloudFront distribution provisioned by the ConstructHub instance.
+Currently, the ConstructHub web interface does not restrict access to specific users. Therefore, in order to make our ConstructHub "Private",  we will use AWS Web Application Firewall (WAF) to create a web access control list (web ACL) with a rule allowing requests based on specific IPs. 
 
-{{% notice warning %}} AWS WAF is available globally for CloudFront distributions, but you must use the Region US East (N. Virginia) to create your web ACL and any resources used in the web ACL, such as rule groups, IP sets, and regex pattern sets. Some interfaces offer a region choice of "Global (CloudFront)". Choosing this is identical to choosing Region US East (N. Virginia) or "us-east-1". {{% /notice %}}
+{{% notice info %}} Please note that because IPs are easily spoofed, this is for demonstrative purposes only! In the real world, you would use other methods that leverage systems like Active Directory, Single Sign On (SSO), filter for requests from a specific domain that you control, etc. {{% /notice %}}
 
 Before you can use the ConstructHub library in your stack, you'll need to install the npm module:
 
 {{<highlight bash>}}
 npm install construct-hub@0.4.156
 {{</highlight>}}
+
+Before we begin, ,ake sure you're outside of the cdkworkshop directory. If you continue to work within this directory, you'll end up with nested git repositories which may cause problems. Run the following command to create a new folder as a sibling of the cdkworkshop directory and initialize a new cdk application.
+
+mkdir private-construct-hub
+cdk init app --language typescript {{}}
 
 Create a new file under `lib` called `lib/construct-hub-stack.ts`. Add the following to that file and replace _<your_ip_address>_ with your IP address (origin of the web requests):
 
