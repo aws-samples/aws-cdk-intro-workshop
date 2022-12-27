@@ -124,7 +124,6 @@ npx projen
 Create a new file `hitcounter.ts` in the `constructs/src` folder. Use the following code:
 
 {{<highlight js>}}
-import * as cdk from "aws-cdk-lib";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 
@@ -169,7 +168,7 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-This is very similar to the [hit-counter](../../40-hit-counter/300-resources.html) construct from a previous section with some slight modiifcations.
+This is very similar to the [hit-counter](../../40-hit-counter/300-resources.html) construct from a previous section with some slight modifications.
 
 Next, update `index.ts` in `constructs/src` folder with the following content.
 {{<highlight js>}}
