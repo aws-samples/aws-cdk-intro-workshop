@@ -7,7 +7,7 @@ weight = 200
 
 Next, we'll set up the infrastructure that will deploy the construct Library into our private Construct Hub. Since this is separate from the "Private Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the parent directory of 'aws-cdk-workshop'
 
-Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a repository named "
+Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remotw repository named "
 construct-lib-repo". Then clone the repository "construct-lib-repo" to your local machine. 
 
 {{<highlight bash>}}
@@ -139,9 +139,7 @@ This creates a CodePipline pipeline with two stages, a source stage linked to th
 
 ## Update CDK Deploy Entrypoint
 
-We change the entry point to deploy our pipeline.
-
-To do this, edit the code in `bin/pipeline.ts` as follows:
+Next we need to change the entry point to deploy our pipeline. To do this, edit the code in `bin/pipeline.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
 import 'source-map-support/register';
@@ -164,14 +162,14 @@ We'll use CodeBuild to actually build our project. CodeBuild needs a 'buildspec'
 
 Run the following commands to create the buildspec file:
 
-{{<highlight bash>}}
+```
 mkdir build-spec
 touch build-spec/projen-release.yml
 {{<highlight bash>}}
 
 Now copy the following code and paste it into 'projen-release.yml'
     
-{{<highlight yml>}}
+{{<highlight yaml>}}
 version: 0.2
 
 env:
@@ -246,7 +244,7 @@ reports:
       - "**/test-reports/junit.xml"
     file-format: "JUNITXML"
 
-{{</highlight>}}
+```
 
 
 The first command in the build phase of this YAML file is `projen release`.  <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging.  We will dive deeper into Projen in next section.  Projen creates the transpiled packages and places them in the `dist` directory.
