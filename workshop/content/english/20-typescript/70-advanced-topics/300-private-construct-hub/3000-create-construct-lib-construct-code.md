@@ -5,7 +5,7 @@ weight = 300
 
 ## Create Construct Lib - Construct
 
-Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files.  Then we'll add the HitCounter Construct from a previous lab to our project.  Lastly, we'll edit the configure to transpile our Constructs to the selected targets.
+Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files.  Then we'll create a Construct called HitCounter. Lastly, we'll edit the configure to transpile our Constructs to the selected targets.
 
 ### Setup Projen project
 
@@ -27,7 +27,7 @@ npx projen new awscdk-construct \
   --name "cdkworkshop-lib"
 {{</highlight>}}
 
-The '.projenrc.js' file holds the Projen configurations.  
+The `.projenrc.js` file holds the Projen configurations.  
 
 Open the file `.projenrc.js` and make the following two changes.
 
