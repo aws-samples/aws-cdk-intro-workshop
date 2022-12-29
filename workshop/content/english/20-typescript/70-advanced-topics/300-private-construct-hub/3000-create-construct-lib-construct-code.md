@@ -40,10 +40,6 @@ const { ReleaseTrigger } = require("projen/lib/release");
 {{<highlight js>}}
 
   description: 'CDK Construct Library by projen/jsii',
-  /* Runtime dependencies of this module. */
-  deps: [
-    'cdk-dynamo-table-viewer',
-  ],
   python: {
     distName: 'hitcounter',
     module: 'cdkworkshop-lib',
@@ -79,10 +75,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseTagPrefix: 'cdkworkshop-lib',
   repositoryUrl: 'codecommit::us-east-1://construct-lib-repo',
   description: 'CDK Construct Library by projen/jsii',
-  /* Runtime dependencies of this module. */
-  deps: [
-    'cdk-dynamo-table-viewer',
-  ],
   python: {
     distName: 'hitcounter',
     module: 'cdkworkshop-lib',
@@ -102,8 +94,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 project.synth();
 {{</highlight>}}
-
-The `deps` attribute adds the dependency which projen will in turn add to the `package.json` file.  
 
 The `python`, `dotnet` and `publishToMaven` attributes tell Projen it we are interested in transpiling the CDK Construct to those target runtimes.
 
@@ -175,7 +165,35 @@ Next, update `index.ts` in `constructs/src` folder with the following content.
 export * from './hitcounter';
 {{</highlight>}}
 
-Note: Projen only transpiles Typescript files in `src` folder 
+{{% notice info %}} Note: Projen only transpiles Typescript files in `src` folder {{% /notice %}}
+
+Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Remove `hello.test.ts` file generated in the initial projen project setup in the `constructs\test` folder. Add a new file named `constructs.test.ts` to the `constructs\test` folder and insert the following code into it:
+{{<highlight js>}}
+import * as cdk from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { HitCounter } from '../src/hitcounter';
+
+test('DynamoDB Table Created', () => {
+  const stack = new cdk.Stack();
+  // WHEN
+  new HitCounter(stack, 'MyTestConstruct', {
+    downstream: new lambda.Function(stack, 'TestFunction', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromInline(`
+        exports.handler = async function(event) {
+          console.log("event: ", event);
+        };
+      `),
+    }),
+  });
+  // THEN
+
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::DynamoDB::Table', 1);
+});
+{{</highlight>}}
 
 ### Projen tamper detection
 Projen is opinionated and mandates that all project configuration be done through `.projenrc.js` file.  For instance if you directly change `package.json` then Projen will detect that during the release phase and will fail the release attempt. Hence, it is a good idea to do projen synth by running the `projen` command on the `constructs/` directory where the `.projenrc.js` file is before pushing the code to our CodeCommit repository.
