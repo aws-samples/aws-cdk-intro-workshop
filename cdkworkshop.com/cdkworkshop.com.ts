@@ -107,7 +107,7 @@ export class CdkWorkshop extends Stack {
             "style-src 'self' fonts.googleapis.com",
             "font-src 'self' fonts.gstatic.com",
             "script-src 'self' client.rum.us-east-1.amazonaws.com",
-            "connect-src 'self' dataplane.rum.us-west-2.amazonaws.com",
+            "connect-src 'self' dataplane.rum.us-west-2.amazonaws.com  cognito-identity.us-west-2.amazonaws.com",
         ].join('; ');
 
         const indexHandlerFunc = new cloudfront.experimental.EdgeFunction(this, 'IndexRewriteFunc', {
