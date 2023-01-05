@@ -34,8 +34,8 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "BEx",
-    "email": "aplatono@amazon.com",
+    "name": "CDK Workshop",
+    "email": "cdkworkshop@amazon.com",
     "organization": false
   },
   "devDependencies": {

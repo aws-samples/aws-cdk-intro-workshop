@@ -81,3 +81,92 @@ jobs:
       - name: Run tests
         working-directory: code/typescript/tests-workshop
         run: npx jest
+
+  tests-construct-workshop-constructib-construct:
+    name: CDK synth and test tests-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Setup dotnet 3.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Setup Java 11.x
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Setup Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install NPM modules
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        run: npm install
+
+      - name: Build
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        run: npm run build
+
+      - name: Run tests
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        run: npx jest
+
+  tests-construct-workshop-constructlib-pipeline:
+    name: CDK synth and test tests-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install NPM modules
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/pipeline
+        run: npm install
+
+      - name: CDK synth
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/pipeline
+        run: npx cdk synth
+
+      - name: Run tests
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/pipeline
+        run: npx jest
+
+
+  tests-construct-workshop-constructhub:
+    name: CDK synth and test tests-workshop sample code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Install NPM modules
+        working-directory: code/typescript/internal-constructs-workshop/construct-hub
+        run: npm install
+
+      - name: CDK synth
+        working-directory: code/typescript/internal-constructs-workshop/construct-hub
+        run: npx cdk synth
+
+      - name: Run tests
+        working-directory: code/typescript/internal-constructs-workshop/construct-hub
+        run: npx jest
