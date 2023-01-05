@@ -83,7 +83,7 @@ jobs:
         run: npx jest
 
   tests-construct-workshop-constructib-construct:
-    name: CDK synth and test tests-workshop sample code
+    name: CDK synth and test construct workshop constructlib construct
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -123,7 +123,7 @@ jobs:
         run: npx jest
 
   tests-construct-workshop-constructlib-pipeline:
-    name: CDK synth and test tests-workshop sample code
+    name: CDK synth and test construct workshop constructlib pipeline
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -148,7 +148,7 @@ jobs:
 
 
   tests-construct-workshop-constructhub:
-    name: CDK synth and test tests-workshop sample code
+    name: CDK synth and test construct workshop constructhub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
