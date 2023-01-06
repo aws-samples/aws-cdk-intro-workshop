@@ -19,7 +19,7 @@ export class ConstructHubStack extends cdk.Stack {
         repositoryName: 'cdkworkshop-repository',
     });
     
-    repository.addDependsOn(domain);
+    repository.addDependency(domain);
     
     // Define the IP Set for allowed origin IP range addresses
     const ipSet = new waf.CfnIPSet(this, 'ConstructHubIPSet', {
@@ -60,7 +60,7 @@ export class ConstructHubStack extends cdk.Stack {
         }
     });
     
-    webACL.addDependsOn(ipSet);
+    webACL.addDependency(ipSet);
 
     // Create private Construct Hub resources, register our CodeArtifact repo
     new ConstructHub(this, 'ConstructHub', {
