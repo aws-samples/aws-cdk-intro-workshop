@@ -7,11 +7,10 @@ weight = 200
 
 Next, we'll set up the infrastructure that will deploy the construct Library into our private Construct Hub. Since this is separate from the "Private Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the parent directory of 'aws-cdk-workshop'
 
-Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remotw repository named "
-construct-lib-repo". Then clone the repository "construct-lib-repo" to your local machine. 
+Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remote repository named `construct-lib-repo`. Then clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository). 
 
 {{<highlight bash>}}
-git clone <<construct-lib-repo>>
+git clone <path>
 cd construct-lib-repo
 {{</highlight>}}
 
