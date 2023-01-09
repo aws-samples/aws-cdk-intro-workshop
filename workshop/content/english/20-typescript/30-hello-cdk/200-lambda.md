@@ -74,7 +74,7 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     // defines an AWS Lambda resource
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,    // execution environment
+      runtime: lambda.Runtime.NODEJS_16_X,    // execution environment
       code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
@@ -84,7 +84,7 @@ export class CdkWorkshopStack extends cdk.Stack {
 
 A few things to notice:
 
-- Our function uses the NodeJS (`NODEJS_14_X`) runtime
+- Our function uses the NodeJS (`NODEJS_16_X`) runtime
 - The handler code is loaded from the `lambda` directory which we created
   earlier. Path is relative to where you execute `cdk` from, which is the
   project's root directory
