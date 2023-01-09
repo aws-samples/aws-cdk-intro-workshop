@@ -30,7 +30,7 @@
     },
     "dependencies": {
         "aws-cdk-lib": "^2.58.1",
-        "constructs": "^10.1.207"
+        "constructs": "^10.1.214"
     },
     "engines": {
         "node": ">= 10.0.0"
