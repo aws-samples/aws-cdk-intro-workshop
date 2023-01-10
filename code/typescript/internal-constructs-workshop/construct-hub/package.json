@@ -16,6 +16,7 @@
     "@types/prettier": "2.6.0",
     "@aws-cdk/aws-servicecatalogappregistry-alpha": "2.37.0-alpha.0",
     "aws-cdk": "2.59.0",
+    "cdk-watchful": "^0.6.321",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
