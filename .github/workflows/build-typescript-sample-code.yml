@@ -110,6 +110,10 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Print Node and Projen version
+        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        run: node --version && npx projen --version &&  grep 'projen"' package.json 
+
       - name: Install NPM modules
         working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
         run: npm install
