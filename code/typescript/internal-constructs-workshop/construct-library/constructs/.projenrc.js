@@ -16,19 +16,19 @@ const project = new awscdk.AwsCdkConstructLibrary({
   deps: [
     'cdk-dynamo-table-viewer',
   ],
-  // python: {
-  //   distName: 'hitcounter',
-  //   module: 'cdkworkshop-lib',
-  // },
-  // dotnet: {
-  //   dotNetNamespace: 'CDKWorkshopLib',
-  //   packageId: 'com.cdkworkshop.HitCounter',
-  // },
-  // publishToMaven: {
-  //   javaPackage: 'com.cdkworkshop.hitcounter',
-  //   mavenArtifactId: 'constructs',
-  //   mavenGroupId: 'cdkworkshop-lib',
-  // },
+  python: {
+    distName: 'hitcounter',
+    module: 'cdkworkshop-lib',
+  },
+  dotnet: {
+    dotNetNamespace: 'CDKWorkshopLib',
+    packageId: 'com.cdkworkshop.HitCounter',
+  },
+  publishToMaven: {
+    javaPackage: 'com.cdkworkshop.hitcounter',
+    mavenArtifactId: 'constructs',
+    mavenGroupId: 'cdkworkshop-lib',
+  },
   releaseTrigger: ReleaseTrigger.manual(),
   majorVersion: 1,
 });
