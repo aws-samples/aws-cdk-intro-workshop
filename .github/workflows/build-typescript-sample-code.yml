@@ -112,7 +112,7 @@ jobs:
 
       - name: Install NPM modules
         working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
-        run: npm install
+        run: npm ci
 
       - name: Print Node and Projen version
         working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
