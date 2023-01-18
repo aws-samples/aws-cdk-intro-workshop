@@ -6,7 +6,7 @@ weight = 140
 ## ステージの作成
 この時点では、自動的に自分を更新する CDK パイプラインができています。*しかし*、それ以外は何もしていません。アプリケーションをデプロイするには、そのためのステージを追加する必要があります。
 
-`cdk_wolibrkshop` フォルダに新規に `pipeline-stage.ts` というファイルを以下の内容で作成します。
+`lib` フォルダに新規に `pipeline-stage.ts` というファイルを以下の内容で作成します。
 
 {{<highlight ts>}}
 import { CdkWorkshopStack } from './cdk-workshop-stack';
