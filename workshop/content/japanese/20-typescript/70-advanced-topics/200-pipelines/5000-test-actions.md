@@ -150,7 +150,7 @@ export class WorkshopPipelineStage extends Stage {
 
 これで、デプロイステージの `CfnOutput` を取得することで、`lib/pipeline-stack.ts` のアクションにそれらの値を追加できます。
 
-{{<highlight ts "hl_lines=6 17">}}
+{{<highlight ts "hl_lines=6 15">}}
     // CODE HERE...
     deployStage.addPost(
             new CodeBuildStep('TestViewerEndpoint', {
