@@ -3,7 +3,13 @@ title = "Use construct in CDK application"
 weight = 400
 +++
 
+## Starting point
+
+This step reuses the main workshop's example CDK app containing the hello lambda and the hitcounter construct. 
+
 ## Remove the hitcounter construct from the original sample application
+
+As we are going to use the `hitcounter` construct from the published `cdkworkshop-lib` construct library, remove the `hitcounter` construct from the CDK application.
 
 {{<highlight bash>}}
 rm hitcounter.ts
@@ -16,15 +22,15 @@ To enable npm to pull packages from CodeArtifact, follow the instructions descri
 
 ## Npm install cdkworkshop-lib dependency
 
-To use the published CDK Construct library (called `cdkworkshop-lib`) that contains the hitcounter CDK Construct, use `npm install` to add it to the CDK application's dependencies:
+To use the published `cdkworkshop-lib` CDK construct library containing the hitcounter CDK construct, use `npm install` to add it to the CDK application's dependencies:
 
 {{<highlight bash>}}
 npm install cdkworkshop-lib
 {{</highlight>}}
 
-## Adapt the import to use the CDK Construct library
+## Adapt import to use the construct library
 
-To replace the local version of the hitcounter CDK COnstruct with the one from the cdkworkshop-lib CDK Construct Library, replace `import { HitCounter } from './hitcounter';` with `import { HitCounter } from 'cdkworkshop-lib';`, which results in the following import block in `cdk-workshop-stack.ts`:
+To replace the local version of the hitcounter construct with the one from the cdkworkshop-lib construct library, replace `import { HitCounter } from './hitcounter';` with `import { HitCounter } from 'cdkworkshop-lib';`, which results in the following import block in `cdk-workshop-stack.ts`:
 
 {{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
@@ -37,4 +43,4 @@ import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 ## Review benefits
 
-That's it! Your CDK app is now using the hitcounter Construct from the cdkworkshop-lib CDK Construct library. Multiple CDK apps can use this construct without copy/pasting its code so that code duplication is avoided. You can now start adding additional CDK Constructs to cdkworkshop-lib to build a construct library that help accelerate your teams and establish best practices!
+That's it! Your CDK app is now using the hitcounter construct from the cdkworkshop-lib CDK Construct library. Multiple CDK apps can use this construct without copy/pasting its code so that code duplication is avoided and standardized best practices can be reused. You can now start adding additional CDK Constructs to cdkworkshop-lib to build a construct library that help accelerate your teams and establish best practices!
