@@ -4,10 +4,12 @@ Visual Studio Required for this testing workshop, download [here](https://visual
 
 ## Todo
 * Figure out commands to do things instead of Visual Studio solution explorer things, got idea from [here](https://scottie.is/writing/a-cdk-companion-for-the-rahul-nath-lambda-course/)
+* Manage nuget packages via CLI, e.g.: `dotnet add package Amazon.CDK.Assertions`
+* Remove need for Visual Studio
 
 ## Getting started testing your CDK code
 
-* Open `CdkWorkshop.sln`
+* Open `src/CdkWorkshop/CdkWorkshop.sln`in Visual Studio
 * In Solution Explorer, add Project `Tests` > `MSTest Project` named `CdkWorkshopTests`
 * From terminal, from directory `CdkWorkshop.sln` resides in, run `dotnet test` to see single placeholder test pass
 * Rename boilerplate `UnitTest1.cs` file to `HitCounterTest.cs`
@@ -15,7 +17,7 @@ Visual Studio Required for this testing workshop, download [here](https://visual
 * In Solution Explorer, add `Amazon.CDK`, `Amazon.CDK.lib`, and `Amazon.CDK.Assertions` NuGet packages to the CdkWorkshopTests project
 
 * Update the contents of the `HitCounterTest.cs` to add test ensure DynamoDB Table was created:
-```
+```cs
 namespace CdkWorkshopTests;
 
 using Amazon.CDK;
@@ -56,8 +58,10 @@ public class HitCounterTest
 ```
 * Run `dotnet test` and ensure test passes
 
+* Add test to ensure DynamoDB table created with correct key:
+
 * Add test to ensure HitCounter Lambda is created:
-```
+```cs
 [TestMethod]
 public void StackCreatesHitCounterHandler()
 {
@@ -69,7 +73,7 @@ public void StackCreatesHitCounterHandler()
 ```
 
 * Add a test to ensure the lambda is created with correct environment variables:
-```
+```cs
 [TestMethod]
 public void HitCounterLambdaEnvironmentVariablesCorrect()
 {
@@ -113,4 +117,3 @@ It uses the [.NET Core CLI](https://docs.microsoft.com/dotnet/articles/core/) to
 * `cdk diff`        compare deployed stack with current state
 * `cdk docs`        open CDK documentation
 
-Enjoy!

@@ -1,6 +1,6 @@
 +++
 title = "Create New Pipeline"
-weight = 130
+weight = 3000
 +++
 
 ## Define an Empty Pipeline

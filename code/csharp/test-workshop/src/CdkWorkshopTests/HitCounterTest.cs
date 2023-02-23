@@ -46,11 +46,11 @@ public class HitCounterTest
             { "ProvisionedThroughput", Match.AnyValue() },
         });
 
-        var expectpedKeyAttributes = new[] { "path" };
+        var expectedKeyAttributes = new[] { "path" };
         var actualKeyAttributes = keySchemaCapture.AsArray().Select(x =>
             (x as ObjectDict)["AttributeName"].ToString()).ToArray();
 
-        CollectionAssert.AreEqual(expectpedKeyAttributes, actualKeyAttributes);
+        CollectionAssert.AreEqual(expectedKeyAttributes, actualKeyAttributes);
     }
 
     [TestMethod]
