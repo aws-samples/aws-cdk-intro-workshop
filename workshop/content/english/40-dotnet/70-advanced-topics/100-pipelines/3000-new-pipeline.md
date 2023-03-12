@@ -38,9 +38,18 @@ namespace CdkWorkshop
                 Synth = new ShellStep("Synth", new ShellStepProps{
                     Input = CodePipelineSource.CodeCommit(repo, "main"),  // Where to get source code to build
                     Commands = new string[] {
+             
                         "npm install -g aws-cdk",
-                        "sudo apt-get install -y dotnet-sdk-3.1", // Language-specific install cmd
-                        "dotnet build"  // Language-specific build cmd
+                        "wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb",
+                        "sudo dpkg -i packages-microsoft-prod.deb",
+                        "sudo apt-get update",
+                        "sudo apt-get install -y dotnet-sdk-3.1",
+                        "cd src",
+
+                        "dotnet build", // Language-specific build cmd
+                        "cd ..",
+                        "npx cdk synth"
+
                     }
                 }),
             });
