@@ -11,7 +11,7 @@
 {{ template "stampedStyle" resources.Get "css/cookies-eu-banner.default.css" }}
 {{ template "stampedStyle" resources.Get "css/style.scss" | resources.ExecuteAsTemplate (printf "css/style.%s.scss" .Lang) . | resources.ToCSS  | resources.Minify }}
 {{ template "stampedScript" resources.Get "js/cookies-eu-banner.js"}}
-<div id="cookies-eu-banner">
+<div id="cookies-eu-banner" style="display: none;">
     <p>
         {{i18n "trackingBannerMessage" }}
     </p>
