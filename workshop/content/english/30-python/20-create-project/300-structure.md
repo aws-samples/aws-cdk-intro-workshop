@@ -15,7 +15,7 @@ You'll see something like this:
 
 ![](./structure.png)
 
-* .venv - The python virtual envirnment information discussed in the previous section.
+* .venv - The python virtual environment information discussed in the previous section.
 * cdk_workshop — A Python module directory.
   * cdk_workshop.egg-info - Folder that contains build information relevant for the packaging on the project
   * cdk_workshop_stack.py—A custom CDK stack construct for use in your CDK application.

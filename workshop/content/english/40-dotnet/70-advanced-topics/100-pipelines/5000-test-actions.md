@@ -98,7 +98,7 @@ namespace CdkWorkshop
             // PIPELINE CODE HERE...
 
             var deploy = new WorkshopPipelineStage(this, "Deploy");
-            var deployStage = pipeline.AddApplicationStage(deploy);
+            var deployStage = pipeline.AddStage(deploy);
             deployStage.AddPost(new ShellStep("TestViewerEndpoint", new ShellStepProps{
                 EnvFromCfnOutputs = new Dictionary<string, CfnOutput> {
                     { "ENDPOINT_URL", /* TBD */ }

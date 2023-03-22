@@ -104,18 +104,17 @@ export class CdkWorkshop extends Stack {
 
         const cspPolicyContent = [
             "default-src 'self' https://cdkworkshop.com",
-            "style-src 'self' fonts.googleapis.com ",
+            "style-src 'self' fonts.googleapis.com",
             "font-src 'self' fonts.gstatic.com",
-            "script-src 'self'",
-            "connect-src 'self' *.shortbread.aws.dev",
+            "script-src 'self' client.rum.us-east-1.amazonaws.com",
+            "connect-src 'self' dataplane.rum.us-west-2.amazonaws.com  cognito-identity.us-west-2.amazonaws.com sts.us-west-2.amazonaws.com",
         ].join('; ');
 
-    
         const indexHandlerFunc = new cloudfront.experimental.EdgeFunction(this, 'IndexRewriteFunc', {
             runtime: lambda.Runtime.NODEJS_16_X,
             handler: 'index.handler',
             code: lambda.Code.fromAsset(path.join(__dirname, 'indexhandler')),
-          });        
+        });
 
         // CloudFront distribution
         const cert = acm.Certificate.fromCertificateArn(this, 'Certificate', props.certificate);
@@ -152,9 +151,11 @@ export class CdkWorkshop extends Stack {
                 }),
                 // Rewrite "some/" as "some/index.html"
                 edgeLambdas: [
-                    { functionVersion: indexHandlerFunc.currentVersion, eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST }
+                    {
+                        functionVersion: indexHandlerFunc.currentVersion,
+                        eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
+                    },
                 ],
-
             },
             defaultRootObject: 'index.html',
             webAclId: acl,

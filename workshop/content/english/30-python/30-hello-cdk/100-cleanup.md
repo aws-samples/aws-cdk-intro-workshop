@@ -15,7 +15,7 @@ this:
 ```python
 from constructs import Construct
 from aws_cdk import (
-    Stack,
+    Stack
 )
 
 
