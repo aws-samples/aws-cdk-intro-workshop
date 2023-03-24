@@ -46,7 +46,7 @@ func TestHitCounterConstruct(t *testing.T) {
 	})
 
 	// THEN
-	template := assertions.Template_FromStack(stack)
+	template := assertions.Template_FromStack(stack, nil)
 	template.ResourceCountIs(jsii.String("AWS::DynamoDB::Table"), jsii.Number(1))
 }
 
@@ -135,7 +135,7 @@ func TestLambdaFunction(t *testing.T) {
 	})
 
 	// THEN
-	template := assertions.Template_FromStack(stack)
+	template := assertions.Template_FromStack(stack, nil)
 	envCapture := assertions.NewCapture(nil)
 	template.HasResourceProperties(jsii.String("AWS::Lambda::Function"), &map[string]any{
 		"Environment": envCapture,
@@ -193,7 +193,7 @@ func TestLambdaFunction(t *testing.T) {
 	})
 
 	// THEN
-	template := assertions.Template_FromStack(stack)
+	template := assertions.Template_FromStack(stack, nil)
 	envCapture := assertions.NewCapture(nil)
 	template.HasResourceProperties(jsii.String("AWS::Lambda::Function"), &map[string]any{
 		"Environment": envCapture,
@@ -252,7 +252,7 @@ func TestTableCreatedWithEncryption(t *testing.T) {
 	})
 
 	// THEN
-	template := assertions.Template_FromStack(stack)
+	template := assertions.Template_FromStack(stack, nil)
 	template.HasResourceProperties(jsii.String("AWS::DynamoDB::Table"), &map[string]any{
 		"SSESpecification": map[string]any{
 			"SSEEnabled": true,
