@@ -9,7 +9,7 @@ weight = 130
 
 `pipeline_stack.py` を開き、以下のように編集します。
 
-{{<highlight python "hl_lines=12 17-29">}}
+{{<highlight python "hl_lines=5 17-29">}}
 from constructs import Construct
 from aws_cdk import (
     Stack,
