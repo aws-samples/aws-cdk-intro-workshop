@@ -5,100 +5,55 @@ weight = 100
 
 ## Create Construct Hub Infrastructure
 
-{{% notice info %}} Please note that the <a href="https://github.com/cdklabs/construct-hub" target="_blank">Construct Hub library</a> is currently in active development and should be considered _experimental_. We welcome any feedback (good or bad) from your experience in using that repo! {{% /notice %}}
+{{% notice warning %}} Please note that the <a href="https://github.com/cdklabs/construct-hub" target="_blank">Construct Hub library</a> is currently in active development and should be considered _experimental_. We welcome any feedback (good or bad) from your experience in using that repo! {{% /notice %}}
 
-{{% notice info %}} This section of the workshop assumes that you have at least created the [hit counter construct](/20-typescript/40-hit-counter.html) in the main module of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code <a href="https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/typescript/main-workshop" target="_blank">here</a> that represents the last state of the project after completing the main module. {{% /notice %}}
+{{% notice warning %}} Please note that the Construct Hub web interface is delivered through a publicly accessible CloudFront distribution. Restricting access to specific users and groups is beyond the scope of this workshop. However, you may consider the following best practices to implement it:
+- Use signed URLs or signed cookies to grant temporary access to the content in your CloudFront distribution.
+- Use AWS Web Application Firewall (WAF) to protect your CloudFront distribution from common web attacks and unwanted traffic. You can create custom rules to block or allow access based on specific criteria, such as IP addresses, user agents, or geographic locations.
+- Use Lambda@Edge to add custom logic to your CloudFront distribution. You can use Lambda@Edge to perform authorization checks and allow or deny access to your content based on specific criteria.
+- For access inside of an Intranet or private networks, disable your CloudFront distribution and provide access to the origin S3 bucket through an internal Application Load Balancer using interface endpoints on AWS PrivateLink for Amazon S3.
+{{% /notice %}}
 
 ### Create Construct Hub Stack
 
-The first step is to create an instance of Construct Hub in our AWS Account. By default, Construct Hub has a single package source configured – the public npmjs.com registry. In addition to packages from nmpjs.com, Construct Hub supports CodeArtifact repositories as well as custom package source implementations. In our case, we will create a CodeArtifact domain and a repository to add as a package source to our Private Construct Hub.
-
-Currently, the Construct Hub web interface does not restrict access to specific users. Therefore, in order to make our Construct Hub "private", we will use AWS Web Application Firewall (WAF) to create a web access control list (web ACL) with a rule allowing requests based on specific IPs. 
-
-{{% notice info %}} Please note that because IPs are easily spoofed, this is for demonstrative purposes only! In the real world, you would use other methods that leverage systems like Active Directory, Single Sign On (SSO), filter for requests from a specific domain that you control, etc. {{% /notice %}}
-
-Before you can use the Construct Hub library in your stack, you'll need to install the npm module:
+The first step is to create an instance of Construct Hub in our AWS Account. Before you can use the Construct Hub library in your stack, you need to install the npm module:
 
 {{<highlight bash>}}
-npm install construct-hub@0.4.156
+npm install construct-hub
 {{</highlight>}}
 
-Create a new file under `lib` called `lib/private-construct-hub-stack.ts`. Add the following to that file and replace `<your_ip_address>` with your IPV4 address:
+By default, Construct Hub has a single package source configured, which is the public npmjs.com registry. However, it also supports CodeArtifact repositories and custom package source implementations. For our purposes, we will create a CodeArtifact domain and repository to add as a package source to our private Construct Hub.
+
+Create a new file under `lib` called `lib/private-construct-hub-stack.ts` and add the following code:
 
 {{<highlight ts>}}
-import * as cdk from "aws-cdk-lib";
-import * as waf from "aws-cdk-lib/aws-wafv2";
-import * as codeartifact from "aws-cdk-lib/aws-codeartifact";
-import { ConstructHub } from "construct-hub";
-import * as sources from "construct-hub/lib/package-sources";
-import { Construct } from "constructs";
+import * as cdk from 'aws-cdk-lib';
+import * as codeartifact from 'aws-cdk-lib/aws-codeartifact';
+import { ConstructHub } from 'construct-hub';
+import * as sources from 'construct-hub/lib/package-sources';
+import { Construct } from 'constructs';
 
 export class ConstructHubStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // Create a CodeArtifact domain and repo for user construct packages
-    const domain = new codeartifact.CfnDomain(this, "CodeArtifactDomain", {
-      domainName: "cdkworkshop-domain",
+    const domain = new codeartifact.CfnDomain(this, 'CodeArtifactDomain', {
+      domainName: 'cdkworkshop-domain',
     });
 
-    const repository = new codeartifact.CfnRepository(
-      this,
-      "CodeArtifactRepository",
-      {
-        domainName: domain.domainName,
-        repositoryName: "cdkworkshop-repository",
-      }
-    );
-
-    repository.addDependency(domain);
-
-    // Define the IP Set for allowed origin IP range addresses
-    const ipSet = new waf.CfnIPSet(this, "ConstructHubIPSet", {
-      addresses: ["<your_ip_address>/32"],
-      ipAddressVersion: "IPV4",
-      scope: "CLOUDFRONT",
+    const repo = new codeartifact.CfnRepository(this, 'CodeArtifactRepository', {
+      domainName: domain.domainName,
+      repositoryName: 'cdkworkshop-repository',
     });
 
-    // Define the Web ACL with IP Set rule for ContructHub CloudFront distribution
-    const webACL = new waf.CfnWebACL(this, "ConstructHubWebACL", {
-      name: "ConstructHubWebACL",
-      description: "Web ACL for ConstructHub web app CloudFront distribution",
-      defaultAction: {
-        block: {},
-      },
-      scope: "CLOUDFRONT",
-      rules: [
-        {
-          name: "ConstructHubIPSetAllowRule",
-          priority: 0,
-          statement: {
-            ipSetReferenceStatement: {
-              arn: ipSet.attrArn,
-            },
-          },
-          action: {
-            allow: {},
-          },
-          visibilityConfig: {
-            sampledRequestsEnabled: true,
-            cloudWatchMetricsEnabled: true,
-            metricName: "MetricForConstructHubIPSetAllowRule",
-          },
-        },
-      ],
-      visibilityConfig: {
-        sampledRequestsEnabled: true,
-        cloudWatchMetricsEnabled: true,
-        metricName: "MetricForConstructHubWebACL",
-      },
-    });
-
-    webACL.addDependency(ipSet);
+    repo.addDependency(domain);
 
     // Create private instance of ConstructHub, register the new CodeArtifact repo
-    new ConstructHub(this, "ConstructHub", {
-      packageSources: [new sources.CodeArtifact({ repository: repository })],
+    new ConstructHub(this, 'ConstructHub', {
+      packageSources: [
+        new sources.CodeArtifact({ repository: repo })
+      ],
     });
   }
 }
@@ -109,16 +64,11 @@ export class ConstructHubStack extends cdk.Stack {
 Next, modify the main CDK application to deploy the new Construct Hub stack. Edit the code in `bin/cdk-workshop.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
-import * as cdk from "aws-cdk-lib";
-import { ConstructHubStack } from "../lib/private-construct-hub-stack";
+import * as cdk from 'aws-cdk-lib';
+import { ConstructHubStack } from '../lib/private-construct-hub-stack';
 
 const app = new cdk.App();
-new ConstructHubStack(app, "ConstructHubStack", {
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
-});
+new ConstructHubStack(app, 'ConstructHubStack');
 {{</highlight>}}
 
 ### Deploy
@@ -127,20 +77,4 @@ new ConstructHubStack(app, "ConstructHubStack", {
 npx cdk deploy
 ```
 
-{{% notice info %}} Deploying Construct Hub stack for the first time may take up to 10 minutes. {{% /notice %}}
-
-### Associate Web ACL with CloudFront Distribution
-
-At the moment Construct Hub construct does not allow associating a web ACL programmatically with the CloudFront distribution created as part of the Construct Hub instance. We will manually create this association using the AWS Console:
-
-1. Navigate to the <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> page, click the `ConstructHubStack` stack, and select the Output tab. Find the value of the key starting with `ConstructHubWebAppDomainName`. This is the domain name of the CloudFront distribution created for the Construct Hub web application.
-
-2. Navigate to the <a href="https://console.aws.amazon.com/cloudfront" target="_blank">CloudFront</a> page, find and open the distribution with the domain name matching the one found in the previous step.
-
-3. Click `Edit` button in the Settings section on the General tab. Choose the web ACL named ConstructHubWebACL from the dropdown for **AWS WAF web ACL - _optional_** field to associate it with this distribution. Scroll down and click `Save changes` button.
-
-![](./cloud-front-settings.png)
-
-4. Navigate to the URL found in the step 1 above and ensure you can open the Construct Hub website. At the moment the Construct Hub will be empty since our CodeArtifact repository does not contain any packages.
-
-{{% notice warning %}} If the website does not launch, validate that the IP Set used for the ConstructHubWebACL webACL rule includes the IP Address of the origin from which you access the website. Enable sending ConstructHubWebACL webACL logs to a CloudWatch Logs log group to be able to see the detailed information for the allowed and blocked requests including the origin IP address. {{% /notice %}}
+{{% notice info %}} Deploying Construct Hub stack for the first time may take up to 10-12 minutes. {{% /notice %}}
