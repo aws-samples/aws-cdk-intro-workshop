@@ -104,7 +104,7 @@ export class CdkWorkshop extends Stack {
 
         const cspPolicyContent = [
             "default-src 'self' https://cdkworkshop.com",
-            "style-src 'self' fonts.googleapis.com",
+            "style-src 'self' 'sha256-biLFinpqYMtWHmXfkA1BPeCY0/fNt46SAZ+BBk5YUog=' fonts.googleapis.com",
             "font-src 'self' fonts.gstatic.com",
             "script-src 'self' client.rum.us-east-1.amazonaws.com",
             "connect-src 'self' dataplane.rum.us-west-2.amazonaws.com  cognito-identity.us-west-2.amazonaws.com sts.us-west-2.amazonaws.com",
