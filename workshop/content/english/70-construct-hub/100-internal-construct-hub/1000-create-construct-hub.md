@@ -26,10 +26,10 @@ By default, Construct Hub has a single package source configured, which is the p
 Create a new file under `lib` called `lib/private-construct-hub-stack.ts` and add the following code:
 
 {{<highlight ts>}}
-import _ as cdk from 'aws-cdk-lib';
-import _ as codeartifact from 'aws-cdk-lib/aws-codeartifact';
+import * as cdk from 'aws-cdk-lib';
+import * as codeartifact from 'aws-cdk-lib/aws-codeartifact';
 import { ConstructHub } from 'construct-hub';
-import \* as sources from 'construct-hub/lib/package-sources';
+import * as sources from 'construct-hub/lib/package-sources';
 import { Construct } from 'constructs';
 
 export class ConstructHubStack extends cdk.Stack {
@@ -64,7 +64,7 @@ super(scope, id, props);
 Next, modify the main CDK application to deploy the new Construct Hub stack. Edit the code in `bin/cdk-workshop.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
-import \* as cdk from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import { ConstructHubStack } from '../lib/private-construct-hub-stack';
 
 const app = new cdk.App();

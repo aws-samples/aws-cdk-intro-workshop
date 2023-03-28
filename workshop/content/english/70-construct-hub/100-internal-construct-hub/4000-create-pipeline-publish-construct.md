@@ -79,10 +79,10 @@ Now when the pipeline runs, it should publish an updated artifact with the last 
 
 Navigate to the private construct hub URL detailed in [Create ConstructHub](./1000-create-construct-hub.html) section. Click on `Find constructs` button to view the published constructs.
 
-![](./private-construct-hub-website-search.png)
+![](./internal-construct-hub-website-search.png)
 
 Click the `cdkworkshop-lib` tile to display the details of the published construct.
 
-![](./private-construct-hub-website-details.png)
+![](./internal-construct-hub-website-details.png)
 ## Summary
 In this section, we have created the pipeline instance from the pipeline CDK code.  We saw that the pipeline built, transpiled, packaged and published the artifacts into private ConstructHub.  Next we will now look into how to consume the transpiled artifacts from private ConstructHub.
