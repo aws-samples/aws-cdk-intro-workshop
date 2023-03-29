@@ -5,7 +5,7 @@ weight = 400
 
 ## Starting point
 
-This step reuses the main workshop's example CDK app containing the hello lambda and the hitcounter construct. 
+This step reuses the main workshop's example CDK app containing the hello lambda and the hitcounter construct.
 
 ## Remove the hitcounter construct from the original sample application
 
@@ -33,10 +33,10 @@ npm install cdkworkshop-lib
 To replace the local version of the hitcounter construct with the one from the cdkworkshop-lib construct library, replace `import { HitCounter } from './hitcounter';` with `import { HitCounter } from 'cdkworkshop-lib';`, which results in the following import block in `cdk-workshop-stack.ts`:
 
 {{<highlight ts>}}
-import * as cdk from 'aws-cdk-lib';
+import _ as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as apigw from 'aws-cdk-lib/aws-apigateway';
+import _ as lambda from 'aws-cdk-lib/aws-lambda';
+import \* as apigw from 'aws-cdk-lib/aws-apigateway';
 import { HitCounter } from 'cdkworkshop-lib';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 {{</highlight>}}
