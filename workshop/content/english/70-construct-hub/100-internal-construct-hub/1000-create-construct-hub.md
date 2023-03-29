@@ -13,9 +13,36 @@ weight = 100
 - For access inside of an Intranet or private networks, disable your CloudFront distribution and provide access to the origin S3 bucket through an internal Application Load Balancer using interface endpoints on AWS PrivateLink for Amazon S3.
   {{% /notice %}}
 
+{{% notice warning %}}
+Before you begin, make sure you have gone through the steps in the [Prerequisites](/15-prerequisites.html) section.
+{{% /notice %}}
+
+## Create parent directory
+
+Create an empty directory on your system:
+
+```
+mkdir cdk-workshop && cd cdk-workshop
+```
+## Create project directory
+
+Create an empty directory for this project on your system:
+
+```
+mkdir internal-construct-hub && cd internal-construct-hub
+```
+
+## cdk init
+
+We will use `cdk init` to create a new TypeScript CDK project:
+
+```
+cdk init sample-app --language typescript
+```
+
 ### Create Construct Hub Stack
 
-The first step is to create an instance of Construct Hub in our AWS Account. Before you can use the Construct Hub library in your stack, you need to install the npm module:
+The first step is to create an instance of Construct Hub in our AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module:
 
 {{<highlight bash>}}
 npm install construct-hub
@@ -23,16 +50,16 @@ npm install construct-hub
 
 By default, Construct Hub has a single package source configured, which is the public npmjs.com registry. However, it also supports CodeArtifact repositories and custom package source implementations. For our purposes, we will create a CodeArtifact domain and repository to add as a package source to our internal Construct Hub.
 
-Create a new file under `lib` called `lib/internal-construct-hub-stack.ts` and add the following code:
+Edit the file found under `lib/internal-construct-hub-stack.ts` and replace the existing code with the following:
 
 {{<highlight ts>}}
-import _ as cdk from 'aws-cdk-lib';
-import _ as codeartifact from 'aws-cdk-lib/aws-codeartifact';
+import * as cdk from 'aws-cdk-lib';
+import * as codeartifact from 'aws-cdk-lib/aws-codeartifact';
 import { ConstructHub } from 'construct-hub';
-import \* as sources from 'construct-hub/lib/package-sources';
+import * as sources from 'construct-hub/lib/package-sources';
 import { Construct } from 'constructs';
 
-export class ConstructHubStack extends cdk.Stack {
+export class InternalConstructHubStack extends cdk.Stack {
 constructor(scope: Construct, id: string, props?: cdk.StackProps) {
 super(scope, id, props);
 
@@ -59,12 +86,12 @@ super(scope, id, props);
 }
 {{</highlight>}}
 
-### Update CDK Deploy Entrypoint
+### Update CDK Deploy Entrypoint - !!!This might be redundant now!!! May need to remove this part
 
 Next, modify the main CDK application to deploy the new Internal Construct Hub stack. Edit the code in `bin/cdk-workshop.ts` as follows:
 
 {{<highlight ts "hl_lines=2 5">}}
-import \* as cdk from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import { ConstructHubStack } from '../lib/internal-construct-hub-stack';
 
 const app = new cdk.App();

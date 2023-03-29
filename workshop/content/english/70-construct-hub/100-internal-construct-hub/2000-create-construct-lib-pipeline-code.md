@@ -5,7 +5,7 @@ weight = 200
 
 ## Create Construct Lib pipeline
 
-Next, we'll set up the infrastructure that will deploy the construct Library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the parent directory of 'aws-cdk-workshop'
+Next, we'll set up the infrastructure that will deploy the construct Library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the 'cdk-workshop' directory.
 
 Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remote repository named `construct-lib-repo`. Then clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository).
 
@@ -33,13 +33,13 @@ cdk init app --language typescript
 Open the `lib/pipeline-stack.ts`file and replace the code with the following:
 
 {{<highlight ts>}}
-import _ as cdk from 'aws-cdk-lib';
-import _ as codecommit from 'aws-cdk-lib/aws-codecommit'
-import _ as codebuild from 'aws-cdk-lib/aws-codebuild'
-import _ as codepipeline from 'aws-cdk-lib/aws-codepipeline'
-import _ as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions'
+import * as cdk from 'aws-cdk-lib';
+import * as codecommit from 'aws-cdk-lib/aws-codecommit'
+import * as codebuild from 'aws-cdk-lib/aws-codebuild'
+import * as codepipeline from 'aws-cdk-lib/aws-codepipeline'
+import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions'
 import {Construct} from 'constructs';
-import _ as iam from 'aws-cdk-lib/aws-iam'
+import * as iam from 'aws-cdk-lib/aws-iam'
 import {Effect} from 'aws-cdk-lib/aws-iam'
 import {PipelineProject} from "aws-cdk-lib/aws-codebuild";
 import {Artifact, Pipeline} from "aws-cdk-lib/aws-codepipeline";
@@ -143,7 +143,7 @@ Next we need to change the entry point to deploy our pipeline. To do this, edit 
 
 {{<highlight ts "hl_lines=2 5">}}
 import 'source-map-support/register';
-import \* as cdk from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import {PipelineStack} from '../lib/pipeline-stack';
 
 const app = new cdk.App();

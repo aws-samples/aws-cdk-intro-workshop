@@ -114,48 +114,48 @@ npx projen
 Create a new file `hitcounter.ts` in the `constructs/src` folder. Use the following code:
 
 {{<highlight js>}}
-import _ as lambda from "aws-cdk-lib/aws-lambda";
-import _ as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 
 import { Construct } from "constructs";
 
 export interface HitCounterProps {
-/** the function for which we want to count url hits **/
-readonly downstream: lambda.IFunction;
+    /** the function for which we want to count url hits **/
+    readonly downstream: lambda.IFunction;
 }
 
 export class HitCounter extends Construct {
-/\*_ allows accessing the counter function _/
-public readonly handler: lambda.Function;
+    /*_ allows accessing the counter function */
+    public readonly handler: lambda.Function;
 
-/\*_ the hit counter table _/
-public readonly table: dynamodb.Table;
+    /*_ the hit counter table */
+    public readonly table: dynamodb.Table;
 
-constructor(scope: Construct, id: string, props: HitCounterProps) {
-super(scope, id);
+    constructor(scope: Construct, id: string, props: HitCounterProps) {
+        super(scope, id);
 
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
-    });
-    this.table = table;
+        const table = new dynamodb.Table(this, "Hits", {
+            partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
+        });
+        this.table = table;
 
-    this.handler = new lambda.Function(this, "HitCounterHandler", {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: "hitcounter.handler",
-      code: lambda.Code.fromAsset("lambda"),
-      environment: {
-        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-        HITS_TABLE_NAME: table.tableName,
-      },
-    });
+        this.handler = new lambda.Function(this, "HitCounterHandler", {
+            runtime: lambda.Runtime.NODEJS_14_X,
+            handler: "hitcounter.handler",
+            code: lambda.Code.fromAsset("lambda"),
+            environment: {
+                DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
+                HITS_TABLE_NAME: table.tableName,
+            },
+        });
 
-    // grant the lambda role read/write permissions to our table
-    table.grantReadWriteData(this.handler);
+        // grant the lambda role read/write permissions to our table
+        table.grantReadWriteData(this.handler);
 
-    // grant the lambda role invoke permissions to the downstream function
-    props.downstream.grantInvoke(this.handler);
+        // grant the lambda role invoke permissions to the downstream function
+        props.downstream.grantInvoke(this.handler);
 
-}
+    }
 }
 {{</highlight>}}
 
@@ -163,16 +163,16 @@ This is very similar to the [hit-counter](../../40-hit-counter/300-resources.htm
 
 Next, update `index.ts` in `constructs/src` folder with the following content.
 {{<highlight js>}}
-export \* from './hitcounter';
+export * from './hitcounter';
 {{</highlight>}}
 
 {{% notice info %}} Note: Projen only transpiles Typescript files in `src` folder {{% /notice %}}
 
 Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Remove `hello.test.ts` file generated in the initial projen project setup in the `constructs\test` folder. Add a new file named `constructs.test.ts` to the `constructs\test` folder and insert the following code into it:
 {{<highlight js>}}
-import _ as cdk from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import _ as lambda from 'aws-cdk-lib/aws-lambda';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { HitCounter } from '../src/hitcounter';
 
 test('DynamoDB Table Created', () => {
