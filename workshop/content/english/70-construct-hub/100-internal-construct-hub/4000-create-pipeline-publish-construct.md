@@ -8,7 +8,6 @@ weight = 400
 Up to this point we have created the construct code in the `constructs/` directory and the pipeline code in the `pipeline/` directory. Now deploy the Constructs pipeline:
 
 {{<highlight bash>}}
-cd ..
 cd pipeline
 cdk deploy
 {{</highlight>}}

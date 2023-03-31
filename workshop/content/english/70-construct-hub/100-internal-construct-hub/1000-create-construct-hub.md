@@ -15,6 +15,8 @@ weight = 100
 
 {{% notice warning %}}
 Before you begin, make sure you have gone through the steps in the [Prerequisites](/15-prerequisites.html) section.
+
+You must also have Docker running and Yarn installed in your dev environment to complete this walkthrough.
 {{% /notice %}}
 
 ## Create parent directory
@@ -60,8 +62,8 @@ import * as sources from 'construct-hub/lib/package-sources';
 import { Construct } from 'constructs';
 
 export class InternalConstructHubStack extends cdk.Stack {
-constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-super(scope, id, props);
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
 
     // Create a CodeArtifact domain and repo for user construct packages
     const domain = new codeartifact.CfnDomain(this, 'CodeArtifactDomain', {
@@ -81,24 +83,26 @@ super(scope, id, props);
         new sources.CodeArtifact({ repository: repo })
       ],
     });
-
-}
+  }
 }
 {{</highlight>}}
 
-### Update CDK Deploy Entrypoint - !!!This might be redundant now!!! May need to remove this part
+## Bootstrapping an environment
+The first time you deploy an AWS CDK app into an environment (account/region),
+you can install a "bootstrap stack". This stack includes resources that
+are used in the toolkit's operation. For example, the stack includes an S3
+bucket that is used to store templates and assets during the deployment process.
 
-Next, modify the main CDK application to deploy the new Internal Construct Hub stack. Edit the code in `bin/cdk-workshop.ts` as follows:
+You can use the `cdk bootstrap` command to install the bootstrap stack into an
+environment:
 
-{{<highlight ts "hl_lines=2 5">}}
-import * as cdk from 'aws-cdk-lib';
-import { ConstructHubStack } from '../lib/internal-construct-hub-stack';
-
-const app = new cdk.App();
-new ConstructHubStack(app, 'ConstructHubStack');
-{{</highlight>}}
+```
+cdk bootstrap
+```
 
 ### Deploy
+
+Use `npx cdk deploy` to deploy the CDK app:
 
 ```
 npx cdk deploy
