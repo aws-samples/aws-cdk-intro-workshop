@@ -29,7 +29,7 @@
         "type": "git"
     },
     "dependencies": {
-        "aws-cdk-lib": "^2.70.0",
+        "aws-cdk-lib": "^2.72.1",
         "constructs": "^10.1.300"
     },
     "engines": {
