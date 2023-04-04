@@ -1,6 +1,6 @@
 +++
 title = "Create Construct Lib - Construct Code"
-weight = 300
+weight = 400
 +++
 
 ## Create Construct Lib - Construct
@@ -38,7 +38,6 @@ Open the file `.projenrc.js` and make the following two changes.
 
 2. After the `repositoryUrl` attribute add the following attributes listed below.  
    {{<highlight js>}}
-
 description: 'CDK Construct Library by projen/jsii',
 python: {
 distName: 'hitcounter',
@@ -55,7 +54,6 @@ mavenGroupId: 'cdkworkshop-lib',
 },
 majorVersion: 1,
 releaseTrigger: ReleaseTrigger.manual(),
-
 {{</highlight>}}
 
 The file should look something like this:
@@ -65,31 +63,31 @@ const { awscdk } = require('projen');
 const { ReleaseTrigger } = require('projen/lib/release');
 
 const project = new awscdk.AwsCdkConstructLibrary({
-author: 'CDK Workshop',
-authorAddress: 'cdkworkshop@amazon.com',
-buildWorkflow: false,
-cdkVersion: '2.1.0',
-defaultReleaseBranch: 'main',
-github: false,
-name: 'cdkworkshop-lib',
-releaseTagPrefix: 'cdkworkshop-lib',
-repositoryUrl: 'codecommit::us-east-1://construct-lib-repo',
-description: 'CDK Construct Library by projen/jsii',
-python: {
-distName: 'hitcounter',
-module: 'cdkworkshop-lib',
-},
-dotnet: {
-dotNetNamespace: 'CDKWorkshopLib',
-packageId: 'com.cdkworkshop.HitCounter',
-},
-publishToMaven: {
-javaPackage: 'com.cdkworkshop.hitcounter',
-mavenArtifactId: 'constructs',
-mavenGroupId: 'cdkworkshop-lib',
-},
-releaseTrigger: ReleaseTrigger.manual(),
-majorVersion: 1,
+  author: 'CDK Workshop',
+  authorAddress: 'cdkworkshop@amazon.com',
+  buildWorkflow: false,
+  cdkVersion: '2.1.0',
+  defaultReleaseBranch: 'main',
+  github: false,
+  name: 'cdkworkshop-lib',
+  releaseTagPrefix: 'cdkworkshop-lib',
+  repositoryUrl: 'codecommit::us-east-1://construct-lib-repo',
+  description: 'CDK Construct Library by projen/jsii',
+  python: {
+    distName: 'hitcounter',
+    module: 'cdkworkshop-lib',
+  },
+  dotnet: {
+    dotNetNamespace: 'CDKWorkshopLib',
+    packageId: 'com.cdkworkshop.HitCounter',
+  },
+  publishToMaven: {
+    javaPackage: 'com.cdkworkshop.hitcounter',
+    mavenArtifactId: 'constructs',
+    mavenGroupId: 'cdkworkshop-lib',
+  },
+  releaseTrigger: ReleaseTrigger.manual(),
+  majorVersion: 1,
 });
 
 project.synth();
@@ -109,89 +107,130 @@ Run `projen` from the `constructs` directory. This will make projen synthesize c
 npx projen
 {{</highlight>}}
 
+
+## Create Lambda Directory
+Create a directory `lambda` in the root of your project tree (next to `src` and `test`).
+{{<highlight bash>}}
+mkdir lambda
+{{</highlight>}}
+
+## Hit counter Lambda handler
+Okay, now let's write the Lambda handler code for our hit counter.
+
+Create the file `lambda/hitcounter.js`:
+{{<highlight ts>}}
+const { DynamoDB, Lambda } = require('aws-sdk');
+
+exports.handler = async function(event) {
+  console.log("request:", JSON.stringify(event, undefined, 2));
+
+  // create AWS SDK clients
+  const dynamo = new DynamoDB();
+  const lambda = new Lambda();
+
+  // update dynamo entry for "path" with hits++
+  await dynamo.updateItem({
+    TableName: process.env.HITS_TABLE_NAME,
+    Key: { path: { S: event.path } },
+    UpdateExpression: 'ADD hits :incr',
+    ExpressionAttributeValues: { ':incr': { N: '1' } }
+  }).promise();
+
+  // call downstream function and capture response
+  const resp = await lambda.invoke({
+    FunctionName: process.env.DOWNSTREAM_FUNCTION_NAME,
+    Payload: JSON.stringify(event)
+  }).promise();
+
+  console.log('downstream response:', JSON.stringify(resp, undefined, 2));
+
+  // return response back to upstream caller
+  return JSON.parse(resp.Payload);
+};
+{{</highlight>}}
+
 ### Add HitCounter Construct
 
 Create a new file `hitcounter.ts` in the `constructs/src` folder. Use the following code:
 
-{{<highlight js>}}
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+{{<highlight ts>}}
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 
-import { Construct } from "constructs";
+import { Construct } from 'constructs';
 
 export interface HitCounterProps {
-    /** the function for which we want to count url hits **/
-    readonly downstream: lambda.IFunction;
+  /** the function for which we want to count url hits **/
+  readonly downstream: lambda.IFunction;
 }
 
 export class HitCounter extends Construct {
-    /*_ allows accessing the counter function */
-    public readonly handler: lambda.Function;
+  /*_ allows accessing the counter function */
+  public readonly handler: lambda.Function;
 
-    /*_ the hit counter table */
-    public readonly table: dynamodb.Table;
+  /*_ the hit counter table */
+  public readonly table: dynamodb.Table;
 
-    constructor(scope: Construct, id: string, props: HitCounterProps) {
-        super(scope, id);
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
+    super(scope, id);
 
-        const table = new dynamodb.Table(this, "Hits", {
-            partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
-        });
-        this.table = table;
+    const table = new dynamodb.Table(this, 'Hits', {
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+    });
+    this.table = table;
 
-        this.handler = new lambda.Function(this, "HitCounterHandler", {
-            runtime: lambda.Runtime.NODEJS_14_X,
-            handler: "hitcounter.handler",
-            code: lambda.Code.fromAsset("lambda"),
-            environment: {
-                DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-                HITS_TABLE_NAME: table.tableName,
-            },
-        });
+    this.handler = new lambda.Function(this, 'HitCounterHandler', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'hitcounter.handler',
+      code: lambda.Code.fromAsset('lambda'),
+      environment: {
+        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
+        HITS_TABLE_NAME: table.tableName,
+      },
+    });
 
-        // grant the lambda role read/write permissions to our table
-        table.grantReadWriteData(this.handler);
+    // grant the lambda role read/write permissions to our table
+    table.grantReadWriteData(this.handler);
 
-        // grant the lambda role invoke permissions to the downstream function
-        props.downstream.grantInvoke(this.handler);
+    // grant the lambda role invoke permissions to the downstream function
+    props.downstream.grantInvoke(this.handler);
 
-    }
+  }
 }
 {{</highlight>}}
 
 This is very similar to the [hit-counter](../../40-hit-counter/300-resources.html) construct from a previous section with some slight modifications.
 
-Next, update `index.ts` in `constructs/src` folder with the following content.
-{{<highlight js>}}
+Next, update `index.ts` in `constructs/src` by adding the following code on line 1:
+{{<highlight ts>}}
 export * from './hitcounter';
 {{</highlight>}}
 
 {{% notice info %}} Note: Projen only transpiles Typescript files in `src` folder {{% /notice %}}
 
-Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Remove `hello.test.ts` file generated in the initial projen project setup in the `constructs\test` folder. Add a new file named `constructs.test.ts` to the `constructs\test` folder and insert the following code into it:
-{{<highlight js>}}
+Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Delete the `hello.test.ts` file generated in the initial projen project setup from the `constructs\test` folder. Create a new file named `constructs.test.ts` in the `constructs\test` folder and insert the following code:
+{{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { HitCounter } from '../src/hitcounter';
 
 test('DynamoDB Table Created', () => {
-const stack = new cdk.Stack();
-// WHEN
-new HitCounter(stack, 'MyTestConstruct', {
-downstream: new lambda.Function(stack, 'TestFunction', {
-runtime: lambda.Runtime.NODEJS_14_X,
-handler: 'index.handler',
-code: lambda.Code.fromInline(`        exports.handler = async function(event) {
+  const stack = new cdk.Stack();
+  // WHEN
+  new HitCounter(stack, 'MyTestConstruct', {
+    downstream: new lambda.Function(stack, 'TestFunction', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromInline(`        exports.handler = async function(event) {
           console.log("event: ", event);
         };
      `),
-}),
-});
-// THEN
-
-const template = Template.fromStack(stack);
-template.resourceCountIs('AWS::DynamoDB::Table', 1);
+    }),
+  });
+  // THEN
+  const template = Template.fromStack(stack);
+  template.resourceCountIs('AWS::DynamoDB::Table', 1);
 });
 {{</highlight>}}
 

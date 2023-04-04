@@ -1,6 +1,6 @@
 +++
 title = "Create pipeline and publish construct"
-weight = 400
+weight = 500
 +++
 
 ## Create ConstructLib Pipeline
@@ -32,38 +32,37 @@ The whole code will look as follows:
 const { DynamoDB, Lambda } = require('aws-sdk');
 
 exports.handler = async function(event) {
-console.log("request:", JSON.stringify(event, undefined, 2));
+  console.log("request:", JSON.stringify(event, undefined, 2));
 
-// create AWS SDK clients
-const dynamo = new DynamoDB();
-const lambda = new Lambda();
+  // create AWS SDK clients
+  const dynamo = new DynamoDB();
+  const lambda = new Lambda();
 
-// update dynamo entry for "path" with hits++
-await dynamo.updateItem({
-TableName: process.env.HITS_TABLE_NAME,
-Key: { path: { S: event.path } },
-UpdateExpression: 'ADD hits :incr',
-ExpressionAttributeValues: { ':incr': { N: '1' } }
-}).promise();
+  // update dynamo entry for "path" with hits++
+  await dynamo.updateItem({
+    TableName: process.env.HITS_TABLE_NAME,
+    Key: { path: { S: event.path } },
+    UpdateExpression: 'ADD hits :incr',
+    ExpressionAttributeValues: { ':incr': { N: '1' } }
+  }).promise();
 
-// call downstream function and capture response
-const resp = await lambda.invoke({
-FunctionName: process.env.DOWNSTREAM_FUNCTION_NAME,
-Payload: JSON.stringify(event)
-}).promise();
+  // call downstream function and capture response
+  const resp = await lambda.invoke({
+    FunctionName: process.env.DOWNSTREAM_FUNCTION_NAME,
+    Payload: JSON.stringify(event)
+  }).promise();
 
-console.log('downstream function response:', JSON.stringify(resp, undefined, 2));
+  console.log('downstream function response:', JSON.stringify(resp, undefined, 2));
 
-// return response back to upstream caller
-return JSON.parse(resp.Payload);
+  // return response back to upstream caller
+  return JSON.parse(resp.Payload);
 };
 {{</highlight>}}
 
-Commit the changes to CodeCommit with the following commit message (Commit message has to be crafted specifically since Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer the new version for the artifact):
+Commit the changes to CodeCommit with the following commit message (Commit message has to be crafted specifically since Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer the new version for the artifact).
 
+Run the following commands from the construct-lib-repo directory:
 {{<highlight bash>}}
-cd ..
-cd constructs
 git add .
 git commit -m 'fix: modified log message'
 git push

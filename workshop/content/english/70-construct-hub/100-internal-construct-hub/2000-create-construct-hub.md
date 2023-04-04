@@ -1,6 +1,6 @@
 +++
 title = "Create Construct Hub"
-weight = 100
+weight = 200
 +++
 
 ## Create Construct Hub Infrastructure
@@ -19,29 +19,6 @@ Before you begin, make sure you have gone through the steps in the [Prerequisite
 You must also have Docker running and Yarn installed in your dev environment to complete this walkthrough.
 {{% /notice %}}
 
-## Create parent directory
-
-Create an empty directory on your system:
-
-```
-mkdir cdk-workshop && cd cdk-workshop
-```
-## Create project directory
-
-Create an empty directory for this project on your system:
-
-```
-mkdir internal-construct-hub && cd internal-construct-hub
-```
-
-## cdk init
-
-We will use `cdk init` to create a new TypeScript CDK project:
-
-```
-cdk init sample-app --language typescript
-```
-
 ### Create Construct Hub Stack
 
 The first step is to create an instance of Construct Hub in our AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module:
@@ -52,7 +29,7 @@ npm install construct-hub
 
 By default, Construct Hub has a single package source configured, which is the public npmjs.com registry. However, it also supports CodeArtifact repositories and custom package source implementations. For our purposes, we will create a CodeArtifact domain and repository to add as a package source to our internal Construct Hub.
 
-Edit the file found under `lib/internal-construct-hub-stack.ts` and replace the existing code with the following:
+Create a new file under `lib/internal-construct-hub-stack.ts` with the following code:
 
 {{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
@@ -99,6 +76,13 @@ environment:
 ```
 cdk bootstrap
 ```
+
+If your environment is already bootstrapped, cdk will tell you:
+
+{{<highlight bash>}}
+Environment aws://[account-id]/[region] bootstrapped (no changes).
+{{</highlight>}}
+
 
 ### Deploy
 

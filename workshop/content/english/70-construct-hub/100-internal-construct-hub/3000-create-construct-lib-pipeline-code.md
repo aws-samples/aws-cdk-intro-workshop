@@ -1,6 +1,6 @@
 +++
 title = "Create Construct Lib - pipeline code"
-weight = 200
+weight = 300
 +++
 
 ## Create Construct Lib pipeline
@@ -13,8 +13,6 @@ Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">
 git clone <path>
 cd construct-lib-repo
 {{</highlight>}}
-
-Open this in your editor of choice.
 
 Note: We will be working with Typescript, so make sure you have it installed. If not, run the following command in your terminal:
 
@@ -38,99 +36,99 @@ import * as codecommit from 'aws-cdk-lib/aws-codecommit'
 import * as codebuild from 'aws-cdk-lib/aws-codebuild'
 import * as codepipeline from 'aws-cdk-lib/aws-codepipeline'
 import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions'
-import {Construct} from 'constructs';
+import { Construct } from 'constructs';
 import * as iam from 'aws-cdk-lib/aws-iam'
-import {Effect} from 'aws-cdk-lib/aws-iam'
-import {PipelineProject} from "aws-cdk-lib/aws-codebuild";
-import {Artifact, Pipeline} from "aws-cdk-lib/aws-codepipeline";
+import { Effect } from 'aws-cdk-lib/aws-iam'
+import { PipelineProject } from "aws-cdk-lib/aws-codebuild";
+import { Artifact, Pipeline } from "aws-cdk-lib/aws-codepipeline";
 
 interface ConstructPipelineStackProps extends cdk.StackProps {
-codeArtifactDomain: string;
-codeArtifactRepository: string;
-constructLibGitRepositoryName: string;
+  codeArtifactDomain: string;
+  codeArtifactRepository: string;
+  constructLibGitRepositoryName: string;
 }
 
 export class PipelineStack extends cdk.Stack {
-constructor(scope: Construct, id: string, props: ConstructPipelineStackProps) {
-super(scope, id, props);
+  constructor(scope: Construct, id: string, props: ConstructPipelineStackProps) {
+    super(scope, id, props);
 
-        const sourceArtifact = new codepipeline.Artifact();
+    const sourceArtifact = new codepipeline.Artifact();
 
-        const pipeline = new codepipeline.Pipeline(this, 'Pipeline');
-        this.addSourceStageToPipeline(pipeline, sourceArtifact, props);
-        this.addCodeBuildStageToPipeline(pipeline, sourceArtifact, props);
+    const pipeline = new codepipeline.Pipeline(this, 'Pipeline');
+    this.addSourceStageToPipeline(pipeline, sourceArtifact, props);
+    this.addCodeBuildStageToPipeline(pipeline, sourceArtifact, props);
+  }
+
+  private addSourceStageToPipeline(pipeline: Pipeline, sourceArtifact: Artifact, props: ConstructPipelineStackProps) {
+    const sourceStage = pipeline.addStage({ stageName: 'Source' });
+    sourceStage.addAction(new codepipeline_actions.CodeCommitSourceAction({
+      actionName: 'Source',
+      output: sourceArtifact,
+      repository: codecommit.Repository.fromRepositoryName(this, 'ConstructLibRepository', props.constructLibGitRepositoryName),
+      branch: "main",
+      codeBuildCloneOutput: true
+    }));
+  }
+
+  private addCodeBuildStageToPipeline(pipeline: Pipeline, sourceArtifact: Artifact, props: ConstructPipelineStackProps) {
+    const constructBuildPackageAndReleaseBuildProject = new codebuild.PipelineProject(this, `ConstructBuildPackageAndReleaseCodeBuildProject`, {
+      buildSpec: codebuild.BuildSpec.fromSourceFilename("pipeline/build-spec/projen-release.yml"),
+      environment: {
+        buildImage: codebuild.LinuxBuildImage.STANDARD_6_0
+      },
+      environmentVariables: {
+        CODEARTIFACT_DOMAIN: { value: props.codeArtifactDomain },
+        AWS_ACCOUNT_ID: { value: this.account },
+        CODEARTIFACT_REPOSITORY: { value: props.codeArtifactRepository }
+      },
+    });
+    this.configureBuildProjectRolePolicy(constructBuildPackageAndReleaseBuildProject, props);
+
+    const packageAndReleaseStage = pipeline.addStage({
+      stageName: 'ConstructBuildPackageAndRelease'
+    });
+
+    packageAndReleaseStage.addAction(
+      new codepipeline_actions.CodeBuildAction({
+        actionName: 'ConstructBuildPackageAndRelease',
+        project: constructBuildPackageAndReleaseBuildProject,
+        input: sourceArtifact
+      }));
+  }
+
+  private configureBuildProjectRolePolicy(constructBuildPackageAndReleaseBuildProject: PipelineProject, props: ConstructPipelineStackProps) {
+    constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['codeartifact:GetAuthorizationToken'],
+      resources: [`arn:aws:codeartifact:${this.region}:${this.account}:domain/${props.codeArtifactDomain}`],
+      effect: Effect.ALLOW
     }
-
-    private addSourceStageToPipeline(pipeline: Pipeline, sourceArtifact: Artifact, props: ConstructPipelineStackProps) {
-        const sourceStage = pipeline.addStage({stageName: 'Source'});
-        sourceStage.addAction(new codepipeline_actions.CodeCommitSourceAction({
-            actionName: 'Source',
-            output: sourceArtifact,
-            repository: codecommit.Repository.fromRepositoryName(this, 'ConstructLibRepository', props.constructLibGitRepositoryName),
-            branch: "main",
-            codeBuildCloneOutput: true
-        }));
+    ));
+    constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['codeartifact:GetRepositoryEndpoint', 'codeartifact:ReadFromRepository'],
+      resources: [`arn:aws:codeartifact:${this.region}:${this.account}:repository/${props.codeArtifactDomain}/${props.codeArtifactRepository}`],
+      effect: Effect.ALLOW
     }
-
-    private addCodeBuildStageToPipeline(pipeline: Pipeline, sourceArtifact: Artifact, props: ConstructPipelineStackProps) {
-        const constructBuildPackageAndReleaseBuildProject = new codebuild.PipelineProject(this, `ConstructBuildPackageAndReleaseCodeBuildProject`, {
-            buildSpec: codebuild.BuildSpec.fromSourceFilename("pipeline/build-spec/projen-release.yml"),
-            environment: {
-                buildImage: codebuild.LinuxBuildImage.STANDARD_6_0
-            },
-            environmentVariables: {
-                CODEARTIFACT_DOMAIN: {value: props.codeArtifactDomain},
-                AWS_ACCOUNT_ID: {value: this.account},
-                CODEARTIFACT_REPOSITORY: {value: props.codeArtifactRepository}
-            },
-        });
-        this.configureBuildProjectRolePolicy(constructBuildPackageAndReleaseBuildProject, props);
-
-        const packageAndReleaseStage = pipeline.addStage({
-            stageName: 'ConstructBuildPackageAndRelease'
-        });
-
-        packageAndReleaseStage.addAction(
-            new codepipeline_actions.CodeBuildAction({
-                actionName: 'ConstructBuildPackageAndRelease',
-                project: constructBuildPackageAndReleaseBuildProject,
-                input: sourceArtifact
-            }));
+    ));
+    constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['codeartifact:PublishPackageVersion', 'codeartifact:PutPackageMetadata'],
+      resources: [`arn:aws:codeartifact:${this.region}:${this.account}:package/${props.codeArtifactDomain}/${props.codeArtifactRepository}/*/*/*`],
+      effect: Effect.ALLOW
     }
-
-    private configureBuildProjectRolePolicy(constructBuildPackageAndReleaseBuildProject: PipelineProject, props: ConstructPipelineStackProps) {
-        constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
-                actions: ['codeartifact:GetAuthorizationToken'],
-                resources: [`arn:aws:codeartifact:${this.region}:${this.account}:domain/${props.codeArtifactDomain}`],
-                effect: Effect.ALLOW
-            }
-        ));
-        constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
-                actions: ['codeartifact:GetRepositoryEndpoint', 'codeartifact:ReadFromRepository'],
-                resources: [`arn:aws:codeartifact:${this.region}:${this.account}:repository/${props.codeArtifactDomain}/${props.codeArtifactRepository}`],
-                effect: Effect.ALLOW
-            }
-        ));
-        constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
-                actions: ['codeartifact:PublishPackageVersion', 'codeartifact:PutPackageMetadata'],
-                resources: [`arn:aws:codeartifact:${this.region}:${this.account}:package/${props.codeArtifactDomain}/${props.codeArtifactRepository}/*/*/*`],
-                effect: Effect.ALLOW
-            }
-        ));
-        constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
-                actions: ['sts:GetServiceBearerToken'],
-                resources: ["*"],
-                conditions: {"StringEquals": {"sts:AWSServiceName": "codeartifact.amazonaws.com"}},
-                effect: Effect.ALLOW
-            }
-        ));
-        constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
-                actions: ['codecommit:GitPull', 'codecommit:GitPush'],
-                resources: [`arn:aws:codecommit:${this.region}:${this.account}:${props.constructLibGitRepositoryName}`],
-                effect: Effect.ALLOW
-            }
-        ));
+    ));
+    constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['sts:GetServiceBearerToken'],
+      resources: ["*"],
+      conditions: { "StringEquals": { "sts:AWSServiceName": "codeartifact.amazonaws.com" } },
+      effect: Effect.ALLOW
     }
+    ));
+    constructBuildPackageAndReleaseBuildProject.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['codecommit:GitPull', 'codecommit:GitPush'],
+      resources: [`arn:aws:codecommit:${this.region}:${this.account}:${props.constructLibGitRepositoryName}`],
+      effect: Effect.ALLOW
+    }
+    ));
+  }
 }
 {{</highlight>}}
 
@@ -143,13 +141,13 @@ Next we need to change the entry point to deploy our pipeline. To do this, edit 
 {{<highlight ts "hl_lines=2 5">}}
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import {PipelineStack} from '../lib/pipeline-stack';
+import { PipelineStack } from '../lib/pipeline-stack';
 
 const app = new cdk.App();
 new PipelineStack(app, 'ConstructPipelineStack', {
-codeArtifactDomain: "cdkworkshop-domain",
-codeArtifactRepository: "cdkworkshop-repository",
-constructLibGitRepositoryName: "construct-lib-repo"
+  codeArtifactDomain: "cdkworkshop-domain",
+  codeArtifactRepository: "cdkworkshop-repository",
+  constructLibGitRepositoryName: "construct-lib-repo"
 });
 {{</highlight>}}
 
@@ -172,7 +170,7 @@ version: 0.2
 
 env:
   shell: "bash"
-  git-credential-helper": "yes"
+  git-credential-helper: "yes"
 
 phases: 
   install: 
@@ -234,14 +232,13 @@ phases:
           echo "Done uploading Java package."
         else
           echo "dist/java was not found. Skipping Java package upload."
-        fi
+        fi        
 
 reports: 
   test-reports: 
     files: 
       - "**/test-reports/junit.xml"
     file-format: "JUNITXML"
-
 {{</highlight>}}
 
 The first command in the build phase of this YAML file is `projen release`. <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging. We will dive deeper into Projen in next section. Projen creates the transpiled packages and places them in the `dist` directory.

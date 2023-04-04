@@ -1,6 +1,6 @@
 +++
 title = "Use construct in CDK application"
-weight = 400
+weight = 600
 +++
 
 ## Starting point
@@ -33,10 +33,10 @@ npm install cdkworkshop-lib
 To replace the local version of the hitcounter construct with the one from the cdkworkshop-lib construct library, replace `import { HitCounter } from './hitcounter';` with `import { HitCounter } from 'cdkworkshop-lib';`, which results in the following import block in `cdk-workshop-stack.ts`:
 
 {{<highlight ts>}}
-import _ as cdk from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import _ as lambda from 'aws-cdk-lib/aws-lambda';
-import \* as apigw from 'aws-cdk-lib/aws-apigateway';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { HitCounter } from 'cdkworkshop-lib';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
 {{</highlight>}}
