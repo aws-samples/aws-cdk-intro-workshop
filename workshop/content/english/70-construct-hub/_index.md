@@ -1,7 +1,7 @@
 +++
 title = "Construct Hub"
 weight = 70
-bookCollapseSection = false
+bookCollapseSection = true
 +++
 
 # Construct Hub

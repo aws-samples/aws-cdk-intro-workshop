@@ -7,7 +7,7 @@ weight = 300
 
 Next, we'll set up the infrastructure that will deploy the construct Library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the 'cdk-workshop' directory.
 
-Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remote repository named `construct-lib-repo`. Then clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository).
+Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remote repository named `construct-lib-repo`. Go to the HTTPS (GRC) tab and follow the instructions to clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository).
 
 {{<highlight bash>}}
 git clone <path>
@@ -144,7 +144,7 @@ import * as cdk from 'aws-cdk-lib';
 import { PipelineStack } from '../lib/pipeline-stack';
 
 const app = new cdk.App();
-new PipelineStack(app, 'ConstructPipelineStack', {
+new PipelineStack(app, 'InternalConstructPipelineStack', {
   codeArtifactDomain: "cdkworkshop-domain",
   codeArtifactRepository: "cdkworkshop-repository",
   constructLibGitRepositoryName: "construct-lib-repo"

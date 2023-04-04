@@ -208,7 +208,7 @@ export * from './hitcounter';
 
 {{% notice info %}} Note: Projen only transpiles Typescript files in `src` folder {{% /notice %}}
 
-Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Delete the `hello.test.ts` file generated in the initial projen project setup from the `constructs\test` folder. Create a new file named `constructs.test.ts` in the `constructs\test` folder and insert the following code:
+Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Rename the `hello.test.ts` file found in `constructs\test` directory to `constructs.test.ts` and replace the contents with the following code:
 {{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';

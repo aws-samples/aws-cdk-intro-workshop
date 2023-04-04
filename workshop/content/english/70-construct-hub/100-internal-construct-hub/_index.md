@@ -1,7 +1,7 @@
 +++
 title = "Internal Construct Hub"
 weight = 200
-bookCollapseSection = true
+bookFlatSection = true
 +++
 
 # Internal Construct Hub
