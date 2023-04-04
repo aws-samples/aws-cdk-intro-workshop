@@ -4,8 +4,8 @@ weight = 600
 +++
 
 ## Starting point
-
 This step reuses the main workshop's example CDK app containing the hello lambda and the hitcounter construct.
+Here, we'll take on the role of an Internal Construct Hub Consumer. 
 
 ## Remove the hitcounter construct from the original sample application
 
@@ -19,6 +19,10 @@ rm lambda/hitcounter.js
 ## Configure npm to use CodeArtifact as package repository
 
 To enable npm to pull packages from CodeArtifact, follow the instructions described [here](https://docs.aws.amazon.com/codeartifact/latest/ug/npm-auth.html).
+
+{{<highlight bash>}}
+aws codeartifact login --tool npm --domain cdkworkshop-domain  --repository cdkworkshop-repository --region us-east-1
+{{</highlight>}}
 
 ## Npm install cdkworkshop-lib dependency
 

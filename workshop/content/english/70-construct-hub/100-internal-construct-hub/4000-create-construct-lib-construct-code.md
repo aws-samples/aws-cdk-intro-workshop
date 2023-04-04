@@ -5,7 +5,7 @@ weight = 400
 
 ## Create Construct Lib - Construct
 
-Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files. Then we'll create a Construct called HitCounter. Lastly, we'll edit the configuration to transpile our Constructs to the selected runtime/language targets.
+Next, as an Internal Construct Hub Producer, we will create a construct library project leveraging Projen to synthesize and manage project configuration files. Then we'll create a Construct called Hitcounter. Lastly, we'll edit the configuration to transpile our Constructs to the selected runtime/language targets.
 
 ### Setup Projen project
 
@@ -109,13 +109,13 @@ npx projen
 
 
 ## Create Lambda Directory
-Create a directory `lambda` in the root of your project tree (next to `src` and `test`).
+Create a directory `lambda` in the root of the constructs directory (next to `src` and `test`).
 {{<highlight bash>}}
 mkdir lambda
 {{</highlight>}}
 
 ## Hit counter Lambda handler
-Okay, now let's write the Lambda handler code for our hit counter.
+We'll be reusing the [Hit counter lambda handeler](../../20-typescript/40-hit-counter/200-handler.html) from the TypeScript workshop. 
 
 Create the file `lambda/hitcounter.js`:
 {{<highlight ts>}}
@@ -151,7 +151,7 @@ exports.handler = async function(event) {
 
 ### Add HitCounter Construct
 
-Create a new file `hitcounter.ts` in the `constructs/src` folder. Use the following code:
+Create a new file `hitcounter.ts` in the `constructs/src` directory. Use the following code:
 
 {{<highlight ts>}}
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
@@ -199,7 +199,7 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-This is very similar to the [hit-counter](../../40-hit-counter/300-resources.html) construct from a previous section with some slight modifications.
+This is very similar to the [hitcounter construct](../../20-typescript/40-hit-counter/300-resources.html) from a previous section with some slight modifications.
 
 Next, update `index.ts` in `constructs/src` by adding the following code on line 1:
 {{<highlight ts>}}

@@ -21,7 +21,7 @@ You must also have Docker running and Yarn installed in your dev environment to 
 
 ### Create Construct Hub Stack
 
-The first step is to create an instance of Construct Hub in our AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module:
+As an Internal Construct Hub Administrator, the first step is to create an instance of Construct Hub in an AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module:
 
 {{<highlight bash>}}
 npm install construct-hub

@@ -6,10 +6,6 @@ weight = 100
 ## Initial Setup
 
 {{% notice warning %}}
-The steps outlined below make use of the [something about the other workshop modules]
-  {{% /notice %}}
-
-{{% notice warning %}}
 Before you begin, make sure you have gone through the steps in the [Prerequisites](/15-prerequisites.html) section.
 
 You must also have Docker running and Yarn installed in your dev environment to complete this walkthrough.

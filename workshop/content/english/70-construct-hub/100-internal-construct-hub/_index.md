@@ -16,8 +16,10 @@ To enable this functionality, you'll deploy the architecture shown in the above 
 
 There are typically 3 types of users who will leverage the Internal Construct Hub in some way:
 
-1. Construct Hub Consumers - Developers who will navigate to the Internal Construct Hub looking for helpful CDK constructs
-2. Construct Hub Producers - Developers who publish constructs to the Internal Construct Hub
-3. Construct Hub Administrators - These individuals are responsible for managing the overall pipeline that deploys constructs to the Internal Construct Hub
+1. Internal Construct Hub Administrators - These individuals are responsible for managing the Internal Construct Hub and the pipeline that deploys constructs to it.
 
-The upcoming sections are mapped to the needs of these types of users. In the next section, you'll start by deploying the front-end for the Internal Construct Hub (The box labeled "Internal ConstructHub").
+2. Internal Construct Hub Producers - Developers who publish constructs to the Internal Construct Hub
+
+3. Internal Construct Hub Consumers - Developers who will navigate to the Internal Construct Hub looking for helpful CDK constructs
+
+The upcoming sections are mapped to the needs of these types of users. In the next section, we'll go through some initial setup before deploying the front-end of the Internal Construct Hub (The box labeled "Internal ConstructHub").
