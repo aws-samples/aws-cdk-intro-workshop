@@ -4,8 +4,15 @@ weight = 600
 +++
 
 ## Starting point
-This step reuses the main workshop's example CDK app containing the hello lambda and the hitcounter construct.
-Here, we'll take on the role of an Internal Construct Hub Consumer. 
+For simplicity, we'll be reusing the [Hello, CDK App](../../20-typescript/30-hello-cdk.html) from the typescript workshop. To speed things up, we've uploaded the finished application to GitHub so just download it to your cdk-workshop directory.
+
+{{<highlight bash>}}
+git clone https://github.com/wasaymabood786/aws-cdk-intro-workshop.git 
+cp -R aws-cdk-intro-workshop/code/typescript/internal-constructs-workshop/hello-app/ ./hello-app/
+cd hello-app
+{{</highlight>}}
+
+Now, we'll take on the role of an Internal Construct Hub Consumer. 
 
 ## Remove the hitcounter construct from the original sample application
 
