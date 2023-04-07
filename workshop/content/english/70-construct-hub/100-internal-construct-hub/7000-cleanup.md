@@ -15,6 +15,8 @@ Navigate to  <a href="https://console.aws.amazon.com/codecommit" target="_blank"
 ### Delete S3 Buckets
 Navigate to  <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> and delete the buckets starting with "internalconstruct" and "constructpipeline". Good luck!
 
+### Delete DynamoDB Table
+
 ### Reset Your NPM Registry
 {{<highlight bash>}}
 npm config set registry https://registry.npmjs.com/

@@ -9,7 +9,7 @@ Next, as an Internal Construct Hub Producer, we will create a construct library 
 
 ### Setup Projen project
 
-Create a directory named `constructs/` as a sibling (on the same level) of the `pipeline/` directory.
+From the `construct-lib-repo` directory, Create a directory named `constructs/`. It should be a sibling (on the same level) of the `pipeline/` directory.
 
 {{<highlight bash>}}
 mkdir constructs
@@ -27,13 +27,13 @@ npx projen new awscdk-construct \
  --name "cdkworkshop-lib"
 {{</highlight>}}
 
-The `.projenrc.js` file holds the Projen configurations.
+The `.projenrc.js` file holds the Projen configuration.
 
 Open the file `.projenrc.js` and make the following two changes.
 
 1. Import the ReleaseTrigger class from projen's library.
    {{<highlight js>}}
-   const { ReleaseTrigger } = require("projen/lib/release");
+   const { ReleaseTrigger } = require('projen/lib/release');
    {{</highlight>}}
 
 2. After the `repositoryUrl` attribute add the following attributes listed below.  
@@ -93,20 +93,18 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.synth();
 {{</highlight>}}
 
-The `python`, `dotnet` and `publishToMaven` attributes tell Projen it we are interested in transpiling the CDK Construct to those target runtimes.
+The `python`, `dotnet` and `publishToMaven` attributes tell Projen to transpile the CDK Construct to those target runtimes.
 
 The `majorVersion` attribute is set to `1`, so we start with version `1.0.0` of packaged artifacts.
 
 The `releaseTrigger` attribute is set to `manual`. For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number. Projen uses <a href="https://semver.org/" target="_blank">SEMVER</a> and <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to figure out which part of the version to increment, for details refer <a href="https://projen.io/releases.html" target="_blank">Projen release documentation</a>.
 
 #### Projen synth
-
-Run `projen` from the `constructs` directory. This will make projen synthesize configurations. For instance, the package.json will have `cdk-dynamo-table-viewer` dependency base on what was added in `dependencies` section of `.projenrc.js`.
+Run `projen` from the `constructs` directory. This will make projen synthesize the configuration. Projen synthesizes project configuration files such as package.json, tsconfig.json, .gitignore, GitHub Workflows, eslint, jest, etc from a well-typed definition written in JavaScript.
 
 {{<highlight bash>}}
 npx projen
 {{</highlight>}}
-
 
 ## Create Lambda Directory
 Create a directory `lambda` in the root of the constructs directory (next to `src` and `test`).
@@ -257,7 +255,7 @@ git commit -m 'feat: add HitCounter to Construct Library'
 git push
 {{</highlight>}}
 
-### Extra credits (Optional)
+### Extra credit (Optional)
 
 #### How to generate jssi transpiled and jsii-packmak packaged target on my machine?
 

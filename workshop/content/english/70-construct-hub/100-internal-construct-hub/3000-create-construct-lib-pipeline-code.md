@@ -1,13 +1,13 @@
 +++
-title = "Create Construct Lib - pipeline code"
+title = "Create Construct Lib - Pipeline Code"
 weight = 300
 +++
 
 ## Create Construct Lib pipeline
 
-Next, we'll set up the infrastructure that will deploy the construct Library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the 'cdk-workshop' directory.
+Next, we'll set up the infrastructure that will deploy the construct library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the 'internal-construct-hub-workshop' directory.
 
-Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> repository and create a remote repository named `construct-lib-repo`. Go to the HTTPS (GRC) tab and follow the instructions to clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository).
+Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> and create a new remote repository named `construct-lib-repo`. Go to the HTTPS (GRC) tab and follow the instructions to clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository).
 
 {{<highlight bash>}}
 git clone <path>
@@ -132,7 +132,7 @@ export class PipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This creates a CodePipline pipeline with two stages, a source stage linked to the CodeCommit GIT repository, and a CodeBuild project that does the build and release of the transpiled packaged artifacts.
+This creates a CodePipline pipeline with two stages, a source stage linked to the CodeCommit repository, and a CodeBuild project that executes the build and release of the transpiled, packaged artifacts.
 
 ## Update CDK Deploy Entrypoint
 
@@ -150,8 +150,6 @@ new PipelineStack(app, 'InternalConstructPipelineStack', {
   constructLibGitRepositoryName: "construct-lib-repo"
 });
 {{</highlight>}}
-
-And now we're ready!
 
 ## CodeBuild
 
@@ -241,10 +239,10 @@ reports:
     file-format: "JUNITXML"
 {{</highlight>}}
 
-The first command in the build phase of this YAML file is `projen release`. <a href="https://projen.io" target="_blank">Projen</a> helps us with taking care of the JSII compilation, unit testing, tamper detection and packaging. We will dive deeper into Projen in next section. Projen creates the transpiled packages and places them in the `dist` directory.
+The first command in the build phase of this YAML file is `projen release`. <a href="https://projen.io" target="_blank">Projen</a> takes care of JSII compilation, unit testing, tamper detection, and packaging. We will dive deeper into Projen in the next section. Projen creates the transpiled packages and places them in the `dist` directory.
 
-The other build phase commands look for the existence of runtime specific `dist` directories and set the runtime specific CodeArtifact environmental variables before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
+The other build phase commands look for the existence of runtime specific `dist` directories and sets the runtime specific CodeArtifact environmental variables before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
 
 ## Summary
 
-In this section, we created the pipeline code that will be used to build, package and push the ConstructLib code to our Internal Construct Hub. In the next section we will set up Projen to create a construct library
+In this section, we created the pipeline code that will be used to build, package and publish the ConstructLib code to our Internal Construct Hub. In the next section we will set up Projen to create a construct library

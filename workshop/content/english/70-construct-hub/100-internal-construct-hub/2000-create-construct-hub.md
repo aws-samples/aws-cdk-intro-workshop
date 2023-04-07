@@ -13,21 +13,15 @@ weight = 200
 - For access inside of an Intranet or private networks, disable your CloudFront distribution and provide access to the origin S3 bucket through an internal Application Load Balancer using interface endpoints on AWS PrivateLink for Amazon S3.
   {{% /notice %}}
 
-{{% notice warning %}}
-Before you begin, make sure you have gone through the steps in the [Prerequisites](/15-prerequisites.html) section.
-
-You must also have Docker running and Yarn installed in your dev environment to complete this walkthrough.
-{{% /notice %}}
-
 ### Create Construct Hub Stack
 
-As an Internal Construct Hub Administrator, the first step is to create an instance of Construct Hub in an AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module:
+As an Internal Construct Hub Administrator, the first step is to create an instance of Construct Hub in an AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module in our project:
 
 {{<highlight bash>}}
 npm install construct-hub
 {{</highlight>}}
 
-By default, Construct Hub has a single package source configured, which is the public npmjs.com registry. However, it also supports CodeArtifact repositories and custom package source implementations. For our purposes, we will create a CodeArtifact domain and repository to add as a package source to our internal Construct Hub.
+By default, Construct Hub has a single package source configured, which is the public npmjs.com registry. However, it also supports CodeArtifact repositories and custom package source implementations. For our purposes, we will create a CodeArtifact domain and repository to add as a package source for our Internal Construct Hub.
 
 Create a new file under `lib/internal-construct-hub-stack.ts` with the following code:
 
@@ -70,26 +64,21 @@ you can install a "bootstrap stack". This stack includes resources that
 are used in the toolkit's operation. For example, the stack includes an S3
 bucket that is used to store templates and assets during the deployment process.
 
-You can use the `cdk bootstrap` command to install the bootstrap stack into an
-environment:
+You can use the `cdk bootstrap` command to create the bootstrap stack in your AWS Account:
 
 ```
 cdk bootstrap
 ```
-
-If your environment is already bootstrapped, cdk will tell you:
-
+You should see output like this:
 {{<highlight bash>}}
-Environment aws://[account-id]/[region] bootstrapped (no changes).
+Environment aws://[account-id]/[region] bootstrapped
 {{</highlight>}}
 
-
 ### Deploy
-
 Use `npx cdk deploy` to deploy the CDK app:
 
 ```
 npx cdk deploy
 ```
 
-{{% notice info %}} Deploying Construct Hub stack for the first time may take up to 10-12 minutes. {{% /notice %}}
+{{% notice info %}} Deploying Construct Hub stack for the first time may take up to 10-12 minutes. You can take a break or continue through the Construct-Lib sections of the workshop {{% /notice %}}

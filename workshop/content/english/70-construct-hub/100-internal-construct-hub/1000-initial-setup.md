@@ -8,18 +8,19 @@ weight = 100
 {{% notice warning %}}
 Before you begin, make sure you have gone through the steps in the [Prerequisites](/15-prerequisites.html) section.
 
-You must also have Docker running and Yarn installed in your dev environment to complete this walkthrough.
+You must also have [Docker](https://docs.docker.com/get-docker/) running and [Yarn](https://yarnpkg.com/getting-started/install) installed in your dev environment to complete this walkthrough.
 {{% /notice %}}
 
 ## Create parent directory and project directory
 
-
 Parent Directory 
+We'll create a parent directory to hold all of the code for this workshop
 ```
-mkdir cdk-workshop && cd cdk-workshop
+mkdir internal-construct-hub-workshop && cd internal-construct-hub-workshop
 ```
 
 Project Directory
+Next we'll create a project directory for the actual Construct Hub construct we'll be deploying to our aws account
 ```
 mkdir internal-construct-hub && cd internal-construct-hub
 ```
