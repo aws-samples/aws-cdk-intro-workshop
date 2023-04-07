@@ -81,4 +81,4 @@ Use `npx cdk deploy` to deploy the CDK app:
 npx cdk deploy
 ```
 
-{{% notice info %}} Deploying Construct Hub stack for the first time may take up to 10-12 minutes. You can take a break or continue through the Construct-Lib sections of the workshop {{% /notice %}}
+{{% notice info %}} Deploying the Internal Construct Hub Stack for the first time may take ~10-12 minutes. You can take a break or continue through the Construct Lib sections of the workshop {{% /notice %}}
