@@ -21,6 +21,13 @@ Once `cdk deploy` creates the pipeline, it runs and publishes artifacts.
 
 In the AWS Console, go to <a href="https://console.aws.amazon.com/codesuite/codepipeline/pipelines" target="_blank">CodePipeline</a> and check out the pipeline run. If you do not see your pipeline, ensure you are in the correct AWS Region. The pipeline will push the artifact to CodeArtifact. Once the pipeline finishes running, navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a>, click into `cdkworkshop-repository`, and observe that version `1.0.0` of the artifact has been published.
 
+## Merge Divergent Branches
+Before moving on, it's important to note that Projen will add tags to the codecommit repo as well as edit the changelog.md file. This will result in your remote construct-lib-repo repository and local construct-lib-repo repository being out of sync. To fix this, make sure that you run `git pull` from your local construct-lib-repo directory before continuing on:
+
+{{<highlight bash>}}
+git pull
+{{</highlight>}}
+
 ## Make a patch change and observe new version of artifact
 
 Let's make a small change to our construct library code and commit the changes to CodeCommit. Open the file `constructs/lambda/hitcounter.js` and modify the log message to read the following:

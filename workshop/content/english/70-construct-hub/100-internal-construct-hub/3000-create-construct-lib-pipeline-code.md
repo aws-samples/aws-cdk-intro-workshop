@@ -241,8 +241,8 @@ reports:
 
 The first command in the build phase of this YAML file is `projen release`. <a href="https://projen.io" target="_blank">Projen</a> takes care of JSII compilation, unit testing, tamper detection, and packaging. We will dive deeper into Projen in the next section. Projen creates the transpiled packages and places them in the `dist` directory.
 
-The other build phase commands look for the existence of runtime specific `dist` directories and sets the runtime specific CodeArtifact environmental variables before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
+The other build phase commands look for the existence of runtime specific `dist` directories and set the runtime specific CodeArtifact environmental variables before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
 
 ## Summary
 
-In this section, we created the pipeline code that will be used to build, package and publish the ConstructLib code to our Internal Construct Hub. In the next section we will set up Projen to create a construct library
+In this section, we created the pipeline code that will be used to build, package and publish the ConstructLib code to our Internal Construct Hub. In the next section we will set up Projen to create a construct library.

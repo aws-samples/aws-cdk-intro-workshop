@@ -5,7 +5,7 @@ weight = 400
 
 ## Create Construct Lib - Construct
 
-Next, as an Internal Construct Hub Producer, we will create a construct library project leveraging Projen to synthesize and manage project configuration files. Then we'll create a Construct called Hitcounter. Lastly, we'll edit the configuration to transpile our Constructs to the selected runtime/language targets.
+Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files. Then, as an Internal Construct Hub Producer, we'll create a Construct called Hitcounter. Lastly, we'll edit the configuration to transpile our Constructs to the selected runtime/language targets.
 
 ### Setup Projen project
 

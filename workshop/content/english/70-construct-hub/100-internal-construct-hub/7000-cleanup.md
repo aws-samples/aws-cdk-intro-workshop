@@ -15,9 +15,10 @@ Navigate to  <a href="https://console.aws.amazon.com/codecommit" target="_blank"
 ### Delete S3 Buckets
 Navigate to  <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> and delete the buckets starting with "internalconstruct" and "constructpipeline". Good luck!
 
-### Delete DynamoDB Table
-
 ### Reset Your NPM Registry
 {{<highlight bash>}}
 npm config set registry https://registry.npmjs.com/
 {{</highlight>}}
+
+### Hello App (Optional)
+If you deployed the hello app in the previous module, navigate to the <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> console and delete the Hello-App stack. Then navigate to <a href="https://console.aws.amazon.com/dynamodb" target="_blank">DynamoDB</a> and delete the table, as it is not deleted by CloudFormation.
