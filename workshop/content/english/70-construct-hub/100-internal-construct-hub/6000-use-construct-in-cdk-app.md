@@ -84,13 +84,65 @@ aws codeartifact login --tool npm --domain cdkworkshop-domain  --repository cdkw
 To use the published `cdkworkshop-lib` CDK construct library containing the hitcounter CDK construct, use `npm install` to add it to the Hello, CDK! application's dependencies:
 
 {{<highlight bash>}}
-npm install cdkworkshop-lib --force
+npm install cdkworkshop-lib
 {{</highlight>}}
+
+Oh no! Looks like we got an error:
+{{<highlight bash>}}
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR! 
+npm ERR! While resolving: hello-cdk-app@0.1.0
+npm ERR! Found: aws-cdk-lib@undefined
+npm ERR! node_modules/aws-cdk-lib
+npm ERR!   aws-cdk-lib@"^2.73.0" from the root project
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer aws-cdk-lib@"^2.73.0" from cdkworkshop-lib@1.0.1
+npm ERR! node_modules/cdkworkshop-lib
+npm ERR!   cdkworkshop-lib@"*" from the root project
+{{</highlight>}}
+
+On line 5, NPM is saying that the version of `aws-cdk-lib` is undefined. This is because our CodeArtifact repository does not actually contain the `aws-cdk-lib` package. When we ran the command `npm install cdkworkshop-lib`, npm went to our CodeArtifact repository looking for `aws-cdk-lib` but couldn't find it, hence the error. We can resolve this issue by either adding the `aws-cdk-lib` package to our CodeArtifact repository or by setting an upstream npm repository for CodeArtifact to use. 
+
+For simplicity, let's set the upstream npm respository. This way, if NPM goes to our CodeArtifact repository and cannot find a particular package, it will first try to find that package in the upstream repository beffore throwing an error. If that package is found, the package will be installed by NPM as expected. See <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html" target="_blank">Working with upstream repositories in CodeArtifact</a> to learn more.
+
+Run the following command to set the upstream NPM respository for CodeArtifact:
+
+{{<highlight bash>}}
+aws codeartifact update-repository --repository cdkworkshop-repository --domain cdkworkshop-domain --upstreams repositoryName=npm-store --region [Insert Region]
+{{</highlight>}}
+
+If the command ran successfully, a JSON block should be retuned that looks something like this:
+{{<highlight JSON>}}
+{
+  "repository": {
+    "name": "cdkworkshop-repository",
+    "administratorAccount": "[Account ID]",
+    "domainName": "cdkworkshop-domain",
+    "domainOwner": "[Account ID]",
+    "arn": "arn:aws:codeartifact:us-east-1:[Account ID]:repository/cdkworkshop-domain/cdkworkshop-repository",
+    "upstreams": [
+      {
+        "repositoryName": "npm-store"
+      }
+    ],
+    "externalConnections": [],
+    "createdTime": "[Timestamp]"
+  }
+}
+{{</highlight>}}
+
+Now try to install `cdkworkshop-lib` again:
+{{<highlight bash>}}
+npm install cdkworkshop-lib
+{{</highlight>}}
+
+This time it worked! We can verify this by checking the `dependencies` section of the `package.json` file of the `hello-cdk-app`.
 
 ## Adapt import to use the construct library
 
 To replace the local version of the hitcounter construct with the one from the cdkworkshop-lib construct library, replace `import { HitCounter } from './hitcounter';` with the following:
-
 {{<highlight typescript>}}
 import { HitCounter } from 'cdkworkshop-lib';
 {{</highlight>}}
