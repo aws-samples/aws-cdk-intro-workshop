@@ -1,15 +1,11 @@
 +++
-title = "Clean Up"
+title = "Cleanup"
 weight = 700
 +++
 
-## Clean Up
+## Cleanup Resources
 
 Time to clean up the resources created in this workshop:
-
-### Delete Cloudformation Stacks
-
-To clean up the resources created in this section of the workshop, navigate to <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> and delete the stacks named `InternalConstructHubStack`, `InternalConstructPipelineStack`, and `HelloCdkAppStack`.
 
 ### Delete CodeCommit Repo
 
@@ -19,12 +15,34 @@ Navigate to  <a href="https://console.aws.amazon.com/codecommit" target="_blank"
 
 Then navigate to <a href="https://console.aws.amazon.com/dynamodb" target="_blank">DynamoDB</a> and delete the table.
 
-### Delete S3 Buckets
+### Remove CodeArtifact Upstream Repositories
 
-Navigate to  <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> and delete the buckets starting with "internalconstruct". Some may need to be emptied before deleting them.
+Run this command to remove all upstream repository links to your CodeArtifact domain:
+
+{{<highlight bash>}}
+aws codeartifact update-repository --repository cdkworkshop-repository --domain cdkworkshop-domain --upstreams --region [Insert Region]
+{{</highlight>}}
+
+Then run this command to delete the actual upstream repository:
+
+{{<highlight bash>}}
+aws codeartifact delete-repository --domain cdkworkshop-domain --repository npm-store --region [Insert Region]
+{{</highlight>}}
 
 ### Reset Your NPM Registry
 
 {{<highlight bash>}}
 npm config set registry https://registry.npmjs.com/
 {{</highlight>}}
+
+### Delete Cloudformation Stacks
+
+To clean up the resources created in this section of the workshop, navigate to <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> and delete the stacks named `InternalConstructHubStack`, `InternalConstructPipelineStack`, and `HelloCdkAppStack`.
+
+### Delete S3 Buckets
+
+Navigate to  <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> and delete the buckets starting with `internalconstruct`. Some may need to be emptied before deleting them.
+
+### Delete Parent Directory
+
+On your machine, delete the `construct-hub-workshop` directory.

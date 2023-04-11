@@ -72,7 +72,7 @@ export class HelloCdkAppStack extends cdk.Stack {
 
 Your code editor may display an error at the `import { HitCounter } from './hitcounter';` line because the hitcounter construct cannot be found. That makes sense because currently, our project does not have a hitcounter construct. While we could author one from scratch, we'll instead fix this issue by taking on the role of an Internal Construct Hub Consumer and installing the hitcounter construct we created in the previous section. 
 
-## Configure npm to use CodeArtifact as package repository
+## Configure npm to Use CodeArtifact as the Package Repository
 
 To enable npm to pull packages from your CodeArtifact repository, follow the instructions described [here](https://docs.aws.amazon.com/codeartifact/latest/ug/npm-auth.html). The command should look something like this:
 
