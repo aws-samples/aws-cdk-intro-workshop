@@ -58,7 +58,8 @@ export class HelloCdkAppStack extends cdk.Stack {
     });
 
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
-      downstream: hello
+      downstream: hello,
+      hitcounterPath: 'node_modules/cdkworkshop-lib/lambda', // the path to the hitcounter.js file in the lambda directory
     });
 
     // defines an API Gateway REST API resource backed by our "hello" function.
@@ -105,7 +106,7 @@ npm ERR!   cdkworkshop-lib@"*" from the root project
 
 On line 5, NPM is saying that the version of `aws-cdk-lib` is undefined. This is because our CodeArtifact repository does not actually contain the `aws-cdk-lib` package. When we ran the command `npm install cdkworkshop-lib`, npm went to our CodeArtifact repository looking for `aws-cdk-lib` but couldn't find it, hence the error. We can resolve this issue by either adding the `aws-cdk-lib` package to our CodeArtifact repository or by setting an upstream npm repository for CodeArtifact to use. 
 
-For simplicity, let's set the upstream npm respository. This way, if NPM goes to our CodeArtifact repository and cannot find a particular package, it will first try to find that package in the upstream repository beffore throwing an error. If that package is found, the package will be installed by NPM as expected. See <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html" target="_blank">Working with upstream repositories in CodeArtifact</a> to learn more.
+For simplicity, let's set the upstream npm respository. This way, if NPM goes to our CodeArtifact repository and cannot find a particular package, it will first try to find that package in the upstream repository before throwing an error. If that package is found, the package will be installed by NPM as expected. See <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html" target="_blank">Working with upstream repositories in CodeArtifact</a> to learn more.
 
 Run the following command to set the upstream NPM respository for CodeArtifact:
 

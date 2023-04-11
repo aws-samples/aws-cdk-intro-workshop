@@ -163,6 +163,9 @@ import { Construct } from 'constructs';
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
   readonly downstream: lambda.IFunction;
+
+  /** the path to the hitcounter lambda directory. Doing it this way allows us to specify the path in the stack itself **/
+  readonly hitcounterPath: string;
 }
 
 export class HitCounter extends Construct {
@@ -183,7 +186,7 @@ export class HitCounter extends Construct {
     this.handler = new lambda.Function(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'hitcounter.handler',
-      code: lambda.Code.fromAsset('lambda'),
+      code: lambda.Code.fromAsset(props.hitcounterPath),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName,
@@ -210,7 +213,7 @@ export * from './hitcounter';
 {{% notice info %}} Note: Projen only transpiles Typescript files in `src` folder {{% /notice %}}
 
 Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Rename the `hello.test.ts` file found in `constructs\test` directory to `constructs.test.ts` and replace the contents with the following code:
-{{<highlight ts>}}
+{{<highlight typescript>}}
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -220,6 +223,7 @@ test('DynamoDB Table Created', () => {
   const stack = new cdk.Stack();
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
+    hitcounterPath: 'lambda',
     downstream: new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'index.handler',
@@ -228,6 +232,7 @@ test('DynamoDB Table Created', () => {
         };
      `),
     }),
+
   });
   // THEN
   const template = Template.fromStack(stack);
