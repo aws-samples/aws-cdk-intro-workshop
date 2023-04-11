@@ -3,11 +3,11 @@ title = "Create Construct Lib - Construct Code"
 weight = 400
 +++
 
-## Create Construct Lib - Construct
+## Create Construct Library - Construct
 
-Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files. Then, as an Internal Construct Hub Producer, we'll create a Construct called Hitcounter. Lastly, we'll edit the configuration to transpile our Constructs to the selected runtime/language targets.
+Next, we will create a construct library project leveraging Projen to synthesize and manage project configuration files. Then, as an Internal Construct Hub Producer, we'll create a construct called `Hitcounter`. Lastly, we'll edit the configuration to transpile our constructs to the selected runtime/language targets.
 
-### Setup Projen project
+### Set Up a Projen Project
 
 From the `construct-lib-repo` directory, Create a directory named `constructs/`. It should be a sibling (on the same level) of the `pipeline/` directory.
 
@@ -18,7 +18,7 @@ cd constructs
 
 Run the following command to scaffold an awscdk-construct type Projen project
 
-{{<highlight js>}}
+{{<highlight javascript>}}
 npx projen new awscdk-construct \
  --build-workflow false \
  --github false \
@@ -32,12 +32,12 @@ The `.projenrc.js` file holds the Projen configuration.
 Open the file `.projenrc.js` and make the following two changes.
 
 1. Import the ReleaseTrigger class from projen's library.
-   {{<highlight js>}}
+   {{<highlight javascript>}}
    const { ReleaseTrigger } = require('projen/lib/release');
    {{</highlight>}}
 
 2. After the `repositoryUrl` attribute add the following attributes listed below.  
-   {{<highlight js>}}
+   {{<highlight javascript>}}
 description: 'CDK Construct Library by projen/jsii',
 python: {
 distName: 'hitcounter',
@@ -58,7 +58,7 @@ releaseTrigger: ReleaseTrigger.manual(),
 
 The file should look something like this:
 
-{{<highlight js>}}
+{{<highlight javascript>}}
 const { awscdk } = require('projen');
 const { ReleaseTrigger } = require('projen/lib/release');
 
@@ -66,7 +66,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'CDK Workshop',
   authorAddress: 'cdkworkshop@amazon.com',
   buildWorkflow: false,
-  cdkVersion: '2.1.0',
+  cdkVersion: '[Insert Latest CDK Version]', //Make sure to update this value to the latest version
   defaultReleaseBranch: 'main',
   github: false,
   name: 'cdkworkshop-lib',
@@ -93,30 +93,33 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.synth();
 {{</highlight>}}
 
+Make sure to replace the value of cdkVersion with the latest version (Version 2), which you can find here: <a href="https://docs.aws.amazon.com/cdk/api/versions.html" target="_blank">CDK Version</a>
+
 The `python`, `dotnet` and `publishToMaven` attributes tell Projen to transpile the CDK Construct to those target runtimes.
 
 The `majorVersion` attribute is set to `1`, so we start with version `1.0.0` of packaged artifacts.
 
 The `releaseTrigger` attribute is set to `manual`. For every commit/push to the repository the pipeline later would do `projen release` which would automatically update the published artifacts version number. Projen uses <a href="https://semver.org/" target="_blank">SEMVER</a> and <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to figure out which part of the version to increment, for details refer <a href="https://projen.io/releases.html" target="_blank">Projen release documentation</a>.
 
-#### Projen synth
-Run `projen` from the `constructs` directory. This will make projen synthesize the configuration. Projen synthesizes project configuration files such as package.json, tsconfig.json, .gitignore, GitHub Workflows, eslint, jest, etc from a well-typed definition written in JavaScript.
+#### Projen Synth
+Run `projen` from the `constructs` directory. This will make projen synthesize the configuration. Projen synthesizes project configuration files such as package.json, tsconfig.json, .gitignore, GitHub Workflows, eslint, jest, etc. from a well-typed definition written in JavaScript:
 
 {{<highlight bash>}}
 npx projen
 {{</highlight>}}
 
-## Create Lambda Directory
-Create a directory `lambda` in the root of the constructs directory (next to `src` and `test`).
+#### Create Lambda Directory
+Create a directory `lambda` in the root of the constructs directory (next to `src` and `test`):
+
 {{<highlight bash>}}
 mkdir lambda
 {{</highlight>}}
 
-## Hit counter Lambda handler
-We'll be reusing the [Hit counter lambda handeler](../../20-typescript/40-hit-counter/200-handler.html) from the TypeScript workshop. 
+#### Hit Counter Lambda Handler
+We'll be reusing the [Hit counter lambda handler](../../20-typescript/40-hit-counter/200-handler.html) from the TypeScript workshop. 
 
 Create the file `lambda/hitcounter.js`:
-{{<highlight ts>}}
+{{<highlight typescript>}}
 const { DynamoDB, Lambda } = require('aws-sdk');
 
 exports.handler = async function(event) {
@@ -147,11 +150,11 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-### Add HitCounter Construct
+#### Add Hit Counter Construct
 
 Create a new file `hitcounter.ts` in the `constructs/src` directory. Use the following code:
 
-{{<highlight ts>}}
+{{<highlight typescript>}}
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 
@@ -197,10 +200,10 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-This is very similar to the [hitcounter construct](../../20-typescript/40-hit-counter/300-resources.html) from a previous section with some slight modifications.
+This is very similar to the [Hitcounter construct](../../20-typescript/40-hit-counter/300-resources.html) from the TypeScript workshop with some slight modifications.
 
 Next, update `index.ts` in `constructs/src` by adding the following code on line 1:
-{{<highlight ts>}}
+{{<highlight typescript>}}
 export * from './hitcounter';
 {{</highlight>}}
 
@@ -220,7 +223,7 @@ test('DynamoDB Table Created', () => {
     downstream: new lambda.Function(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'index.handler',
-      code: lambda.Code.fromInline(`        exports.handler = async function(event) {
+      code: lambda.Code.fromInline(`exports.handler = async function(event) {
           console.log("event: ", event);
         };
      `),
@@ -232,32 +235,27 @@ test('DynamoDB Table Created', () => {
 });
 {{</highlight>}}
 
-### Projen tamper detection
+#### Projen Tamper Detection
 
-Projen is opinionated and mandates that all project configuration be done through `.projenrc.js` file. For instance if you directly change `package.json` then Projen will detect that during the release phase and will fail the release attempt. Hence, it is a good idea to do projen synth by running the `projen` command on the `constructs/` directory where the `.projenrc.js` file is before pushing the code to our CodeCommit repository.
+Projen is opinionated and mandates that all project configuration be done through the `.projenrc.js` file. For instance if you directly change `package.json` then Projen will detect that during the release phase and will fail the release attempt. Hence, it is a good idea to do projen synth by running the `projen` command on the `constructs/` directory where the `.projenrc.js` file is before pushing the code to our CodeCommit repository.
 
 {{<highlight bash>}}
-
 # This is to avoid Projen tamper related errors
-
 npx projen
 {{</highlight>}}
 
-### Push code to CodeCommit repository
+## Push Initial Commit to CodeCommit Repository
 
-Commit and push code with the specific Git commit message. The commit message hints how the version number should be incremented, whether this is a major, minor or hot fix. For details refer, <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a>.
-
-Ensure you push from the `construct-lib-repo` directory
-
+Ensure you push from the `construct-lib-repo` directory:
 {{<highlight bash>}}
 git add .
-git commit -m 'feat: add HitCounter to Construct Library'
+git commit -m 'Initial Commit'
 git push
 {{</highlight>}}
 
-### Extra credit (Optional)
+### Extra Credit (Optional)
 
-#### How to generate jssi transpiled and jsii-packmak packaged target on my machine?
+#### How Do I Generate JSSI Transpiled Packages Locally?
 
 The `compile` command below needs to be run on `constructs` folder where `.projenrc.js` file is. It will compile the typescript files in `src/` folder and place it on to `lib/` folder.
 {{<highlight bash>}}
@@ -273,4 +271,4 @@ Inspect `dist/js/` directory contents to see the generated artifact.
 
 ## Summary
 
-In this section, we have created the ConstructLib code in a structure expected by the ConstructLib pipline code (that we created in previous section). Next section we will look into how to create the pipeline instance from the pipeline CDK code which will then build, transpile, publish artifacts to our Internal ConstructHub.
+In this section, we structured the construct library construct code in a way that is expected by the construct library pipline code. In the next section we deploy the pipeline to build, transpile, and publish artifacts to our Internal Construct Hub.

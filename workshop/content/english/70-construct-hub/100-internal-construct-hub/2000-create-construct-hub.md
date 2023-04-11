@@ -25,7 +25,7 @@ By default, Construct Hub has a single package source configured, which is the p
 
 Create a new file under `lib/internal-construct-hub-stack.ts` with the following code:
 
-{{<highlight ts>}}
+{{<highlight typescript>}}
 import * as cdk from 'aws-cdk-lib';
 import * as codeartifact from 'aws-cdk-lib/aws-codeartifact';
 import { ConstructHub } from 'construct-hub';
@@ -58,7 +58,7 @@ export class InternalConstructHubStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-## Bootstrapping an environment
+## Bootstrapping an Environment
 The first time you deploy an AWS CDK app into an environment (account/region),
 you can install a "bootstrap stack". This stack includes resources that
 are used in the toolkit's operation. For example, the stack includes an S3
@@ -66,19 +66,20 @@ bucket that is used to store templates and assets during the deployment process.
 
 You can use the `cdk bootstrap` command to create the bootstrap stack in your AWS Account:
 
-```
+{{<highlight bash>}}
 cdk bootstrap
-```
+{{</highlight>}}
+
 You should see output like this:
 {{<highlight bash>}}
 Environment aws://[account-id]/[region] bootstrapped
 {{</highlight>}}
 
-### Deploy
+## Deploy
 Use `npx cdk deploy` to deploy the CDK app:
 
-```
+{{<highlight bash>}}
 npx cdk deploy
-```
+{{</highlight>}}
 
 {{% notice info %}} Deploying the Internal Construct Hub Stack for the first time may take ~10-12 minutes. You can take a break or continue through the Construct Lib sections of the workshop {{% /notice %}}

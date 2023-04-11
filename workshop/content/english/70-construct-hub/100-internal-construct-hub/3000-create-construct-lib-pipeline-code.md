@@ -3,7 +3,7 @@ title = "Create Construct Lib - Pipeline Code"
 weight = 300
 +++
 
-## Create Construct Lib pipeline
+## Create Construct Library - Pipeline
 
 Next, we'll set up the infrastructure that will deploy the construct library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the 'internal-construct-hub-workshop' directory.
 
@@ -20,8 +20,9 @@ Note: We will be working with Typescript, so make sure you have it installed. If
 npm install -g typescript
 {{</highlight>}}
 
-Create a new folder called `pipeline` within the `/construct-lib-repo` directory. This will contain all the pipeline infrstructure. Then initialize a cdk typescript application
+Now create a new folder called `pipeline` within the `/construct-lib-repo` directory. This will contain all the pipeline infrastructure. Then initialize a CDK Typescript application
 project.
+
 {{<highlight bash>}}
 mkdir pipeline
 cd pipeline
@@ -30,7 +31,7 @@ cdk init app --language typescript
 
 Open the `lib/pipeline-stack.ts`file and replace the code with the following:
 
-{{<highlight ts>}}
+{{<highlight typescript>}}
 import * as cdk from 'aws-cdk-lib';
 import * as codecommit from 'aws-cdk-lib/aws-codecommit'
 import * as codebuild from 'aws-cdk-lib/aws-codebuild'
@@ -138,7 +139,7 @@ This creates a CodePipline pipeline with two stages, a source stage linked to th
 
 Next we need to change the entry point to deploy our pipeline. To do this, edit the code in `bin/pipeline.ts` as follows:
 
-{{<highlight ts "hl_lines=2 5">}}
+{{<highlight typescript>}}
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { PipelineStack } from '../lib/pipeline-stack';
@@ -151,9 +152,9 @@ new PipelineStack(app, 'InternalConstructPipelineStack', {
 });
 {{</highlight>}}
 
-## CodeBuild
+## CodeBuild Setup
 
-We'll use CodeBuild to actually build our project. CodeBuild needs a 'buildspec' file. A buildspec is a collection of build commands and related settings, in YAML format, that CodeBuild uses to run a build.
+We'll use CodeBuild to actually build our project. CodeBuild needs a 'buildspec' file. A buildspec is a collection of build commands and related settings in YAML format that CodeBuild uses to run a build.
 
 Run the following commands to create the buildspec file:
 {{<highlight bash>}}
