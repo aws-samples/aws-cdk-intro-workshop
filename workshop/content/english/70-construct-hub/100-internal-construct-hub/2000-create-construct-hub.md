@@ -1,9 +1,9 @@
 +++
-title = "Create Construct Hub"
+title = "Create Internal Construct Hub"
 weight = 200
 +++
 
-## Create Construct Hub Infrastructure
+## Create the Internal Construct Hub Infrastructure
 
 {{% notice warning %}} Please note that the Construct Hub web interface is delivered through a publicly accessible CloudFront distribution. Restricting access to specific users and groups is beyond the scope of this workshop. However, you may consider the following best practices to implement it:
 
@@ -13,7 +13,7 @@ weight = 200
 - For access inside of an Intranet or private networks, disable your CloudFront distribution and provide access to the origin S3 bucket through an internal Application Load Balancer using interface endpoints on AWS PrivateLink for Amazon S3.
   {{% /notice %}}
 
-### Create Construct Hub Stack
+### Create the Internal Construct Hub Stack
 
 As an Internal Construct Hub Administrator, the first step is to create an instance of Construct Hub in an AWS Account. Before we can use the Construct Hub library in our stack, we need to install the npm module in our project:
 
@@ -23,7 +23,7 @@ npm install construct-hub
 
 By default, Construct Hub has a single package source configured, which is the public npmjs.com registry. However, it also supports CodeArtifact repositories and custom package source implementations. For our purposes, we will create a CodeArtifact domain and repository to add as a package source for our Internal Construct Hub.
 
-Create a new file under `lib/internal-construct-hub-stack.ts` with the following code:
+Edit the file under `lib/internal-construct-hub-stack.ts` and use the following code:
 
 {{<highlight typescript>}}
 import * as cdk from 'aws-cdk-lib';
@@ -76,10 +76,10 @@ Environment aws://[account-id]/[region] bootstrapped
 {{</highlight>}}
 
 ## Deploy
-Use `npx cdk deploy` to deploy the CDK app:
+Use `cdk deploy` to deploy the CDK app:
 
 {{<highlight bash>}}
-npx cdk deploy
+cdk deploy
 {{</highlight>}}
 
-{{% notice info %}} Deploying the Internal Construct Hub Stack for the first time may take ~10-12 minutes. You can take a break or continue through the Construct Lib sections of the workshop {{% /notice %}}
+{{% notice info %}} Deploying the Internal Construct Hub Stack for the first time may take ~10-12 minutes. You can take a break or continue through the Construct Library sections of the workshop {{% /notice %}}

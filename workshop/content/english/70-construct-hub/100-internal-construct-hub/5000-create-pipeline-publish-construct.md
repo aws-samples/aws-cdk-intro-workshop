@@ -24,16 +24,16 @@ Once `cdk deploy` completes, go to <a href="https://console.aws.amazon.com/codes
 If we wait ~5-10 minutes more, we'll see that some of the packages were updated to version `0.0.0`. But why is that? This is because Projen made another commit to the repository and triggered CodePipeline. We can verify this by going to `Respositories > Commits` in the CodeCommit console. Notice that the first commit is from you whereas the second commit is from "CodeBuild Automation". Per the <a href="https://projen.io/releases.html#initial-development-phase" target="_blank">Projen Documentation</a>, new projects start with version 0.0.0. Due to the fact that the Projen commit ran after our own, the version was first set to `1.0.0` and then `0.0.0` afterwards. This only happens on the first commit and is specific to Projen. Subsequent commits will follow standard conventions for version numbers. 
 
 ## Merge Divergent Branches
-Before moving on it's important to note that because Projen made its own commit's to the codecommit repository, the remote `construct-lib-repo` repository and local `construct-lib-repo` repository are now out of sync. To fix this, make sure that you run `git pull` from your local construct-lib-repo directory before making any pushes to the remote repository:
+Before moving on it's important to note that because Projen makes its own commit's to the codecommit repository, the remote `construct-lib-repo` repository and local `construct-lib-repo` repository will be out of sync. To fix this, make sure that you run `git pull` from your local construct-lib-repo directory before making any pushes to the remote repository:
 
 {{<highlight bash>}}
 git pull
 {{</highlight>}}
 
 ## Major, Minor, and Fix Releases
-The commit message hints how the version number should be incremented i.e. whether this is a major, minor or hot fix.
+Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer new versions of artifacts. The commit message defines how the version number should be incremented i.e. whether this is a major, minor or hot fix.
 
-Let's make a small change to our construct library code and commit the change to CodeCommit. Open the file `constructs/lambda/hitcounter.js` and modify the log message to read the following:
+Let's make a small 'fix' to our construct library code and commit the change to CodeCommit. Open the file `constructs/lambda/hitcounter.js` and modify the log message to read the following:
 
 {{<highlight typescript>}}
 console.log('downstream function response:', JSON.stringify(resp, undefined, 2));
@@ -72,7 +72,7 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-The commit message has to be formatted a specific way because Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer new versions of artifacts. Commit the changes to CodeCommit from the construct-lib-repo directory:
+Commit the changes to CodeCommit from the construct-lib-repo directory:
 
 {{<highlight bash>}}
 git add .
