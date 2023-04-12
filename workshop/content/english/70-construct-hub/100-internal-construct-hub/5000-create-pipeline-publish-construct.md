@@ -21,10 +21,10 @@ cdk deploy
 
 Once `cdk deploy` completes, go to <a href="https://console.aws.amazon.com/codesuite/codepipeline/pipelines" target="_blank">CodePipeline</a> and check out the pipeline run. If you do not see your pipeline, ensure you are in the correct AWS Region. The pipeline will push the artifact to CodeArtifact. Once the pipeline finishes running, navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a>, click into `cdkworkshop-repository`, and observe that version `1.0.0` of the artifact has been published.
 
-If we wait ~5-10 minutes more, we'll see that some of the packages were updated to version `0.0.0`. But why is that? This is because Projen made another commit to the repository and triggered CodePipeline. We can verify this by going to `Respositories > Commits` in the CodeCommit console. Notice that the first commit is from you whereas the second commit is from "CodeBuild Automation". Per the <a href="https://projen.io/releases.html#initial-development-phase" target="_blank">Projen Documentation</a>, new projects start with version 0.0.0. Due to the fact that the Projen commit ran after our own, the version was first set to `1.0.0` and then `0.0.0` afterwards. This only happens on the first commit and is specific to Projen. Subsequent commits will follow standard conventions for version numbers. 
+If we wait ~5-10 minutes more, we'll see that some of the packages were updated to version `0.0.0`. But why is that? This is because Projen made another commit to the repository and triggered CodePipeline. We can verify this by going to `Respositories > Commits` in the CodeCommit console. Notice that the first commit is from you whereas the second commit is from "CodeBuild Automation". Per the <a href="https://projen.io/releases.html#initial-development-phase" target="_blank">Projen Documentation</a>, new projects start with version `0.0.0`. Due to the fact that the Projen commit ran after our own, the version was first set to `1.0.0` and then `0.0.0` afterwards. This only happens on the first commit and is specific to Projen. Subsequent commits will follow standard conventions for version numbers. 
 
 ## Merge Divergent Branches
-Before moving on it's important to note that because Projen makes its own commit's to the codecommit repository, the remote `construct-lib-repo` repository and local `construct-lib-repo` repository will be out of sync. To fix this, make sure that you run `git pull` from your local construct-lib-repo directory before making any pushes to the remote repository:
+Before moving on it's important to note that because Projen makes its own commit's to the codecommit repository, the remote `construct-lib-repo` repository and local `construct-lib-repo` repository will be out of sync. To fix this, make sure that you run `git pull` from your local `construct-lib-repo` directory before making any pushes to the remote repository:
 
 {{<highlight bash>}}
 git pull
@@ -72,7 +72,7 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-Commit the changes to CodeCommit from the construct-lib-repo directory:
+Commit the changes to CodeCommit from the `construct-lib-repo` directory:
 
 {{<highlight bash>}}
 git add .

@@ -36,8 +36,9 @@ Open the file `.projenrc.js` and make the following two changes.
    const { ReleaseTrigger } = require('projen/lib/release');
    {{</highlight>}}
 
-2. After the `repositoryUrl` attribute add the following attributes listed below.  
-   {{<highlight javascript>}}
+2. After the `repositoryUrl` attribute add the following attributes listed below:
+
+{{<highlight javascript>}}
 description: 'CDK Construct Library by projen/jsii',
 python: {
 distName: 'hitcounter',
@@ -93,7 +94,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.synth();
 {{</highlight>}}
 
-Make sure to replace the value of cdkVersion with the latest version (Version 2), which you can find here: <a href="https://docs.aws.amazon.com/cdk/api/versions.html" target="_blank">CDK Version</a>
+Make sure to replace the value of `cdkVersion` with the latest version (Version 2), which you can find here: <a href="https://docs.aws.amazon.com/cdk/api/versions.html" target="_blank">CDK Version</a>
 
 The `python`, `dotnet` and `publishToMaven` attributes tell Projen to transpile the CDK Construct to those target runtimes.
 
@@ -116,9 +117,8 @@ mkdir lambda
 {{</highlight>}}
 
 #### Hit Counter Lambda Handler
-We'll be reusing the [Hit counter lambda handler](../../20-typescript/40-hit-counter/200-handler.html) from the TypeScript workshop. 
+We'll be reusing the [Hit counter lambda handler](../../20-typescript/40-hit-counter/200-handler.html) from the TypeScript workshop. Create the file `lambda/hitcounter.js`:
 
-Create the file `lambda/hitcounter.js`:
 {{<highlight typescript>}}
 const { DynamoDB, Lambda } = require('aws-sdk');
 
@@ -206,13 +206,15 @@ export class HitCounter extends Construct {
 This is very similar to the [Hitcounter construct](../../20-typescript/40-hit-counter/300-resources.html) from the TypeScript workshop with some slight modifications.
 
 Next, update `index.ts` in `constructs/src` by adding the following code on line 1:
+
 {{<highlight typescript>}}
 export * from './hitcounter';
 {{</highlight>}}
 
 {{% notice info %}} Note: Projen only transpiles Typescript files in `src` folder {{% /notice %}}
 
-Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Rename the `hello.test.ts` file found in `constructs\test` directory to `constructs.test.ts` and replace the contents with the following code:
+Finally, lets add a simple test for our new construct to ensure the projen build process succeeds. Rename the `hello.test.ts` file found in `constructs\test` directory to `hitcounter.test.ts` and replace the contents with the following code:
+
 {{<highlight typescript>}}
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';

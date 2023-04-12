@@ -12,69 +12,9 @@ cd hello-cdk-app
 cdk init app --language typescript
 {{</highlight>}}
 
-## Lambda Handler Code
-Next, we'll create the AWS Lambda handler code.
-
-Create a directory called `lambda` in the root of your project tree (next to `bin` and `lib`).
-
-{{<highlight bash>}}
-mkdir lambda
-{{</highlight>}}
-
-Then create a file called `lambda/hello.js` with the following contents:
-
-{{<highlight javascript>}}
-exports.handler = async function(event) {
-  console.log("request:", JSON.stringify(event, undefined, 2));
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "text/plain" },
-    body: `Hello, CDK! You've hit ${event.path}\n`
-  };
-};
-{{</highlight>}}
-
-## Add an AWS Lambda Function and API Gateway
-
-Add an `import` statement at the beginning of `lib/hello-cdk-app-stack.ts`, a
-`lambda.Function`, and a `apigw.LambdaRestApi` to your stack:
-
-
-{{<highlight typescript >}}
-import * as cdk from 'aws-cdk-lib';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as apigw from 'aws-cdk-lib/aws-apigateway';
-import { HitCounter } from './hitcounter';
-
-export class HelloCdkAppStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
-
-    // defines an AWS Lambda resource
-    const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_16_X,    // execution environment
-      code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
-      handler: 'hello.handler'                // file is "hello", function is "handler"
-    });
-
-    const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
-      downstream: hello,
-      hitcounterPath: 'lambda', // the path to the hitcounter.js file in the lambda directory
-    });
-
-    // defines an API Gateway REST API resource backed by our "hello" function.
-    new apigw.LambdaRestApi(this, 'Endpoint', {
-      handler: helloWithCounter.handler
-    });
-  }
-}
-{{</highlight>}}
-
-Your code editor may display an error at the `import { HitCounter } from './hitcounter';` line because the hitcounter construct cannot be found. That makes sense because currently, our project does not have a hitcounter construct. While we could author one from scratch, we'll instead fix this issue by taking on the role of an Internal Construct Hub Consumer and installing the hitcounter construct we created in the previous section. 
-
 ## Configure npm to Use CodeArtifact as the Package Repository
 
-To enable npm to pull packages from your CodeArtifact repository, follow the instructions described [here](https://docs.aws.amazon.com/codeartifact/latest/ug/npm-auth.html). The command should look something like this:
+To enable npm to pull packages from our CodeArtifact repository, we'll first have to log in using the steps described [here](https://docs.aws.amazon.com/codeartifact/latest/ug/npm-auth.html). The command should look something like this:
 
 {{<highlight bash>}}
 aws codeartifact login --tool npm --domain cdkworkshop-domain  --repository cdkworkshop-repository --region [Insert Region]
@@ -114,7 +54,7 @@ To set the upstream npm repository, follow the instructions in <a href="https://
 aws codeartifact update-repository --repository cdkworkshop-repository --domain cdkworkshop-domain --upstreams repositoryName=npm-store --region [Insert Region]
 {{</highlight>}}
 
-If the command ran successfully, a JSON block should be retuned that looks something like this:
+If the command ran successfully, a JSON block should be returned that looks something like this:
 
 {{<highlight JSON>}}
 {
@@ -143,14 +83,66 @@ npm install cdkworkshop-lib
 
 This time it worked! We can verify this by checking the `dependencies` section of the `package.json` file of the `hello-cdk-app`.
 
-## Adapt import to use the construct library
+## Lambda Handler Code
+Next, we'll create the AWS Lambda handler code.
 
-To adapt code to use the hitcounter construct from our cdkworkshop-lib construct library, replace `import { HitCounter } from './hitcounter';` with the following:
-{{<highlight typescript>}}
-import { HitCounter } from 'cdkworkshop-lib';
+Create a directory called `lambda` in the root of your project tree (next to `bin` and `lib`).
+
+{{<highlight bash>}}
+mkdir lambda
 {{</highlight>}}
 
-## Adapt import to use the construct library
+Then create a file called `lambda/hello.js` with the following contents:
+
+{{<highlight javascript>}}
+exports.handler = async function(event) {
+  console.log("request:", JSON.stringify(event, undefined, 2));
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "text/plain" },
+    body: `Hello, CDK! You've hit ${event.path}\n`
+  };
+};
+{{</highlight>}}
+
+## Add an AWS Lambda Function and API Gateway
+
+Replace the code in `hello-cdk-app-stack.ts` with the following: 
+
+{{<highlight typescript >}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
+import { HitCounter } from 'cdkworkshop-lib';
+
+export class HelloCdkAppStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // defines an AWS Lambda resource
+    const hello = new lambda.Function(this, 'HelloHandler', {
+      runtime: lambda.Runtime.NODEJS_16_X,    // execution environment
+      code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
+      handler: 'hello.handler'                // file is "hello", function is "handler"
+    });
+
+    const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
+      downstream: hello,
+      hitcounterPath: 'node_modules/cdkworkshop-lib/lambda', // the path to the hitcounter.js file in the lambda directory
+    });
+
+    // defines an API Gateway REST API resource backed by our "hello" function.
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: helloWithCounter.handler
+    });
+  }
+}
+{{</highlight>}}
+
+This stack imports our Hitcounter construct from the `cdkworkshop-lib` we just installed. It also adds a
+`lambda.Function`, and `apigw.LambdaRestApi`:
+
+## Deploy the Hello, CDK! Application
 
 Run `cdk deploy` to deploy the hello app and test it out.
 
@@ -158,25 +150,7 @@ Run `cdk deploy` to deploy the hello app and test it out.
 cdk deploy
 {{</highlight>}}
 
-Once deployed, we'll see an api gateway endpoint we can hit with a message. To do so, append a string to the end of your unique endpoint:
-
-{{<highlight bash>}}
-curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello!
-{{</highlight>}}
-
-Huh, we get an error back. Why is that? The api gateway endpoint uses our hitcounter lambda function so let's go check it out in the <a href="https://console.aws.amazon.com/lambda" target="_blank">Lambda</a> console. Ensure you're in the right region adn search for `hitcounter` to bring up the lambda function and click into it. Once it loads up, you'll notice that the hitcounter lambda function is using the `hello.js` file instead of `hitcounter.js` file! The reason this happened is because the hitcounter construct defined in the `hello-cdk-app-stack.ts` file is currently using the lambda directory local to the hello-cdk-app (which only contains `hello.js`) instead of the lambda directory in `cdkworkshop-lib` (which contains `hitcounter.js`). To fix this, change the value of hitcounterPath in the`hello-cdk-app-stack.ts` file to the following:
-
-{{<highlight typescript>}}
-hitcounterPath: 'node_modules/cdkworkshop-lib/lambda', // the path to the hitcounter.js file in the lambda directory
-{{</highlight>}}
-
-Then deploy the application again:
-
-{{<highlight bash>}}
-cdk deploy
-{{</highlight>}}
-
-Now when we hit our api gateway endpoint, we'll get the proper response back!
+Once deployed, we'll see an api gateway endpoint we can hit with a message. To do so, append a string to the end of your unique endpoint url. For example, we can append the string 'hello!':
 
 {{<highlight bash>}}
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello!
