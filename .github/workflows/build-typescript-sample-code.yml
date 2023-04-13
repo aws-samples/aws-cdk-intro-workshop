@@ -165,7 +165,7 @@ jobs:
 
       - name: Install NPM modules
         working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
-        run: npm install
+        run: yarn install
 
       - name: CDK synth
         working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
