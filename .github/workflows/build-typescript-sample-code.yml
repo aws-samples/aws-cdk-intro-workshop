@@ -112,7 +112,7 @@ jobs:
 
       - name: Install NPM modules
         working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/constructs
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Print Node and Projen version
         working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/constructs
@@ -165,7 +165,7 @@ jobs:
 
       - name: Install NPM modules
         working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
-        run: yarn install
+        run: npm install
 
       - name: CDK synth
         working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
