@@ -1,3 +1,0 @@
-test('ConstructHub Created', () => {
-    // todo
-});
