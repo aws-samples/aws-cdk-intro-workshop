@@ -111,19 +111,19 @@ jobs:
           python-version: '3.10'
 
       - name: Install NPM modules
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/constructs
         run: npm ci
 
       - name: Print Node and Projen version
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/constructs
         run: node --version && npx projen --version &&  grep 'projen"' package.json && npx jsii --version
 
       - name: Build
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/constructs
         run: npm run build
 
       - name: Run tests
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/constructs
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/constructs
         run: npx jest
 
   tests-construct-workshop-constructlib-pipeline:
@@ -139,15 +139,15 @@ jobs:
           node-version: 14.x
 
       - name: Install NPM modules
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/pipeline
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/pipeline
         run: npm install
 
       - name: CDK synth
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/pipeline
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/pipeline
         run: npx cdk synth
 
       - name: Run tests
-        working-directory: code/typescript/internal-constructs-workshop/construct-library/pipeline
+        working-directory: code/typescript/internal-constructs-workshop/construct-lib-repo/pipeline
         run: npx jest
 
 
@@ -164,13 +164,13 @@ jobs:
           node-version: 14.x
 
       - name: Install NPM modules
-        working-directory: code/typescript/internal-constructs-workshop/construct-hub
+        working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
         run: npm install
 
       - name: CDK synth
-        working-directory: code/typescript/internal-constructs-workshop/construct-hub
+        working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
         run: npx cdk synth
 
       - name: Run tests
-        working-directory: code/typescript/internal-constructs-workshop/construct-hub
+        working-directory: code/typescript/internal-constructs-workshop/internal-construct-hub
         run: npx jest
