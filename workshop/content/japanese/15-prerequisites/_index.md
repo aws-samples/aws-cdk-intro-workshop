@@ -8,7 +8,7 @@ weight = 15
 
 このワークショップを行うには、以下のものが必要です。
 
-{{% children showhidden="false" %}}
+{{< children showhidden="false" />}}
 
 これらのツールがすでにマシンにすでにインストールされている場合は、これらの手順を省略することができます。
 
