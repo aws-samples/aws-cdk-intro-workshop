@@ -7,6 +7,10 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    ignore:
+      # We have newer versions but need to stay on the 0.x line
+      - dependency-name: "cdk-dynamo-table-viewer"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "maven"
     directory: "/code/java"
