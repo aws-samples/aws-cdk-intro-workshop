@@ -1,6 +1,6 @@
 +++
 title = "Getting Started with Pipelines"
-weight = 110
+weight = 1000
 +++
 
 > Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/csharp/main-workshop) that represents the last state of the project after adding the tests.

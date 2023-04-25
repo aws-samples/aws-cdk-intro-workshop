@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- CDK Construct Library dependencies -->
+    <PackageReference Include="Amazon.CDK.Lib" Version="2.66.0" />
+    <PackageReference Include="Constructs" Version="10.1.257" />
+    <PackageReference Include="Cdklabs.DynamoTableViewer" Version="0.2.419" />
+  </ItemGroup>
+
+</Project>

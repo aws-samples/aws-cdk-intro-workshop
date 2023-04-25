@@ -1,6 +1,6 @@
 +++
 title = "Add Application to Pipeline"
-weight = 140
+weight = 4000
 +++
 
 ## Create Stage
