@@ -20,21 +20,21 @@ here](https://portal.aws.amazon.com/billing/signup).
 
 ## Administrator User
 
-2. Sign in to your AWS account
-3. Go to the AWS IAM console and [create a new user](https://console.aws.amazon.com/iam/home?#/users$new).
-4. Type a name for your user (e.g. `cdk-workshop`) and choose "Programmatic access".
+1. Sign in to your AWS account
+2. Go to the AWS IAM console and [create a new user](https://console.aws.amazon.com/iam/home?#/users$new).
+3. Type a name for your user (e.g. `cdk-workshop`) and choose "Programmatic access".
 
     ![](./new-user-1.png)
 
-5. Click **Next: Permissions** to continue to the next step.
-6. Click **Attach existing policies directly** and choose **AdministratorAccess**.
+4. Click **Next: Permissions** to continue to the next step.
+5. Click **Attach existing policies directly** and choose **AdministratorAccess**.
 
     ![](./new-user-2.png)
 
-7. Click **Next: Review**
-8. Click **Next: Tags**
-9. Click **Create User**
-10. In the next screen, you'll see your **Access key ID** and you will have the option
+6. Click **Next: Review**
+7. Click **Next: Tags**
+8. Click **Create User**
+9. In the next screen, you'll see your **Access key ID** and you will have the option
    to click **Show** to show the **Secret access key**. Keep this browser window open.
 
     ![](./new-user-3.png)
