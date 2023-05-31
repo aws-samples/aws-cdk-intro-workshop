@@ -5,7 +5,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Wasay Mabood',
   authorAddress: 'wasay.mabood@gmail.com',
   buildWorkflow: false,
-  cdkVersion: '2.73.0',
+  cdkVersion: '2.81.0',
   defaultReleaseBranch: 'main',
   github: false,
   name: 'cdkworkshop-lib',

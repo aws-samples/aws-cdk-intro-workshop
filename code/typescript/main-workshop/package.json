@@ -15,7 +15,7 @@
     "@types/node": "^16.6.1",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
-    "aws-cdk": "^2.25.0",
+    "aws-cdk": "^2.76.0",
     "typescript": "^4.3.5"
   },
   "dependencies": {
