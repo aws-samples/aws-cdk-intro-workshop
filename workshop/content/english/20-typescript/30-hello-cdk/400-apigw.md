@@ -35,7 +35,9 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     // defines an API Gateway REST API resource backed by our "hello" function.
     new apigw.LambdaRestApi(this, 'Endpoint', {
-      handler: hello
+      handler: hello,
+      // the default EndpointType EDGE is NOT supported in all regions, such as cn-northwest-1. In this case, change the EndpointType to REGIONAL as below.
+      endpointTypes: [apigw.EndpointType.REGIONAL]
     });
 
   }
