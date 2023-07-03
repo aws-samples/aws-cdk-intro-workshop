@@ -1,13 +1,12 @@
 +++
-title = "Create New Pipeline"
+title = "Crear una Nueva Canalización"
 weight = 130
 +++
 
-## Define an Empty Pipeline
-Now we are ready to define the basics of the pipeline.
+## Definir una Canalización Vacía
+Ahora estamos listos para definir las bases de la canalización.
 
-
-Return to the file `pipeline_stack.py` and edit as follows:
+Edite el archivo `pipeline_stack.py` así:
 
 {{<highlight python "hl_lines=5 17-29">}}
 from constructs import Construct
@@ -41,24 +40,24 @@ class WorkshopPipelineStack(Stack):
         )
 {{</highlight>}}
 
-### Component Breakdown
-The above code does several things:
+### Descripción de los Componentes
+El código anterior hace diferentes cosas:
 
-* `pipelines.CodePipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `pipelines.ShellStep(...)`: The `synth` of the pipeline describes the commands necessary to install dependencies, build, and synth the CDK application from source. This should always end in a *synth* command, for NPM-based projects this is always `npx cdk synth`.
-      * The `input` of the synth step specifies the repository where the CDK source code is stored.
+* `pipelines.CodePipeline(...)`: Esto inicializa la canalización con los valores requeridos. Esto servirá como el componente base de aquí en adelante. Cada canalización requiere como mínimo:
+    * `pipelines.ShellStep(...)`: El `synth` de la canalización describe los comandos necesarios para instalar dependencias, construir, y sintetizar la aplicación CDK desde el código fuente. Esto siempre debe terminar en un comando *synth*, para proyectos basados en NPM esto siempre es `npx cdk synth`.
+      * El `input` del paso synth especifica el repositorio donde el codigo fuente de CDK está almacenado.
 
-## Deploy Pipeline and See Result
-All that's left to get our pipeline up and running is to commit our changes and run one last cdk deploy.
+## Desplegar la Canalización y Ver el Resultado
+Tolo lo que falta para poner en marcha nuestra canalización es confirmar nuestros cambios y hacer el despliegue una última vez.
 
-```
+```bash
 git add .
 git commit -m "MESSAGE" && git push
 cdk deploy
 ```
 
-CdkPipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!
+CdkPipelines actualiza automáticamente cada vez que se hace una confirmación a un repositorio, así que esta es la *última vez* que necesitaremos ejecutar este comando!
 
-Once deployment is finished, you can go to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and you will see a new pipeline! If you navigate to it, it should look like this:
+Una vez que el despliegue haya finalizado, usted puede ir a la [consola de CodePipeline](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) y allí podrá ver una nueva canalización! Si lo hace, debería ver algo así:
 
 ![](./pipeline-init.png)

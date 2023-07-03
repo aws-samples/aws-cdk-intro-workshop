@@ -1,12 +1,12 @@
 +++
-title = "Create Repository"
+title = "Crear el Repositorio"
 weight = 120
 +++
 
-## Create Repo in Pipeline Stack
-The first step in any good CD pipeline is source control. Here we will create a [**CodeCommit**](https://aws.amazon.com/codecommit/) repository to contain our project code.
+## Crear el Repositorio en la Pila de la Canalización
+El primer paso en una buena canalización de CD es el control de código fuente. Aquí vamos a crear un repositorio de [**CodeCommit**](https://aws.amazon.com/codecommit/) para almacenar el código de nuestro proyecto.
 
-Edit the file `cdk_workshop/pipeline_stack.py` as follows.
+Edite el archivo `cdk_workshop/pipeline_stack.py` así.
 
 {{<highlight python "hl_lines=4 12-16">}}
 from constructs import Construct
@@ -29,51 +29,51 @@ class WorkshopPipelineStack(Stack):
         # Pipeline code goes here
 {{</highlight>}}
 
-## Deploy
+## Despliegue
 
 ```
 cdk deploy
 ```
 
-## Get Repo Info and Commit
-Before we can do anything with our repo, we must add our code to it!
+## Obtener la Información del Repositorio y Conformar
+Antes que podamos hacer cualquier cosa con nuestro repositorio, necesitamos adicionar nuestro código a el!
 
-### Git Credentials
-Before we can do that, we will need Git credentials for the repo. To do this, go to the [IAM Console](https://console.aws.amazon.com/iam), then navigate to `Users` and then your user of choice.
-Inside the manage user interface, navigate to the `Security credentials` tab and scroll until you see "HTTPS Git credentials for AWS CodeCommit". Click generate credentials and follow the instructions on downloading those credentials. We will need them in a moment.
+### Credenciales de Git
+Primero que todo, necesitamos las credenciales de Git para el repositorio. Para hacer esto, vaya a la [Consola de IAM](https://console.aws.amazon.com/iam), navegue a `Users` y luego al usuario que desee.
+Dentro de la interfaz para el manejo del usuario, navegue al tab `Security credentials` y desplace la página hacia abajo hasta encontrar la sección "HTTPS Git credentials for AWS CodeCommit". Haga click en "Generate credentials" y siga las instrucciones para descargar las credenciales. Las necesitaremos en un momento.
 
 ![](./git-cred.png)
 
-### Add Git remote
-The last console step we will need here is to navigate to the [CodeCommit Console](https://console.aws.amazon.com/codesuite/codecommit/repositories) and look for your repo. You will see a column called "Clone URL"; click "HTTPS" to copy the https link so we can add it to your local repo.
+### Adicionar el repositorio remoto
+Ahora debemos navegar a la [Consola de CodeCommit](https://console.aws.amazon.com/codesuite/codecommit/repositories) y buscar el repositorio. Alli deberá ver una columna llamada "Clone URL"; haga click en "HTTPS" para copiar el link https que podemos utilizar para adicionar al repositorio local.
 
-> Note: If you do not see your repo here, ensure you are in the interface for the correct region
+> Nota: Si usted no ve el repositorio aquí, asegúrese que esta en la interfaz para la región correcta.
 
 ![](./clone-repo.png)
 
-> While you are here, feel free to explore your repo. You will see that it is still empty, but you do have access to the repo configuration information.
+> Mientras usted esta aqui, sientase en libertad de explorar el repositorio. Usted podrá ver que aun está vacío, pero usted tiene acceso a la información de configuración del repositorio.
 
-In your terminal, first make sure that all the changes you have made during the workshop are committed by issuing `git status`. If you have unstaged or uncommitted changes, you can execute `git commit -am "SOME_COMMIT_MESSAGE_HERE"`. This will stage and commit all your files so you are ready to go!
+En la terminal, asegúrese primero que todos los cambios que se han hecho durante el workshop han sido confirmados ejecutando el comando `git status`. Si usted tiene cambios que no han sido preparados o confirmados, usted puede ejecutar `git commit -am "SOME_COMMIT_MESSAGE_HERE"`. Esto preparará y confirmará todos sus archivos de tal forma que usted estará listo para empezar!
 
-> Note: If you copied the code from the repo rather than following through the workshop from the beginning, first issue `git init && git add -A && git commit -m "init"`
+> Nota: Si usted copió el código desde el repositorio en lugar de seguir a través del workshop desde el comienzo, ejecute primero`git init && git add -A && git commit -m "init"`
 
-Next, we add the remote repo to our Git config. You can do this with the command (*XXXXX* represents the Clone URL you copied from the console):
+Ahora, adicionaremos el repositorio remoto a nuestra confirguración de Git. Esto se hace con el comando (*XXXXX* representa el "Clone URL" que usted copió previamente de la consola):
 
-```
+```bash
 git remote add origin XXXXX
 ```
 
-Now all we need to do is to push our code to the repo (`--set-upstream` tells Git to override the current empty main branch on your repo):
+Finalmente solo tenemos que enviar nuestro código al repositorio (`--set-upstream` le dice a Git que "anule" la rama actual -vacía- en su repositorio):
 
-```
+```bash
 git push --set-upstream origin main
 ```
 
-Here, CodeCommit will request the credentials you generated in the **Git Credentials** section. You will only have to provide them once.
+Aquí, CodeCommit le pedirá las credenciales generadas en la sección **Credenciales de Git**. Usted sólo debe proveerlas una vez.
 
-> Note: If the `git push` command hangs indefinitely, you may need to follow [these instructions](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html) to set up your git CLI.
+> Nota: Si el comando `git push` no termina y queda en ejecución indefinidamente, es posible que usted deba seguir [estas instrucciones](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html) para configurar su CLI de git.
 
-### See Result
-Now you can return to the CodeCommit console and see that your code is all there!
+### Ver el Resultado
+Ahora puede volver a la Consola de CodeCommit y ver que su código se encuentra allí!
 
 ![](./repo-code.png)
