@@ -1,9 +1,9 @@
 +++
-title = "Advanced Topics"
+title = "Temas Avanzados"
 weight = 70
 bookFlatSection = true
 +++
 
-# Advanced Topics
+# Temas Avanzados
 
-In this chapter we will explore some advanced topics in the CDK that are not required in order to complete the workshop.
+En este capítulo exploraremos algunos temas avanzados en el CDK que no son requeridos para completar el workshop.
