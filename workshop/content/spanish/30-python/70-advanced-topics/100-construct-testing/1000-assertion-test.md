@@ -1,31 +1,28 @@
 +++
-title = "Assertion Tests"
+title = "Pruebas de Aserción"
 weight = 200
 +++
 
-### Fine-Grained Assertion Tests
+### Pruebas de Aserción Detalladas
 
-#### Create a test for the DynamoDB table
+#### Crear una prrueba para la tabla de DynamoDB
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/30-python/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} Esta sección asume que usted ha [creado el constructo contador de hits](/es/30-python/40-hit-counter.html) {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+Nuestro constructo `HitCounter` crea una tabla simple de DynamoDB. Ahora, creemos una prueba que valide que la tabla está siendo creada.
 
-If you have create the project with `cdk init` then you should already have a `tests` directory. In that case you will need to remove
-the existing `test_cdk_workshop_stack.py` file.
+Si usted ha creado el proyecto con `cdk init` entonces usted debe contar ya con un directorio llamado `tests`. En este caso usted necesitará remover el archivo llamado `test_cdk_workshop_stack.py` que se encuentra allí.
 
-If you do not already have a `tests` directory (usually created automatically when you run `cdk init`), then create a `tests` directory at the
-root of the project and then create the following files:
+Si usted no cuenta con un directorio llamado `tests` (que es automáticamente creado cuento se ejecuta `cdk init`), entonces cree un directorio `tests` en la raíz del proyecto y luego cree los siguientes archivos:
 
-```
+```bash
 mkdir -p tests/unit
 touch tests/__init__.py
 touch tests/unit/__init__.py
 touch tests/unit/test_cdk_workshop.py
 ```
 
-In the file called `test_cdk_workshop.py` create your first test using the following code.
+En el archivo llamado `test_cdk_workshop.py` cree su primera prueba utilizando el siguiente código.
 
 ```python
 from aws_cdk import (
@@ -49,15 +46,15 @@ def test_dynamodb_table_created():
     template.resource_count_is("AWS::DynamoDB::Table", 1)
 ```
 
-This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
+Esta prueba simplemente está asegurando que la pila sintetizada incluye una tabla de DynamoDB.
 
-Run the test.
+Ejecute la prueba.
 
 ```bash
 $ pytest
 ```
 
-You should see output like this:
+Usted debería ver una salida similar a esta:
 
 ```bash
 $ pytest
@@ -71,14 +68,12 @@ tests/unit/test_cdk_workshop.py .                                               
 ================================================================================================== 1 passed in 1.49s ==================================================================================================
 ```
 
-#### Create a test for the Lambda function
+#### Crear una prueba para la función Lambda
 
-Now lets add another test, this time for the Lambda function that the `HitCounter` construct creates.
-This time in addition to testing that the Lambda function is created, we also want to test that
-it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
+Ahora adicionemos otra prueba, esta vez para la función Lambda que el constructo `HitCounter` crea.
+Además de probar que la función Lambda es creada, también queremos probar que es creada con las dos variables de entorno `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+Adicione otra prueba debajo de la prueba de la tabla de DynamoDB. Si recuerda, cuando creamos la función Lambda los valores de las variables de entorno eran referencias a otros constructos.
 
 {{<highlight python "hl_lines=7-8">}}
 self._handler = _lambda.Function(
@@ -93,11 +88,9 @@ self._handler = _lambda.Function(
 )
 {{</highlight>}}
 
-At this point we don't really know what the value of the `function_name` or `table_name` will be since the
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
-dummy value for now. Once we run the test it will fail and show us the expected value.
+En este punto no sabemos realmente cuales serán los valores de `function_name` o `table_name` ya que CDK calculará un hash que será añadido al final del nombre de los constructos, así que utilizaremos un valor ficticio por el momento. Una vez que ejecutemos la prueba, fallará y nos mostrará el valor esperado.
 
-Create a new test in `test_cdk_workshop.py` with the below code:
+Cree una nueva prueba en `test_cdk_workshop.py` con el siguiente código:
 
 ```python
 def test_lambda_has_env_vars():
@@ -124,14 +117,13 @@ def test_lambda_has_env_vars():
             }
 ```
 
-Save the file and run the test again.
+Guarde el archivo y ejecute la prueba de nuevo.
 
 ```bash
-pytest
+$ pytest
 ```
 
-This time the test should fail and you should be able to grab the correct value for the
-variables from the expected output.
+Esta vez la prueba debe fallar y usted podrá obtener los valores correctos para las variables de la salida.
 
 {{<highlight bash "hl_lines=17">}}
 $ pytest
@@ -159,7 +151,7 @@ FAILED tests/unit/test_cdk_workshop.py::test_lambda_has_env_vars - AssertionErro
 ============================================================================================= 1 failed, 1 passed in 1.60s =============================================================================================
 {{</highlight>}}
 
-Grab the real values for the environment variables and update your test
+Tome nota de los valores reales para las variables de entorno y actualice su prueba.
 
 {{<highlight python "hl_lines=16-17">}}
 def test_lambda_has_env_vars():
@@ -184,13 +176,13 @@ def test_lambda_has_env_vars():
 
 {{</highlight>}}
 
-Now run the test again. This time is should pass.
+Ahora, ejecute la prueba de nuevo.  Esta vez debe ser exitosa.
 
 ```bash
 $ pytest
 ```
 
-You should see output like this:
+Usted debe ver una salida como la siguiente:
 
 ```bash
 $ pytest
@@ -205,10 +197,9 @@ tests/unit/test_cdk_workshop.py ..                                              
 ================================================================================================== 2 passed in 1.58s ==================================================================================================
 ```
 
-You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
-requirement that our DynamoDB table be encrypted.
+Usted también puede aplicar TDD (Test Driven Development) para desarrollar Constructos de CDK. Para mostrar un ejemplo muy simple, adicionemos un nuevo requerimiento para que nuestra tabla de Dynamo DB sea encriptada.
 
-First we'll update the test to reflect this new requirement.
+Primero actualizaremos la prueba para reflejar este nuevo requerimiento.
 
 {{<highlight python>}}
 def test_dynamodb_with_encryption():
@@ -227,7 +218,7 @@ def test_dynamodb_with_encryption():
         })
 {{</highlight>}}
 
-Now run the test, which should fail.
+Ahora ejecutemos la prueba, que debe fallar.
 
 ```bash
 $ pytest
@@ -288,9 +279,9 @@ FAILED tests/unit/test_cdk_workshop.py::test_dynamodb_with_encryption - jsii.err
 ============================================================================================= 1 failed, 2 passed in 1.65s =============================================================================================
 ```
 
-Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
+Ahora, corrijamos el problema. Actualicemos el código de hitcounter para habilitar la encripción por defecto.
 
-Edit `hitcounter.py`
+Edite `hitcounter.py`
 {{<highlight python "hl_lines=4">}}
 self._table = ddb.Table(
     self, 'Hits',
@@ -299,7 +290,7 @@ self._table = ddb.Table(
 )
 {{</highlight>}}
 
-Now run the test again, which should now pass.
+Ejecutemos la prueba nuevamente, esta vez debe ser exitosa.
 
 ```bash
 $ pytest
