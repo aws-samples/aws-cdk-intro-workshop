@@ -15,6 +15,9 @@ hasCJKLanguage = true
   [languages.ja]
     languageName = "日本語"
     contentDir = "content/japanese"
+  [languages.es]
+    languageName = "Spanish"
+    contentDir = "content/spanish"
 
 [markup]
 [markup.goldmark.renderer]
