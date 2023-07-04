@@ -1,24 +1,31 @@
 +++
-title = "Prerequisites"
+title = "Prerequisitos"
 bookCollapseSection = true
 bookFlatSection = true 
 weight = 15
 +++
 
-# Prerequisites for the Workshop
+# Prerrequisitos para el workshop
 
-To perform this workshop, you'll need the following:
+Para realizar este workshop, necesitarás lo siguiente:
 
-{{< children showhidden="false" />}}
+* [AWS CLI](https://cdkworkshop.com/es/15-prerequisites/100-awscli.html)
+* [Cuenta de AWS y Usuario](https://cdkworkshop.com/es/15-prerequisites/200-account.html)
+* [Node.js](https://cdkworkshop.com/es/15-prerequisites/300-nodejs.html)
+* [IDE para tu lenguaje de programación](https://cdkworkshop.com/es/15-prerequisites/400-ide.html)
+* [AWS CDK ToolKit](https://cdkworkshop.com/es/15-prerequisites/500-toolkit.html)
+* [Python](https://cdkworkshop.com/es/15-prerequisites/600-python.html)
 
-Node.js is always required to use CDK, but all other language prerequisites
-are only required if building a CDK app in that specific language
 
-You can skip any of these steps if you have these tools already installed on
-your machine.
+Node.js  es requerido para usar el CDK, pero los otros lenguajes dentro de los prerrequisitos, sólo serán necesarios si se quiere construir una aplicación con el CDK en ese lenguaje.
 
-Click on the arrow to the right to continue to the first step.
+Puedes salar cualquiera de estos pasos si ya tienes instaladas estas herramientas en tu máquina.
 
-## See Also
+Clic en la flecha a la derecha para continuar hacia el primer paso
 
-- [Prerequisites in the AWS CDK User Guide](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_prerequisites)
+
+### Mira también
+
+
+
+* [Prerrequisitos en la guía de usuario de AWS CDK](https://docs.aws.amazon.com/es_es/cdk/v2/guide/getting_started.html)

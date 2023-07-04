@@ -3,12 +3,12 @@ title = "AWS CLI"
 weight = 100
 +++
 
-The AWS CLI allows you to interact with AWS services from a terminal session.
-Make sure you have the latest version of the AWS CLI installed on your system.
+# AWS CLI
 
- * Windows: [MSI installer](https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#install-msi-on-windows)
- * Linux, macOS or Unix: [Bundled installer](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-bundle.html#install-bundle-other)
+AWS CLI te permite interactuar con los servicios de AWS desde una terminal. Asegúrate de tener instalada la última versión de AWS CLI en tu equipo.
 
-See the [AWS Command Line Interface
-installation](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
-page for more details.
+
+* Windows: [MSI installer](https://docs.aws.amazon.com/cli/latest/userguide/install-windows.html#install-msi-on-windows)
+* Linux, macOS or Unix: [Bundled installer](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-bundle.html#install-bundle-other)
+
+Mira la siguiente página para más detalles [Instalación de AWS Command Line Interface](https://docs.aws.amazon.com/es_es/cli/latest/userguide/cli-chap-getting-started.html)

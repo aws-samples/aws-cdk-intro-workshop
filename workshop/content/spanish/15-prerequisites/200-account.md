@@ -1,56 +1,52 @@
 +++
-title = "AWS Account and User"
+title = "Cuenta de AWS y usuario"
 weight = 200
 +++
 
-## AWS Account for Experimentation
+## Cuenta de AWS para experimentación
 
-To deploy our app, you'll need access to an AWS account. If you already have an
-account and your system is configured with credentials of an administrator user,
-you can [move to the next step](./300-nodejs.html).
+Para desplegar nuestra aplicación, necesitarás acceso a una cuenta de AWS. Si ya cuentas con una y tu equipo estás configurado con las credenciales de un usuario administrador, puedes [moverte a la siguiente sección](http://#).
 
-{{% notice warning %}}
-If you are using an existing account, either personal or
-a company account, make sure you understand the implications and policy of
-provisioning resources into this account.
-{{% /notice %}}
+Si no tienes una cuenta de AWS, puedes [crear una cuenta gratis aquí](https://portal.aws.amazon.com/billing/signup#/start/email)
 
-If you don't have an AWS account, you can [create a free account
-here](https://portal.aws.amazon.com/billing/signup).
 
-## Administrator User
+## Usuario Administrador
 
-2. Sign in to your AWS account
-3. Go to the AWS IAM console and [create a new user](https://console.aws.amazon.com/iam/home?#/users$new).
-4. Type a name for your user (e.g. `cdk-workshop`) and choose "Programmatic access".
+1. Inicia sesión en tu cuenta de AWS.
+2. Dirígete hacia la consola de **AWS IAM**
+3. Debajo de la pestaña de **Administración del acceso**, selecciona **Usuarios**
+4. Clic en el botón **Agregar usuarios**
+5. Escribe un nombre para tu usuario (Ejemplo: `cdk-workshop`), selecciona la casilla **Proporcione acceso de usuario a la consola de administración de AWS: *Opcional***
+6. Seleccione el **Quiero crear un usuario de IAM**
+7. Elija la configuración de contraseña que desee, clic en **siguiente**
 
-    ![](./new-user-1.png)
 
-5. Click **Next: Permissions** to continue to the next step.
-6. Click **Attach existing policies directly** and choose **AdministratorAccess**.
+    ![](./nuevo-usuario.png)
 
-    ![](./new-user-2.png)
+1. En opciones de permiso elija Adjuntar políticas directamente. 
 
-7. Click **Next: Review**
-8. Click **Next: Tags**
-9. Click **Create User**
-10. In the next screen, you'll see your **Access key ID** and you will have the option
-   to click **Show** to show the **Secret access key**. Keep this browser window open.
+*Como práctica recomendada, le sugerimos, en cambio, adjuntar políticas a un grupo. A continuación, agregue el usuario al grupo adecuado.*
 
-    ![](./new-user-3.png)
+1. Seleccione la política con el nombre **AdministratorAccess**, y clic en **siguiente**.
+2. Clic en **Crear usuario**
+3. Regresa a la lista de usuarios, selecciona el usuario recientemente creado **cdk-workshop**
+4. Selecciona la pestaña **credenciales de seguridad**, En el apartado **Claves de acceso** clic en **Crear clave de acceso**
+5. En Caso de uso, selecciona Interfaz de línea de comandos (CLI)
+6. Clic en el checkbox ***Entiendo la recomendación anterior y deseo proceder a la creación de una clave de acceso**.* Y **Siguiente**. Y luego en **Crear clave de acceso**
 
-## Configure your credentials
+*Puedes copiar la clave de acceso y la clave de acceso secreta o descargar el archivo.csv con la información.*
 
-Open a terminal window and use `aws configure` to set up your environment. Type
-the __access key ID__ and __secret key__ and choose a default region (you can
-use `us-east-1`, `eu-west-1`, `us-west-2` for example). Preferably use a region
-that doesn't have any resources already deployed into it.
+Configura tus credenciales
+
+Abre una ventana de terminal y escribe `aws configure` para configurar tu ambiente. Ingresa la **access key ID** (Clave de acceso) y la **secret access key** (Clave de acceso secreta), luego elija una región por defecto (Puedes usar `us-east-1`, `us-west-1`, `us-west-2` por ejemplo). Preferiblemente elija una región que no contenga ningún recurso desplegado en ella.
+
 
 ```
 aws configure
 ```
 
-And fill in the information from the console:
+Y llena la información desde la consola:
+
 
 ```
 AWS Access Key ID [None]: <type key ID here>

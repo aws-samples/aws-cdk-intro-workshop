@@ -3,18 +3,8 @@ title = "Python"
 weight = 600
 +++
 
-If you are planning on using the Python Workshop, you obviously will need to
-have Python installed.  Specifically, you will need version 3.6 or later.  You
-can find information about downloading and installing Python
-[here](https://www.python.org/downloads/).
+Si estás planeando usar el workshop para Python, entonces obviamente necesitarás tener Python instalado. Especificamente, necesitarás la versión 3.6 o superior. Puedes encontrar información acerca de cómo descargar e instalar Python [aquí](https://www.python.org/downloads/).
 
-If you use Windows, be sure Python is on your PATH. To see if it is, type `python`
-at a command prompt. The easiest way to make sure Python is on your PATH is to tick the
-**Add Python 3.x to PATH** checkbox on the first screen of the Python installer wizard.
-If you already have Python installed, but it's not on your PATH, you can add it by
-editing the `PATH` environment variable. To edit environment variables, click the 
-**Environment Variables** button in the Advanced page of Windows' System Properties.
-(Quickest way to get there: press and release the Windows key, type **env**, and 
-choose **Edit the system environment variables** from the Start menu.)
+Si usas Windows, asegúrate que Python esté en tu PATH. Para ver sí está, escribe `python` en una terminal. La manera más fácil de estar seguro que Python está en tu PATH es marcar el checkbox **Add Python 3.x to PATH** en la pantalla del instalador de Python. Sí ya tienes instalado Python, pero no está en tu PATH, puedes añadirlo editando la variable de entorno `PATH`. Para editar las variables de entorno, has clic en el botón Variables de entorno en la página avanzada de las propiedades del sistema de Windows. (La manera más rápida de obtener: Presiona y libera la tecla Windows, escribe **env**, y elija **Editar las variables de entorno del sistema** desde el menú de inicio.
 
-Additionally you will need to have the Python package installer (pip) installed. See installation instructions [here](https://pypi.org/project/pip/).
+Adicionalmente, necesitarás tener el instalador de paquetes de Python (pip) instalado. Mira las instrucciones de instalación [aquí](https://pypi.org/project/pip/).

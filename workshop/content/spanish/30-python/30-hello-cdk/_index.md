@@ -4,15 +4,13 @@ bookFlatSection = true
 weight = 30
 +++
 
-# Hello, CDK!
+# ¡Hola, CDK!
 
-In this chapter, we will finally write some CDK code. Instead of the SNS/SQS
-code that we have in our app now, we'll add a Lambda function with an API
-Gateway endpoint in front of it.
 
-Users will be able to hit any URL in the endpoint and they'll receive a
-heartwarming greeting from our function.
+En este capitulo, finalmente escribiremos algún código de CDK. En vez del código de SNS/SQS que tenemos en nuestra aplicación hasta ahora, añadiremos una función Lambda con un endpoint de API Gateway en frente de ésta.
+
+Los usuarios serán capaces de alcanzar cualquier URL en el endpoint y ellos recibirán un saludo caluroso desde nuestra función.
 
 ![](/images/hello-arch.png)
 
-First, let's clean up the sample code.
+Pero antes, limpiemos nuestro código de ejemplo.

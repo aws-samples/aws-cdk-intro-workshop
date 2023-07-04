@@ -3,21 +3,20 @@ title = "AWS CDK Toolkit"
 weight = 500
 +++
 
-Next, we'll install the AWS CDK Toolkit. The toolkit is a command-line utility
-which allows you to work with CDK apps.
+Ahora, necesitaremos instalar el AWS CDK Toolkit. El toolkit is una utilidad de lineas de comando el cual permite trabajar con aplicaciones de CDK.
 
-Open a terminal session and run the following command:
+Abre una ventana de terminal y ejecuta el siguiente comando:
 
-- Windows: you'll need to run this as an Administrator
-- POSIX: on some systems you may need to run this with `sudo`
+* Windows: Necesitaras ejecutarlo como un Administrador
+* POSIX: En algunos sistemas es necesario ejecutar el comando con `sudo`
 
 ```
 npm install -g aws-cdk
 ```
 
-You can check the toolkit version:
+Puedes verificar la versión del toolkit:
 
 ```
-$ cdk --version
-{{% cdkversion %}}
+cdk --version
+2.0.0 (build 4b6ce31)
 ```

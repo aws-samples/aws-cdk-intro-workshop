@@ -4,22 +4,20 @@ chapter = false
 weight = 300
 +++
 
-The AWS CDK uses Node.js (>= 10.13.0, except for versions 13.0.0 - 13.6.0).
-A version in active long-term support (16.x at this writing) is recommended.
 
-* To install Node.js visit the [node.js](https://nodejs.org) website.
+El AWS CDK usa Node.js (>= 10.13.0, excepto para versiones 13.0.0 - 13.6.0). Se recomienda una versión con soporte activa a largo plazo (16.x en el momento de escribir este workshop).
 
-    * __Windows__: if you have an old version of Node.js installed on your
-      system, it may be required to run the .msi installation as Administrator.
 
-* If you already have Node.js installed, verify that you have a compatible version:
+* Para instalar Node.js visita el sitio web [node.js](https://nodejs.org/es)
+    * **Windows**: Si tienes una versión anterior de Node.js instalada en tu equipo, puede ser requerido correr el .msi installation como Administrador
+* Si ya tienes instalado Node.js, verifica que tienes una versión compatible
 
-    ```
-    node --version
-    ```
+```
+node --version
+```
 
-    Output should be >= 10.13.0:
+La salida debe ser >= 10.13.0:
 
-    ```
-    v10.3.0
-    ```
+```
+v10.3.0
+```
