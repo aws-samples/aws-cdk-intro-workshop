@@ -3,10 +3,6 @@ title = ".NET"
 weight = 700
 +++
 
-If you are planning on using the .NET Workshop, you obviously will need to
-have the .NET Core SDK installed.  Specifically, you will need version 3.1 or later.
-You can find information about downloading and installing .NET Core SDK
-[here](https://dotnet.microsoft.com/download).
+Si planea usar .NET Workshop, obviamente necesitará tener instalado el SDK de.NET Core. En concreto, necesitará la versión 3.1 o posterior. Puedes encontrar información sobre cómo descargar e instalar el SDK de.NET Core [aquí](https://dotnet.microsoft.com/download).
 
-We will be using the .NET Core CLI for this project, so if you are not familiar, 
-please take a look at their [documentation](https://docs.microsoft.com/en-us/dotnet/core/tools).
+Usaremos la CLI de.NET Core para este proyecto, así que si no está familiarizado, consulte su [documentación](https://docs.microsoft.com/en-us/dotnet/core/tools).
