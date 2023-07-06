@@ -1,14 +1,14 @@
 +++
-title = "Using construct libraries"
+title = "Usando librerías de constructos"
 weight = 50
 bookFlatSection = true
 +++
 
-# Using construct libraries
+# Usando librerías de constructos
 
-In this chapter we will import a construct library called
-[cdk-dynamo-table-viewer](https://pypi.org/project/cdk-dynamo-table-view)
-into our project and install it on our hit counter table.
+En este capítulo importaremos a nuestro proyecto una librería de constructos llamada 
+[cdk-dynamo-table-viewer](https://pypi.org/project/cdk-dynamo-table-view) para visualizar 
+el contenido de nuestra tabla de conteo.
 
 ![](/images/table-viewer.png)
 

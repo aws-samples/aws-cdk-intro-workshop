@@ -1,11 +1,11 @@
 +++
-title = "Exposing our hit counter table"
+title = "Exponiendo la tabla de nuestro contador"
 weight = 400
 +++
 
-## Add a table property to our hit counter
+## Agregar una propiedad table a nuestro contador
 
-Edit `hitcounter.py` and modify it as such `table` is exposed as a public property.
+Editamos `hitcounter.py` y lo modificamos para que `table` quede expuesto como una propiedad pública.
 
 {{<highlight python "hl_lines=13-15 20 32 36">}}
 from constructs import Construct
@@ -47,9 +47,9 @@ class HitCounter(Construct):
         downstream.grant_invoke(self.handler)
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## Ahora podemos acceder a la tabla desde nuestro stack
 
-Go back to `cdk_workshop_stack.py` and assign the `table` property of the table viewer:
+Volvemos a `cdk_workshop_stack.py` y asignamos la propiedad `table` del table viewer:
 
 {{<highlight python "hl_lines=38">}}
 from constructs import Construct
