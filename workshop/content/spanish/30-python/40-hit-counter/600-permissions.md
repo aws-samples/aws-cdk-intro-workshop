@@ -1,13 +1,13 @@
 +++
-title = "Granting permissions"
+title = "Otorgando permisos"
 weight = 600
 +++
 
-## Allow Lambda to read/write our DynamoDB table
+## Permita que Lambda lea/escriba nuestra tabla de DynamoDB
 
-Let's give our Lambda's execution role permissions to read/write from our table.
+Démosle permisos al rol de ejecución de Lambda para leer/escribir desde nuestra tabla.
 
-Go back to `hitcounter.py` and add the following highlighted line:
+Regrese a `hitcounter.py` y agregue la siguiente línea resaltada:
 
 {{<highlight python "hl_lines=32">}}
 from constructs import Construct
@@ -46,7 +46,7 @@ class HitCounter(Construct):
 
 ## Deploy
 
-Save & deploy:
+Guarda y deploy: 
 
 ```
 cdk deploy
@@ -54,14 +54,13 @@ cdk deploy
 
 ## Test again
 
-Okay, deployment is complete. Let's run our test again (either use `curl` or
-your web browser):
+Bien, la implementación está completa. Ejecutemos nuestra prueba nuevamente (ya sea usando `curl` o su navegador web):
 
 ```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-Again?
+¿De nuevo?
 
 ```
 HTTP/1.1 502 Bad Gateway
@@ -72,8 +71,7 @@ HTTP/1.1 502 Bad Gateway
 
 # 😢
 
-Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
-(click "Refresh"):
+¡Seguimos recibiendo este molesto error 5xx! Veamos nuestros registros de CloudWatch nuevamente (haga clic en "Refresh"):
 
 ```json
 {
@@ -94,22 +92,21 @@ Still getting this pesky 5xx error! Let's look at our CloudWatch logs again
 }
 ```
 
-Another access denied, but this time, if you take a close look:
+Otro acceso denegado, pero esta vez, si miras de cerca:
 
 ```
 User: <VERY-LONG-STRING> is not authorized to perform: lambda:InvokeFunction on resource: <VERY-LONG-STRING>"
 ```
 
-So it seems like our hit counter actually managed to write to the database. We can confirm by
-going to the [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home):
+Así que parece que nuestro contador de solicitudes logró escribir en la base de datos. Podemos confirmar yendo a la consola de [DynamoDB Console](https://console.aws.amazon.com/dynamodb/home):
 
 ![](./logs5.png)
 
-But, we must also give our hit counter permissions to invoke the downstream lambda function.
+Pero también debemos otorgar permisos a nuestro contador de visitas para solicitudes la función lambda downstream.
 
-## Grant invoke permissions
+## Otorgar permisos de invocación 
 
-Add the highlighted lines to `cdk_workshop/hitcounter.py`:
+Agregue las líneas resaltadas a `cdk_workshop/hitcounter.py`:
 
 {{<highlight python "hl_lines=33-34">}}
 from constructs import Construct
@@ -149,14 +146,14 @@ class HitCounter(Construct):
 
 ## Diff
 
-You can check what this did using `cdk diff`:
+Puede verificar lo que esto hizo usando `cdk diff`:
 
 ```
 cdk diff
 ```
 
-The **Resource** section should look something like this,
-which shows the IAM statement was added to the role:
+La sección de **Resources** debería tener un aspecto similar a estO, que muestra que la declaración de IAM se agregó al rol:
+
 
 ```
 Stack cdk-workshop
@@ -193,23 +190,23 @@ Resources
             [ ] ]
 ```
 
-Which is exactly what we wanted.
+Que es exactamente lo que queríamos.
 
 ## Deploy
 
-Okay... let's give this another shot:
+Bien... démosle otra oportunidad:
 
 ```
 cdk deploy
 ```
 
-Then hit your endpoint with `curl` or with your web browser:
+Luego acceda a su endpoint con `curl` o con su navegador web:
 
 ```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-Output should look like this:
+La salida debería verse así:
 
 ```
 HTTP/1.1 200 OK
@@ -218,7 +215,6 @@ HTTP/1.1 200 OK
 Hello, CDK! You've hit /
 ```
 
-> If you still get 5xx, give it a few seconds and try again. Sometimes API
-Gateway takes a little bit to "flip" the endpoint to use the new deployment.
+> Si aún obtiene 5xx, espere unos segundos e intente nuevamente. A veces, API Gateway tarda un poco en "voltear" el punto final para usar la nueva implementación.
 
 # 😲
