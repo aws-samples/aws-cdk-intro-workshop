@@ -1,26 +1,21 @@
 +++
-title = "Testing Constructs"
+title = "Probando Constructos"
 weight = 100
 bookCollapseSection = true
 +++
 
-## Testing Constructs (Optional)
+## Probando Constructos (Opcional)
 
-The [CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) has a good guide on
-testing constructs. For this section of the workshop we are going to use the [Fine-Grained Assertions](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained)
-and [Validation](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation) type tests.
+La [Guía para Desarroladores](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) provee un buen ejemplo para probar constructos. Para esta sección del workshop utilizaremos [Aserciones Detalladas](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained) y pruebas de tipo de [Validación](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_validation).
 
-#### CDK assert Library
+#### Biblioteca de aserciones CDK
 
-We will be using the CDK `assertions` (`awscdk/v2/assertions`) library throughout this section.
-The library contains several helper functions for writing unit and integration tests.
+Utilizaremos la biblioteca de aserciones (`assertions`) de CDK (`aws_cdk.assertions`) a través de esta sección.
+Esta biblioteca contiene varias funciones auxiliares para escribir pruebas unitarias y de integración.
 
+Para este workshop utilizaremos principalmente la función `HasResourceProperties`. Esta función auxiliar es utilizada cuando a usted solo le interesa que un recurso de un tipo en particular exista (independiente de su identificador lógico), y que _algunas_ de sus propiedades tengan asignados valores específicos.
 
-For this workshop we will mostly be using the `HasResourceProperties` function. This helper is used when you
-only care that a resource of a particular type exists (regardless of its logical identfier), and that _some_
-properties are set to specific values.
-
-Example:
+Por ejemplo:
 
 ```go
 template.HasResourceProperties(jsii.String("AWS::SQS::Queue"), map[string]interface{}{
@@ -28,6 +23,6 @@ template.HasResourceProperties(jsii.String("AWS::SQS::Queue"), map[string]interf
 })
 ```
 
-`assertions.Match_Absent()` can be used to assert that a particular key in an object is *not* set (or set to `undefined`).
+`assertions.Match_Absent()` puede ser utilizada para asegurar que una llave en particular en un objeto *no* está asignada (o está asignada a `undefined`).
 
-To see the rest of the documentation, please read the docs [here](https://docs.aws.amazon.com/cdk/api/latest/docs/assertions-readme.html).
+Para ver el resto de la documentación, por favor lea los docs [aquí](https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.assertions/README.html).
