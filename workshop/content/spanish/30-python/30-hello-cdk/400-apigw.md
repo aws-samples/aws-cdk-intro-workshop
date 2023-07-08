@@ -42,7 +42,6 @@ class CdkWorkshopStack(Stack):
 
 Eso es todo. Esto es todo lo que necesita hacer para definir una pasarela de API que redirija todas las solicitudes a una función de AWS Lambda.
 
-
 ## cdk diff
 
 Veamos qué pasará cuando implementemos esto:
@@ -127,22 +126,17 @@ Outputs
 
 Eso está bien. Esta línea de código agregó 12 recursos nuevos a nuestra pila.
 
-
-## cdk deplou
+## cdk deploy
 
 Bueno, estamos listos para desplegar?
-
 
 ```
 cdk deploy
 ```
 
-
-
-## Stack outputs
+## Salidas de la pila
 
 Cuando la implementación esté completa, verás esta linea:
-
 
 ```
 CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
@@ -150,22 +144,19 @@ CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.ama
 
 Esta es una[salida de pila](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) que la construcción de API Gateway agrega automáticamente e incluye la URL del endpoint de API Gateway.
 
-
 ## Probando la aplicación
 
 Intentemos alcanzar este endpoint con `curl`. Copia la URL y ejecútala (es probable que tu prefijo y región sean diferentes).
 
-
->Si no tienes [curl](https://curl.haxx.se/) instalado, siempre puedes usar tu navegador web favorito para acceder a esta URL.
-
-
+{{% notice info %}}
+Si no tienes [curl](https://curl.haxx.se/) instalado, siempre puedes usar tu navegador web favorito para acceder a esta URL.
+{{% /notice %}}
 
 ```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
 La salida se verá así:
-
 
 ```
 Hello, CDK! You've hit /
@@ -174,16 +165,15 @@ Hello, CDK! You've hit /
 También podemos verlo desde el navegador:
 
 ![](./browser.png)
-Si esta es la salida recibida, entonces nuestra aplicación funciona!
 
+Si esta es la salida recibida, entonces nuestra aplicación funciona!
 
 ## ¿Qué pasa si no funciona?
 
 Si recibiste un error 5xx de API Gateway, es probable que se deba a uno de estos dos problemas:
 
-
-1. La respuesta que ha devuelto tu función no es la que espera API Gateway. Vuelva atrás y asegúrese de que su `handler` devuelva una respuesta que incluya los campos de `statusCode`, `body` y `header` (consulte [Escribir el código de ejecución del controlador](https://cdkworkshop.com/30-python/30-hello-cdk/200-lambda.html)).
-2. La función falló por algún motivo. Para depurarlo, puedes ir rápidamente a [esta sección](https://cdkworkshop.com/30-python/40-hit-counter/500-logs.html) para aprender a ver tus registros de Lambda.
+1. La respuesta que ha devuelto tu función no es la que espera API Gateway. Vuelva atrás y asegúrese de que su `handler` devuelva una respuesta que incluya los campos de `statusCode`, `body` y `header` (consulte [Escribir el código de ejecución del controlador](./200-lambda.html)).
+2. La función falló por algún motivo. Para depurarlo, puedes ir rápidamente a [esta sección](../40-hit-counter/500-logs.html) para aprender a ver tus registros de Lambda.
 
 * * *
 ¡Buen trabajo! En el próximo capítulo, escribiremos nuestra propia construcción reutilizable.

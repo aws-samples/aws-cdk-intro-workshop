@@ -1,15 +1,14 @@
 +++
-title = "Cleanup sample"
+title = "Limpieza del código de ejemplo"
 weight = 100
 +++
 
-## Delete the sample code from your stack
+## Elimina el código de ejemplo de tu pila (stack)
 
-The project created by `cdk init sample-app` includes an SQS queue, and an SNS topic. We're
-not going to use them in our project, so remove them from the
-`CdkWorkshopStack` constructor.
 
-Open `src/CdkWorkshop/CdkWorkshopStack.cs` and clean it up. Eventually it should look like this:
+El proyecto creado por `cdk init sample-app` incluye una cola SQS y un política de cola, un tema de SNS y una suscripción. No vamos a usar éstos en nuestro proyecto, entonces los removeremos del `CdkWorkshopStack` constructo.
+
+Abre `src/CdkWorkshop/CdkWorkshopStack.cs` y remueve. Eventualmente debería verse así:
 
 ```csharp
 using Amazon.CDK;
@@ -21,7 +20,7 @@ namespace CdkWorkshop
     {
         public CdkWorkshopStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
         {
-            // Nothing here!
+            // Nada por aquí!
         }
     }
 }
@@ -29,14 +28,13 @@ namespace CdkWorkshop
 
 ## cdk diff
 
-Now that we modified our stack's contents, we can ask the toolkit to show us the difference between our CDK app and
-what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
+Ahora que hemos modificado el contenido de nuestra pila (stack), podemos pedirle al toolkit que nos muestre la diferencia entre nuestra aplicación CDK y lo que está actualmente desplegado. Esta es una manera segura de verificar que podría pasar una vez ejecutemos el comando `cdk deploy` y siempre es una buena práctica:
 
 ```
 cdk diff
 ```
 
-Output should look like the following:
+La salida debería verse así:
 
 ```
 IAM Statement Changes
@@ -56,14 +54,14 @@ Resources
 [-] AWS::SNS::Subscription CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 destroy
 ```
 
-As expected, all of our resources are going to be brutally destroyed.
+Como es de esperarse, todos nuestros recursos estarán siendo borrados completamente.
 
 ## cdk deploy
 
-Run `cdk deploy` and __proceed to the next section__ (no need to wait):
+Ejecuta `cdk deploy` y __procede a la siguiente sección__ (No es necesario esperar):
 
 ```
 cdk deploy
 ```
 
-You should see the resources being deleted.
+Deberías ver los recursos que están siendo eliminados.

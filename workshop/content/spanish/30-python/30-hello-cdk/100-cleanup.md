@@ -28,9 +28,8 @@ class CdkWorkshopStack(Stack):
 
         super().__init__(scope, id, **kwargs)
 
-
-
         # Nada para ver aquí!
+
 ```
 
 ## cdk diff

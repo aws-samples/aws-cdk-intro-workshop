@@ -29,7 +29,8 @@ def handler(event, context):
 Esta es una simple función lambda que retorna el texto “**Hello, CDK! You’ve hit [url path]**”. La salida de la función también incluye el código de estado HTTP y los encabezados HTTP. Estos son usados por API Gateway para formular la respuesta HTTP al usuario.
 
 
->Esta función lambda está desarrollada en Python. Para mayor información sobre escribir funciones lambdas en tu lenguaje de elección, por favor referirse la documentación de AWS Lambda [aquí](https://docs.aws.amazon.com/es_es/lambda/latest/dg/welcome.html).
+{{% notice info %}} Esta función lambda está desarrollada en Python. Para mayor información sobre escribir funciones lambdas en tu lenguaje de elección, por favor referirse la documentación de AWS Lambda [aquí](https://docs.aws.amazon.com/es_es/lambda/latest/dg/welcome.html).
+{{% /notice %}}
 
 
 
@@ -64,7 +65,7 @@ class CdkWorkshopStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        # Defines an AWS Lambda resource
+        # Define un recurso de AWS Lambda
         my_lambda = _lambda.Function(
             self, 'HelloHandler',
             runtime=_lambda.Runtime.PYTHON_3_7,
@@ -80,25 +81,20 @@ Algunas cosas a tener en cuenta:
 * El código del handler es cargado desde el directorio `lambda` el cual fue creado anteriormente. La ruta es relativa al lugar dónde ejecutas el `cdk`. La cual es la raíz del directorio del proyecto.
 * El nombre de la función handler es `hello.handler` (“hello” es el nombre del archivo y “handler” es el nombre de la función)
 
+## Unas palabras acerca de constructos y constructores
 
-
-## Una palabra acerca de constructos y constructores
-
-Como puedes notar, la clase contructores de ambos `CdkWorkshopStack` y `lambda.Function` (Y muchas otras clases en el CDK) tienen la firma `(scope, id, **kwargs)`. Esto debido a que todas estas clases son **constructos**. Constructos son el bloque de construcción básico de las aplicaciones de CDK. Estos son representaciones abstractas “de componentes de la nube” los cuales pueden componerse juntos en abstracciones de alto nivel a través de los scopes. Los scopes pueden incluir constructos, que a su vez pueden incluir otros constructos, etc.
+Como puedes notar, la clase contructores de ambos `CdkWorkshopStack` y `lambda.Function` (Y muchas otras clases en el CDK) tienen la firma `(scope, id, **kwargs)`. Esto debido a que todas estas clases son __constructos__. Los constructos son el bloque de construcción básico de las aplicaciones de CDK. Estos son representaciones abstractas “de componentes de la nube” los cuales pueden componerse juntos en abstracciones de alto nivel a través de los scopes. Los scopes pueden incluir constructos, que a su vez pueden incluir otros constructos, etc.
 
 Los constructos siempre son creados en el scope de otro constructo y deben siempre tener un identificador que debe ser único al crearse. Por lo tanto, Los inicializadores de constructos (constructores) tendrán siempre la siguiente firma:
 
 
-1. **`scope`**: El primer argumento es siempre el scope en el cuál es constructo es creado. En casi todos los casos, estarás definiendo constructos con el scope del constructo *actual*. Lo que usualmente significa solo pasar el `self` como el primer argumento. Crea un hábito de ello.
-2. `**id**`: El segundo argumento es la **identidad local** del constructo. Este es un ID que tiene que ser unico entre los constructos en el mismo scope. El CDK usa la identidad para calcular el [identificador lógico - Logical ID](https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) de CloudFormation para cada recurso definido en ese scope. *Para conocer más acerca IDs en el CDK, mira el [manual de usuario de CDK](https://docs.aws.amazon.com/es_es/cdk/v2/guide/identifiers.html#identifiers_logical_ids).*
-3. `**kwargs**`: El último argumento (Algunas veces opcional) es siempre un conjunto de argumentos de inicialización. Estos son especificos para cada constructo. Por ejemplo, el constructo `lambda.Function` acepta argumentos como `runtime`, `code`, y `handler`. Puedes explorar las diversas opciones usando el autocompletado de tu IDE o en la [documentación en línea](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-lambda-readme.html).
-
-
+1. __`scope`__: El primer argumento es siempre el scope en el cuál es constructo es creado. En casi todos los casos, estarás definiendo constructos con el scope del constructo *actual*. Lo que usualmente significa solo pasar el `self` como el primer argumento. Crea un hábito de ello.
+2. __`id`__: El segundo argumento es la __identidad local__ del constructo. Este es un ID que tiene que ser unico entre los constructos en el mismo scope. El CDK usa la identidad para calcular el [identificador lógico - Logical ID](https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/UserGuide/resources-section-structure.html) de CloudFormation para cada recurso definido en ese scope. *Para conocer más acerca IDs en el CDK, mira el [manual de usuario de CDK](https://docs.aws.amazon.com/es_es/cdk/v2/guide/identifiers.html#identifiers_logical_ids).*
+3. __`**kwargs`__: El último argumento (Algunas veces opcional) es siempre un conjunto de argumentos de inicialización. Estos son especificos para cada constructo. Por ejemplo, el constructo `lambda.Function` acepta argumentos como `runtime`, `code`, y `handler`. Puedes explorar las diversas opciones usando el autocompletado de tu IDE o en la [documentación en línea](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-lambda-readme.html).
 
 ## Diff
 
 Guarda tu código, y demos una mirada rápida al diff antes que despleguemos:
-
 
 ```
 cdk diff
@@ -134,13 +130,12 @@ Resources
 [+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
-Como puedes ver, este código sintetiza un recurso de tipo **AWS::Lambda::Function**. Además sintetiza un par de [parámetros de CloudFormation](https://docs.aws.amazon.com/es_es/cdk/v2/guide/get_cfn_param.html) que son usados por el toolkit para propagar la ubicación del código del handler.
+Como puedes ver, este código sintetiza un recurso de tipo __AWS::Lambda::Function__. Además sintetiza un par de [parámetros de CloudFormation](https://docs.aws.amazon.com/es_es/cdk/v2/guide/get_cfn_param.html) que son usados por el toolkit para propagar la ubicación del código del handler.
 
 
 ## Deploy
 
 Despleguemos:
-
 
 ```
 cdk deploy
@@ -154,7 +149,6 @@ Notarás que `cdk deploy` no solo desplegó su pila de CloudFormation, sino que 
 
 Vayamos a la consola de AWS Lambda y probemos nuestra función.
 
-
 1. Abre la [consola de AWS Lambda](https://console.aws.amazon.com/lambda/home#/functions) (Asegúrate de estar en la región correcta)
 
 Deberías ver nuestra función:
@@ -162,17 +156,17 @@ Deberías ver nuestra función:
 ![](./lambda-1.png)
 
 2. Clic en el nombre de la función para ir a la consola.
-3. Clic en el botón de **Test** para abrir la ventana de **Configurar un evento de prueba**:
+3. Clic en el botón de __Test__ para abrir la ventana de __Configurar un evento de prueba__:
 
     ![](./lambda-2.png)
 
-4. Marca **Crear un nuevo evento** en la sección **Acción de evento de prueba**, luego selecciona **API Gateway AWS Proxy** desde el listado de **Plantillas de eventos**
+4. Marca __Crear un nuevo evento__ en la sección __Acción de evento de prueba__, luego selecciona __API Gateway AWS Proxy__ desde el listado de __Plantillas de eventos__
 5. Escribe `test` como el nombre del evento
-6. Clic en **Guardar**
+6. Clic en __Guardar__
 
     ![](./lambda-3.png)
-7. Clic de nuevo en **Test** y espera a que se complete la ejecución.
-8. Expande los **Detalles** en **Execution results** y deberías ver nuestra salida esperada:
+7. Clic de nuevo en __Test__ y espera a que se complete la ejecución.
+8. Expande los __Detalles__ en __Execution results__ y deberías ver nuestra salida esperada:
 
     ![](./lambda-4.png)
 

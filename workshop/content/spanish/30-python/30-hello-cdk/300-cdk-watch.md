@@ -5,9 +5,8 @@ weight = 300
 
 ## Despliegues particulares más rápidos
 
-{{% notice info %}}Esta sección no es necesaria para completar el workshop, pero recomendamos que tomes tu tiempo para ver cómo `cdk deploy --hotswap` y `cdk watch` pueden acelerar tus despliegues particulares.
-{{% notice info %}}
-
+{{% notice info %}}Esta sección no es necesaria para completar el workshop, pero recomendamos que tomes el tiempo para ver cómo `cdk deploy --hotswap` y `cdk watch` pueden acelerar tus despliegues particulares.
+{{% /notice %}}
 
 Es genial tener nuestra función Lambda corriendo! Pero qué tal sí queremos retocar el código de la función lambda para hacerlo diferente? Digamos que hemos decidido ahora que queremos que nuestra función responda un `"Buenos días, CDK!"`  en vez de `"Hello, CDK!"`.
 
@@ -37,7 +36,11 @@ def handler(event, context):
 
 Entonces, podemos ejecutar `cdk deploy`
 
-La salida se verá parecida a esta:
+```
+cdk deploy
+```
+
+La salida se verá así:
 
 
 ```
@@ -69,11 +72,9 @@ Podemos acelerar ese tiempo de implementación con` cdk deploy --hotswap`, que e
 
 En este caso, utilizaremos `cdk deploy --hotswap` para implementar un cambio intercambiable en caliente en el código de sus AWS Lambda.
 
-
 ## Temporización `cdk deploy --hotswap`
 
 Cambiemos otra vez el código de la función lambda en `lambda/hello.py`
-
 
 {{<highlight python "hl_lines=10">}}
 import json
@@ -91,8 +92,11 @@ def handler(event, context):
 
 Ahora corramos `cdk deploy --hotswap`
 
-La salida se verá como la siguiente:
+```
+cdk deploy --hotswap
+```
 
+La salida se verá como la siguiente:
 
 ```
 ✨  Synthesis time: 6.44s
@@ -147,12 +151,11 @@ Podemos hacer más que solo llamar a `cdk deploy` o `cdk deploy --hotswap` cada 
 Una vez que lo hayamos configurado, podemos usar `cdk watch` para detectar tanto los cambios intercambiables en caliente como los cambios que requieren un despliegue completo de CloudFormation.
 
 
-## Viendo tu archivo `cdk.json`
+## Mira tu archivo `cdk.json`
 
 Cuando se ejecuta el comando `cdk watch`, los archivos que observa vienen determinados por la configuración `«watch»` del archivo cdk.json. Este tiene dos subclaves, `«incluir»` y `«excluir»`, cada una de las cuales puede ser una sola cadena o un conjunto de cadenas. Cada entrada se interpreta como una ruta relativa a la ubicación del archivo `cdk.json`. Se permite el uso de globos, tanto `*` como `**`.
 
 Tu archivo `cdk.json` debería tener un aspecto similar al siguiente:
-
 
 ```json
 {
@@ -199,11 +202,9 @@ Como puede ver, la aplicación de muestra viene con una configuración de `«wat
 
 ¡Ya estás listo para empezar a mirar!
 
-
 ## Temporización `cdk watch`
 
 Primero, ejecutemos `cdk watch`
-
 
 ```
 cdk watch
@@ -256,7 +257,7 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 8.11s
 ```
 
-## Envolver
+## Para finalizar
 
 El resto de este tutorial continuará usando `cdk deploy` en lugar de `cdk watch`. Pero si lo desea, simplemente puede mantener activado `cdk watch`. Si necesita realizar una implementación completa, `cdk watch` llamará a `cdk deploy` por ti.
 
