@@ -7,7 +7,6 @@ weight = 200
 
 Empezaremos con el código de la función handler en AWS Lambda
 
-
 1. Crea un directorio `lambda` en la raíz del árbol del proyecto (Junto al directorio de `cdk_workshop`)
 2. Agrega un archivo llamado `lambda/hello.py` con el siguiente contenido:
 
@@ -24,7 +23,6 @@ def handler(event, context):
         'body': 'Hello, CDK! You have hit {}\n'.format(event['path'])
     }
 ```
-
 
 Esta es una simple función lambda que retorna el texto “**Hello, CDK! You’ve hit [url path]**”. La salida de la función también incluye el código de estado HTTP y los encabezados HTTP. Estos son usados por API Gateway para formular la respuesta HTTP al usuario.
 

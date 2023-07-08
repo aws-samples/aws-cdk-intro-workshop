@@ -14,11 +14,9 @@ Hasta ahora, parece que la única herramienta que tenemos a nuestra disposición
 
 Realmente solo necesitamos actualizar nuestro código lambda. Sería estupendo si tuviéramos algún otro mecanismo para hacer solo eso...
 
-
 ## Temporización `cdk deploy`
 
 Primero, calculemos cuánto tiempo lleva ejecutar `cdk deploy`. Esto, nos ayudará a establecer una línea de base sobre el tiempo que lleva una implementación completa de CloudFormation. Para ello, cambiaremos el código dentro de `lambda/hello.py`:
-
 
 {{<highlight python "hl_lines=10">}}
 import json
@@ -121,7 +119,6 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 
 Vaya implementar un cambio intercambiable en caliente tomó solo 3 segundos, mientras que un despliegue completo tomó 67 segundos! Sin embargo tomemos un momento y leamos el mensaje de advertencia a fondo - Es importante!
 
-
 ```
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
 ⚠️ It should only be used for development - never use it for your production Stacks!
@@ -130,7 +127,6 @@ Vaya implementar un cambio intercambiable en caliente tomó solo 3 segundos, mie
 ## ¿Cambió el código en realidad?
 
 Vaya eso fue rápido. ¿Cambió el código en realidad? Vayamos a la consola de AWS Lambda y revisemos!
-
 
 1. Abre la [consola de AWS Lambda](https://console.aws.amazon.com/lambda/home#/functions) (Asegúrate que estás en la región correcta)
 
@@ -149,7 +145,6 @@ Vaya eso fue rápido. ¿Cambió el código en realidad? Vayamos a la consola de 
 Podemos hacer más que solo llamar a `cdk deploy` o `cdk deploy --hotswap` cada vez. `cdk watch` es similar a cdk deploy, excepto que, en lugar de ser una operación única, supervisa el código y los activos para detectar cambios e intenta realizar un despliegue automáticamente cuando se detecta un cambio. De forma predeterminada, cdk watch utilizará el indicador `--hotswap`, que inspecciona los cambios y determina si se pueden intercambiar en caliente. Si llamas a `cdk watch --no-hotswap`, se deshabilitará el comportamiento de intercambio en caliente.
 
 Una vez que lo hayamos configurado, podemos usar `cdk watch` para detectar tanto los cambios intercambiables en caliente como los cambios que requieren un despliegue completo de CloudFormation.
-
 
 ## Mira tu archivo `cdk.json`
 
@@ -213,7 +208,6 @@ cdk watch
 Esto activará una implementación inicial e inmediatamente comenzará a observar los archivos que hemos especificado en `cdk.json`.
 
 Cambiemos el código de nuestro activo lambda en `lambda/hello.py` una vez más:
-
 
 {{<highlight python "hl_lines=10">}}
 import json

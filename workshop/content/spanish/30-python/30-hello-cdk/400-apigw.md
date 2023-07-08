@@ -12,7 +12,6 @@ Usaremos la [integración de proxy Lambda](https://docs.aws.amazon.com/es_es/api
 
 Definamos un endpoint para la API y asociémoslo a nuestra función Lambda. Añada este código a `cdk_workshop_stack.py` (que debería seguir abierto desde el último paso):
 
-
 {{<highlight python "hl_lines=5 21-24">}}
 from constructs import Construct
 from aws_cdk import (
