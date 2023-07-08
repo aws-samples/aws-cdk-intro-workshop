@@ -1,15 +1,15 @@
 +++
-title = "CDK Pipelines"
+title = "Canalizaciones de CDK"
 weight = 200
 bookCollapseSection = true
 +++
 
-# CDK Pipelines
+# Canalizaciones de CDK
 
-In this chapter we will create a Continuous Deployment (CD) pipeline for the app developed in previous chapters.
+En este capítulo crearemos una canalización para una Implementación Continua (CD) de la aplicación desarrollada en los capítulos anteriores.
 
-CD is an important component to most web project, but can be challenging to set up with all the moving parts required. The [CDK Pipelines](https://docs.aws.amazon.com/cdk/latest/guide/cdk_pipeline.html) construct makes that process easy and streamlined from within your existing CDK infrastructure design.
+CD es un componente importante para la mayoría de los proyectos web, pero puede ser un proceso complicado de configurar teniendo en cuenta todas las partes móviles requeridas. El constructo para [Canalizaciones de CDK](https://docs.aws.amazon.com/cdk/latest/guide/cdk_pipeline.html) hace que este proceso sea fácil y optimizado dentro de su infraestructura existente de CDK.
 
-These pipelines consist of "stages" that represent the phases of your deployment process from how the source code is managed, to how the fully built artifacts are deployed.
+Estas canalizaciones consisten en "etapas" que representan las fases del proceso de implementaciòn desde como el código fuente es manejado, hasta como los artefactos completamente construidos son desplegados.
 
 ![](./200-pipelines/pipeline-stages.png)

@@ -1,19 +1,18 @@
 +++
-title = "Learning about the Table Viewer construct"
+title = "Aprendiendo sobre el constructo Table Viewer"
 weight = 100
 +++
 
-## Reading documentation
+## Leyendo la documentación
 
-Browse to the [cdk-dynamo-table-view
-page](https://pypi.org/project/cdk-dynamo-table-view/) on pypi.org and
-read the module documentation.
+Navegamos hacia [cdk-dynamo-table-view
+page](https://pypi.org/project/cdk-dynamo-table-view/) en pypi.org y leemos la documentación del módulo.
 
-There is some documentation about how to use the table viewer in the README but it is all focused on TypeScript rather than Python.  So, we will walk through the process of using a third-party construct in Python.
+Hay algo de documentación sobre cómo usar el _table viewer_ en el README, pero está todo enfocado en TypeScript en lugar de Python. Entonces seguiremos el proceso de usar un constructo de terceros en Python.
 
 {{% notice warning %}}
-As mentioned in the README page of this library, it is not intended for production use. Namely because
-it will expose contents from your DynamoDB table to anyone without authentication.
+Como menciona el README de esta librería, no está pensada para uso productivo. Principalmente 
+porque expondrá contenido de la tabla de DynamoDB a cualquiera, sin autenticación.
 {{% /notice %}}
 
 ![](./table-viewer-pypi.png)

@@ -1,19 +1,18 @@
 +++
-title = "Assertion Tests"
+title = "Pruebas de Aserción"
 weight = 1000
 +++
 
-### Fine-Grained Assertion Tests
+### Pruebas de Aserción Detalladas
 
-#### Create a test for the DynamoDB table
+#### Crear una prueba para la tabla de DynamoDB
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/60-go/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} Esta sección asume que usted ha [creado el constructo contador de hits](/es/60-go/40-hit-counter.html) {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+Nuestro constructo `HitCounter` crea una tabla simple de DynamoDB. Ahora, creemos una prueba que valide que la tabla está siendo creada.
 
-`cdk init` created a test file for us in `cdk-workshop_test.go`.
-Replace the contents of this file with the following:
+`cdk init` creó un archivo de prueba llamado `cdk-workshop_test.go`.
+Reemplace el conrenido del archivo con el siguiente código:
 
 ```go
 package main
@@ -51,15 +50,15 @@ func TestHitCounterConstruct(t *testing.T) {
 }
 
 ```
-This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
+Esta prueba simplemente está asegurando que la pila sintetizada incluye una tabla de DynamoDB.
 
-Run the test.
+Ejecute la prueba.
 
 ```bash
 $ go test
 ```
 
-You should see output like this:
+Usted debería ver una salida similar a esta:
 
 ```bash
 ╰─ go test
@@ -67,14 +66,12 @@ PASS
 ok      cdk-workshop    6.224s
 ```
 
-#### Create a test for the Lambda function
+#### Crear una prueba para la función Lambda
 
-Now lets add another test, this time for the Lambda function that the `HitCounter` construct creates.
-This time in addition to testing that the Lambda function is created, we also want to test that
-it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
+Ahora adicionemos otra prueba, esta vez para la función Lambda que el constructo `HitCounter` crea.
+Además de probar que la función Lambda es creada, también queremos probar que es creada con las dos variables de entorno `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+Adicione otra prueba debajo de la prueba de la tabla de DynamoDB. Si recuerda, cuando creamos la función Lambda los valores de las variables de entorno eran referencias a otros constructos.
 
 {{<highlight go "hl_lines=6-7">}}
 handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslambda.FunctionProps{
@@ -88,18 +85,16 @@ handler := awslambda.NewFunction(this, jsii.String("HitCounterHandler"), &awslam
 })
 {{</highlight>}}
 
-At this point we don't really know what the value of the `FunctionName` or `TableName` will be since the
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
-dummy value for now. Once we run the test it will fail and show us the expected value.
+En este punto no sabemos realmente cuales serán los valores de `FunctionName` o `TableName` ya que CDK calculará un hash que será añadido al final del nombre de los constructos, así que utilizaremos un valor ficticio por el momento. Una vez que ejecutemos la prueba, fallará y nos mostrará el valor esperado.
 
-We will need to compare the values of structs, so we will need to import a module which easily allows
-us to do that: 	[`go-cmp`](https://pkg.go.dev/github.com/google/go-cmp/cmp)
+Necesitaremos comparar los valores de las estructuras, así que también necesitaremos importar un módulo que nos permita fácilmente hacer esto:
+[`go-cmp`](https://pkg.go.dev/github.com/google/go-cmp/cmp)
 
 ```
 go get github.com/google/go-cmp/cmp
 ```
 
-Don't forget to add this module to our imports
+No olvide adicionar el módulo a los imports
 
 {{<highlight go "hl_lines=10">}}
 import (
@@ -115,7 +110,7 @@ import (
 )
 {{</highlight>}}
 
-Create a new test in `cdk-workshop_test.go` with the below code:
+Cree una nueva prueba en `cdk-workshop_test.go` con el siguiente código:
 
 ```go
 func TestLambdaFunction(t *testing.T) {
@@ -157,14 +152,13 @@ func TestLambdaFunction(t *testing.T) {
 }
 ```
 
-Save the file and run the test again.
+Guarde el archivo y ejecute la prueba de nuevo.
 
 ```bash
 $ go test
 ```
 
-This time the test should fail and you should be able to grab the correct value for the
-variables from the expected output.
+Esta vez la prueba debe fallar y usted podrá obtener los valores correctos para las variables de la salida.
 
 {{<highlight bash "hl_lines=3">}}
 ╰─ go test
@@ -175,7 +169,7 @@ exit status 1
 FAIL    cdk-workshop    5.960s
 {{</highlight>}}
 
-Grab the real values for the environment variables and update your test
+Tome nota de los valores reales para las variables de entorno y actualice su prueba.
 
 {{<highlight go "hl_lines=25 28">}}
 func TestLambdaFunction(t *testing.T) {
@@ -215,13 +209,13 @@ func TestLambdaFunction(t *testing.T) {
 }
 {{</highlight>}}
 
-Now run the test again. This time is should pass.
+Ahora, ejecute la prueba de nuevo.  Esta vez debe ser exitosa.
 
 ```bash
 $ go test
 ```
 
-You should see output like this:
+Usted debe ver una salida como la siguiente:
 
 ```bash
 ╰─ go test
@@ -229,10 +223,9 @@ PASS
 ok      cdk-workshop    6.095s
 ```
 
-You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
-requirement that our DynamoDB table be encrypted.
+Usted también puede aplicar TDD (Test Driven Development) para desarrollar Constructos de CDK. Para mostrar un ejemplo muy simple, adicionemos un nuevo requerimiento para que nuestra tabla de Dynamo DB sea encriptada.
 
-First we'll update the first test to reflect this new requirement.
+Primero actualizaremos la prueba para reflejar este nuevo requerimiento.
 
 {{<highlight go "hl_lines=1 19-23">}}
 func TestTableCreatedWithEncryption(t *testing.T) {
@@ -261,7 +254,7 @@ func TestTableCreatedWithEncryption(t *testing.T) {
 }
 {{</highlight>}}
 
-Now run the test, which should fail.
+Ahora ejecutemos la prueba, que debe fallar.
 
 ```bash
 ╰─ go test
@@ -290,7 +283,7 @@ exit status 2
 FAIL    cdk-workshop    5.667s
 ```
 
-Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
+Ahora, corrijamos el problema. Actualicemos el código de hitcounter para habilitar la encripción por defecto.
 
 {{<highlight go "hl_lines=7">}}
 func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps) HitCounter {
@@ -319,7 +312,7 @@ func NewHitCounter(scope constructs.Construct, id string, props *HitCounterProps
 }
 {{</highlight>}}
 
-Now run the test again, which should now pass.
+Ejecutemos la prueba nuevamente, esta vez debe ser exitosa.
 
 ```console
 $ go test
