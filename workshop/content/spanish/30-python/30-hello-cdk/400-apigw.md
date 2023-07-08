@@ -7,7 +7,6 @@ El siguiente paso es añadir API Gateway delante de nuestra función. API Gatewa
 
 Usaremos la [integración de proxy Lambda](https://docs.aws.amazon.com/es_es/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html) montada en la raíz de la API. Esto significa que cualquier solicitud a cualquier ruta URL se enviará directamente a nuestra función de Lambda y la respuesta de la función se devolverá al usuario.
 
-
 ## Agregue una construcción LambdaRestAPI a su pila
 
 Definamos un endpoint para la API y asociémoslo a nuestra función Lambda. Añada este código a `cdk_workshop_stack.py` (que debería seguir abierto desde el último paso):
