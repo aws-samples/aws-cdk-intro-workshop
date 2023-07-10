@@ -1,11 +1,10 @@
 +++
-title = "Hello, CDK!"
+title = "Hola, CDK!"
 bookFlatSection = true
 weight = 30
 +++
 
 # ¡Hola, CDK!
-
 
 En este capitulo, finalmente escribiremos algún código de CDK. En vez del código de SNS/SQS que tenemos en nuestra aplicación hasta ahora, añadiremos una función Lambda con un endpoint de API Gateway en frente de ésta.
 
