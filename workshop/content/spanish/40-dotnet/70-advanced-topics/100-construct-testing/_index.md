@@ -1,23 +1,22 @@
 +++
-title = "Testing Constructs"
+title = "Probando Constructos"
 weight = 100
 bookCollapseSection = true
 
 +++
 
-## Testing Constructs (Optional)
+## Probando Constructos (Opcional)
 
-The [CDK Developer Guide](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) has a good guide on
-testing constructs. For this section of the workshop we are going to use the [Fine-Grained Assertions](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained).
+La [Guía para Desarroladores](https://docs.aws.amazon.com/cdk/latest/guide/testing.html) provee un buen ejemplo para probar constructos. Para esta sección del workshop utilizaremos [Aserciones Detalladas](https://docs.aws.amazon.com/cdk/latest/guide/testing.html#testing_fine_grained).
 
-#### CDK assert Library
+#### Biblioteca de aserciones CDK
 
-We will be using the CDK `Assertions` (`Amazon.CDK.Assertions`) [library](https://www.nuget.org/packages/Amazon.CDK.Assertions/) throughout this section.
-The library contains several helper functions for writing unit and integration tests.
+Utilizaremos la [biblioteca](https://www.nuget.org/packages/Amazon.CDK.Assertions/) de aserciones (`assertions`) de CDK (`Amazon.CDK.Assertions`) a través de esta sección.
+Esta biblioteca contiene varias funciones auxiliares para escribir pruebas unitarias y de integración.
 
-For this workshop we will mostly be using the `HasResourceProperties` function. This helper is used when you only care that a resource of a particular type exists (regardless of its logical identifier), and that _some_ properties are set to specific values.
+Para este workshop utilizaremos principalmente la función `HasResourceProperties`. Esta función auxiliar es utilizada cuando a usted solo le interesa que un recurso de un tipo en particular exista (independiente de su identificador lógico), y que _algunas_ de sus propiedades tengan asignados valores específicos.
 
-Example:
+Por ejemplo:
 
 ```cs
 template.HasResourceProperties("AWS::Lambda::Function", new Dictionary<string, object> {
@@ -26,6 +25,6 @@ template.HasResourceProperties("AWS::Lambda::Function", new Dictionary<string, o
 });
 ```
 
-`Match.AnyValue()` can be used to assert that a particular key in an object is set with any value.
+`Match.AnyValue()` puede ser utilizada para asegurar que una llave en particular en un objeto está asignada a algún valor.
 
-To see the rest of the documentation, please read the docs [here](https://www.fuget.org/packages/Amazon.CDK.Assertions/1.194.0).
+Para ver el resto de la documentación, por favor lea los docs [aquí](https://www.fuget.org/packages/Amazon.CDK.Assertions/1.194.0).
