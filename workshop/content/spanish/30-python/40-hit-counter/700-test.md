@@ -35,6 +35,6 @@ Lo bueno de nuestro `HitCounter` es que es bastante útil. Básicamente, permite
 
 Dado que nuestro contador de visitas es una clase de Python simple, puede empaquetarlo en un módulo pip y publicarlo en [PyPi](http://pypi.org/), que es el administrador de paquetes de Python. Luego, cualquiera podría `pip install`  y agregarlo a sus aplicaciones de CDK.
 
----
+-----
 
 En el siguiente capítulo, __consumiremos__ una biblioteca de construcción publicada en pip, que nos permite ver el contenido de nuestra tabla de contadores de visitas desde cualquier navegador.

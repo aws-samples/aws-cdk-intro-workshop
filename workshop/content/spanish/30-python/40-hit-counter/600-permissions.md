@@ -52,7 +52,7 @@ Guarda y deploy:
 cdk deploy
 ```
 
-## Test again
+## Prueba de nuevo
 
 Bien, la implementación está completa. Ejecutemos nuestra prueba nuevamente (ya sea usando `curl` o su navegador web):
 
@@ -200,7 +200,7 @@ Bien... démosle otra oportunidad:
 cdk deploy
 ```
 
-Luego acceda a su endpoint con `curl` o con su navegador web:
+Luego acceda a su punto de enlace con `curl` o con su navegador web:
 
 ```
 curl -i https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
