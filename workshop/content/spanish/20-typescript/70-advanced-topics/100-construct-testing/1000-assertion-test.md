@@ -1,22 +1,19 @@
 +++
-title = "Assertion Tests"
+title = "Pruebas de Aserción"
 weight = 200
 +++
 
-### Fine-Grained Assertion Tests
+### Pruebas de Aserción Detalladas
 
-#### Create a test for the DynamoDB table
+#### Crear una prueba para la tabla de DynamoDB
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/20-typescript/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} Esta sección asume que usted ha [creado el constructo contador de hits](/es/20-typescript/40-hit-counter.html) {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+Nuestro constructo `HitCounter` crea una tabla simple de DynamoDB. Ahora, creemos una prueba que valide que la tabla está siendo creada.
 
-If `cdk init` created a test directory for you, then you should have a `cdk-workshop.test.ts` file. Delete this file.
+Si `cdk init` creó un directorio llamado `test` por usted, entonces usted debe tener allí un archivo llamado `cdk-workshop.test.ts`. Borre este archivo.
 
-If you do not already have a `test` directory (usually created automatically when you run `cdk init`), then create a `test` directory at the
-same level as `bin` and `lib` and then create a file called `hitcounter.test.ts` with the following code.
-
+Si usted no cuenta con un directorio llamado `test` (que es automáticamente creado cuento se ejecuta `cdk init`), entonces cree un directorio `test` al mismo nivel que `bin` y `lib` y luego un archivo llamado `hitcounter.test.ts` con el siguiente código:
 
 ```typescript
 import { Template, Capture } from 'aws-cdk-lib/assertions';
@@ -40,15 +37,15 @@ test('DynamoDB Table Created', () => {
   template.resourceCountIs("AWS::DynamoDB::Table", 1);
 });
 ```
-This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
+Esta prueba simplemente está asegurando que la pila sintetizada incluye una tabla de DynamoDB.
 
-Run the test.
+Ejecute la prueba.
 
 ```bash
 $ npm run test
 ```
 
-You should see output like this:
+Usted debería ver una salida similar a esta:
 
 ```bash
 $ npm run test
@@ -66,14 +63,12 @@ Time:        3.273s
 Ran all test suites.
 ```
 
-#### Create a test for the Lambda function
+#### Crear una prueba para la función Lambda
 
-Now lets add another test, this time for the Lambda function that the `HitCounter` construct creates.
-This time in addition to testing that the Lambda function is created, we also want to test that
-it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
+Ahora adicionemos otra prueba, esta vez para la función Lambda que el constructo `HitCounter` crea.
+Además de probar que la función Lambda es creada, también queremos probar que es creada con las dos variables de entorno `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+Adicione otra prueba debajo de la prueba de la tabla de DynamoDB. Si recuerda, cuando creamos la función Lambda los valores de las variables de entorno eran referencias a otros constructos.
 
 {{<highlight ts "hl_lines=6-7">}}
 this.handler = new lambda.Function(this, 'HitCounterHandler', {
@@ -87,11 +82,9 @@ this.handler = new lambda.Function(this, 'HitCounterHandler', {
 });
 {{</highlight>}}
 
-At this point we don't really know what the value of the `functionName` or `tableName` will be since the
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
-dummy value for now. Once we run the test it will fail and show us the expected value.
+En este punto no sabemos realmente cuales serán los valores de `functionName` o `tableName` ya que CDK calculará un hash que será añadido al final del nombre de los constructos, así que utilizaremos un valor ficticio por el momento. Una vez que ejecutemos la prueba, fallará y nos mostrará el valor esperado.
 
-Create a new test in `hitcounter.test.ts` with the below code:
+Cree una nueva prueba en `hitcounter.test.ts` con el siguiente código:
 
 ```typescript
 test('Lambda Has Environment Variables', () => {
@@ -126,14 +119,13 @@ test('Lambda Has Environment Variables', () => {
 });
 ```
 
-Save the file and run the test again.
+Guarde el archivo y ejecute la prueba de nuevo.
 
 ```bash
 $ npm run test
 ```
 
-This time the test should fail and you should be able to grab the correct value for the
-variables from the expected output.
+Esta vez la prueba debe fallar y usted podrá obtener los valores correctos para las variables de la salida.
 
 {{<highlight bash "hl_lines=20-21 24-25">}}
 $ npm run test
@@ -182,7 +174,7 @@ Time:        3.971 s, estimated 4 s
 Ran all test suites.
 {{</highlight>}}
 
-Grab the real values for the environment variables and update your test
+Tome nota de los valores reales para las variables de entorno y actualice su prueba.
 
 {{<highlight ts "hl_lines=22 25">}}
 test('Lambda Has Environment Variables', () => {
@@ -217,13 +209,13 @@ test('Lambda Has Environment Variables', () => {
 });
 {{</highlight>}}
 
-Now run the test again. This time is should pass.
+Ahora, ejecute la prueba de nuevo.  Esta vez debe ser exitosa.
 
 ```bash
 $ npm run test
 ```
 
-You should see output like this:
+Usted debe ver una salida como la siguiente:
 
 ```bash
 $ npm run test
@@ -242,10 +234,9 @@ Time:        3.294s
 Ran all test suites.
 ```
 
-You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
-requirement that our DynamoDB table be encrypted.
+Usted también puede aplicar TDD (Test Driven Development) para desarrollar Constructos de CDK. Para mostrar un ejemplo muy simple, adicionemos un nuevo requerimiento para que nuestra tabla de Dynamo DB sea encriptada.
 
-First we'll update the test to reflect this new requirement.
+Primero actualizaremos la prueba para reflejar este nuevo requerimiento.
 
 {{<highlight ts "hl_lines=6-23">}}
 import { Template, Capture } from 'aws-cdk-lib/assertions';
@@ -273,7 +264,7 @@ test('DynamoDB Table Created With Encryption', () => {
 });
 {{</highlight>}}
 
-Now run the test, which should fail.
+Ahora ejecutemos la prueba, que debe fallar.
 
 ```bash
 $ npm run test
@@ -334,7 +325,7 @@ Time:        3.947 s, estimated 4 s
 Ran all test suites.
 ```
 
-Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
+Ahora, corrijamos el problema. Actualicemos el código de hitcounter para habilitar la encripción por defecto.
 
 {{<highlight ts "hl_lines=13">}}
 export class HitCounter extends Construct {
@@ -356,7 +347,7 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-Now run the test again, which should now pass.
+Ejecutemos la prueba nuevamente, esta vez debe ser exitosa.
 
 ```bash
 npm run test

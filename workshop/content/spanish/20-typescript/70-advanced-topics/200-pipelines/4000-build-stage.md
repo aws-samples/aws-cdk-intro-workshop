@@ -1,12 +1,12 @@
 +++
-title = "Add Application to Pipeline"
+title = "Adicionar una Aplicación a la Canalización"
 weight = 140
 +++
 
-## Create Stage
-At this point, you have a fully operating CDK pipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
+## Crear una Etapa
+En este punto, usted tiene una canalización operativa completa de CDK que se actualiza automáticamente con cada confirmacióm, *PERO* por el momento, eso es todo lo que hace. Necesitamos adicionar una etapa a la canalización que despliegue nuestra aplicación.
 
-Create a new file in `lib` called `pipeline-stage.ts` with the code below:
+Cree un nuevo archivo llamado `pipeline-stage.ts` en el directorio `lib` con el siguiente código:
 
 {{<highlight ts>}}
 import { CdkWorkshopStack } from './cdk-workshop-stack';
@@ -22,10 +22,10 @@ export class WorkshopPipelineStage extends Stage {
 }
 {{</highlight>}}
 
-All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
+Esto solamente declara una nueva etapa (`Stage`) (componente de una canalización), y en esa etapa crea una instancia de la pila de nuestra aplicación.
 
-Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack as it stands now is not configured to be deployed by a pipeline.
-Open `lib/cdk-workshop-stack.ts` and make the following changes:
+Ahora, en este punto su editor podría decirle que usted está haciendo algo mal.  Esto se debe a que la pila de la aplicación tal como se encuentra ahora no está configurada para ser desplegada como una canalización.
+Abra `lib/cdk-workshop-stack.ts` y haga los sigientes cambios:
 
 {{<highlight ts "hl_lines=9">}}
 import * as cdk from 'aws-cdk-lib';
@@ -42,10 +42,10 @@ export class CdkWorkshopStack extends cdk.Stack {
     // The rest of your code...
 {{</highlight>}}
 
-This stack's `scope` parameter was defined as being a `cdk.App`, which means that in the construct tree, it must be a child of the app. Since the stack is being deployed by the pipeline, it is no longer a child of the app, so its type must be changed to `Construct`.
+El parámetro `scope` de esta pila fue definido como un `cdk.App`, lo que significa que en el árbol del constructo, debe ser descendiente de la aplicación. Ya que la pila está siendo desplegada por la canalización, ya no es descendiente de la aplicación, así que su tipo debe ser cambiado a `Construct`.
 
-## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `lib/pipeline-stack.ts`:
+## Adicionar la pila a la canalización
+Ahora debemos adicionar la etapa a la canalización agregando el siguiento código a `lib/pipeline-stack.ts`:
 
 {{<highlight ts "hl_lines=4 34-35">}}
 import * as cdk from 'aws-cdk-lib';
@@ -87,18 +87,18 @@ export class WorkshopPipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate development/test deployment).
+Esto importa y crea una instancia de `WorkshopPipelineStage`. Más tarde, usted podría instanciar esta etapa múltiples veces (por ejemplo, usted desea crear un despliegue de Producción y un despliegue de Desarrollo/Pruebas separados).
 
-Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). A Stage in a CDK Pipeline represents a set of one or more CDK Stacks that should be deployed together, to a particular environment.
+Luego agregamos esa etapa a nuestra canalización (`pipeline.addStage(deploy);`). Una etapa (`Stage`) en una canalización de CDK representa un juego de una o mas pilas de CDK que deben ser desplegadas juntas, a un ambiente particular.
 
-## Commit/Deploy
-Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
+## Confirmar/Desplegar
+Ahora que hemos adicionado el código para desplegar nuestra aplicación, solo nos falta confirmar y enviar los cambios al repositorio.
 
 ```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+Una que que esto se ha hecho, podemos volver a la [consola de CodePipeline](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) y observar que la canalización está en ejecución (esto puede tomar algún tiempo).
 
 <!--
 ![](./pipeline-fail.png)
@@ -141,4 +141,4 @@ If we commit the change (`git commit -am "fix lambda path" && git push`) and tak
 
 ![](./pipeline-succeed.png)
 
-Success!
+Éxito!
