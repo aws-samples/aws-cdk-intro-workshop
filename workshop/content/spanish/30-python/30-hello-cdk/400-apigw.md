@@ -173,5 +173,5 @@ Si recibiste un error 5xx de API Gateway, es probable que se deba a uno de estos
 1. La respuesta que ha devuelto tu función no es la que espera API Gateway. Vuelva atrás y asegúrese de que su `handler` devuelva una respuesta que incluya los campos de `statusCode`, `body` y `header` (consulte [Escribir el código de ejecución del controlador](./200-lambda.html)).
 2. La función falló por algún motivo. Para depurarlo, puedes ir rápidamente a [esta sección](../40-hit-counter/500-logs.html) para aprender a ver tus registros de Lambda.
 
-* * *
+---
 ¡Buen trabajo! En el próximo capítulo, escribiremos nuestra propia construcción reutilizable.

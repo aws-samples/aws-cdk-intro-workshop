@@ -5,8 +5,7 @@ weight = 100
 
 ## Elimina el código de ejemplo de tu pila (stack)
 
-
-El proyecto creado por `cdk init sample-app` incluye una cola SQS y un política de cola, un tema de SNS y una suscripción. No vamos a usar éstos en nuestro proyecto, entonces los removeremos del `CdkWorkshopStack` constructo.
+El proyecto creado por `cdk init sample-app` incluye una cola SQS y un política de cola, un tema de SNS y una suscripción. No vamos a usar éstos en nuestro proyecto, entonces los removeremos del constructo `CdkWorkshopStack` .
 
 Abre `src/CdkWorkshop/CdkWorkshopStack.cs` y remueve. Eventualmente debería verse así:
 

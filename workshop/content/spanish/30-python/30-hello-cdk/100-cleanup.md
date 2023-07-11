@@ -5,7 +5,7 @@ weight = 100
 
 ## Elimina el código de ejemplo de tu pila (stack)
 
-El proyecto creado por `cdk init sample-app` incluye una cola SQS y un política de cola, un tema de SNS y una suscripción. No vamos a usar éstos en nuestro proyecto, entonces los removeremos del `CdkWorkshopStack` constructo.
+El proyecto creado por `cdk init sample-app` incluye una cola SQS y un política de cola, un tema de SNS y una suscripción. No vamos a usar éstos en nuestro proyecto, entonces los removeremos del constructo `CdkWorkshopStack`.
 
 Abre `cdk_workshop/cdk_workshop_stack.py` y remueve. Eventualmente debería verse así:
 
@@ -64,7 +64,7 @@ Como es de esperarse, todos nuestros recursos estarán siendo borrados completam
 
 ## cdk deploy
 
-Ejecuta `cdk deploy` y procede a la siguiente sección (No es necesario esperar):
+Ejecuta `cdk deploy` y __procede a la siguiente sección__ (No es necesario esperar):
 
 ```
 cdk deploy

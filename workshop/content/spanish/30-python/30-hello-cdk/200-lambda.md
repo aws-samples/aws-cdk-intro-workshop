@@ -3,7 +3,7 @@ title = "Hola Lambda"
 weight = 200
 +++
 
-## Lambda handler code
+## Código del Lambda handler
 
 Empezaremos con el código de la función handler en AWS Lambda
 
@@ -24,7 +24,7 @@ def handler(event, context):
     }
 ```
 
-Esta es una simple función lambda que retorna el texto “**Hello, CDK! You’ve hit [url path]**”. La salida de la función también incluye el código de estado HTTP y los encabezados HTTP. Estos son usados por API Gateway para formular la respuesta HTTP al usuario.
+Esta es una simple función lambda que retorna el texto __"Hello, CDK! You’ve hit [url path]"__. La salida de la función también incluye el código de estado HTTP y los encabezados HTTP. Estos son usados por API Gateway para formular la respuesta HTTP al usuario.
 
 
 {{% notice info %}} Esta función lambda está desarrollada en Python. Para mayor información sobre escribir funciones lambdas en tu lenguaje de elección, por favor referirse la documentación de AWS Lambda [aquí](https://docs.aws.amazon.com/es_es/lambda/latest/dg/welcome.html).
@@ -34,7 +34,7 @@ Esta es una simple función lambda que retorna el texto “**Hello, CDK! You’v
 
 ## Instalar la librería de constructos de AWS Lambda
 
-El CDK de AWS es empaquetado con una extensa librería de constructos llamada **AWS Construct Library**. La librería de constructos es dividida en **módulos**, uno por cada servicio de AWS. Por ejemplo, si quieres definir una función de AWS Lambda, necesitaremos usar la librería de constructos de AWS Lambda.
+El CDK de AWS es empaquetado con una extensa librería de constructos llamada __AWS Construct Library__. La librería de constructos es dividida en __módulos__, uno por cada servicio de AWS. Por ejemplo, si quieres definir una función de AWS Lambda, necesitaremos usar la librería de constructos de AWS Lambda.
 
 Para descubrir y aprender acerca de los constructos de AWS, puedes buscar en el [AWS Construct Library reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html).
 
