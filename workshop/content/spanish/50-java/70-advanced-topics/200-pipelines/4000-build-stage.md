@@ -1,12 +1,12 @@
 +++
-title = "Add Application to Pipeline"
+title = "Adicionar una Aplicación a la Canalización"
 weight = 140
 +++
 
-## Create Stage
-At this point, you have a fully operating CodePipeline that will automatically update itself on every commit, *BUT* at the moment, that is all it does. We need to add a stage to the pipeline that will deploy our application.
+## Crear una Etapa
+En este punto, usted tiene una canalización operativa completa de CDK que se actualiza automáticamente con cada confirmacióm, *PERO* por el momento, eso es todo lo que hace. Necesitamos adicionar una etapa a la canalización que despliegue nuestra aplicación.
 
-Create a new file in `CdkWorkshop` called `WorkshopPipelineStage.java` with the code below:
+Cree un nuevo archivo llamado `WorkshopPipelineStage.java` en el directorio `CdkWorkshop` con el siguiente código:
 
 {{<highlight java>}}
 package com.myorg;
@@ -28,10 +28,10 @@ public class WorkshopPipelineStage extends Stage {
 }
 {{</highlight>}}
 
-All this does is declare a new `Stage` (component of a pipeline), and in that stage instantiate our application stack.
+Esto solamente declara una nueva etapa (`Stage`) (componente de una canalización), y en esa etapa crea una instancia de la pila de nuestra aplicación.
 
-## Add stage to pipeline
-Now we must add the stage to the pipeline by adding the following code to `WorkshopPipelineStack.java`:
+## Adicionar la etapa a la canalización
+Ahora debemos adicionar la etapa a la canalización agregando el siguiento código a `cdk_workshop/pipeline_stack.py`:
 
 {{<highlight java "hl_lines=43-44">}}
 package com.myorg;
@@ -82,19 +82,19 @@ public class WorkshopPipelineStack extends Stack {
 }
 {{</highlight>}}
 
-This imports and creates an instance of the `WorkshopPipelineStage`. Later, you might instantiate this stage multiple times (e.g. you want a Production deployment and a separate development/test deployment).
+Esto importa y crea una instancia de `WorkshopPipelineStage`. Más tarde, usted podría instanciar esta etapa múltiples veces (por ejemplo, usted desea crear un despliegue de Producción y un despliegue de Desarrollo/Pruebas separados).
 
-Then we add that stage to our pipeline (`pipeline.addStage(deploy);`). An `ApplicationStage` in a CodePipeline represents any CDK deployment action.
+Luego agregamos esa etapa a nuestra canalización (`pipeline.addStage(deploy);`). Una etapa (`ApplicationStage`) en una canalización de CDK representa un juego de una o mas pilas de CDK que deben ser desplegadas juntas, a un ambiente particular.
 
-## Commit/Deploy
-Now that we have added the code to deploy our application, all that's left is to commit and push those changes to the repo.
+## Confirmar/Desplegar
+Ahora que hemos adicionado el código para desplegar nuestra aplicación, solo nos falta confirmar y enviar los cambios al repositorio.
 
 ```
 git commit -am "Add deploy stage to pipeline" && git push
 ```
 
-Once that is done, we can go back to the [CodePipeline console](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) and take a look as the pipeline runs (this may take a while).
+Una que que esto se ha hecho, podemos volver a la [consola de CodePipeline](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) y observar que la canalización está en ejecución (esto puede tomar algún tiempo).
 
 ![](./pipeline-succeed.png)
 
-Success!
+Éxito!

@@ -1,20 +1,17 @@
 +++
-title = "Validation Tests"
+title = "Pruebas de Validación"
 weight = 300
 +++
 
-### Validation Tests
+### Pruebas de Validación
 
-Sometimes we want the inputs to be configurable, but we also want to put constraints on those inputs or validate
-that the input is valid.
+Algunas veces queremos que las entradas sean configurables, pero a la misma vez queremos poner restricciones en las entradas o validar que los valores asignados a ellas sean correctos.
 
-Suppose for the `HitCounter` construct we want to allow the user to specify the `readCapacity` on the DynamoDB
-table, but we also want to ensure the value is within a reasonable range. We can write a test to make sure
-that the validation logic works: pass in invalid values and see what happens.
+Supongamos que para el constructo `HitCounter` queremos permitir al usuario especificar la capacidad de lectura (`readCapacity`) en la tabla de DynamoDB, pero también queremos asegurar que el valor asignado está dentro de un rango razonable. Podemos escribir una prueba que asegure que la lógica de validación trabaje: pasar valores no válidos y observar el resultado.
 
-First, add a `readCapacity` property to `HitCounterProps`:
+Primero, adicionemos la propiedad `readCapacity` a `HitCounter`:
 
-Edit `HitCounterProps.java`
+Edite `HitCounterProps.java`
 {{<highlight java "hl_lines=14 19 26-29 42-45">}}
 package com.myorg;
 
@@ -67,7 +64,7 @@ public interface HitCounterProps {
 }
 {{</highlight>}}
 
-Then update the DynamoDB table resource to add the `readCapacity` property.
+Luego, actualizemos la tabla de DynamoDB para adicionar la propiedad `readCapacity`.
 
 {{<highlight java "hl_lines=1 9">}}
 Number readCapacity = (props.getReadCapacity() == null) ? 5 : props.getReadCapacity();
@@ -82,7 +79,7 @@ this.table = Table.Builder.create(this, "Hits")
     .build();
 {{</highlight>}}
 
-Now add a validation which will throw an error if the readCapacity is not in the allowed range.
+Ahora adicionemos una validación que generará un error si la propiedad `readCapacity` no está dentro del rango permitido.
 
 {{<highlight java "hl_lines=5 8-12">}}
 public class HitCounter extends Construct {
@@ -104,7 +101,7 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-Now lets add a test that validates the error is thrown.
+Y por último, adicionemos una prueba que valide si se generó un error.
 
 ```java
     @Test
@@ -126,13 +123,13 @@ Now lets add a test that validates the error is thrown.
     }
 ```
 
-Run the test.
+Ejecutemos la prueba.
 
 ```bash
 $ mvn test
 ```
 
-You should see an output like this:
+Usted debería ver una salida similar a esta:
 
 ```bash
 $ mvn test
