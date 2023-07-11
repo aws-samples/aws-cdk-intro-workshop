@@ -5,7 +5,7 @@ weight = 300
 
 ## Agregue recursos a la construcción del contador de solicitudes 
 
-Ahora, definamos la función AWS Lambda y la tabla DynamoDB en nuestra construcción `HitCounter`. Regrese a `cdkworkshop/hitcounter.py` y agregue el siguiente código resaltado:
+Ahora, definamos la función AWS Lambda y la tabla DynamoDB en nuestro constructo `HitCounter`. Regrese a `cdkworkshop/hitcounter.py` y agregue el siguiente código resaltado:
 
 {{<highlight python "hl_lines=4 9-11 16-19 21-30">}}
 from constructs import Construct

@@ -44,7 +44,7 @@ class HitCounter(Construct):
         table.grant_read_write_data(self._handler)
 {{</highlight>}}
 
-## Deploy
+## Despliegue
 
 Guarda y deploy: 
 
@@ -152,7 +152,7 @@ Puede verificar lo que esto hizo usando `cdk diff`:
 cdk diff
 ```
 
-La sección de **Resources** debería tener un aspecto similar a estO, que muestra que la declaración de IAM se agregó al rol:
+La sección de **Resources** debería tener un aspecto similar a esto, que muestra que la declaración de IAM se agregó al rol:
 
 
 ```

@@ -5,7 +5,7 @@ weight = 300
 
 ## Agregue recursos a la construcción del contador de solicitudes 
 
-Ahora, definamos la función AWS Lambda y la tabla DynamoDB en nuestra construcción `HitCounter`. Regrese a `hitcounter/hitcounter.go`  y agregue el siguiente código resaltado:
+Ahora, definamos la función AWS Lambda y la tabla DynamoDB en nuestro constructo `HitCounter`. Regrese a `hitcounter/hitcounter.go`  y agregue el siguiente código resaltado:
 
 {{<highlight go "hl_lines=4 7 16 21 27-41 44-46">}}
 package hitcounter

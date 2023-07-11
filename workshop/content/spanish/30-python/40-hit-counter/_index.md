@@ -1,10 +1,10 @@
 +++
-title = "Writing constructs"
+title = "Escribiendo constructos"
 bookFlatSection = true
 weight = 40
 +++
 
-# Writing constructs
+# Escribiendo constructos
 
 En este capítulo definiremos una nueva construcción llamada `HitCounter`. Este construct se puede adjuntar a cualquier función de Lambda que se utilice como backend de API Gateway y contará cuántas solicitudes se emitieron a cada ruta de URL. Lo almacenará en una tabla de DynamoDB.
 
