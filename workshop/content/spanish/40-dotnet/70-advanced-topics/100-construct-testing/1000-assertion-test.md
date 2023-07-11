@@ -1,33 +1,32 @@
 +++
-title = "Assertion Tests"
+title = "Pruebas de Aserción"
 weight = 200
 +++
 
-### Fine-Grained Assertion Tests
+### Pruebas de Aserción Detalladas
 
-#### Create a test for the DynamoDB table
+#### Crear una prrueba para la tabla de DynamoDB
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/40-dotnet/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} Esta sección asume que usted ha [creado el constructo contador de hits](/es/40-dotnet/40-hit-counter.html) {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+Nuestro constructo `HitCounter` crea una tabla simple de DynamoDB. Ahora, creemos una prueba que valide que la tabla está siendo creada.
 
-#### Prerequisites
+#### Prerrequisitos
 
-* Visual Studio Required for this testing workshop, download [here](https://visualstudio.microsoft.com/downloads/)
+* Visual Studio es requerido para hacer las pruebas en este workshop, puede descargarlo [aquí](https://visualstudio.microsoft.com/downloads/).
 
-#### Getting started testing your CDK code
+#### Introducción a probar su código de CDK
 
-* Open `src/CdkWorkshop/CdkWorkshop.sln`in Visual Studio
-* In Solution Explorer, add Project `Tests` > `MSTest Project` named `CdkWorkshopTests`
-* From terminal, from directory `CdkWorkshop.sln` resides in, run `dotnet test` to see single placeholder test pass
-* Rename boilerplate `UnitTest1.cs` file to `HitCounterTest.cs`
-* In Solution Explorer, add reference to `CdkWorkshop` project from `CdkWorkshopTests`
-* In Solution Explorer, add `Amazon.CDK`, `Amazon.CDK.lib`, and `Amazon.CDK.Assertions` NuGet packages to the CdkWorkshopTests project
+* En Visual Studio abra `src/CdkWorkshop/CdkWorkshop.sln`
+* En Solution Explorer, adicione un Proyecto `Tests` > `MSTest Project` llamado `CdkWorkshopTests`
+* Desde una terminal, estando en el directorio en donde se encuentra `CdkWorkshop.sln`, ejecute `dotnet test` para observar como la prueba única es exitosa
+* Renombre el archivo de ejemplo `UnitTest1.cs` como `HitCounterTest.cs`
+* En Solution Explorer, adicione una referencia al proyecto `CdkWorkshop` desde `CdkWorkshopTests`
+* En Solution Explorer, adicione los paquetes NuGet `Amazon.CDK`, `Amazon.CDK.lib`, y `Amazon.CDK.Assertions` al proyecto CdkWorkshopTests
 
-#### Create test suite and add test for creation of DynamoDB Table
+#### Creee un conjunto de pruebas y agregue una prueba para la creación de la tabla de DynamoDB
 
- Update the contents of the `HitCounterTest.cs` to add test ensure DynamoDB Table was created:
+Actualice el contenido de `HitCounterTest.cs` para agregar la prueba que asegura que la tabla de DynamoDB ha sido creada:
 ```cs
 namespace CdkWorkshopTests;
 
@@ -68,12 +67,12 @@ public class HitCounterTest
 }
 ```
 
-Run the test and ensure test passes:
+Ejecute la prueba y asegurese que es exitosa:
 ```bash
 $ dotnet test
 ```
 
-You should see output like this:
+Usted debería ver una salida similar a esta:
 
 ```bash
 $ dotnet test
@@ -84,7 +83,7 @@ A total of 1 test files matched the specified pattern.
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 15 ms - CdkWorkshopTests.dll (net7.0)
 ```
 
-#### Add test to ensure HitCounter Lambda is created
+#### Agregue una prueba para asegurar que la función Lambda HitCounter es creada
 ```cs
 [TestMethod]
 public void StackCreatesHitCounterHandler()
@@ -96,7 +95,7 @@ public void StackCreatesHitCounterHandler()
 }
 ```
 
-Notice the usage of `Match.AnyValue`:
+Observe como se utiliza `Match.AnyValue`:
 
 {{<highlight cs "hl_lines=3">}}
 template.HasResourceProperties("AWS::Lambda::Function", new ObjectDict {
@@ -105,9 +104,9 @@ template.HasResourceProperties("AWS::Lambda::Function", new ObjectDict {
 });
 {{</highlight>}}
 
-This allows us to ignore properties that do not apply or we do not understand how to define.
+Esto nos permite ignorar propiedades que no aplican o que no sabemos como definir.
 
-#### Add a test to ensure the lambda is created with correct environment variables
+#### Agregue una prueba para asegurar que la funcion Lambda es creada con las variables de entorno correctas
 ```cs
 [TestMethod]
 public void HitCounterLambdaEnvironmentVariablesCorrect()
@@ -134,7 +133,7 @@ public void HitCounterLambdaEnvironmentVariablesCorrect()
 }
 ```
 
-Notice the usage of argument captors:
+Observe el use de los captores de argumentos:
 
 {{<highlight cs "hl_lines=7-8">}}
 template.HasResourceProperties("AWS::Lambda::Function", new ObjectDict {
@@ -155,14 +154,13 @@ Assert.IsTrue(functionCapture.AsObject()["Ref"].ToString().StartsWith("HelloHand
 Assert.IsTrue(tableCapture.AsObject()["Ref"].ToString().StartsWith("HelloHitCounterHits"));
 {{</highlight>}}
 
-This allows us to capture parameters passed to the CDK method that we used to define our table
+Esto nos permite capturar los parámetros pasados al método de CDK que utilizamos para definir nuestra tabla.
 
-Using these captors, we can make an assertion on the `Ref` property in the generated CloudFormation template for the `DOWNSTREAM_FUNCTION_NAME` and `HITS_TABLE_NAME` environment variables
+Utilizando estos captores, podemos hacer una aserción para las variables de entorno `DOWNSTREAM_FUNCTION_NAME` y `HITS_TABLE_NAME` en la propiedad `Ref` en la plantilla generada de CloudFormation.
 
-The `StartsWith` method is used to reduce risk of the tests not functioning as expected due 
-to randomly generated characters that are appended to the resource names during generation of CloudFormation.
+El método `StartsWith` es utilizado para reducir el riesgo que las pruebas no funcionen como sea esperado debido a caracteres generados aleatoriamente que son adicionados a los nombres de los recursos durante la generación de CloudFormation.
 
-#### Add test to ensure DynamoDB table created with correct key
+#### Agregar una prueba que asegure que la tabla de DynamoDB es creada con la llave correcta
 ```cs
 [TestMethod]
 public void DynamoDBTableCreatedWithCorrectKey()
@@ -184,8 +182,8 @@ public void DynamoDBTableCreatedWithCorrectKey()
 ```
 
 
-#### Wrapping up
-At this point you should have 4 passing tests:
+#### Resumiendo
+En este punto usted debería tener 4 pruebas exitosas:
 
 ```bash
 $ dotnet test                                                                                    
@@ -200,13 +198,13 @@ A total of 1 test files matched the specified pattern.
 Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 7 s - CdkWorkshopTests.dll (net7.0)
 ```
 
-Congrats, nice work!  
+Felicitaciones, buen trabajo!  
 
-This portion of the workshop has provided only a small overview of testing csharp CDK solutions.   For more information, view the C# samples in the [user guide](https://docs.aws.amazon.com/cdk/v2/guide/testing.html).
+Esta parte del workshop solo ha provisto un vistazo de como hacer pruebas de soluciones CDK para csharp. Para más información, vea los ejemplos de C# en la [Guía para desarrolladores](https://docs.aws.amazon.com/cdk/v2/guide/testing.html).
   
 
 
-##### Page Todo
+<!-- ##### Page Todo
 * Figure out commands to do things instead of Visual Studio solution explorer things, got idea from [here](https://scottie.is/writing/a-cdk-companion-for-the-rahul-nath-lambda-course/)
 * Manage nuget packages via CLI, e.g.: `dotnet add package Amazon.CDK.Assertions`
-* Remove need for Visual Studio
+* Remove need for Visual Studio -->

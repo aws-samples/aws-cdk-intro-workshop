@@ -1,15 +1,13 @@
 +++
-title = "Cleanup sample"
+title = "Limpieza del código de ejemplo"
 weight = 100
 +++
 
-## Delete the sample code from your stack
+## Elimina el código de ejemplo de tu pila (stack)
 
-The project created by `cdk init sample-app` includes an SQS queue, and an SNS topic. We're
-not going to use them in our project, so remove them from your the
-`CdkWorkshopStack` constructor.
+El proyecto creado por `cdk init sample-app` incluye una cola SQS y un política de cola, un tema de SNS y una suscripción. No vamos a usar éstos en nuestro proyecto, entonces los removeremos del constructo `CdkWorkshopStack`.
 
-Open `~/CdkWorkshopStack.java` and clean it up. Eventually it should look like this:
+Abre `~/CdkWorkshopStack.java` y remueve. Eventualmente debería verse así:
 
 ```java
 package com.myorg;
@@ -26,25 +24,25 @@ public class CdkWorkshopStack extends Stack {
     public CdkWorkshopStack(final Construct parent, final String id, final StackProps props) {
         super(parent, id, props);
 
-        // Nothing here!
+        // Nada por aquí!
     }
 }
 ```
 
-## Delete the `test` directory
-The `test` directory can be used to create tests for your project using the `junit` library. For the purposes of this workshop, do not need it, so delete the directory from root.
+## Elimina el directorio `test`
+
+El directorio `test` puede ser usado para crear pruebas con la librería `junit`. Para el propósito de este workshop, no lo necesitamos, así que puedes eliminar el directorio de la raíz.
 
 ## cdk diff
 
-Now that we modified our stack's contents, we can ask the toolkit to show us the difference between our CDK app and
-what's currently deployed. This is a safe way to check what will happen once we run `cdk deploy` and is always good practice:
+Ahora que hemos modificado el contenido de nuestra pila (stack), podemos pedirle al toolkit que nos muestre la diferencia entre nuestra aplicación CDK y lo que está actualmente desplegado. Esta es una manera segura de verificar que podría pasar una vez ejecutemos el comando `cdk deploy` y siempre es una buena práctica:
 
 ```
 mvn clean package
 cdk diff
 ```
 
-Output should look like the following:
+La salida debería verse así:
 
 ```
 IAM Statement Changes
@@ -64,14 +62,14 @@ Resources
 [-] AWS::SNS::Subscription CdkWorkshopTopicCdkWorkshopQueueSubscription88D211C7 destroy
 ```
 
-As expected, all of our resources are going to be brutally destroyed.
+Como es de esperarse, todos nuestros recursos estarán siendo borrados completamente.
 
 ## cdk deploy
 
-Run `cdk deploy` and __proceed to the next section__ (no need to wait):
+Ejecuta `cdk deploy` y __procede a la siguiente sección__ (No es necesario esperar):
 
 ```
 cdk deploy
 ```
 
-You should see the resources being deleted.
+Deberías ver los recursos que están siendo eliminados.

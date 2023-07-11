@@ -1,25 +1,23 @@
 +++
-title = "Assertion Tests"
+title = "Pruebas de Aserción"
 weight = 200
 +++
 
-### Fine-Grained Assertion Tests
+### Pruebas de Aserción Detalladas
 
-#### Create a test for the DynamoDB table
+#### Crear una prueba para la tabla de DynamoDB
 
-{{% notice info %}} This section assumes that you have [created the hit counter construct](/50-java/40-hit-counter.html) {{% /notice %}}
+{{% notice info %}} Esta sección asume que usted ha [creado el constructo contador de hits](/es/50-java/40-hit-counter.html) {{% /notice %}}
 
-Our `HitCounter` construct creates a simple DynamoDB table. Lets create a test that
-validates that the table is getting created.
+Nuestro constructo `HitCounter` crea una tabla simple de DynamoDB. Ahora, creemos una prueba que valide que la tabla está siendo creada.
 
-Since we removed the `src/test` directory (usually created automatically when you run `cdk init`), we need to create a new `test` directory
-under `src`:
+Ya que borramos el directorio `src/test` (usualmente creado automáticamente cuando se ejecuta `cdk init`), es necesario crear un nuevo directorio `test` bajo `src`:
 
 ```bash
 mkdir -p src/test/java/com/myorg
 ```
 
-And then create a file called `HitCounterTest.java` with the following code.
+Y luego creemos un archivo llamado `HitCounterTest.java` con el siguiente código.
 
 ```java
 package com.myorg;
@@ -64,15 +62,15 @@ public class HitCounterTest {
 }
 ```
 
-This test is simply testing to ensure that the synthesized stack includes a DynamoDB table.
+Esta prueba simplemente está asegurando que la pila sintetizada incluye una tabla de DynamoDB.
 
-Run the test.
+Ejecute la prueba.
 
 ```bash
 $ mvn test
 ```
 
-You should see output like this:
+Usted debería ver una salida similar a esta:
 
 ```bash
 $ mvn test
@@ -98,14 +96,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 ```
 
-#### Create a test for the Lambda function
+#### Crear una prueba para la función Lambda
 
-Now lets add another test, this time for the Lambda function that the `HitCounter` construct creates.
-This time in addition to testing that the Lambda function is created, we also want to test that
-it is created with the two environment variables `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
+Ahora adicionemos otra prueba, esta vez para la función Lambda que el constructo `HitCounter` crea.
+Además de probar que la función Lambda es creada, también queremos probar que es creada con las dos variables de entorno `DOWNSTREAM_FUNCTION_NAME` & `HITS_TABLE_NAME`.
 
-Add another test below the DynamoDB test. If you remember, when we created the lambda function the
-environment variable values were references to other constructs.
+Adicione otra prueba debajo de la prueba de la tabla de DynamoDB. Si recuerda, cuando creamos la función Lambda los valores de las variables de entorno eran referencias a otros constructos.
 
 {{<highlight java "hl_lines=2-3 9">}}
 final Map<String, String> environment = new HashMap<>();
@@ -120,11 +116,9 @@ this.handler = Function.Builder.create(this, "HitCounterHandler")
     .build();
 {{</highlight>}}
 
-At this point we don't really know what the value of the `functionName` or `tableName` will be since the
-CDK will calculate a hash to append to the end of the name of the constructs, so we will just use a
-dummy value for now. Once we run the test it will fail and show us the expected value.
+En este punto no sabemos realmente cuales serán los valores de `functionName` o `tableName` ya que CDK calculará un hash que será añadido al final del nombre de los constructos, así que utilizaremos un valor ficticio por el momento. Una vez que ejecutemos la prueba, fallará y nos mostrará el valor esperado.
 
-Create a new test in `HitCounterTest.Java` with the below code:
+Cree una nueva prueba en `HitCounterTest.Java` con el siguiente código:
 
 ```java
 @Test
@@ -160,14 +154,13 @@ public void testLambdaEnvVars() throws IOException {
 }
 ```
 
-Save the file and run the test again.
+Guarde el archivo y ejecute la prueba de nuevo.
 
 ```bash
 $ mvn test
 ```
 
-This time the test should fail and you should be able to grab the correct value for the
-variables from the expected output.
+Esta vez la prueba debe fallar y usted podrá obtener los valores correctos para las variables de la salida.
 
 {{<highlight bash "hl_lines=11-14">}}
 $ mvn test
@@ -206,7 +199,7 @@ Tests run: 2, Failures: 1, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 {{</highlight>}}
 
-Grab the real values for the environment variables and update your test
+Tome nota de los valores reales para las variables de entorno y actualice su prueba.
 
 {{<highlight java "hl_lines=26-27">}}
 @Test
@@ -242,13 +235,13 @@ public void testLambdaEnvVars() throws IOException {
 }
 {{</highlight>}}
 
-Now run the test again. This time is should pass.
+Ahora, ejecute la prueba de nuevo.  Esta vez debe ser exitosa.
 
 ```bash
 $ mvn test
 ```
 
-You should see output like this:
+Usted debe ver una salida como la siguiente:
 
 ```bash
 $ mvn test
@@ -272,10 +265,9 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 ```
 
-You can also apply TDD (Test Driven Development) to developing CDK Constructs. For a very simple example, lets add a new
-requirement that our DynamoDB table be encrypted.
+Usted también puede aplicar TDD (Test Driven Development) para desarrollar Constructos de CDK. Para mostrar un ejemplo muy simple, adicionemos un nuevo requerimiento para que nuestra tabla de Dynamo DB sea encriptada.
 
-First we'll update the test to reflect this new requirement.
+Primero actualizaremos la prueba para reflejar este nuevo requerimiento.
 
 {{<highlight java>}}
 @Test
@@ -302,7 +294,7 @@ public void testDynamoDBEncryption() throws IOException {
 }
 {{</highlight>}}
 
-Now run the test, which should fail.
+Ahora ejecutemos la prueba, que debe fallar.
 
 ```bash
 $ mvn test
@@ -383,7 +375,7 @@ Tests run: 3, Failures: 1, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 ```
 
-Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
+Ahora, corrijamos el problema. Actualicemos el código de hitcounter para habilitar la encripción por defecto.
 
 {{<highlight java "hl_lines=11 28">}}
 package com.myorg;
@@ -444,7 +436,7 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-Now run the test again, which should now pass.
+Ejecutemos la prueba nuevamente, esta vez debe ser exitosa.
 
 ```bash
 $ mvn test

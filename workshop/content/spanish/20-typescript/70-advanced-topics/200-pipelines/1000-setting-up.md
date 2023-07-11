@@ -1,15 +1,15 @@
 +++
-title = "Getting Started with Pipelines"
+title = "Introducción a las Canalizaciones"
 weight = 110
 +++
 
-> Note: This segment of the workshop assumes you have completed the previous sections of the workshop. If you have not, and just want to follow this segment, or you are returning to try this workshop, you can use the code [here](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/typescript/tests-workshop) that represents the last state of the project after adding the tests.
+> Nota: Esta sección del workshop asume que usted ha completado las secciones previas.  Si usted no lo ha hecho, y solamente quiere seguir esta sección, o si usted está retornando a intentar este workshop, usted puede utilizar el código [aquí](https://github.com/aws-samples/aws-cdk-intro-workshop/tree/master/code/typescript/tests-workshop) que representa el último estado del proyecto después de adicionar las pruebas.
 
-## Create Pipeline Stack
-The first step is to create the stack that will contain our pipeline.
-Since this is separate from our actual "production" application, we want this to be entirely self-contained.
+## Crear la Pila para la Canalización
+El primer paso es crear la pila que contendrá nuestra canalización.
+Teniendo en cuenta que esta pila es independiente de nuestra aplicación de "producción" real, queremos mantenerla completamente separada.
 
-Create a new file under `lib` called `lib/pipeline-stack.ts`. Add the following to that file.
+Cree un nuevo archivo llamado `pipeline-stack.ts` bajo el directorio `lib`. Adicione el siguiente código al archivo.
 
 {{<highlight ts>}}
 import * as cdk from 'aws-cdk-lib';
@@ -24,12 +24,12 @@ export class WorkshopPipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-Look familiar? At this point, the pipeline is like any other CDK stack.
+Parece familiar? En este punto, la canalización es como cualquier otra pila de CDK.
 
-## Update CDK Deploy Entrypoint
-Next, since the purpose of our pipeline is to deploy our application stack, we no longer want the main CDK application to deploy our original app. Instead, we can change the entry point to deploy our pipeline, which will in turn deploy the application.
+## Actualizar el Punto de Entrada para el Despliegue de CDK
+A continuación, ya que el propósito de nuestra canalización es desplegar la pila de nuestra aplicación, no necesitamos que la aplicación principal de CDK despliegue nuestra aplicación original. En su lugar, podemos cambiar el punto de entrada para que se despliegue nuestra canalización, que a su vez hará el despliegue de la aplicación.
 
-To do this, edit the code in `bin/cdk-workshop.ts` as follows:
+Para hacer esto, edite el código en `bin/cdk-workshop.ts` así:
 
 {{<highlight ts "hl_lines=2 5">}}
 import * as cdk from 'aws-cdk-lib';
@@ -39,7 +39,6 @@ const app = new cdk.App();
 new WorkshopPipelineStack(app, 'CdkWorkshopPipelineStack');
 {{</highlight>}}
 
+Y ahora estamos listos!
 
-And now we're ready!
-
-# Lets build a pipeline!
+# Construyamos una canalización!

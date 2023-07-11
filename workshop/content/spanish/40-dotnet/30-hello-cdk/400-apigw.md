@@ -9,7 +9,7 @@ Usaremos la [integración de proxy Lambda](https://docs.aws.amazon.com/es_es/api
 
 ## Agregue una construcción LambdaRestAPI a su pila
 
-Regresa a `src/CdkWorkshop/CdkWorkshopStack.cs`, Definamos un endpoint para la API y asociémoslo a nuestra función Lambda.:
+Regresa a `src/CdkWorkshop/CdkWorkshopStack.cs`, Definamos un endpoint para la API y asociémoslo a nuestra función Lambda:
 
 {{<highlight csharp "hl_lines=3 20-24">}}
 using Amazon.CDK;
@@ -139,7 +139,7 @@ CdkWorkshopStack.Endpoint8024A810 = https://xxxxxxxxxx.execute-api.us-east-1.ama
 
 Esta es una[salida de pila](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacks.html) que la construcción de API Gateway agrega automáticamente e incluye la URL del endpoint de API Gateway.
 
-## Testing your app
+## Probando su aplicación
 
 Intentemos alcanzar este endpoint con `curl`. Copia la URL y ejecútala (es probable que tu prefijo y región sean diferentes).
 
@@ -170,5 +170,5 @@ Si recibiste un error 5xx de API Gateway, es probable que se deba a uno de estos
 1. La respuesta que ha devuelto tu función no es la que espera API Gateway. Vuelva atrás y asegúrese de que su `handler` devuelva una respuesta que incluya los campos de `statusCode`, `body` y `header` (consulte [Escribir el código de ejecución del controlador](./200-lambda.html)).
 2. La función falló por algún motivo. Para depurarlo, puedes ir rápidamente a [esta sección](../40-hit-counter/500-logs.html) para aprender a ver tus registros de Lambda.
 
-* * *
+---
 ¡Buen trabajo! En el próximo capítulo, escribiremos nuestra propia construcción reutilizable.

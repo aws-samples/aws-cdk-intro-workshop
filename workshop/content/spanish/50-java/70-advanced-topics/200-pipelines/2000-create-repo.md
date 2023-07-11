@@ -6,21 +6,29 @@ weight = 120
 ## Crear el Repositorio en la Pila de la Canalización
 El primer paso en una buena canalización de CD es el control de código fuente. Aquí vamos a crear un repositorio de [**CodeCommit**](https://aws.amazon.com/codecommit/) para almacenar el código de nuestro proyecto.
 
-Edite el archivo `lib/pipeline-stack.ts` así.
+Edite el archivo `WorkshopPipelineStack.java` así.
 
-{{<highlight ts "hl_lines=2 9-12">}}
-import * as cdk from 'aws-cdk-lib';
-import * as codecommit from 'aws-cdk-lib/aws-codecommit';
-import { Construct } from 'constructs';
+{{<highlight java "hl_lines=7 17-20">}}
+package com.myorg;
 
-export class WorkshopPipelineStack extends cdk.Stack {
-    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+import software.constructs.Construct;
+import software.amazon.awscdk.Stack;
+import software.amazon.awscdk.StackProps;
 
-        // Creates a CodeCommit repository called 'WorkshopRepo'
-        new codecommit.Repository(this, 'WorkshopRepo', {
-            repositoryName: "WorkshopRepo"
-        });
+import software.amazon.awscdk.services.codecommit.Repository;
+
+public class WorkshopPipelineStack extends Stack {
+    public WorkshopPipelineStack(final Construct parent, final String id) {
+        this(parent, id, null);
+    }
+
+    public WorkshopPipelineStack(final Construct parent, final String id, final StackProps props) {
+        super(parent, id, props);
+
+        // This creates a new CodeCommit repository called 'WorkshopRepo'
+        final Repository repo = Repository.Builder.create(this, "WorkshopRepo")
+            .repositoryName("WorkshopRepo")
+            .build();
 
         // Pipeline code goes here
     }
@@ -28,8 +36,11 @@ export class WorkshopPipelineStack extends cdk.Stack {
 {{</highlight>}}
 
 ## Despliegue
+Ahora podemos hacer el despliegue de la aplicación para ver nuestro nuevo repositorio.
 
+Ejecutemos:
 ```
+mvn package
 npx cdk deploy
 ```
 
@@ -43,7 +54,6 @@ Dentro de la interfaz para el manejo del usuario, navegue al tab `Security crede
 ![](./git-cred.png)
 
 ### Adicionar el repositorio remoto
-### Adicionar el repositorio remoto
 Ahora debemos navegar a la [Consola de CodeCommit](https://console.aws.amazon.com/codesuite/codecommit/repositories) y buscar el repositorio. Alli deberá ver una columna llamada "Clone URL"; haga click en "HTTPS" para copiar el link https que podemos utilizar para adicionar al repositorio local.
 
 > Nota: Si usted no ve el repositorio aquí, asegúrese que esta en la interfaz para la región correcta.
@@ -56,27 +66,9 @@ En la terminal, asegúrese primero que todos los cambios que se han hecho durant
 
 > Nota: Si usted copió el código desde el repositorio en lugar de seguir a través del workshop desde el comienzo, ejecute primero`git init && git add -A && git commit -m "init"`
 
-Por defecto, el archivo `.gitignore` de CDK incluye una referencia para ignorar todos los archivos `*.js` ya que estos son típicamente generados por npm-ts. Sin embargo, ya que hemos escrito archivos lambda en js, estos no deben ser ignorados. Edite `.gitignore`, y adicione la línea `!lambda/*.js` al final del archivo como se muestra a continuación. Esto le dirá a git que incluya todos los archivos `*.js` en el directorio `lambda/`
+> Nota: Por defecto, el archivo `.gitignore` de CDK incluye una referencia para ignorar todos los archivos `*.js` ya que estos son típicamente generados por npm-ts. Sin embargo, ya que tenemos archivos lambda escritos en js, estos no deben ser ignorados. Asegurese que el archivo `.gitignore` incluye una línea `!lambda/*.js`. Esto le dirá a git que incluya todos los archivos `*.js` en en directorio `lambda/`.
 
-{{<highlight shell "hl_lines=9">}}
-*.js
-!jest.config.js
-*.d.ts
-node_modules
-
-# CDK asset staging directory
-.cdk.staging
-cdk.out
-!lambda/*.js
-{{</highlight>}}
-
-Usted también necesitará confirmar los cambios a su got local antes de enviarlos a CodeCommit:
-
-```
-git add -A && git commit -m "Updated .gitignore"
-```
-
-Ahora, adicionaremos el repositorio remoto a nuestra configuración de Git. Esto se hace con el comando (*XXXXX* representa el "Clone URL" que usted copió previamente de la consola):
+Ahora, adicionaremos el repositorio remoto a nuestra confirguración de Git. Esto se hace con el comando (*XXXXX* representa el "Clone URL" que usted copió previamente de la consola):
 
 ```
 git remote add origin XXXXX
@@ -90,7 +82,7 @@ git push --set-upstream origin main
 
 Aquí, CodeCommit le pedirá las credenciales generadas en la sección **Credenciales de Git**. Usted sólo debe proveerlas una vez.
 
-### Ver el Resultado
+## Ver el Resultado
 Ahora puede volver a la Consola de CodeCommit y ver que su código se encuentra allí!
 
 ![](./repo-code.png)

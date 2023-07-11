@@ -3,31 +3,20 @@ title = "CDK Watch"
 weight = 300
 +++
 
-## Faster personal deployments
+## Despliegues particulares más rápidos
 
-{{% notice info %}} This section is not necessary to complete the workshop, but we
-recommend that you take the time to see how `cdk deploy --hotswap` and `cdk watch` 
-can speed up your personal deployments.
+{{% notice info %}}Esta sección no es necesaria para completar el workshop, pero recomendamos que tomes el tiempo para ver cómo `cdk deploy --hotswap` y `cdk watch` pueden acelerar tus despliegues particulares.
 {{% /notice %}}
 
-It's great that we have a working lambda! But what if we want to tweak the lambda
-code to get it just right? Let's say that we have now decided that we want our
-lambda function to respond with `"Good Morning, CDK!"` instead of `"Hello, CDK"`.
+Es genial tener nuestra función Lambda corriendo! Pero qué tal sí queremos retocar el código de la función lambda para hacerlo diferente? Digamos que hemos decidido ahora que queremos que nuestra función responda un `"Buenos días, CDK!"`  en vez de `"Hello, CDK!"`.
 
-So far, it seems like the only tool we have at our disposal to update our stack is
-`cdk deploy`. But `cdk deploy` takes time; it has to deploy your CloudFormation
-stack and upload the `lambda` directory from your disk to the boostrap bucket. If
-we're just changing our lambda code, we don't actually need to update the
-CloudFormation stack, so that part of `cdk deploy` is wasted effort.
+Hasta ahora, parece que la única herramienta que tenemos a nuestra disposición para actualizar nuestro stack es `cdk deploy`. Sin embargo, `cdk deploy` toma tiempo; tiene que implementar su pila de CloudFormation y cargar el directorio `lambda` desde tu disco al bucket de boostrap. Si solo cambiamos algo en nuestro código lambda, en realidad no necesitamos actualizar la pila de CloudFormation, por lo que parte de `cdk deploy` es un esfuerzo en vano.
 
-We really only need to update our lambda code. It would be great if we had
-some other mechanism for doing only that...
+Realmente solo necesitamos actualizar nuestro código lambda. Sería estupendo si tuviéramos algún otro mecanismo para hacer solo eso...
 
-## Timing `cdk deploy`
+## Temporización `cdk deploy`
 
-First, let's time how long it takes to run `cdk deploy`. It will help us baseline how
-long a full CloudFormation deployment takes. To do this, we are going to change the code 
-inside `lambda/hello.js`:
+Primero, calculemos cuánto tiempo lleva ejecutar `cdk deploy`. Esto, nos ayudará a establecer una línea de base sobre el tiempo que lleva una implementación completa de CloudFormation. Para ello, cambiaremos el código dentro de `lambda/hello.js`:
 
 {{<highlight js "hl_lines=6">}}
 exports.handler = async function(event) {
@@ -40,13 +29,13 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-Then, we can run `cdk deploy`:
+Entonces, podemos ejecutar `cdk deploy`
 
 ```
 cdk deploy
 ```
 
-The output will look something like this:
+La salida se verá así:
 
 ```
 ✨  Synthesis time: 6s
@@ -66,28 +55,20 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 72.82s
 ```
 
-The exact time will vary but we should get a pretty good idea of how long a normal
-deployment takes!
+El tiempo exacto variará, ¡pero deberíamos hacernos una idea bastante clara de cuánto dura un despliegue normal!
 
-## Hotswap deployments
+## Despliegues Hotswap
 
-{{% notice info %}} This command deliberately introduces drift in CloudFormation 
-stacks in order to speed up deployments. For this reason, only use it for 
-development purposes. Never use hotswap for your production deployments!
+{{% notice info %}}Este comando introduce deliberadamente desvíos en las pilas de CloudFormation para acelerar las implementaciones. Por este motivo, utilícelo únicamente con fines de desarrollo. ¡Nunca utilices hotswap para tus despliegues de producción!
 {{% /notice %}}
 
-We can speed up that deployment time with `cdk deploy --hotswap`, which will
-assess whether a hotswap deployment can be performed instead of a CloudFormation
-deployment. If possible, the CDK CLI will use AWS service APIs to directly make
-the changes; otherwise it will fall back to performing a full CloudFormation
-deployment.
+Podemos acelerar ese tiempo de implementación con` cdk deploy --hotswap`, que evaluará si se puede realizar una implementación de intercambio en caliente en lugar de una implementación de CloudFormation. Si es posible, la CLI del CDK utilizará las API de servicio de AWS para realizar los cambios directamente; de lo contrario, recurrirá a realizar una implementación completa de CloudFormation.
 
-Here, we will use `cdk deploy --hotswap` to deploy a hotswappable change to your 
-AWS Lambda asset code.
+En este caso, utilizaremos `cdk deploy --hotswap` para implementar un cambio intercambiable en caliente en el código de sus AWS Lambda.
 
-## Timing `cdk deploy --hotswap`
+## Temporización `cdk deploy --hotswap`
 
-Let's change the lambda code in `lambda/hello.js` another time:
+Cambiemos otra vez el código de la función lambda en `lambda/hello.js`:
 
 {{<highlight js "hl_lines=6">}}
 exports.handler = async function(event) {
@@ -100,13 +81,13 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-Now, let's run `cdk deploy --hotswap`:
+Ahora corramos `cdk deploy --hotswap`:
 
 ```
 cdk deploy --hotswap
 ```
 
-The output will look something like this:
+La salida se verá como la siguiente:
 
 ```
 ✨  Synthesis time: 6.44s
@@ -129,55 +110,40 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 9.51s
 ```
 
-Wow, deploying a hotswapped change took 3 seconds, while a full deployment took 67 seconds! 
-But take a look and read the warning message thoroughly - it's important!
+Vaya implementar un cambio intercambiable en caliente tomó solo 3 segundos, mientras que un despliegue completo tomó 67 segundos! Sin embargo tomemos un momento y leamos el mensaje de advertencia a fondo - Es importante!
 
 ```
 ⚠️ The --hotswap flag deliberately introduces CloudFormation drift to speed up deployments
 ⚠️ It should only be used for development - never use it for your production Stacks!
 ```
 
-## Did the code actually change?
+## ¿Cambió el código en realidad?
 
-Wow that was fast. Did the code actually change? Let's go to the AWS Lambda Console and
-double check!
+Vaya eso fue rápido. ¿Cambió el código en realidad? Vayamos a la consola de AWS Lambda y revisemos!
 
-1. Open the [AWS Lambda
-   Console](https://console.aws.amazon.com/lambda/home#/functions) (make sure
-   you are in the correct region).
+1. Abre la [consola de AWS Lambda](https://console.aws.amazon.com/lambda/home#/functions) (Asegúrate que estás en la región correcta)
 
-    You should see our function:
+    Deberías ver nuestra función:
 
-    ![](./lambda-1.png)
+![](./lambda-1.png)
 
-2. Click on the function name to go to the console.
+2. Clic en el nombre de la función para ir a la consola
 
-3. The code should be loaded onto the screen. Did your change show up?
+3. El código debería verse cargado en tu pantalla. Se muestra tu cambio?
 
-    ![](./lambda-5.png)
+![](./lambda-5.png)
 
 ## CDK Watch
 
-We can do better than calling `cdk deploy` or `cdk deploy --hotswap` each time.
-`cdk watch` is similar to `cdk deploy` except that instead of being a one-shot
-operation, it monitors your code and assets for changes and attempts to perform a 
-deployment automatically when a change is detected. By default, `cdk watch` will 
-use the `--hotswap` flag, which inspects the changes and determines if those 
-changes can be hotswapped. Calling `cdk watch --no-hotswap` will disable the 
-hotswap behavior.
+Podemos hacer más que solo llamar a `cdk deploy` o `cdk deploy --hotswap` cada vez. `cdk watch` es similar a cdk deploy, excepto que, en lugar de ser una operación única, supervisa el código y los activos para detectar cambios e intenta realizar un despliegue automáticamente cuando se detecta un cambio. De forma predeterminada, cdk watch utilizará el indicador `--hotswap`, que inspecciona los cambios y determina si se pueden intercambiar en caliente. Si llamas a `cdk watch --no-hotswap`, se deshabilitará el comportamiento de intercambio en caliente.
 
-Once we set it up, we can use `cdk watch` to detect both hotswappable changes and
-changes that require full CloudFormation deployment.
+Una vez que lo hayamos configurado, podemos usar `cdk watch` para detectar tanto los cambios intercambiables en caliente como los cambios que requieren un despliegue completo de CloudFormation.
 
-## Look at your `cdk.json` file
+## Mira tu archivo `cdk.json`
 
-When the `cdk watch` command runs, the files that it observes are determined by the
-`"watch"` setting in the `cdk.json` file. It has two sub-keys, `"include"` and
-`"exclude"`, each of which can be either a single string or an array of strings.
-Each entry is interpreted as a path relative to the location of the `cdk.json`
-file. Globs, both `*` and `**`, are allowed to be used.
+Cuando se ejecuta el comando `cdk watch`, los archivos que observa vienen determinados por la configuración `«watch»` del archivo cdk.json. Este tiene dos subclaves, `«incluir»` y `«excluir»`, cada una de las cuales puede ser una sola cadena o un conjunto de cadenas. Cada entrada se interpreta como una ruta relativa a la ubicación del archivo `cdk.json`. Se permite el uso de globos, tanto `*` como `**`.
 
-Your `cdk.json` file should look similar to this:
+Tu archivo `cdk.json` debería tener un aspecto similar al siguiente:
 
 ```json
 {
@@ -200,24 +166,21 @@ Your `cdk.json` file should look similar to this:
 }
 ```
 
-As you can see, the sample app comes with a suggested `"watch"` setting. We don't
-need to change anything for our use case, but if you did want `cdk watch` to watch
-other files, you can change the settings here.
+Como puede ver, la aplicación de muestra viene con una configuración de `«watch»` sugerida. No necesitamos cambiar nada en nuestro caso de uso, pero si querías que `cdk watch` viera otros archivos, puedes cambiar la configuración aquí.
 
-You're all set to start watching!
+¡Ya estás listo para empezar a mirar!
 
 ## Timing `cdk watch`
 
-First, call `cdk watch`: 
+Primero, ejecutemos `cdk watch`
 
 ```
 cdk watch
 ```
 
-This will trigger an initial deployment and immediately begin observing the files
-we've specified in `cdk.json`.
+Esto activará una implementación inicial e inmediatamente comenzará a observar los archivos que hemos especificado en `cdk.json`.
 
-Let's change our lambda asset code in `lambda/hello.js` one more time:
+Cambiemos el código de nuestro activo lambda en `lambda/hello.js` una vez más:
 
 {{<highlight js "hl_lines=6">}}
 exports.handler = async function(event) {
@@ -230,12 +193,9 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-Once you save the changes to your Lambda code file, `cdk watch` will recognize that
-your file has changed and trigger a new deployment. In this case, it will recognize
-that we can hotswap the lambda asset code, so it will bypass a CloudFormation
-deployment and deploy directly to the Lambda service instead.
+Una vez guardados los cambios en el archivo de código de Lambda, `cdk watch` reconocerá que el archivo ha cambiado y activará una nueva implementación. En este caso, reconocerá que podemos intercambiar en caliente el código de activos de Lambda, por lo que omitirá la implementación de CloudFormation y, en su lugar, se implementará directamente en el servicio de Lambda.
 
-How fast did deployment take?
+¿Qué tan rápido fue la implementación?
 
 ```
 Detected change to 'lambda/hello.js' (type: change). Triggering 'cdk deploy'
@@ -260,11 +220,8 @@ arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ✨  Total time: 8.11s
 ```
 
-## Wrap Up
+## Para finalizar
 
-The rest of this tutorial will continue using `cdk deploy` instead of `cdk watch`.
-But if you want to, you can simply keep `cdk watch` on. If you need to make a full
-deployment, `cdk watch` will call `cdk deploy` for you.
+El resto de este tutorial continuará usando `cdk deploy` en lugar de `cdk watch`. Pero si lo desea, simplemente puede mantener activado `cdk watch`. Si necesita realizar una implementación completa, `cdk watch` llamará a `cdk deploy` por ti.
 
-For a deeper dive on `cdk watch` use cases, read
-[Increasing Development Speed with CDK Watch](https://aws.amazon.com/blogs/developer/increasing-development-speed-with-cdk-watch/).
+Para obtener más información sobre los casos de uso de cdk watch, consulta [Cómo aumentar la velocidad de desarrollo con CDK Watch.](https://aws.amazon.com/es/blogs/developer/increasing-development-speed-with-cdk-watch/)
