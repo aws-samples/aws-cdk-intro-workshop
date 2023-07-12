@@ -192,7 +192,7 @@ Resources
 
 Que es exactamente lo que queríamos.
 
-## Deploy
+## Despliegue
 
 Bien... démosle otra oportunidad:
 

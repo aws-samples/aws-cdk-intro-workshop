@@ -1,13 +1,13 @@
 +++
-title = "Hit counter handler"
+title = "Controlador del contador de solicitudes"
 weight = 100
 +++
 
-## Hit counter Lambda handler
+## Controlador de Lambda para el Hit counter
 
-Okay, now let's write the Lambda handler code for our hit counter.
+Ahora escribiremos el código del controlador Lambda para nuestro contador de solicitudes.
 
-Create the file `lambda/hitcounter.js`:
+Cree el archivo `lambda/hitcounter.js`:
 
 ```js
 const { DynamoDB, Lambda } = require('aws-sdk');
@@ -40,14 +40,12 @@ exports.handler = async function(event) {
 };
 ```
 
-## Discovering resources at runtime
+##  Descubriendo recursos en tiempo de ejecución 
 
-You'll notice that this code relies on two environment variables:
+Notarás que este código se basa en dos variables de entorno: 
 
- * `HITS_TABLE_NAME` is the name of the DynamoDB table to use for storage.
- * `DOWNSTREAM_FUNCTION_NAME` is the name of the downstream AWS Lambda function.
+ * `HITS_TABLE_NAME` es el nombre de la tabla de DynamoDB que se usará para el almacenamiento. 
+ * `DOWNSTREAM_FUNCTION_NAME` es el nombre de la función downstream de AWS Lambda.
 
-Since the actual name of the table and the downstream function will only be
-decided when we deploy our app, we need to wire up these values from our
-construct code. We'll do that in the next section.
+Dado que el nombre real de la tabla y la función downstream solo se decidirán cuando implementemos nuestra aplicación, debemos conectar estos valores desde nuestro constructo. Lo haremos en la siguiente sección.
 

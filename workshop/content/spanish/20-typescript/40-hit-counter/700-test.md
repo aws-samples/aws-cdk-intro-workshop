@@ -47,4 +47,4 @@ their CDK apps.
 
 -----
 
-En el siguiente capítulo, __consumiremos__ una biblioteca de construcción publicada en pip, que nos permite ver el contenido de nuestra tabla de contadores de visitas desde cualquier navegador.
+En el siguiente capítulo, __consumiremos__ una biblioteca de construcción publicada en npm, que nos permite ver el contenido de nuestra tabla de contadores de visitas desde cualquier navegador.

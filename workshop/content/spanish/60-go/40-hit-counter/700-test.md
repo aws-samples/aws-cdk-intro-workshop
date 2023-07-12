@@ -36,4 +36,4 @@ Dado que nuestro contador de visitas es un modulo de Go, puedes [publicarlo](htt
 
 -----
 
-En el siguiente capítulo, __consumiremos__ una biblioteca de construcción publicada en pip, que nos permite ver el contenido de nuestra tabla de contadores de visitas desde cualquier navegador.
+En el siguiente capítulo, __consumiremos__ una biblioteca de construcción publicada en pkg.go.dev, que nos permite ver el contenido de nuestra tabla de contadores de visitas desde cualquier navegador.
