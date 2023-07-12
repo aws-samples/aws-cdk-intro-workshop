@@ -1,17 +1,15 @@
 +++
-title = "Learning about the Table Viewer construct"
+title = "Aprendiendo sobre el constructo Table Viewer"
 weight = 100
 +++
 
-## Reading documentation
+## Leyendo la documentación
 
-Browse to the [cdk-dynamo-table-viewer
-page](https://pkg.go.dev/github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer) on pkg.go.dev and
-read the module documentation.
+Navegaremos hacia [la página de cdk-dynamo-table-viewer](https://pkg.go.dev/github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer) en pkg.go.dev para leer la documentación del módulo.
 
 {{% notice warning %}}
-As mentioned in the README page of this library, it is not intended for production use. Namely because
-it will expose contents from your DynamoDB table to anyone without authentication.
+Como menciona el README de esta librería, no está pensada para uso productivo. Principalmente 
+porque expondrá contenido de la tabla de DynamoDB a cualquiera, sin autenticación.
 {{% /notice %}}
 
 ![](./table-viewer-go.png)

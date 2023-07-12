@@ -1,11 +1,11 @@
 +++
-title = "Exposing our hit counter table"
+title = "Exponiendo la tabla de nuestro contador"
 weight = 400
 +++
 
-## Add a table property to our hit counter
+## Agregar una propiedad table a nuestro contador
 
-Edit `src/CdkWorkshop/HitCounter.cs` and modify it so that `table` is exposed as a public property called `MyTable`.
+Editaremos `src/CdkWorkshop/HitCounter.cs` y lo modificaremos para que `table` quede expuesto como una propiedad pública llamada `MyTable`.
 
 {{<highlight csharp "hl_lines=18 30">}}
 using Amazon.CDK;
@@ -61,9 +61,9 @@ namespace CdkWorkshop
 }
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## Ahora podemos acceder a la tabla desde nuestro stack
 
-Go back to `CdkWorkshopStack.cs` and assign the `Table` property of the table viewer:
+Volveremos a `CdkWorkshopStack.cs` y asignaremos la propiedad `Table` del table viewer:
 
 {{<highlight csharp "hl_lines=37">}}
 using Amazon.CDK;
@@ -110,5 +110,5 @@ namespace CdkWorkshop
 
 {{</highlight>}}
 
-We're finished making code changes, congratulations!
-You can now save and exit out of your code editor if you want.
+Terminamos de hacer cambios en el código, felicitaciones!
+Ahora pueden guardar y cerrar el editor de código si quieren.

@@ -1,12 +1,13 @@
 +++
-title = "Deploying our app"
-weight = 400
+title = "Desplegando nuestra aplicación"
+weight = 500
 +++
+
 
 ## cdk diff
 
-Before we deploy, let's take a look at what will happen when we deploy our app
-(this is just the `Resources` section of the output):
+Antes de este despliegue, miremos que pasará cuando despleguemos la aplicación 
+(esta es sólo la sección `Resources` de la respuesta):
 
 ```
 $ mvn package
@@ -30,18 +31,19 @@ Resources
 [+] AWS::ApiGateway::Method ViewHitCounter/ViewerEndpoint/ANY ViewHitCounterViewerEndpointANY66F2285B
 ```
 
-You'll notice that the table viewer adds another API Gateway endpoint, a Lambda
-function, permissions, outputs, all sorts of goodies.
+Se pueden fijar que el _table viewer_ agrega otro endpoint de API Gateway, una 
+función Lambda, permisos y outputs, entre otros.
 
-{{% notice warning %}} Construct libraries are a very powerful concept. They
-allow you to add complex capabilities to your apps with minimum effort. However,
-you must understand that with great power comes great responsibility. Constructs
-can add IAM permissions, expose data to the public or cause your application not
-to function. We are working on providing you tools for protecting your app, and
-identifying potential security issues with your stacks, but it is your
-responsibility to understand how certain constructs that you use impact your
-application, and to make sure you only use construct libraries from vendors you
-trust  {{% /notice %}}
+{{% notice warning %}} 
+Las bibliotecas de constructos son un concepto muy poderoso. Permiten agregar
+capacidades complejas a aplicaciones con mínimo esfuerzo. Sin embargo, debemos 
+entender que un gran poder conlleva una gran responsabilidad. Los constructos pueden agregar 
+permisos de IAM, exponer data al público o causar que su aplicación pare de funcionar.
+Estamos trabajando en herramientas para protejer sus aplicaciones, e identificar potenciales 
+riesgos de seguridad con sus stacks, pero es su responsabilidad entender como los constructos
+que usan impactan su aplicación, y asegurarse de usar librerías de constructs de proveedores
+en los que confían.
+{{% /notice %}}
 
 ### cdk deploy
 
@@ -51,21 +53,21 @@ $ cdk deploy
 CdkWorkshopStack.ViewHitCounterViewerEndpointCA1B1E4B = https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
-You'll see the viewer endpoint as an output.
+Veremos el endpoint del visualizador como un ouput.
 
-### Viewing the hit counter table
+### Viendo la tabla del contador
 
-Open your browser and browse to the hit counter viewer endpoint URL. You should
-see something like this:
+Abriremos nuestro navegador y navegaremos hacia la URL del endpoint del visualizador. 
+Deberíamos ver algo así:
 
 ![](./viewer1.png)
 
-### Send a few requests
+### Enviando solicitudes
 
-Send a few more requests to your "hello" endpoint and monitor your hit counter
-viewer. You should see the values update in real-time.
+Enviaremos unas solicitudes más a nuestro endpoint "hello" y monitoreamos nuestro 
+visualizador. Deberíamos ver a los valores actualizarse en tiempo real.
 
-Use `curl` or your web browser to produce a few hits:
+Usamos `curl` o nuestro navegador para producir más consultas:
 
 ```
 $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
@@ -85,8 +87,8 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 
 {{% notice tip %}}
 
-**Interested in how the Table Viewer works?** It's easy to find out!
-Hold **Ctrl** (or **Command**) and click on the `TableViewer`
-identifier to navigate to its source code.
+**Interesado en cómo funciona el Table Viewer?** Es fácil averiguarlo!
+Mantén **Ctrl** (o **Command**) y haz click en el nombre `TableViewer` 
+para navegar a su código fuente.
 
 {{% /notice %}}

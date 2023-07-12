@@ -5,7 +5,7 @@ weight = 400
 
 ## Agregar una propiedad table a nuestro contador
 
-Editamos `hitcounter.py` y lo modificamos para que `table` quede expuesto como una propiedad pública.
+Editaremos `hitcounter.py` y lo modificaremos para que `table` quede expuesto como una propiedad pública.
 
 {{<highlight python "hl_lines=13-15 20 32 36">}}
 from constructs import Construct
@@ -49,7 +49,7 @@ class HitCounter(Construct):
 
 ## Ahora podemos acceder a la tabla desde nuestro stack
 
-Volvemos a `cdk_workshop_stack.py` y asignamos la propiedad `table` del table viewer:
+Volveremos a `cdk_workshop_stack.py` y asignaremos la propiedad `table` del table viewer:
 
 {{<highlight python "hl_lines=38">}}
 from constructs import Construct

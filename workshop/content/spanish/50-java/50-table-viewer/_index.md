@@ -1,13 +1,14 @@
 +++
-title = "Using construct libraries"
+title = "Usando bibliotecas de constructos"
 weight = 50
 bookFlatSection = true
 +++
 
-# Using construct libraries
+# Usando bibliotecas de constructos
 
-In this chapter we will import a construct library called
+En este capítulo importaremos a nuestro proyecto una biblioteca de constructos llamada
 [cdk-dynamo-table-view](https://search.maven.org/artifact/io.github.cdklabs/cdk-dynamo-table-view/0.2.0/jar)
-into our project and install it on our hit counter table.
+para visualizar 
+el contenido de nuestra tabla de conteo.
 
 ![](/images/table-viewer.png)

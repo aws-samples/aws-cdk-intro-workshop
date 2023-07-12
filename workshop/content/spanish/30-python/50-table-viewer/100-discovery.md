@@ -5,8 +5,7 @@ weight = 100
 
 ## Leyendo la documentación
 
-Navegamos hacia [cdk-dynamo-table-view
-page](https://pypi.org/project/cdk-dynamo-table-view/) en pypi.org y leemos la documentación del módulo.
+Navegaremos hacia [la página de cdk-dynamo-table-view](https://pypi.org/project/cdk-dynamo-table-view/) en pypi.org para leer la documentación del módulo.
 
 Hay algo de documentación sobre cómo usar el _table viewer_ en el README, pero está todo enfocado en TypeScript en lugar de Python. Entonces seguiremos el proceso de usar un constructo de terceros en Python.
 

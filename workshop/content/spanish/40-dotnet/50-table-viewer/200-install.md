@@ -1,18 +1,18 @@
 +++
-title = "Installing the library"
+title = "Instalando la librería"
 weight = 200
 +++
 
 ## Install Package
 
-Before you can use the table viewer in your application, you'll need to install
-the Nuget package:
+Antes de que podamos usar el _table viewer_ en nuestra aplicación, tendremos que 
+instalar el paquete Nuget:
 
 ```
 dotnet add package Cdklabs.DynamoTableViewer --version 0.2.4
 ```
 
-Output should look similar to this:
+La respuesta debería verse así:
 
 ```
 info : Adding PackageReference for package 'Eladb.DynamoTableViewer' into project '~/cdk-workshop/src/CdkWorkshop/CdkWorkshop.csproj'.
@@ -30,9 +30,9 @@ log  : Restore completed in 1.31 sec for ~/cdk-workshop/src/CdkWorkshop/CdkWorks
 ```
 
 {{% notice info %}}
-**NOTE:** You must be in the same directory as the `*.csproj` file to install a Nuget package
+**NOTE:** Deben estar en el mismo directorio que el archivo `*.csproj` para instalar un paquete Nuget
 {{% /notice %}}
 
 ----
 
-Now we are ready to add a viewer to our app.
+Ahora estamos listos para agregar el _table viewer_ a nuestra aplicación.

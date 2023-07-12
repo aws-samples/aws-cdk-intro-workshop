@@ -32,13 +32,14 @@ Se pueden fijar que el _table viewer_ agrega otro endpoint de API Gateway, una
 función Lambda, permisos y outputs, entre otros.
 
 {{% notice warning %}} 
-Las librerías de constructos son un concepto muy poderoso. Permiten agregar
+Las bibliotecas de constructos son un concepto muy poderoso. Permiten agregar
 capacidades complejas a aplicaciones con mínimo esfuerzo. Sin embargo, debemos 
-entender que gran poder trae una gran responsabilidad. Los constructos pueden agregar 
+entender que un gran poder conlleva una gran responsabilidad. Los constructos pueden agregar 
 permisos de IAM, exponer data al público o causar que su aplicación pare de funcionar.
 Estamos trabajando en herramientas para protejer sus aplicaciones, e identificar potenciales 
 riesgos de seguridad con sus stacks, pero es su responsabilidad entender como los constructos
 que usan impactan su aplicación, y asegurarse de usar librerías de constructs de proveedores
+en los que confían.
 {{% /notice %}}
 
 ### cdk deploy
@@ -53,14 +54,14 @@ Veremos el endpoint del visualizador como un ouput.
 
 ### Viendo la tabla del contador
 
-Abrimos nuestro navegador y navegamos hacia la URL del endpoint del visualizador. 
+Abriremos nuestro navegador y navegaremos hacia la URL del endpoint del visualizador. 
 Deberíamos ver algo así:
 
 ![](./viewer1.png)
 
 ### Enviando solicitudes
 
-Enviamos unas solicitudes más a nuestro endpoint "hello" y monitoreamos nuestro 
+Enviaremos unas solicitudes más a nuestro endpoint "hello" y monitoreamos nuestro 
 visualizador. Deberíamos ver a los valores actualizarse en tiempo real.
 
 Usamos `curl` o nuestro navegador para producir más consultas:

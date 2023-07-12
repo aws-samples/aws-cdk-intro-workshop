@@ -1,18 +1,18 @@
 +++
-title = "Installing the library"
+title = "Instalando la librería"
 weight = 200
 +++
 
 ## go install
 
-Before you can use the table viewer in your application, you'll need to get
-the go module:
+Antes de que podamos usar el _table viewer_ en nuestra aplicación, tendremos que 
+instalar su módulo de go:
 
 ```
 go get github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer
 ```
 
-Output should look like this:
+La respuesta debería verse así:
 
 ```
 go: upgraded github.com/aws/jsii-runtime-go v1.63.2 => v1.65.0
@@ -21,4 +21,4 @@ go: added github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer v0.2.2
 
 ----
 
-Now we are ready to add a viewer to our app.
+Ahora estamos listos para agregar el _table viewer_ a nuestra aplicación.
