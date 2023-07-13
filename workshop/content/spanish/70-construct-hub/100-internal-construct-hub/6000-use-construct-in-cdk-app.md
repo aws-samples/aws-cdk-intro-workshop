@@ -1,10 +1,10 @@
 +++
-title = "Use Construct in CDK Application"
+title = "Utilizar el Constructo en una Aplicación de CDK"
 weight = 600
 +++
 
-## Create a CDK App to Consume the Construct
-We'll need to create a new CDK app to show how to consume the construct we just created. For simplicity, we'll be reusing the [Hello, CDK!](../../20-typescript/30-hello-cdk.html) app from the typescript workshop. To get started, run the following commands from the `construct-hub-workshop` directory:
+## Crear una Aplicación de CDK para Consumir el Constructo
+Necesitamos crear una nueva aplicación de CDK para demostrar como consumir el constructo que acabamos de crear. Para hacer las cosas simples, reutilizaremos la aplicación [Hola, CDK!](../../20-typescript/30-hello-cdk.html) del workshop de Typescript.  Para comenzar, ejecutaremos los siguientes comandos desde el directorio `construct-hub-workshop`:
 
 {{<highlight bash>}}
 mkdir hello-cdk-app
@@ -12,23 +12,23 @@ cd hello-cdk-app
 cdk init app --language typescript
 {{</highlight>}}
 
-## Configure npm to Use CodeArtifact as the Package Repository
+## Configurar npm para Utilizar CodeArtifact como el Repositorio de Paquetes
 
-To enable npm to pull packages from our CodeArtifact repository, we'll first have to log in using the steps described [here](https://docs.aws.amazon.com/codeartifact/latest/ug/npm-auth.html). The command should look something like this:
+Para permitir a npm extraer paquetes de nuestro repositorio de CodeArtifact, primero tenemos que iniciar una sesión siguiendo los pasos descritos [aquí](https://docs.aws.amazon.com/codeartifact/latest/ug/npm-auth.html). El comando debería verse así:
 
 {{<highlight bash>}}
 aws codeartifact login --tool npm --domain cdkworkshop-domain  --repository cdkworkshop-repository --region [Insert Region]
 {{</highlight>}}
 
-## Use NPM to Install the cdkworkshop-lib Dependency
+## Utilizar NPM para Instalar la Dependencia de cdkworkshop-lib
 
-To use the published `cdkworkshop-lib` CDK construct library containing the hitcounter CDK construct, use `npm install` to add it to the `Hello, CDK!` application's dependencies:
+Para utilizar la biblioteca publicada `cdkworkshop-lib` que contiene el constructo de CDK hitcounter, use `npm install` para agregarla a las dependencias de la aplicación `Hola, CDK!`:
 
 {{<highlight bash>}}
 npm install cdkworkshop-lib
 {{</highlight>}}
 
-Oh no! Looks like we got an error:
+Oh no! Parece que tenemos un error:
 {{<highlight bash "hl_lines=5">}}
 npm ERR! code ERESOLVE
 npm ERR! ERESOLVE unable to resolve dependency tree
@@ -44,17 +44,17 @@ npm ERR! node_modules/cdkworkshop-lib
 npm ERR!   cdkworkshop-lib@"*" from the root project
 {{</highlight>}}
 
-On line 5, NPM is saying that the version of `aws-cdk-lib` is undefined. This is because our CodeArtifact repository does not actually contain the `aws-cdk-lib` package. When we ran the command `npm install cdkworkshop-lib`, npm went to our CodeArtifact repository looking for `aws-cdk-lib` but couldn't find it, hence the error. We can resolve this issue by either adding the `aws-cdk-lib` package to our CodeArtifact repository or by setting an upstream npm repository for CodeArtifact to use. 
+En la línea 5, NPM está diciendo que la versión de `aws-cdk-lib` es indefinida.  Esto se debe a que nuestro repositorio de CodeArtifact no contiene el paquete `aws-cdk-lib`. Cuando ejecutamos el comando `npm install cdkworkshop-lib`, npm fue a nuestro repositorio de CodeArtifact buscando `aws-cdk-lib` pero no pudo encontrarlo, y de allí el error. Podemos resolver eso ya sea adicionando el paquete `aws-cdk-lib` a nuestro repositorio de CodeCommit o configurando un repositorio de npm ascendente que CodeArtifact pueda usar.
 
-For simplicity, let's set the upstream npm respository. This way, if NPM goes to our CodeArtifact repository and cannot find a particular package, it will first try to find that package in the upstream repository before throwing an error. If that package is found, the package will be installed by NPM as expected.
+Para simplicidad, utilizaremos el repositorio de npm ascendente.  De esta forma, si NPM va a nuestro repositorio de CodeArtifact y no puede encontrar un paquete en particular, primero tratará de buscar el paquete en el repositorio ascendente antes de generar un error. Si el paquete es encontrado, el paquete será instalado por NPM tal como se esperaba.
 
-To set the upstream npm repository, follow the instructions in <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repo-upstream-add.html#:~:text=external%20connection.-,Add%20or%20remove%20upstream%20repositories%20(console),-Perform%20the%20steps" target="_blank">Add or remove upstream repositories (console).</a> Once that is done, we can run the following command to verify the change:
+Para asignar el repositorio de npm _upstream_, siga las instrucciones en <a href="https://docs.aws.amazon.com/codeartifact/latest/ug/repo-upstream-add.html#:~:text=external%20connection.-,Add%20or%20remove%20upstream%20repositories%20(console),-Perform%20the%20steps" target="_blank">Agregue o elimine repositorios ascendentes</a>.  Una vez que esto se haya hecho, podemos ejecutar el siguiente comando para verificar el cambio:
 
 {{<highlight bash>}}
 aws codeartifact update-repository --repository cdkworkshop-repository --domain cdkworkshop-domain --upstreams repositoryName=npm-store --region [Insert Region]
 {{</highlight>}}
 
-If the command ran successfully, a JSON block should be returned that looks something like this:
+Si el comando ejecuta correctamente, un bloque de JSON debe ser retornado y debería verse así:
 
 {{<highlight JSON>}}
 {
@@ -75,24 +75,24 @@ If the command ran successfully, a JSON block should be returned that looks some
 }
 {{</highlight>}}
 
-Now try to install `cdkworkshop-lib` again:
+Ahora intente instalar `cdkworkshop-lib` de nuevo:
 
 {{<highlight bash>}}
 npm install cdkworkshop-lib
 {{</highlight>}}
 
-This time it worked! We can verify this by checking the `dependencies` section of the `package.json` file of the `hello-cdk-app`.
+Esta vez funcionó! Podemos verificar esto observando la sección `dependencies` del archivo `package.json` en `hello-cdk-app`.
 
-## Lambda Handler Code
-Next, we'll create the AWS Lambda handler code.
+## Código del Manejador Lambda
+Ahora, crearemos el código del manejador de la función AWS Lambda.
 
-Create a directory called `lambda` in the root of your project tree (next to `bin` and `lib`).
+Cree un directorio llamado `lambda` en la raíz de su proyecto (al lado de `bin` y `lib`).
 
 {{<highlight bash>}}
 mkdir lambda
 {{</highlight>}}
 
-Then create a file called `lambda/hello.js` with the following contents:
+Luego cree un archivo llamado `lambda/hello.js` con el siguiente contenido:
 
 {{<highlight javascript>}}
 exports.handler = async function(event) {
@@ -105,9 +105,9 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-## Add an AWS Lambda Function and API Gateway
+## Agregue una Función AES Lambda y un API Gateway
 
-Replace the code in `hello-cdk-app-stack.ts` with the following: 
+Reemplace el código en `hello-cdk-app-stack.ts` con lo siguiente: 
 
 {{<highlight typescript >}}
 import * as cdk from 'aws-cdk-lib';
@@ -139,29 +139,28 @@ export class HelloCdkAppStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This stack imports our Hitcounter construct from the `cdkworkshop-lib` we just installed. It also adds a
-`lambda.Function`, and `apigw.LambdaRestApi`:
+Esta pila importa nuestro constructo Hitcounter desde `cdkworkshop-lib` que acabamos de instalar. También agrega una `lambda.Function`, y `apigw.LambdaRestApi`:
 
-## Deploy the Hello, CDK! Application
+## Desplegar la Aplicación Hola, CDK!
 
-Run `cdk deploy` to deploy the hello app and test it out.
+Ejecute `cdk deploy` para desplegar la aplicación y probarla.
 
 {{<highlight bash>}}
 cdk deploy
 {{</highlight>}}
 
-Once deployed, we'll see an api gateway endpoint we can hit with a message. To do so, append a string to the end of your unique endpoint url. For example, we can append the string 'hello!':
+Una vez que esta desplegada, veremos un punto de conexión de API Gateway al que podemos acceder con un mensaje. Para hacerlo, agregue una cadena al final del URL.  Por ejemplo, podemos agregar la cadena 'hola!':
 
 {{<highlight bash>}}
-curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hello!
+curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hola!
 {{</highlight>}}
 
-The repsonse should look something like this:
+La respuesta deberia verse así:
 
 {{<highlight bash>}}
-Hello, CDK! You've hit /hello!
+Hello, CDK! You've hit /hola!
 {{</highlight>}}
 
-## Review benefits
+## Revisar los beneficios
 
-That's it! Your CDK app is now consuming the Hitcounter construct from the `cdkworkshop-lib` CDK Construct library. Multiple CDK apps can use this construct without copy/pasting its code so that code duplication is avoided and standardized best practices can be reused. You can now start adding additional CDK Constructs to `cdkworkshop-lib` to build a construct library that help accelerate your teams and establish best practices!
+Y eso es todo! Su aplicación de CDK ahora consume el constructo Hitcounter de `cdkworkshop-lib` en la biblioteca de Constructos de CDK. Múltiples aplicaciones de CDK pueden utilizar este constructo sin necesidad de copiar/pegar su código así que se elimina la duplicación y las mejores prácticas pueden ser reutilizadas. Usted puede ahora empezar a agregar Constructos de CDK a `cdkworkshop-lib` para construir una biblioteca que le ayude a acelerar sus equipos y establecer mejores prácticas!

@@ -1,45 +1,45 @@
 +++
-title = "Create Pipeline and Publish Construct"
+title = "Crear la Canalización y Publicar el Constructo"
 weight = 500
 +++
 
-## Deploy Pipeline
+## Desplegar la Canalización
 
 {{% notice warning %}}
-Before continuing, make sure that the InternalConstructHubStack has a status of CREATE_COMPLETE in the <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> console.
+Antes de continuar, asegurese que InternalConstructHubStack tiene el estado CREATE_COMPLETE en la consola de <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a>.
 {{% /notice %}}
 
- Up to this point we have created the construct code in the `constructs/` directory and the pipeline code in the `pipeline/` directory. Now deploy the pipeline from the `pipeline/` directory :
+Hasta este punto hemos creado el código del constructo en el directorio `constructs/` y el código de la canalización en el directorio `pipeline/`.  Ahora haremos el despliege desde el directorio `pipeline/`:
 
 {{<highlight bash>}}
 cdk deploy
 {{</highlight>}}
 
-## Publish Artifact
+## Publicar el Artefacto
 
-`cdk deploy` creates the pipeline and publishes the artifacts.
+`cdk deploy` crea la canalización y publica los artefactos.
 
-Once `cdk deploy` completes, go to <a href="https://console.aws.amazon.com/codesuite/codepipeline/pipelines" target="_blank">CodePipeline</a> and check out the pipeline run. If you do not see your pipeline, ensure you are in the correct AWS Region. The pipeline will push the artifact to CodeArtifact. Once the pipeline finishes running, navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a>, click into `cdkworkshop-repository`, and observe that version `1.0.0` of the artifact has been published.
+Una vez que `cdk deploy` haya terminado, vaya a <a href="https://console.aws.amazon.com/codesuite/codepipeline/pipelines" target="_blank">CodePipeline</a> y verifique la ejecución de la canalización.  Una vez que haya finalizado la ejecución de la canalización, navegue a <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a>, haga click en `cdkworkshop-repository`, y observe que la versión `1.0.0` ha sido publicada.
 
-If we wait ~5-10 minutes more, we'll see that some of the packages were updated to version `0.0.0`. But why is that? This is because Projen made another commit to the repository and triggered CodePipeline. We can verify this by going to `Respositories > Commits` in the CodeCommit console. Notice that the first commit is from you whereas the second commit is from "CodeBuild Automation". Per the <a href="https://projen.io/releases.html#initial-development-phase" target="_blank">Projen Documentation</a>, new projects start with version `0.0.0`. Due to the fact that the Projen commit ran after our own, the version was first set to `1.0.0` and then `0.0.0` afterwards. This only happens on the first commit and is specific to Projen. Subsequent commits will follow standard conventions for version numbers. 
+Si esperamos unos ~5-10 minutos más, veremos que algunos de los paquetes fueron actualizados a la versión `0.0.0`. Pero porqué ocurre esto? Esto sucede porque Projen hizo otra confirmación al repositorio y esto activó CodePipeline. Podemos verificar esto yendo a `Repositories > Commits` en la consola de CodeCommit. Allí usted pueder ver que la primera confirmación (commit) es suya mientras que la segunda es de "CodeBuild Automation". Según la <a href="https://projen.io/releases.html#initial-development-phase" target="_blank">Documentación de Projen</a>, los proyectos nuevos comienzan con la versión `0.0.0`. Debido al hecho que la confirmación de Projen se envió después de la nuestra, la versión fué inicialmente asignada a `1.0.0` y después a `0.0.0`.  Esto solamente sucederá en la primera confirmación y es específico a Projen. Confirmaciones posteriores seguirán las convenciones estándar para los números de version. 
 
-## Merge Divergent Branches
-Before moving on it's important to note that because Projen makes its own commit's to the codecommit repository, the remote `construct-lib-repo` repository and local `construct-lib-repo` repository will be out of sync. To fix this, make sure that you run `git pull` from your local `construct-lib-repo` directory before making any pushes to the remote repository:
+## Combinar Ramas Diferentes
+Antes de continuar es importante mencionar debido a que Projen hace sus propias confirmaciones al repositorio de CodeCommit, el repositorio remoto `construct-lib-repo` y el repositorio local `construct-lib-repo` estarán fuera de sincronización. Para arreglar esto, asegurese de ejecutar `git pull` desde su directorio `construct-lib-repo` local antes enviar cualquier cambio al repositorio remoto:
 
 {{<highlight bash>}}
 git pull
 {{</highlight>}}
 
-## Major, Minor, and Fix Releases
-Projen uses <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> to infer new versions of artifacts. The commit message defines how the version number should be incremented i.e. whether this is a major, minor or hot fix.
+## Versiones Principales, Secundarias y Correcciones
+Projen utiliza <a href="https://www.conventionalcommits.org/en/v1.0.0/#specification" target="_blank">Conventional Commits</a> para inferir nuevas versiones de artefactos. El mensaje de confirmación define como el número de versión debe ser incrementado, es decir, si esta es una version principal, secundaria o corrección.
 
-Let's make a small 'fix' to our construct library code and commit the change to CodeCommit. Open the file `constructs/lambda/hitcounter.js` and modify the log message to read the following:
+Hagamos una pequeña "corrección" al código de nuestra biblioteca de constructos y confirmemos el cambio a CodeCommit.  Abra el archivo `constructs/lambda/hitcounter.js` y modifique el mensaje de _log_ así:
 
 {{<highlight typescript>}}
 console.log('downstream function response:', JSON.stringify(resp, undefined, 2));
 {{</highlight>}}
 
-The code will look like this:
+El código debe verse así:
 
 {{<highlight typescript>}}
 const { DynamoDB, Lambda } = require('aws-sdk');
@@ -72,7 +72,7 @@ exports.handler = async function(event) {
 };
 {{</highlight>}}
 
-Commit the changes to CodeCommit from the `construct-lib-repo` directory:
+Confirme los cambios a CodeCommit desde el directorio `construct-lib-repo`:
 
 {{<highlight bash>}}
 git add .
@@ -80,20 +80,20 @@ git commit -m 'fix: modified log message'
 git push
 {{</highlight>}}
 
-Now when the pipeline runs, it should publish an updated artifact with the last (Patch) part alone updated. Navigate to <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a> and observe that it has version `1.0.1` of the artifact.
+Ahora cuando la canalización corra, debería publicar un artefacto actualizado solamente en la última parte (Patch).  Navegue a <a href="https://console.aws.amazon.com/codesuite/codeartifact/repositories" target="_blank">CodeArtifact</a> y observe que tiene la versión `1.0.1` del artefacto.
 
 ![](./code-artifact-cdkworkshop-lib-1.0.1.png)
 
-## Observe the Artifacts in the Internal Construct Hub
+## Observer los Artefactos en el Construct Hub Interno
 
-In the <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> console, navigate to the Outputs tab of the `InternalConstructHubStack`. Scroll down the `Export name` column to `ConstructHubDomainName`. Click on the domain URL (in the Value column) of that row to view the front-end of the Internal Construct Hub. Click on the `Find constructs` button to see the published constructs.
+El la consola de <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a>, navegue al tab Outputs de `InternalConstructHubStack`. Deslicese en la columna `Export name` hasta `ConstructHubDomainName`. Haga click en el URL del dominio (en la columna `Value`) de esa línea para el el valor del _front-end_ del Construct Hub Interno.  Haga click en el botón `Find constructs` para ver los constructos publicados.
 
 ![](./internal-construct-hub-website-search.png)
 
-Select `cdkworkshop-lib > HitCounter` to display the details of the published construct.
+Seleccione `cdkworkshop-lib > HitCounter` para mostrar los detalles del constructo publicado.
 
 ![](./internal-construct-hub-website-details.png)
 
-## Summary
+## Resumen
 
-In this section, we created the pipeline instance from the pipeline CDK code. We saw that the pipeline built, transpiled, packaged and published the artifacts into our Internal Construct Hub. Next we will look into how to consume the transpiled artifacts from our Internal Construct Hub.
+En esta sección, creamos la instancia de la canalización desde el código de la canalización de CDK.  Observamos que la canalización compiló, transpiló, empaquetó y publicó los artefactos a nuestro Construct Hub Interno.  A continuación veremos como consumir los artefactos transpilados desde nuestro Construct Hub Interno.

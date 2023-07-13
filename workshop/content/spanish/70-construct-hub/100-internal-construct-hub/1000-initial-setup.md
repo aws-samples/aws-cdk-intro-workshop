@@ -1,35 +1,35 @@
 +++
-title = "Initial Setup"
+title = "Configuración Inicial"
 weight = 100
 +++
 
-## Initial Setup
+## Configuración Inicial
 
 {{% notice warning %}}
-Before you begin, make sure you have gone through the steps in the [Prerequisites](/15-prerequisites.html) section.
+Antes de comenzar, asegurese que ha seguido los pasos en la sección de [Prerequisitos](/es/15-prerequisites.html).
 
-You must also have <a href="https://docs.docker.com/get-docker/" target="_blank">Docker</a> running and <a href="https://yarnpkg.com/getting-started/install" target="_blank">Yarn</a> installed in your development environment to complete this walkthrough.
+Adicionalmente usted debe tener <a href="https://docs.docker.com/get-docker/" target="_blank">Docker</a> en ejecución y <a href="https://yarnpkg.com/getting-started/install" target="_blank">Yarn</a> instalado en su ambiente de desarrollo para completar este tutorial.
 {{% /notice %}}
 
-## Create the Parent Directory and Project Directory
+## Crear el Directorio Principal y el Directorio del Proyecto
 
-### Parent Directory 
-We'll create a parent directory to hold all of the code for this workshop:
+### Directorio Principal 
+Crearemos el directorio principal que contendrá todo el código para este workshop:
 
 {{<highlight bash>}}
 mkdir construct-hub-workshop && cd construct-hub-workshop
 {{</highlight>}}
 
-### Project Directory
-Next we'll create a project directory for the actual Construct Hub construct we'll be deploying to our aws account:
+### Directorio del Proyecto
+A continuación crearemos el directorio del proyecto para el constructo "real" del Construct Hub que desplegaremos en nuestra cuenta de AWS:
 
 {{<highlight bash>}}
 mkdir internal-construct-hub && cd internal-construct-hub
 {{</highlight>}}
 
-## Create a New TypeScript CDK Project
+## Crear un Nuevo Proyecto de CDK utilizando TypeScript
 
-We will use `cdk init` to create a new TypeScript CDK project:
+Utilizaremos `cdk init` para crear un proyecto de CDK utilizando TypeScript:
 
 {{<highlight bash>}}
 cdk init app --language typescript

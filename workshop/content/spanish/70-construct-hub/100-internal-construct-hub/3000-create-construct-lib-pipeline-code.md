@@ -1,26 +1,26 @@
 +++
-title = "Create Construct Library - Pipeline Code"
+title = "Crear la Biblioteca de Constructos - Código de la Canalización"
 weight = 300
 +++
 
-## Create Construct Library - Pipeline
+## Crear la Biblioteca de Constructos - Canalización
 
-Next, we'll set up the infrastructure that will deploy the construct library into our Internal Construct Hub. Since this is separate from the "Internal Construct Hub" infrastructure in the previous step, we'll want this code to be in its own directory. In your terminal, make sure you are in the `construct-hub-workshop` directory.
+A continuación, haremos la configuración de la infraestructura que hará el despliegue de la biblioteca de contructos en nuestro Construct Hub Interno.  Ya que esto es independiente de la infraestructura del "Construct Hub Interno" que se hizo en el paso anterior, queremos que este código este en su propio directorio. En su terminal, asegurese que se encuentra en el directorio `construct-hub-workshop`.
 
-Navigate to <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> and create a new remote repository named `construct-lib-repo`. Go to the HTTPS (GRC) tab and follow the instructions to clone the repository `construct-lib-repo` to your local machine (replace `<path>` in the code below with the URL to the newly created repository).
+Navegue a <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> y cree un nuevo repositorio remoto llamado `construct-lib-repo`. Vaya al tab HTTPS (GRC) y siga las instrucciones para clonar el repositorio `construct-lib-repo` a su máquina local (reemplace `<path>` en el código abajo con el URL del repositorio recién creado).
 
 {{<highlight bash>}}
 git clone <path>
 cd construct-lib-repo
 {{</highlight>}}
 
-Note: We will be working with Typescript, so make sure you have it installed. If not, run the following command in your terminal:
+Nota: Trabajaremos con TypeScript, así que asegurese que está instalado. Si no es así, ejecute el siguiente comando en su terminal:
 
 {{<highlight bash>}}
 npm install -g typescript
 {{</highlight>}}
 
-Next, we'll create a new folder called `pipeline` within the `/construct-lib-repo` directory. This will contain all the pipeline infrastructure. Then we'll initialize a CDK Typescript application project.
+Ahora, crearemos un nuevo folder llamado `pipeline` dentro del directorio `/construct-lib-repo`.  Este contendrá la insfraestructura de la canalización. Luego inicializaremos un proyecto de CDK utilizando TypeScript.
 
 {{<highlight bash>}}
 mkdir pipeline
@@ -28,7 +28,7 @@ cd pipeline
 cdk init app --language typescript
 {{</highlight>}}
 
-Open the `lib/pipeline-stack.ts`file and replace the code with the following:
+Abra el archivo `lib/pipeline-stack.ts` y reemplace el código con el siguiente:
 
 {{<highlight typescript>}}
 import * as cdk from 'aws-cdk-lib';
@@ -132,11 +132,11 @@ export class PipelineStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-This creates a CodePipline pipeline with two stages, a source stage linked to the CodeCommit repository, and a CodeBuild project that executes the build and release of the transpiled, packaged artifacts.
+Esto crea una canalización de CodePipeline con dos etapas, una etapa origen enlazada al repositorio de CodeCommit, y un proyecto de CodeBuild que ejecuta la compilación y libera los artefactos _transpiled_, empaquetados.
 
-## Update CDK Deploy Entrypoint
+## Actualizar el Punto de Entrada del Despliegue de CDK
 
-Next we need to change the entry point to deploy our pipeline. To do this, edit the code in `bin/pipeline.ts` as follows:
+Ahora necesitamos cambiar el punto de entrada del despliegue de nuestra canalización. Para hacer esto, editemos el código en `bin/pipeline.ts` así:
 
 {{<highlight typescript>}}
 import 'source-map-support/register';
@@ -151,17 +151,17 @@ new PipelineStack(app, 'InternalConstructPipelineStack', {
 });
 {{</highlight>}}
 
-## CodeBuild Setup
+## Configuración de CodeBuild
 
-We'll use CodeBuild to actually build our project. CodeBuild needs a 'buildspec' file. A buildspec is a collection of build commands and related settings in YAML format that CodeBuild uses to run a build.
+Utilizaremos CodeBuild para construir nuestro proyecto. CodeBuild necesita un archivo 'buildspec'. Este archivo es una colección de comandos de compilación y ajustes relacionados en formato YAML que CodeBuild utiliza para ejecutar una compilación.
 
-Run the following commands to create the buildspec file:
+Ejecutemos los siguientes comandos para crear el archivo buildspec:
 {{<highlight bash>}}
 mkdir build-spec
 touch build-spec/projen-release.yml
 {{</highlight>}}
 
-Now copy the following code and paste it into 'projen-release.yml':
+Ahora copiemos el siguiente código en 'projen-release.yml':
 
 {{<highlight yaml>}}
 version: 0.2
@@ -239,10 +239,10 @@ reports:
     file-format: "JUNITXML"
 {{</highlight>}}
 
-The first command in the build phase of this YAML file is `projen release`. <a href="https://projen.io" target="_blank">Projen</a> takes care of JSII compilation, unit testing, tamper detection, and packaging. We will dive deeper into Projen in the next section. Projen creates the transpiled packages and places them in the `dist` directory.
+El primer comando en la fase de compilación de este archivo YAML es `projen release`. <a href="https://projen.io" target="_blank">Projen</a> se encarga de la compilación JSII, pruebas unitarias, detección de manipulaciones, y empaquetamiento. Miraremos Projen con más detalle en la siguente sección. Projen crea los paquetes transpilados y los coloca en el directorio `dist`.
 
-The other build phase commands look for the existence of runtime specific `dist` directories and set the runtime specific CodeArtifact environmental variables before publishing the artifacts using <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
+Los otros comands de la fase de compilación buscan la existencia de directorios específicos `dist` en tiempo de ejecución y asignan las variables de ambiente de CodeArtifact en tiempo de ejecución antes de publicar los artefactos utilizando <a href="https://github.com/cdklabs/publib/blob/main/README.md" target="_blank">publib</a>.
 
-## Summary
+## Resumen
 
-In this section, we created the pipeline code that will be used to build, package and publish our internal constructs to our Internal Construct Hub. In the next section we will set up Projen to create a construct library.
+En esta sección, creamos el código de la canalización que utilizaremos para compilar, empaquetar y publicar nuestros constructos internos a nuestro Construct Hub Interno. En la siguiente sección configuraremos Projen para crear una biblioteca de constructos.

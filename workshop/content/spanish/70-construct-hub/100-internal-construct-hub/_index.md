@@ -1,25 +1,25 @@
 +++
-title = "Internal Construct Hub"
+title = "Construct Hub Interno"
 weight = 200
 bookFlatSection = true
 +++
 
-# Internal Construct Hub
+# Construct Hub Interno
 
-So how do you go about sharing constructs with other members of your organization? There is the <a href="https://constructs.dev/" target="_blank">Construct Hub</a> but this is a public-facing website i.e. anyone in the world can access it. Perhaps your constructs are for internal Intellectual Property (IP) or as part of competetive research and development initiatives. It's likely against company policy to expose this type of information.
+Cómo podría usted compartir constructos con otros miembros de su organización? Existe el <a href="https://constructs.dev/" target="_blank">Construct Hub</a> pero este es un sitio público al que cualquier persona en el mundo puede tener acceso.  Y quizás sus constructos cuentan con Propiedad Intelectual (PI) interna o son parte de una iniciativa competitiva de investigación y desarrollo. Probablemente sea en contra de las políticas de la compañía exponer este tipo de información.
 
-Lucky for you, the Construct Hub itself is a CDK Construct! This means you can deploy it in an AWS account and only allow access to internal resources. This way you can share your constructs with members of your team or organization without exposing them to the outside world.
+Afortunadamente para usted, el Construct Hub es en sí mismo un Constructo de CDK!  Esto significa que usted puede desplegarlo en una cuenta de AWS y solo permitir el acceso a recursos internos. De esta manera usted puede compartir sus constructos con miembros de su equipo o su organización sin exponerlos al mundo externo.
 
 ![](./100-internal-construct-hub/internal-construct-hub.png)
 
-To enable this functionality, you'll deploy the architecture shown in the above diagram.
+Para habilitar esta funcionalidad, usted desplegará la arquitectura mostrada en el diagrama anterior.
 
-There are typically 3 types of users who will leverage the Internal Construct Hub in some way:
+Típicamente hay 3 tipos de usuarios que aprovecharán de alguna manera el Construct Hub Interno:
 
-1. Internal Construct Hub Administrators - These individuals are responsible for managing the Internal Construct Hub and the pipeline that deploys constructs to it.
+1. Administradores del Construct Hub Interno - Estos individuos serán responsables del manejar el Construct Hub Interno y de la canalización que despliega constructos en él.
 
-2. Internal Construct Hub Producers - Developers who publish constructs to the Internal Construct Hub
+2. Productores del Construct Hub Interno - Desarroladores que publicarán constructos al Construct Hub Interno
 
-3. Internal Construct Hub Consumers - Developers who will navigate to the Internal Construct Hub looking for helpful CDK constructs
+3. Consumidores del Construct Hub Interno - Desarrolladores que navegaran al Construct Hub Interno buscando constructos útiles de CDK 
 
-The upcoming sections are mapped to the needs of these types of users. In the next section, we'll go through some initial setup before deploying the front-end of the Internal Construct Hub (The box labeled "Internal ConstructHub" in the diagram above).
+Las secciones siguientes están asignadas a las necesidades de estos tipos de usuarios. En la siguiente sección, revisaremos la configuración inicial antes de desplegar el _front-end_ del Construct Hub Interno (el cuadro llamado "Internal ConstructHub" en el diagrama anterior).

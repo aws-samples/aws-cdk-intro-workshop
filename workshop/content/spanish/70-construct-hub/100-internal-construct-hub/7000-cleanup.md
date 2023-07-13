@@ -1,48 +1,48 @@
 +++
-title = "Cleanup"
+title = "Limpieza"
 weight = 700
 +++
 
-## Cleanup
+## Limpieza
 
-Time to clean up the resources created in this workshop:
+Es hora de limpiar los recursos creados en este workshop:
 
-### Delete the CodeCommit Repo
+### Borrar el Repositorio de CodeCommit
 
-Navigate to  <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> and delete the `construct-lib-repo` repository.
+Navegue a <a href="https://console.aws.amazon.com/codecommit" target="_blank">CodeCommit</a> y borre el repositorio `construct-lib-repo`.
 
-### Delete the DynamoDB Table
+### Borrar la Tabla de DynamoDB
 
-Then navigate to <a href="https://console.aws.amazon.com/dynamodb" target="_blank">DynamoDB</a> and delete the `HelloCdkAppStack-HelloHitCounterHitsXXXXXXXX-XXXXXXXXXXXX` table.
+Ahora navegue a <a href="https://console.aws.amazon.com/dynamodb" target="_blank">DynamoDB</a> borre la tabla `HelloCdkAppStack-HelloHitCounterHitsXXXXXXXX-XXXXXXXXXXXX`.
 
-### Remove and Delete the CodeArtifact Upstream Repositories
+### Remover y Borrar los Repositorios Ascendentes de CodeArtifact
 
-Run this command to disassociate all upstream repositories from the CodeArtifact domain:
+Ejecute este comando para desasociar todos los repositorios ascendentes del dominio de CodeArtifact:
 
 {{<highlight bash>}}
 aws codeartifact update-repository --repository cdkworkshop-repository --domain cdkworkshop-domain --upstreams --region [Insert Region]
 {{</highlight>}}
 
-Then run this command to delete the actual upstream repository (npm-store):
+Luego ejecute este comando para borrar el repositorio ascendente (npm-store):
 
 {{<highlight bash>}}
 aws codeartifact delete-repository --domain cdkworkshop-domain --repository npm-store --region [Insert Region]
 {{</highlight>}}
 
-### Reset Your NPM Registry
+### Restablecer el Registro de NPM
 
 {{<highlight bash>}}
 npm config set registry https://registry.npmjs.com/
 {{</highlight>}}
 
-### Delete Cloudformation Stacks
+### Borrar las Pilas de Cloudformation
 
-To clean up the resources created in this section of the workshop, navigate to <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> and delete the stacks named `InternalConstructHubStack`, `InternalConstructPipelineStack`, and `HelloCdkAppStack`.
+Para limpiar los recursos creados en esta sección del workshop, navegue a <a href="https://console.aws.amazon.com/cloudformation" target="_blank">CloudFormation</a> y borre las pilas llamadas `InternalConstructHubStack`, `InternalConstructPipelineStack`, y `HelloCdkAppStack`.
 
-### Delete S3 Buckets
+### Borrar los Buckets de S3
 
-Navigate to  <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> and delete the buckets (~11 of them) whose names begin with `internalconstruct`. Some may need to be emptied before deleting them. See the <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/delete-bucket.html" target="_blank">Deleting a bucket</a> documentation for more information.
+Navegue a <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> y borre los buckets (~11 de ellos) cuyos nombres comienzan con `internalconstruct`.  Algunos necesitan ser desocupados antes de ser borrados. Vea la documentación sobre como <a href="https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/delete-bucket.html" target="_blank">Eliminar un bucket</a> para más información. 
 
-### Delete the construct-hub-workshop Directory
+### Borrar el Directorio construct-hub-workshop
 
-On your machine, delete the `construct-hub-workshop` directory.
+En su máquina, borre el directorio `construct-hub-workshop`.
