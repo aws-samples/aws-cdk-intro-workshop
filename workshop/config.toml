@@ -16,7 +16,7 @@ hasCJKLanguage = true
     languageName = "日本語"
     contentDir = "content/japanese"
   [languages.es]
-    languageName = "Spanish"
+    languageName = "Español"
     contentDir = "content/spanish"
 
 [markup]
