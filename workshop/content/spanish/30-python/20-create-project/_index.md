@@ -1,13 +1,11 @@
 +++
-title = "New Project"
+title = "Nuevo Proyecto"
 bookFlatSection = true
 weight = 20
 +++
 
-# Creating your first CDK project
+# Creación de su primer proyecto de CDK
 
-In this chapter we will use `cdk init` to create a new AWS CDK Python project.
+En este capítulo utilizaremos `cdk init` para crear un nuevo proyecto de AWS CDK Python.
 
-We will also learn how to use the CDK Toolkit to synthesize an AWS
-CloudFormation template for the starter app and how to deploy your app into your
-account.
+También aprenderemos a usar el CDK Toolkit para sintetizar un modelo de AWS CloudFormation para la aplicación inicial y cómo implementar su aplicación en su cuenta.
