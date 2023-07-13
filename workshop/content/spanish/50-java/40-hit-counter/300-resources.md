@@ -1,15 +1,13 @@
 +++
-title = "Define resources"
+title = "Definir recursos"
 weight = 300
 +++
 
-## Add resources to the hit counter construct
+## AAgregue recursos a la construcción del contador de solicitudes 
 
-Now, let's define the AWS Lambda function and the DynamoDB table in our
-`HitCounter` construct.
+Ahora, definamos la función AWS Lambda y la tabla DynamoDB en nuestro constructo `HitCounter`. 
 
-
-Now, go back to `~/HitCounter.java` and add the following highlighted code:
+Regrese a `~/HitCounter.java` y agregue el siguiente código resaltado:
 
 {{<highlight java "hl_lines=3-4 8-13 16-17 22-38 41-53">}}
 package com.myorg;
@@ -68,20 +66,14 @@ public class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-## What did we do here?
+## ¿Qué hicimos aquí?
 
-This code is hopefully easy to understand:
+Este código es bastante fácil de entender:
 
- * We defined a DynamoDB table, `table`, with `path` as the partition key (every DynamoDB table must have a single partition key).
- * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
- * We __wired__ the Lambda's environment variables to the `Function.name` and `Table.name` of our resources via `environment.put(...)`.
+* Definimos una tabla de DynamoDB con `path` como partition key (todas las tablas de DynamoDB debe tener una sola partition key).
+* Definimos una función Lambda que está vinculada al código `lambda/hitcount.handler`.
+* __Conectamos__ las variables de entorno de Lambda a `Function.name` y `Table.name` de nuestros recursos via `environment.put(...)`.
 
-## Late-bound values
+## Valores enlazados en tiempo de ejecución
 
-The `FunctionName` and `TableName` properties are values that only resolve when
-we deploy our stack (notice that we haven't configured these physical names when
-we defined the table/function, only logical IDs). This means that if you print
-their values during synthesis, you will get a "TOKEN", which is how the CDK
-represents these late-bound values. You should treat tokens as *opaque strings*.
-This means you can concatenate them together for example, but don't be tempted
-to parse them in your code.
+Las propiedades `FunctionName` y `TableName` son valores que solo se resuelven cuando deplegamos nuestro stack (observe que no hemos configurado estos nombres físicos cuando definimos la tabla/función, solo ID lógicos). Esto significa que si imprime sus valores durante la síntesis, obtendrá un "TOKEN", que es cómo el CDK representa estos valores enlazados en tiempo de ejecución. Debe tratar los tokens como *opaque strings*. Esto significa que puede concatenarlos juntos, por ejemplo, pero no caiga en la tentación de analizarlos en su código.
