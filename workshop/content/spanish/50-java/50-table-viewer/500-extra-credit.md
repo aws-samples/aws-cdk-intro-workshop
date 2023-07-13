@@ -1,12 +1,12 @@
 +++
-title = "Extra credit"
-weight = 500
+title = "Crédito extra"
+weight = 600
 +++
 
-## Sort hits by descending order
+## Ordenar contadores en orden descendiente
 
-You'll notice that the hits in the table are not sorted. Figure out how to
-configure the table viewer to sort the table by "hits" in descending order (top
-path is first).
+Nota que los contadores en la tabla no están ordenados. Descubre cómo configurar
+el _table viewer_ para ordenar la tabla según "hits" en orden descendiente (la ruta más 
+común va primero).
 
 ![](./viewer2.png)

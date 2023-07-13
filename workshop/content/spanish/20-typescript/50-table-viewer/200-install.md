@@ -1,18 +1,18 @@
 +++
-title = "Installing the library"
+title = "Instalando la librería"
 weight = 200
 +++
 
 ## npm install
 
-Before you can use the table viewer in your application, you'll need to install
-the npm module:
+Antes de que podamos usar el _table viewer_ en nuestra aplicación, tendremos que 
+instalar su módulo npm:
 
 ```
 npm install cdk-dynamo-table-viewer@0.2.0
 ```
 
-Output should look like this:
+La respuesta debería verse así:
 
 ```
 + cdk-dynamo-table-viewer@0.2.0
@@ -22,4 +22,4 @@ found 0 vulnerabilities
 
 ----
 
-Now we are ready to add a viewer to our app.
+Ahora estamos listos para agregar el _table viewer_ a nuestra aplicación.

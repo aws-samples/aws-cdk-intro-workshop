@@ -5,7 +5,7 @@ weight = 400
 
 ## Add a table property to our hit counter
 
-Edit `hitcounter.ts` and modify it as such `table` is exposed as a public property.
+Editaremos `hitcounter.ts` y lo modificaremos para que `table` quede expuesto como una propiedad pública.
 
 {{<highlight ts "hl_lines=15-16 27">}}
 import * as cdk from 'aws-cdk-lib';
@@ -55,9 +55,9 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## Ahora podemos acceder a la tabla desde nuestro stack
 
-Go back to `cdk-workshop-stack.ts` and assign the `table` property of the table viewer:
+Volveremos a `cdk-workshop-stack.ts` y asignaremos la propiedad `table` del table viewer:
 
 {{<highlight ts "hl_lines=28">}}
 import * as cdk from 'aws-cdk-lib';
@@ -93,6 +93,4 @@ export class CdkWorkshopStack extends cdk.Stack {
 }
 {{</highlight>}}
 
-We're finished making code changes,
-so once you save this file,
-you can close the `npm run watch` command with `Ctrl-C`.
+Terminamos de hacer cambios en el código, cuando guarden este archivo pueden cerrar el comando `npm run watch` con `Ctrl-C`.

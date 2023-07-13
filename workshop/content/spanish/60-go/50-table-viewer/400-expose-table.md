@@ -1,11 +1,11 @@
 +++
-title = "Exposing our hit counter table"
+title = "Exponiendo la tabla de nuestro contador"
 weight = 400
 +++
 
-## Add a table property to our hit counter
+## Agregar una propiedad table a nuestro contador
 
-Edit `hitcounter.go` and modify it so that `table` is exposed as a public property.
+Editaremos `hitcounter.go` y lo modificaremos para que `table` quede expuesto como una propiedad pública.
 
 {{<highlight go "hl_lines=17 23 46 53-55">}}
 package hitcounter
@@ -65,9 +65,9 @@ func (h *hitCounter) Table() awsdynamodb.Table {
 }
 {{</highlight>}}
 
-## Now we can access the table from our stack
+## Ahora podemos acceder a la tabla desde nuestro stack
 
-Go back to `cdk-workshop.go` and assign the `Table` property of the table viewer:
+Volveremos a `cdk-workshop.go` y asignaremos la propiedad `Table` del table viewer:
 
 {{<highlight go "hl_lines=40">}}
 package main

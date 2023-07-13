@@ -1,11 +1,11 @@
 +++
-title = "Installing the library"
+title = "Instalando la librería"
 weight = 200
 +++
 
-## Add Artifact
+## Agregando el artefacto
 
-Before you can use the table viewer in your application, you'll need to add the artifact to your `pom.xml` file:
+Antes de que podamos usar el _table viewer_ en nuestra aplicación, tendremos que agregar el artefacto a nuestro archivo `pom.xml`:
 
 {{<highlight xml "hl_lines=27-38">}}
 ...
@@ -35,4 +35,4 @@ Before you can use the table viewer in your application, you'll need to add the 
 
 ----
 
-Now we are ready to add a viewer to our app.
+Ahora estamos listos para agregar el _table viewer_ a nuestra aplicación.
