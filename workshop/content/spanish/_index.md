@@ -1,52 +1,47 @@
 ---
-title: "AWS CDK Intro Workshop"
+title: "AWS CDK Workshop Introductorio"
 chapter: true
 weight: 1
 ---
 ![](/images/favicon.png)
 {.right-aligned}
 
-# Welcome Developers!
+# Bienvenidos Desarrolladores!
 
-Hey there, and thanks for joining us! Hope you can't wait to play
-with this new thing we call the "AWS Cloud Development Kit" or in short, the AWS
-CDK.
+Hola, y gracias por unirte! Esperamos que estés impaciente por probar esta nueva cosa que 
+llamamos el "AWS Cloud Development Kit" o más corto: el AWS CDK.
 
+El AWS CDK es un framework nuevo de desarrollo de software de AWS, con el único propósito 
+de hacer que definir infraestructura en la nube sea entretenido y fácil, con sus lenguajes 
+de programación favoritos y desplegándola con AWS CloudFormation.
 
-The AWS CDK is a new software development framework from AWS with the sole
-purpose of making it fun and easy to define cloud infrastructure in your
-favorite programming language and deploy it using AWS CloudFormation.
+Entonces, qué construiremos? Nada muy complejo...
 
+Pasaremos un tiempo configurando nuestro ambiente de desarrollo y aprendiendo un poco sobre 
+cómo trabajar con las herramientas de CDK para desplegar la aplicación en un ambiente de AWS.
 
-So what are we going to build? Nothing too fancy...
+Luego, escribiremos una pequeña función Lambda de "Hola, mundo!", y pondremos delante de ella 
+un endpoint de API Gateway para que usuarios puedan llamarla con una solicitud HTTP.
 
-We'll spend some time setting up your development environment and learning a
-little about how to work with the CDK Toolkit to deploy your app to an AWS
-environment.
+A continuación introduciremos el poderoso concepto de __Constructos de CDK__.
+Los constructos permiten empaquetar infraestructura en componentes reutilizables, que cualquiera
+puede componer en sus aplicaciones. Te enseñaremos cómo escribir tus propios constructos.
 
-Then, you'll write a little "Hello, world" Lambda function and front it with an
-API Gateway endpoint so users can call it via an HTTP request.
+Finalmente, te mostraremos cómo usar un constructo de una biblioteca externa, en tus stacks.
 
-Next, we'll introduce the powerful concept of __CDK constructs__.
-Constructs allow you to bundle up a bunch of infrastructure into reusable
-components which anyone can compose into their apps. We'll walk you through
-writing your own construct.
+Al final de este workshop, podrás:
 
-Finally, we'll show you how to use a construct from a pre-packaged library in your
-stack.
+- Crear nuevas aplicaciones CDK<br/>
+- Definir la aplicación de tu aplicación usando el AWS Construct Library<br/>
+- Desplegar tus aplicaciones CDK a tu cuenta de AWS<br/>
+- Definir tus propios constructos reutilizables<br/>
+- Consumir constructos publicados por otras personas<br/>
 
-By the end of this workshop, you'll be able to:
+También puedes encontrar una guía corta en cómo utilizar nuestro [Construct Hub](./70-construct-hub.html) 
+al final de este workshop. Esta será una herramienta útil durante todos tus futuros proyectos con los CDKs.
 
-- Create new CDK applications.<br/>
-- Define your app's infrastructure using the AWS Construct Library<br/>
-- Deploy your CDK apps to your AWS account<br/>
-- Define your own reusable constructs<br/>
-- Consume constructs published by other people<br/>
+## También mira
 
-You can also find a short guide on utilizing our [Construct Hub](./70-construct-hub.html) at the end of this workshop. This will be a useful tool for all future endeavors with the CDKs.
-
-## See Also
-
-- [AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide)
-- [AWS CDK Reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
+- [Guía de Usuario de AWS CDK (inglés)](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
+- [Referencia de API de AWS CDK (inglés)](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html)
 
