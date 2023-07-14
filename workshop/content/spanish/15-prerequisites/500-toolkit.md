@@ -18,5 +18,5 @@ Puedes verificar la versión del toolkit:
 
 ```
 cdk --version
-2.0.0 (build 4b6ce31)
+{{% cdkversion %}}
 ```
