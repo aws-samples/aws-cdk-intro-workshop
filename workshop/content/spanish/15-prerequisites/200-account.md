@@ -5,10 +5,15 @@ weight = 200
 
 ## Cuenta de AWS para experimentación
 
-Para desplegar nuestra aplicación, necesitarás acceso a una cuenta de AWS. Si ya cuentas con una y tu equipo estás configurado con las credenciales de un usuario administrador, puedes [moverte a la siguiente sección](http://#).
+Para desplegar nuestra aplicación, necesitarás acceso a una cuenta de AWS. Si ya tienes una y tu equipo estás configurado con las credenciales de un usuario administrador, puedes [moverte a la siguiente sección](http://#).
+
+{{% notice warning %}}
+Si estás usando una cuenta existente, sea personal o
+una cuenta empresarial, asegurate de entender las implicaciones y políticas de
+aprovisionamiento de recursos en esa cuenta.
+{{% /notice %}}
 
 Si no tienes una cuenta de AWS, puedes [crear una cuenta gratis aquí](https://portal.aws.amazon.com/billing/signup#/start/email)
-
 
 ## Usuario Administrador
 
