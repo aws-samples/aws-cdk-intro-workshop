@@ -3,9 +3,9 @@ title = "cdk init"
 weight = 100
 +++
 
-## Create project directory
+## Crear directorio de proyectos
 
-Create an empty directory on your system:
+Cree un directorio vacío en su sistema:
 
 ```
 mkdir cdk-workshop && cd cdk-workshop
@@ -13,15 +13,13 @@ mkdir cdk-workshop && cd cdk-workshop
 
 ## cdk init
 
-We will use `cdk init` to create a new Go CDK project:
+Usaremos `cdk init` para crear un nuevo proyecto de Go CDK:
 
 ```
 cdk init sample-app --language go
 ```
 
-Output should look like this (you can safely ignore warnings about
-initialization of a git repository, this probably means you don't have git
-installed, which is fine for this workshop):
+El resultado debería tener este aspecto (puedes ignorar de forma segura las advertencias sobre la inicialización de un repositorio de git, esto probablemente signifique que no tienes git instalado, lo cual está bien para este workshop):
 
 ```
 Applying project template sample-app for go
@@ -42,8 +40,8 @@ Initializing a new git repository...
 ✅ All done!
 ```
 
-As you can see, it shows us a bunch of useful commands to get us started.
+Como puede ver, nos muestra un montón de comandos útiles para empezar.
 
-## See Also
+## Ver También
 
 - [AWS CDK Command Line Toolkit (cdk) in the AWS CDK User Guide](https://docs.aws.amazon.com/CDK/latest/userguide/tools.html)
