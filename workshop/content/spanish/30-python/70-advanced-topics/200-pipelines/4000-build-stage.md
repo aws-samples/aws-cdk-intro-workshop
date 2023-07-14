@@ -65,11 +65,11 @@ class WorkshopPipelineStack(Stack):
         deploy_stage = pipeline.add_stage(deploy)
 {{</highlight>}}
 
-Esto importa y crea una instancia de `WorkshopPipelineStage`. Más tarde, usted podría instanciar esta etapa múutiples veces (por ejemplo, usted desa crear un despliegue de Producción y un despliegue de Desarrollo/Pruebas separados).
+Esto importa y crea una instancia de `WorkshopPipelineStage`. Más tarde, usted podría instanciar esta etapa múltiples veces (por ejemplo, usted desea crear un despliegue de Producción y un despliegue de Desarrollo/Pruebas separados).
 
 Luego agregamos esa etapa a nuestra canalización (`pipeline.add_stage(deploy);`). Una etapa (`Stage`) en una canalización de CDK representa un juego de una o mas pilas de CDK que deben ser desplegadas juntas, a un ambiente particular.
 
-## Confir,ar/Desplegar
+## Confirmar/Desplegar
 Ahora que hemos adicionado el código para desplegar nuestra aplicación, solo nos falta confirmar y enviar los cambios al repositorio.
 
 ```

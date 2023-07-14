@@ -5,7 +5,7 @@ weight = 200
 
 ### Pruebas de Aserción Detalladas
 
-#### Crear una prrueba para la tabla de DynamoDB
+#### Crear una prueba para la tabla de DynamoDB
 
 {{% notice info %}} Esta sección asume que usted ha [creado el constructo contador de hits](/es/30-python/40-hit-counter.html) {{% /notice %}}
 

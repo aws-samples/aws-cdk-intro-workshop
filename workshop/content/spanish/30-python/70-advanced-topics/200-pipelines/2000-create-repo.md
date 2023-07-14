@@ -35,7 +35,7 @@ class WorkshopPipelineStack(Stack):
 cdk deploy
 ```
 
-## Obtener la Información del Repositorio y Conformar
+## Obtener la Información del Repositorio y Confirmar
 Antes que podamos hacer cualquier cosa con nuestro repositorio, necesitamos adicionar nuestro código a el!
 
 ### Credenciales de Git
@@ -57,7 +57,7 @@ En la terminal, asegúrese primero que todos los cambios que se han hecho durant
 
 > Nota: Si usted copió el código desde el repositorio en lugar de seguir a través del workshop desde el comienzo, ejecute primero`git init && git add -A && git commit -m "init"`
 
-Ahora, adicionaremos el repositorio remoto a nuestra confirguración de Git. Esto se hace con el comando (*XXXXX* representa el "Clone URL" que usted copió previamente de la consola):
+Ahora, adicionaremos el repositorio remoto a nuestra configuración de Git. Esto se hace con el comando (*XXXXX* representa el "Clone URL" que usted copió previamente de la consola):
 
 ```bash
 git remote add origin XXXXX
