@@ -4,7 +4,7 @@ bookCollapseSection = true
 weight = 20
 +++
 
-# El Workshop de TypeScript
+# TypeScript Workshop
 
 Esta versión del workshop lo guiará a través de una experiencia de introducción a TypeScript.
 

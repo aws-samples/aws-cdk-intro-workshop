@@ -4,7 +4,7 @@ bookCollapseSection = true
 weight = 60
 +++
 
-# El Workshop de Go
+# Go Workshop
 
 Esta versión del workshop lo guiará a través de una experiencia de introducción a Go.
 

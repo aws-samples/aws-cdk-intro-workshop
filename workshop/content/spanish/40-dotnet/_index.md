@@ -4,7 +4,7 @@ bookCollapseSection = true
 weight = 40
 +++
 
-# El Workshop de .NET
+# .NET Workshop
 
 Esta versión del workshop lo guiará a través de una experiencia de introducción en C# utilizando el .NET Core library.
 

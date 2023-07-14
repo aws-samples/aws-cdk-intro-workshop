@@ -4,7 +4,7 @@ bookCollapseSection = true
 weight = 30
 +++
 
-# El Workshop de Python
+# Python Workshop
 
 Esta versión del workshop lo guiará a través de una experiencia de introducción a Python.
 

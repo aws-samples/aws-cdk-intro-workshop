@@ -4,7 +4,7 @@ bookCollapseSection = true
 weight = 50
 +++
 
-# El Workshop de Java
+# Java Workshop
 
 Esta versión del workshop lo guiará a través de una experiencia de introducción a Java.
 
