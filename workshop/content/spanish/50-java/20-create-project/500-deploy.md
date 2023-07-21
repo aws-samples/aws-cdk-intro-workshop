@@ -3,23 +3,23 @@ title = "cdk deploy"
 weight = 500
 +++
 
-Okay, we've got a CloudFormation template. What's next? __Let's deploy it into our account!__
+Vale, tenemos una plantilla de CloudFormation. ¿Qué es lo siguiente? __¡Vamos a implementarlo en nuestra cuenta!__
 
-## Bootstrapping an environment
+## Arrancar un entorno
 
-The first time you deploy an AWS CDK app into an environment (account/region),
-you'll need to install a "bootstrap stack". This stack includes resources that
-are needed for the toolkit's operation. For example, the stack includes an S3
-bucket that is used to store templates and assets during the deployment process.
+La primera vez que implemente una aplicación de AWS CDK en un entorno (cuenta/región),
+puede instalar una "pila de arranque". Esta pila incluye recursos que
+se utilizan en el funcionamiento del kit de herramientas. Por ejemplo, la pila incluye un S3
+depósito que se usa para almacenar plantillas y activos durante el proceso de implementación.
 
-You can use the `cdk bootstrap` command to install the bootstrap stack into an
-environment:
+Puede usar el comando `cdk bootstrap` para instalar la pila de arranque en un
+entorno:
 
 ```
 cdk bootstrap
 ```
 
-Then:
+Entonces:
 
 ```
  ⏳  Bootstrapping environment 123456789012/us-west-2...
@@ -27,20 +27,20 @@ Then:
 ```
 
 {{% notice info %}}
-If you are returned an Access Denied message at this step, verify that
-you have [configured the AWS CLI correctly](/15-prerequisites/200-account.html) (or, specified an appropriate secret/access key), and also verify that you have permission to call `cloudformation:CreateChangeSet` within the scope of your [account/session](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+Si recibe un mensaje de acceso denegado en este paso, compruebe que
+has [configurado correctamente la CLI de AWS](/15-prerequisites/200-account.html) (o has especificado una clave secreta o de acceso adecuada) y también has comprobado que tienes permiso para llamar a `CloudFormation:createChangeset` en el ámbito de tu [cuenta/sesión](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
 {{% /notice %}}
 
-## Let's deploy
+## Vamos a desplegar
 
-Use `mvn package` to compile the code, then `cdk deploy` to deploy a CDK app:
+Use `cdk deploy` para implementar una aplicación de CDK:
 
 ```
 mvn package
 cdk deploy
 ```
 
-You will first be informed of security-related changes that the CDK is going to perform on your behalf, if there are any security-related changes
+En primer lugar, se le informará de los cambios relacionados con la seguridad que el CDK realizará en su nombre, si se producen cambios relacionados con la seguridad
 
 ```
 This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
@@ -60,12 +60,12 @@ IAM Statement Changes
 Do you wish to deploy these changes (y/n)?
 ```
 
-This is warning you that deploying the app contains security-sensitive changes.
-Since we need to allow the topic to send messages to the queue,
-enter **y** to deploy the stack and create the resources.
+Esto te avisa de que la implementación de la aplicación contiene cambios sensibles a la seguridad.
+Como necesitamos permitir que el tema envíe mensajes a la cola,
+escriba **y** para implementar la pila y crear los recursos.
 
-Output should look like the following, where ACCOUNT-ID is your account ID, REGION is the region in which you created the app,
-and STACK-ID is the unique identifier for your stack:
+El resultado debería tener el siguiente aspecto, donde ACCOUNT-ID es el ID de tu cuenta, REGION es la región en la que creaste la aplicación,
+y STACK-ID es el identificador único de tu pila:
 
 ```
 CdkWorkshopStack: deploying...
@@ -83,24 +83,24 @@ Stack ARN:
 arn:aws:cloudformation:REGION:ACCOUNT-ID:stack/CdkWorkshopStack/STACK-ID
 ```
 
-## The CloudFormation Console
+## La consola de CloudFormation
 
-CDK apps are deployed through AWS CloudFormation. Each CDK stack maps 1:1 with
-CloudFormation stack.
+Las aplicaciones de CDK se implementan a través de AWS CloudFormation. Cada pila de CDK se mapea 1:1 con
+Pila de CloudFormation.
 
-This means that you can use the AWS CloudFormation console in order to manage
-your stacks.
+Esto significa que puede usar la consola de AWS CloudFormation para administrar
+tus pilas.
 
-Let's take a look at the [AWS CloudFormation
-console](https://console.aws.amazon.com/cloudformation/home).
+Echemos un vistazo a [AWS CloudFormation
+consola](https://console.aws.amazon.com/cloudformation/home).
 
-You will likely see something like this (if you don't, make sure you are in the correct region):
+Es probable que veas algo como esto (si no lo ves, asegúrate de estar en la región correcta):
 
 ![](./cfn1.png)
 
-If you select `CdkWorkshopStack` and open the __Resources__ tab, you will see the
-physical identities of our resources:
+Si selecciona `CdkWorkshopStack` y abre la pestaña __Resources__, verá la
+identidades físicas de nuestros recursos:
 
 ![](./cfn2.png)
 
-# I am ready for some actual coding!
+# ¡Estoy listo para un poco de codificación real!
