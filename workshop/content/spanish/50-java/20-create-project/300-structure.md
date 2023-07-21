@@ -1,33 +1,34 @@
 +++
-title = "Project structure"
+title = "Estructura del proyecto"
 weight = 300
 +++
 
-## Open your IDE
+## Abre tu IDE
 
-Now's a good time to open the project in your favorite IDE and explore.
+Ahora es un buen momento para abrir el proyecto en tu IDE favorito y explorarlo.
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> Si usa VSCode, simplemente puede escribir `code .` en el directorio del proyecto.
 
-## Explore your project directory
+## Explore su directorio de proyectos
 
-You'll see something like this:
+Verás algo como esto:
 
 ![](./structure.png)
 
-* `src/main/java/com/myorg/` is the main project directory for Java code in the app, and will be henceforth referred to (to shorten the paths) as `~/`
-* `~/CdkWorkshopApp.java` is the entrypoint for the CDK application it will load the stack defined in `~/CdkWorkshopStack.java`
-* `~/CdkWorkshopStack.java` is where your CDK application's main stack is defined. This is the file we'll be spending most of our time in.
-* `cdk.json` tells the toolkit how to run your app. In our case it will be
+* `src/main/java/com/myorg/` es el directorio de proyectos principal para el código Java de la aplicación y, en adelante, se denominará (para acortar las rutas) como `~/`
+* `~/CdkWorkshopApp.java` es el punto de entrada de la aplicación CDK. Cargará la pila definida en `~/CdkWorkshopStack.java`
+* `~/CdkWorkshopStack.java` es donde se define la pila principal de la aplicación CDK.
+ Este es el archivo en el que pasaremos la mayor parte del tiempo.
+* `cdk.json` indica al kit de herramientas cómo ejecutar la aplicación. En nuestro caso, será
   `"mvn -q exec:java"`
-* `pom.xml` is the Maven project file. It is an xml file and contains information on build properties, dependencies, and app information. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
-* `test/java/com/myorg/CdkWorkshopStackTest.java` Is a build test that is run againt the Java application on build and will indicated success or failure in the terminal. We will not be using this for the purposes of the workshop.
-* `.gitignore` tells git which files to include/exclude from source control.
-* `.classpath`, `.project`, `.settings/`, and `target/` files/folders are automated Java/Maven project files. These should be ignored.
+* `pom.xml` es el archivo del proyecto Maven. Es un archivo xml y contiene información sobre las propiedades de compilación, las dependencias y la información de la aplicación. Esto le será útil en el futuro, pero no es relevante para los fines de este taller.
+* `test/java/com/myorg/CdkWorkshopStackTest.java` Es una prueba de compilación que se ejecuta en la aplicación Java durante la compilación e indicará el éxito o el fracaso en el terminal. No utilizaremos esto para los fines del taller.
+* `.gitignore` le dice a git qué archivos incluir/excluir del control de código fuente.
+* `.classpath`, `.project`, `.settings/`, y `target/` los archivos/carpetas son archivos de proyecto Java/Maven automatizados. Estos deben ignorarse.
 
-## Your app's entry point
+## El punto de entrada de tu aplicación
 
-Let's have a quick look at `~/CdkWorkshopApp.java`:
+Echemos un vistazo rápido a `~/CdkWorkshopApp.java`:
 
 ```java
 package com.myorg;
@@ -45,13 +46,13 @@ public final class CdkWorkshopApp {
 }
 ```
 
-This code loads and instantiates the `CdkWorkshopStack` class from the
-`~/CdkWorkshopStack.java` file. We won't need to look at this file anymore.
+Este código carga y crea instancias del `CdkWorkshopStack` clase del
+`~/CdkWorkshopStack.java` archivo. Ya no necesitaremos mirar este archivo.
 
-## The main stack
+## La pila principal
 
-Open up `~/CdkWorkshopStack.java`. This is where the meat of our application
-is:
+Abre `~/CdkWorkshopStack.java`. Aquí es donde está el meollo de nuestra aplicación
+es:
 
 ```java
 package com.myorg;
@@ -85,11 +86,11 @@ public class CdkWorkshopStack extends Stack {
 }
 ```
 
-As you can see, our app was created with a sample CDK stack
+Como puede ver, nuestra aplicación se creó con una pila de CDK de muestra
 (`CdkWorkshopStack`).
 
-The stack includes:
+La pila incluye:
 
 - SQS Queue (`final Queue queue`)
 - SNS Topic (`final Topic topic`)
-- Subscribing the queue to receive any messages published to the topic (`topic.AddSubscription`)
+- Suscribe la cola para recibir cualquier mensaje publicado en el tema (`topic.AddSubscription`)

@@ -1,36 +1,36 @@
 +++
-title = "Project structure"
+title = "Estructura del proyecto"
 weight = 300
 +++
 
-## Open your IDE
+## Abre tu IDE
 
-Now's a good time to open the project in your favorite IDE and explore.
+Ahora es un buen momento para abrir el proyecto en tu IDE favorito y explorarlo.
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> Si usa VSCode, simplemente puede escribir `code .` en el directorio del proyecto.
 
-## Explore your project directory
+## Explore su directorio de proyectos
 
-You'll see something like this:
+Verás algo como esto:
 
 ![](./structure.png)
 
-* .venv - The python virtual environment information discussed in the previous section.
-* cdk_workshop — A Python module directory.
-  * cdk_workshop.egg-info - Folder that contains build information relevant for the packaging on the project
-  * cdk_workshop_stack.py—A custom CDK stack construct for use in your CDK application.
-* tests — Contains all tests.
-  * unit — Contains unit tests.
-    * test_cdk_workshop.py—A trivial test of the custom CDK stack created in the cdk_workshop package. This is mainly to demonstrate how tests can be hooked up to the project.
-* app.py — The “main” for this sample application.
-* cdk.json — A configuration file for CDK that defines what executable CDK should run to generate the CDK construct tree.
-* README.md — The introductory README for this project.
-* requirements.txt—This file is used by pip to install all of the dependencies for your application. In this case, it contains only -e . This tells pip to install the requirements specified in setup.py. It also tells pip to run python setup.py develop to install the code in the cdk_workshop module so that it can be edited in place.
-* setup.py — Defines how this Python package would be constructed and what the dependencies are.
+* .venv - La información del entorno virtual de Python discutida en la sección anterior.
+* cdk_workshop — Un directorio de módulos de Python.
+  * cdk_workshop.egg-info - Carpeta que contiene información de construcción relevante para el empaquetado del proyecto
+  * cdk_workshop_stack.py — Una construcción de pila de CDK personalizada para usar en su aplicación de CDK.
+* tests — Contiene todas las pruebas.
+  * unit — Contiene pruebas unitarias.
+    * test_cdk_workshop.py — Una prueba trivial de la pila de CDK personalizada creada en el paquete cdk_workshop. Esto es principalmente para demostrar cómo se pueden vincular las pruebas al proyecto.
+* app.py — El "principal" de esta aplicación de ejemplo.
+* cdk.json — Un archivo de configuración para el CDK que define qué CDK ejecutable debe ejecutarse para generar el árbol de construcciones del CDK.
+* README.md — El archivo README introductorio de este proyecto.
+* requirements.txt — Este archivo lo usa pip para instalar todas las dependencias de su aplicación. En este caso, solo contiene -e. Esto le indica a pip que instale los requisitos especificados en setup.py. También le indica a pip que ejecute python setup.py develop para instalar el código en el módulo cdk_workshop para poder editarlo in situ.
+* setup.py — Define cómo se construiría este paquete de Python y cuáles son las dependencias.
 
-## Your app's entry point
+## El punto de entrada de tu aplicación
 
-Let's have a quick look at `app.py`:
+Echemos un vistazo rápido a `app.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -46,13 +46,13 @@ CdkWorkshopStack(app, "cdk-workshop")
 app.synth()
 ```
 
-This code loads and instantiates an instance of the `CdkWorkshopStack` class from
-`cdk_workshop/cdk_workshop_stack.py` file. We won't need to look at this file anymore.
+Este código carga y crea instancias del `CdkWorkshopStack` clase del
+`cdk_workshop/cdk_workshop_stack.py` archivo. Ya no necesitaremos mirar este archivo.
 
-## The main stack
+## La pila principal
 
-Open up `cdk_workshop/cdk_workshop_stack.py`. This is where the meat of our application
-is:
+Abre `cdk_workshop/cdk_workshop_stack.py`. Aquí es donde está el meollo de nuestra aplicación
+es:
 
 ```python
 from constructs import Construct
@@ -81,11 +81,11 @@ class CdkWorkshopStack(Stack):
         topic.add_subscription(subs.SqsSubscription(queue))
 ```
 
-As you can see, our app was created with sample CDK stack
+Como puede ver, nuestra aplicación se creó con una pila de CDK de muestra
 (`CdkWorkshopStack`).
 
-The stack includes:
+La pila incluye:
 
 - SQS Queue (`sqs.Queue`)
 - SNS Topic (`sns.Topic`)
-- Subscribes the queue to receive any messages published to the topic (`topic.add_subscription`)
+- Suscribe la cola para recibir cualquier mensaje publicado en el tema (`topic.add_subscription`)

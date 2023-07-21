@@ -1,39 +1,38 @@
 +++
-title = "Project structure"
+title = "Estructura del proyecto"
 weight = 300
 +++
 
-## Open your IDE
+## Abre tu IDE
 
-Now's a good time to open the project in your favorite IDE and explore.
+Ahora es un buen momento para abrir el proyecto en tu IDE favorito y explorarlo.
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> Si usa VSCode, simplemente puede escribir `code .` en el directorio del proyecto.
 
-## Explore your project directory
+## Explore su directorio de proyectos
 
-You'll see something like this:
+Verás algo como esto:
 
 ![](./structure.png)
 
-* __`lib/cdk-workshop-stack.ts`__ is where your CDK application's main stack is defined.
-  This is the file we'll be spending most of our time in.
-* `bin/cdk-workshop.ts` is the entrypoint of the CDK application. It will load
-  the stack defined in `lib/cdk-workshop-stack.ts`.
-* `package.json` is your npm module manifest. It includes information like the
-  name of your app, version, dependencies and build scripts like "watch" and
-  "build" (`package-lock.json` is maintained by npm)
-* `cdk.json` tells the toolkit how to run your app. In our case it will be
+* __`lib/cdk-workshop-stack.ts`__ es donde se define la pila principal de la aplicación CDK.
+ Este es el archivo en el que pasaremos la mayor parte del tiempo.
+* `bin/cdk-workshop.ts` es el punto de entrada de la aplicación CDK. Cargará la pila definida en `lib/cdk-workshop-stack.ts`.
+* `package.json` es el manifiesto de tu módulo npm. Incluye información como la
+ el nombre de tu aplicación, la versión, las dependencias y los scripts de compilación como "watch" y
+ "build" (`package-lock.json` es mantenido por npm)
+* `cdk.json` indica al kit de herramientas cómo ejecutar la aplicación. En nuestro caso, será
   `"npx ts-node bin/cdk-workshop.ts"`
-* `tsconfig.json` your project's [typescript
-  configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
-* `.gitignore` and `.npmignore` tell git and npm which files to include/exclude
-  from source control and when publishing this module to the package manager.
-* `node_modules` is maintained by npm and includes all your project's
-  dependencies.
+* `tsconfig.json` el de tu proyecto [typescript
+  configuración](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+* `.gitignore` y `.npmignore` dígale a git y npm qué archivos incluir/excluir
+ desde el control de código fuente y al publicar este módulo en el administrador de paquetes.
+* `node_modules` es mantenido por npm e incluye todos sus proyectos
+ dependencias.
 
-## Your app's entry point
+## El punto de entrada de tu aplicación
 
-Let's have a quick look at `bin/cdk-workshop.ts`:
+Echemos un vistazo rápido a `bin/cdk-workshop.ts`:
 
 ```js
 #!/usr/bin/env node
@@ -44,13 +43,13 @@ const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
 ```
 
-This code loads and instantiates the `CdkWorkshopStack` class from the
-`lib/cdk-workshop-stack.ts` file. We won't need to look at this file anymore.
+Este código carga y crea instancias del `CdkWorkshopStack` clase del
+`lib/cdk-workshop-stack.ts` archivo. Ya no necesitaremos mirar este archivo.
 
-## The main stack
+## La pila principal
 
-Open up `lib/cdk-workshop-stack.ts`. This is where the meat of our application
-is:
+Abre `lib/cdk-workshop-stack.ts`. Aquí es donde está el meollo de nuestra aplicación
+es:
 
 ```ts
 import * as cdk from 'aws-cdk-lib';
@@ -73,11 +72,11 @@ export class CdkWorkshopStack extends cdk.Stack {
 }
 ```
 
-As you can see, our app was created with a sample CDK stack
+Como puede ver, nuestra aplicación se creó con una pila de CDK de muestra
 (`CdkWorkshopStack`).
 
-The stack includes:
+La pila incluye:
 
 - SQS Queue (`new sqs.Queue`)
 - SNS Topic (`new sns.Topic`)
-- Subscribes the queue to receive any messages published to the topic (`topic.addSubscription`)
+- Suscribe la cola para recibir cualquier mensaje publicado en el tema (`topic.addSubscription`)

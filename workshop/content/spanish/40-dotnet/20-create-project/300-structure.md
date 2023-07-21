@@ -1,37 +1,38 @@
 +++
-title = "Project structure"
+title = "Estructura del proyecto"
 weight = 300
 +++
 
-## Open your IDE
+## Abre tu IDE
 
-Now's a good time to open the project in your favorite IDE and explore.
+Ahora es un buen momento para abrir el proyecto en tu IDE favorito y explorarlo.
 
-> If you use VSCode, you can just type `code .` within the project directory.
+> Si usa VSCode, simplemente puede escribir `code .` en el directorio del proyecto.
 >
-> You may see a notification saying `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?`
+> Es posible que veas una notificación que diga `Required assets to build and debug are missing from 'YOURPROJECT'. Add them?`
 >
-> This can be ignored for our purposes.
+> Esto puede ignorarse para nuestros propósitos.
 
-## Explore your project directory
+## Explore su directorio de proyectos
 
-You'll see something like this:
+Verás algo como esto:
 
 ![](./structure.png)
 
-* `src/CdkWorkshop/Program.cs` is the entrypoint for the CDK application it will load the stack defined in `src/CdkWorkshop/CdkWorkshopStack.cs`
-* `src/CdkWorkshop/CdkWorkshopStack.cs` is where your CDK application's main stack is defined. This is the file we'll be spending most of our time in.
-* `cdk.json` tells the toolkit how to run your app. In our case it will be `"dotnet run -p src/CdkWorkshop/CdkWorkshop.csproj"`
-* `src/CdkWorkshop/CdkWorkshop.csproj` is the C# project file. It is an xml file and contains information on references. This will be useful to you down the line, but is not relevant for the purposes of this workshop.
-* `src/CdkWorkshop/GlobalSuppressions.cs` disables the Roslyn analyzer for `RECS0026:Possible unassigned object created by 'new'` as this generates many false positives with CDK.
-* `src/CdkWorkshop.sln` is the C# solution file that provides build information. You should not need to interface with this file.
-* `.gitignore` tells git which files to include/exclude
-  from source control and when publishing this module to the package manager.
-* The `src/CdkWorkshop/bin` and `src/CdkWorkshop/obj` folders are the build folders for the project and can be ignored.
+* `src/CdkWorkshop/Program.cs` es el punto de entrada de la aplicación CDK. Cargará la pila definida en `src/CdkWorkshop/CdkWorkshopStack.cs`
+* `src/CdkWorkshop/CdkWorkshopStack.cs` es donde se define la pila principal de la aplicación CDK.
+ Este es el archivo en el que pasaremos la mayor parte del tiempo.
+* `cdk.json` indica al kit de herramientas cómo ejecutar la aplicación. En nuestro caso, será `"dotnet run -p src/CdkWorkshop/CdkWorkshop.csproj"`
+* `src/CdkWorkshop/CdkWorkshop.csproj` es el archivo de proyecto de C#. Es un archivo xml y contiene información sobre las referencias. Esto le será útil en el futuro, pero no es relevante para los fines de este taller.
+* `src/CdkWorkshop/GlobalSuppressions.cs` desactiva el analizador Roslyn para `RECS0026:Possible unassigned object created by 'new'` ya que esto genera muchos falsos positivos con CDK.
+* `src/CdkWorkshop.sln` es el archivo de solución de C# que proporciona información de compilación. No debería necesitar interactuar con este archivo.
+* `.gitignore` le dice a git qué archivos incluir/excluir
+ desde el control de código fuente y al publicar este módulo en el administrador de paquetes.
+* El `src/CdkWorkshop/bin` y `src/CdkWorkshop/obj` las carpetas son las carpetas de compilación del proyecto y se pueden ignorar.
 
-## Your app's entry point
+## El punto de entrada de tu aplicación
 
-Let's have a quick look at `src/CdkWorkshop/Program.cs`:
+Echemos un vistazo rápido a `src/CdkWorkshop/Program.cs`:
 
 ```c#
 using Amazon.CDK;
@@ -51,13 +52,13 @@ namespace CdkWorkshop
 }
 ```
 
-This code loads and instantiates the `CdkWorkshopStack` class from the
-`src/CdkWorkshop/CdkWorkshopStack.cs` file. We won't need to look at this file anymore.
+Este código carga y crea instancias del `CdkWorkshopStack` clase del
+`src/CdkWorkshop/CdkWorkshopStack.cs` archivo. Ya no necesitaremos mirar este archivo.
 
-## The main stack
+## La pila principal
 
-Open up `src/CdkWorkshop/CdkWorkshopStack.cs`. This is where the meat of our application
-is:
+Abre `src/CdkWorkshop/CdkWorkshopStack.cs`. Aquí es donde está el meollo de nuestra aplicación
+es:
 
 ```cs
 using Amazon.CDK;
@@ -86,11 +87,11 @@ namespace CdkWorkshop
 }
 ```
 
-As you can see, our app was created with a sample CDK stack
+Como puede ver, nuestra aplicación se creó con una pila de CDK de muestra
 (`CdkWorkshopStack`).
 
-The stack includes:
+La pila incluye:
 
 - SQS Queue (`new Queue`)
 - SNS Topic (`new Topic`)
-- Subscribing the queue to receive any messages published to the topic (`topic.AddSubscription`)
+- Suscribe la cola para recibir cualquier mensaje publicado en el tema (`topic.AddSubscription`)

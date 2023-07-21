@@ -1,34 +1,34 @@
 +++
-title = "Activating the virtualenv"
+title = "Activar el virtualenv"
 weight = 200
 +++
 
-## Activating the Virtualenv
+## Activar el Virtualenv
 
-The init script we ran in the last step created a bunch of code to help get us
-started but it also created a virtual environment within our directory.  If you
-haven't used virtualenv before, you can find out more
-[here](https://docs.python.org/3/tutorial/venv.html) but the bottom line is
-that they allow you have a self-contained, isolated environment to run Python
-and install arbitrary packages without polluting your system Python.
+El script de inicio que ejecutamos en el último paso creó un montón de código para ayudarnos a llegar
+comenzó, pero también creó un entorno virtual dentro de nuestro directorio. Si tú
+no has usado virtualenv antes, puedes obtener más información
+[aquí](https://docs.python.org/3/tutorial/venv.html) pero la conclusión es
+que permiten tener un entorno autónomo y aislado para ejecutar Python
+e instale paquetes arbitrarios sin contaminar el Python de su sistema.
 
-To take advantage of the virtual environment that was created, you have to
-activate it within your shell.  The generated README file provides all of this
-information but we are calling it out here because it is important.  To
-activate your virtualenv on a Linux or MacOs platform:
+Para aprovechar el entorno virtual que se creó, debe
+activarlo dentro de su shell. El archivo README generado proporciona todo esto
+información, pero la mencionamos aquí porque es importante. Para
+activa tu virtualenv en una plataforma Linux o macOS:
 
 ```
 source .venv/bin/activate
 ```
 
-On a Windows platform, you would use this:
+En una plataforma Windows, utilizaría esto:
 
 ```
 .venv\Scripts\activate.bat
 ```
 
-Now that the virtual environment is activated, you can safely install the
-required python modules.
+Ahora que el entorno virtual está activado, puede instalar de forma segura el
+módulos de python necesarios.
 
 ```
 pip install -r requirements.txt
