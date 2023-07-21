@@ -3,19 +3,19 @@ title = "cdk synth"
 weight = 400
 +++
 
-## Synthesize a template from your app
+## Sintetiza una plantilla desde tu aplicación
 
-AWS CDK apps are effectively only a __definition__ of your infrastructure using
-code. When CDK apps are executed, they produce (or "__synthesize__", in CDK
-parlance) an AWS CloudFormation template for each stack defined in your
-application.
+De hecho, las aplicaciones de AWS CDK son solo una __definición__ de su infraestructura mediante
+código. Cuando se ejecutan aplicaciones de CDK, producen (o "__synthesize__", en CDK
+(lenguaje): una plantilla de AWS CloudFormation para cada pila definida en su
+aplicación.
 
-To synthesize a CDK app, use the `cdk synth` command. Let's check out the
-template synthesized from the sample app.
+Para sintetizar una aplicación de CDK, usa el comando `cdk synth`. Vamos a echar un vistazo al
+plantilla sintetizada a partir de la aplicación de muestra:
 
-{{% notice info %}} The **CDK CLI** requires you to be in the same directory
-as your `cdk.json` file. If you have changed directories in your terminal,
-please navigate back now.{{% /notice %}}
+{{% notice info %}}La **CDK CLI** requiere que estés en el mismo directorio 
+como tu archivo `cdk.json`. Si ha cambiado de directorio en su terminal, 
+navega hacia atrás ahora.{{% /notice %}}
 
 ```
 $ cdk ls
@@ -23,13 +23,13 @@ cdk_workshop
 $ cd cdk_workshop
 ```
 
-We can then synthesize:
+Luego podemos sintetizar:
 
 ```
 $ cdk synth
 ```
 
-This will output the following CloudFormation template:
+Generará la siguiente plantilla de CloudFormation:
 
 ```yaml
 Resources:
@@ -83,16 +83,14 @@ Resources:
       Modules: aws-cdk=1.18.0,jsii-runtime=Python/3.7.3
 ```
 
-As you can see, this template includes a bunch of resources:
+Como puedes ver, esta plantilla incluye un montón de recursos:
 
-- **AWS::SQS::Queue** - our queue
-- **AWS::SNS::Topic** - our topic
-- **AWS::SNS::Subscription** - the subscription between the queue and the topic
-- **AWS::SQS::QueuePolicy** - the IAM policy which allows this topic to send
-messages to the queue
+- **AWS::SQS::Queue** - nuestra cola
+- **AWS::SNS::Topic** - nuestro tema
+- **AWS::SNS::Subscription** - la suscripción entre la cola y el tema
+- **AWS::SQS::QueuePolicy** - la política de IAM que permite a este tema enviar mensajes a la cola
 
-{{% notice info %}} The **AWS::CDK::Metadata** resource is automatically added
-by the toolkit to every stack. It is used by the AWS CDK team for analytics and
-to allow us to identify versions with security issues. See [Version Reporting](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) in
-the AWS CDK User Guide for more details. We will omit the metadata resource in
-diff views for the rest of this workshop {{% /notice %}}
+{{% notice info %}} El recurso **AWS: :CDK: :Metadata** se añade automáticamente
+mediante el kit de herramientas a cada pila. El equipo de AWS CDK lo utiliza para realizar análisis y
+para permitirnos identificar las versiones con problemas de seguridad. Consulte [Informe de versiones](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) en consulte la Guía del usuario de AWS CDK para obtener más información. Omitiremos el recurso de metadatos en
+vistas diferenciales para el resto de este taller {{% /notice %}}
