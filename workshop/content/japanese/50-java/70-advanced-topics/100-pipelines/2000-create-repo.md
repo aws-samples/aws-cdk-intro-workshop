@@ -80,10 +80,10 @@ npx cdk deploy
 git remote add origin XXXXX
 ```
 
-最後に、リポジトリにソースコードをプッシュするだけです (`--set-upstream` はリポジトリで空になっている master ブランチを上書きするためです)。
+最後に、リポジトリにソースコードをプッシュするだけです (`--set-upstream` はリポジトリで空になっている main ブランチを上書きするためです)。
 
 ```
-git push --set-upstream origin master
+git push --set-upstream origin main
 ```
 
 ここで CodeCommitの認証情報が求められます。**Git 認証情報** セクションで作成した認証情報を使います。入力するのは 1回目だけです。
