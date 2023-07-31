@@ -356,6 +356,11 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
+Run build step to compile the changes.
+```bash
+$ npm run build
+```
+
 Now run the test again, which should now pass.
 
 ```bash
