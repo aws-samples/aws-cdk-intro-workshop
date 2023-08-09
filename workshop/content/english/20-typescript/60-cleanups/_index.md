@@ -64,6 +64,12 @@ export class HitCounter extends Construct {
 }
 {{</highlight>}}
 
+Since we made a change in the construct file, we need to redeploy the stack to put the changes into effect. Use `cdk deploy`:
+
+```
+cdk deploy
+```
+
 Additionally, the Lambda function created will generate CloudWatch logs that are
 permanently retained. These will not be tracked by CloudFormation since they are
 not part of the stack, so the logs will still persist. You will have to manually
