@@ -8,7 +8,7 @@ weight = 200
 アプリケーションで table viewer を使用するために、npm モジュールをインストールする必要があります。
 
 ```
-npm install cdk-dynamo-table-viewer@0.2.46
+npm install cdk-dynamo-table-viewer@0.2.486
 ```
 
 {{% notice info %}}
