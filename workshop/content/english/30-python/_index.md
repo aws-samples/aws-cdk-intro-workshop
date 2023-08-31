@@ -1,7 +1,7 @@
 +++
 title = "Python Workshop"
 bookCollapseSection = true
-weight = 30
+weight = 25
 +++
 
 # The Python Workshop
