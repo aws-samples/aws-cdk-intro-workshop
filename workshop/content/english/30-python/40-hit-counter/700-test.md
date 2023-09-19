@@ -35,7 +35,8 @@ The cool thing about our `HitCounter` is that it's quite useful. It basically
 allows anyone to "attach" it to any Lambda function that serves as an API
 Gateway proxy backend and it will log hits to this API.
 
-Since our hit counter is a simple Python class, you could package it and then publish to [PyPI](http://pypi.org/), the default Package Index for the Python community. Then, anyone could `pip install` it and add it to
+Since our hit counter is a simple Python class, you could package it and then publish to [PyPI](http://pypi.org/),
+the default Package Index for the Python community. Then, anyone could `pip install` it and add it to
 their CDK apps.
 
 -----
