@@ -12,12 +12,12 @@ export class HitCounter extends Construct {
   public readonly handler: lambda.Function;
 
   /** the hit counter table */
-  public readonly table: dynamodb.Table;
+  public readonly table: dynamodb.TableV2;
 
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, 'Hits', {
+    const table = new dynamodb.TableV2(this, 'Hits', {
       partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
     });
     this.table = table;
