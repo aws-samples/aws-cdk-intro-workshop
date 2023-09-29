@@ -119,6 +119,12 @@ url = "https://gitter.im/awslabs/aws-cdk"
 weight = 4
 
 [[menu.after]]
+name = "CDK Live on YouTube"
+identifier = "gt"
+url = "https://bit.ly/cdk-live"
+weight = 5
+
+[[menu.after]]
 name = "Submit a correction"
 url = "https://github.com/aws-samples/aws-cdk-intro-workshop"
 weight = 1
