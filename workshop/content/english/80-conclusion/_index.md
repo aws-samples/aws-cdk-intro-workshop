@@ -19,7 +19,7 @@ In this workshop, you've learned how to:
 
 ## What's next?
 
-The AWS CDK is a work in progress. It is currently in Developer Preview. We'd
+The AWS CDK is a work in progress. We'd
 love to hear what you think about every aspect of the framework.
 
 Here are a few things you can do from here:
