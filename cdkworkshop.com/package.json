@@ -17,7 +17,7 @@
         "@types/node": "^20.8.7",
         "@typescript-eslint/eslint-plugin": "^5.61.0",
         "@typescript-eslint/parser": "^5.62.0",
-        "aws-cdk": "^2.102.0",
+        "aws-cdk": "^2.103.1",
         "eslint": "^8.52.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.1",
