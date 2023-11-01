@@ -21,7 +21,7 @@ Before you can use the table viewer in your application, you'll need to add the 
         <dependency>
             <groupId>io.github.cdklabs</groupId>
             <artifactId>cdk-dynamo-table-view</artifactId>
-            <version>0.2.0</version>
+            <version>0.2.487</version>
             <exclusions>
                 <exclusion>
                     <groupId> software.amazon.jsii</groupId>
