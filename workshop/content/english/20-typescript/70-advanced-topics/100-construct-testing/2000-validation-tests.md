@@ -80,6 +80,12 @@ test('read capacity can be configured', () => {
 });
 ```
 
+Run build step to compile the changes.
+
+```bash
+$ npm run build
+```
+
 Run the test.
 
 ```bash
