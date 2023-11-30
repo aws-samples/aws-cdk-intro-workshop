@@ -9,6 +9,7 @@
     right: 0;
     bottom: 0;
     z-index: 9;
+    display: none;
 }
 
 #cookies-eu-banner p {
@@ -58,4 +59,8 @@
     border-color: #fff;
     background: #222;
     color: #fff;
+}
+
+.cookies-eu-banner-visible {
+    display: block !important;
 }

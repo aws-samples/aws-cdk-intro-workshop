@@ -1,0 +1,12 @@
+<div id="cookies-eu-banner">
+    <p>
+        {{i18n "trackingBannerMessage" }}
+    </p>
+    <a href="https://aws.amazon.com/privacy/?nc1=f_pr" id="cookies-eu-more">{{i18n "trackingBannerMoreInfo"}}</a>
+    <button id="cookies-eu-accept">{{i18n "trackingBannerAccept"}}</button>
+    <button id="cookies-eu-reject">{{i18n "trackingBannerDecline" }} </button>
+  </div>
+  
+{{ template "stampedScript" resources.Get "js/cookies-eu-banner.js"}}
+{{$analytics := resources.Get "js/rum.js" | resources.Fingerprint}}
+<script src="{{ $analytics.RelPermalink}} " integrity="{{ $analytics.Data.Integrity}}"></script>

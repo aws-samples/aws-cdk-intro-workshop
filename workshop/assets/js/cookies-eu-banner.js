@@ -78,7 +78,9 @@
         addClickListener = this.addClickListener,
         removeBanner = _this.removeBanner.bind(_this, waitRemove);
 
-      banner.style.display = 'block';
+      //banner.style.display = 'block';
+
+      banner.classList.add('cookies-eu-banner-visible');
 
       if (moreLink) {
         addClickListener(moreLink, function () {
@@ -171,6 +173,7 @@
     removeBanner: function (wait) {
       var banner = document.getElementById('cookies-eu-banner');
       banner.classList.add('cookies-eu-banner--before-remove');
+      banner.classList.remove('cookies-eu-banner-visible');
       setTimeout (function() {
         if (banner && banner.parentNode) {
           banner.parentNode.removeChild(banner);
