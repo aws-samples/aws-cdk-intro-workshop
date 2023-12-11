@@ -22,7 +22,7 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.0.1",
         "prettier": "^3.1.1",
-        "typescript": "^5.3.2"
+        "typescript": "^5.3.3"
     },
     "repository": {
         "url": "https://github.com/aws-samples/aws-cdk-intro-workshop.git",
