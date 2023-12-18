@@ -14,7 +14,7 @@
         "cdk": "cdk"
     },
     "devDependencies": {
-        "@types/node": "^20.10.4",
+        "@types/node": "^20.10.5",
         "@typescript-eslint/eslint-plugin": "^5.61.0",
         "@typescript-eslint/parser": "^5.62.0",
         "aws-cdk": "^2.114.1",
