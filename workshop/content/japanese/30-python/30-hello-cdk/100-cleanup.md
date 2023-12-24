@@ -16,7 +16,7 @@ from aws_cdk import (
 )
 
 
-class CdkWorkshopStack(Stack):
+class CdkWorkshopPythonStack(Stack):
 
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
