@@ -33,7 +33,7 @@ from aws_cdk import (
         aws_lambda as _lambda,
         assertions
     )
-from cdk_workshop.hitcounter import HitCounter
+from hitcounter import HitCounter
 import pytest
 
 
