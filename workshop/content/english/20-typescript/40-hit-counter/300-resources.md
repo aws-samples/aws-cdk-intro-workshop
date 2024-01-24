@@ -8,7 +8,7 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct. Go back to `lib/hitcounter.ts` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=2 16-17 22-36">}}
+{{<highlight ts "hl_lines=2 13-14 19-32">}}
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import { Construct } from "constructs";
@@ -24,9 +24,6 @@ export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
-  /** the hit counter table */
-  public readonly table: dynamodb.Table;
-
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
@@ -34,7 +31,6 @@ export class HitCounter extends Construct {
       partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
-    this.table = table;
 
     this.handler = new NodejsFunction(this, "HitCounterHandler", {
       runtime: lambda.Runtime.NODEJS_20_X,

@@ -9,7 +9,7 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 
 Go back to `hitcounter.ts` construct and add the following highlighted lines:
 
-{{<highlight ts "hl_lines=38-39">}}
+{{<highlight ts "hl_lines=34-35">}}
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import { Construct } from "constructs";
@@ -25,9 +25,6 @@ export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
-  /** the hit counter table */
-  public readonly table: dynamodb.Table;
-
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
@@ -35,7 +32,6 @@ export class HitCounter extends Construct {
       partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
-    this.table = table;
 
     this.handler = new NodejsFunction(this, "HitCounterHandler", {
       runtime: lambda.Runtime.NODEJS_20_X,
@@ -121,7 +117,7 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 
 Add the highlighted lines to `lib/hitcounter.ts`:
 
-{{<highlight ts "hl_lines=41-42">}}
+{{<highlight ts "hl_lines=37-38">}}
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import { Construct } from "constructs";
@@ -137,9 +133,6 @@ export class HitCounter extends Construct {
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
-  /** the hit counter table */
-  public readonly table: dynamodb.Table;
-
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
@@ -147,7 +140,6 @@ export class HitCounter extends Construct {
       partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
-    this.table = table;
 
     this.handler = new NodejsFunction(this, "HitCounterHandler", {
       runtime: lambda.Runtime.NODEJS_20_X,
