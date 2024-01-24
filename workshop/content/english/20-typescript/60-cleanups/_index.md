@@ -15,44 +15,43 @@ code by using `RemovalPolicy`:
 
 Edit `hitcounter.ts` and add the `removalPolicy` prop to the table
 
-{{<highlight ts "hl_lines=25-26">}}
-import _ as cdk from 'aws-cdk-lib';
-import _ as lambda from 'aws-cdk-lib/aws-lambda';
-import \* as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import { Construct } from 'constructs';
+{{<highlight ts "hl_lines=25">}}
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import { Construct } from "constructs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import * as path from "path";
 
 export interface HitCounterProps {
-/** the function for which we want to count url hits **/
-downstream: lambda.IFunction;
+  /** the function for which we want to count url hits **/
+  downstream: lambda.IFunction;
 }
 
 export class HitCounter extends Construct {
-/\*_ allows accessing the counter function _/
-public readonly handler: lambda.Function;
+  /** allows accessing the counter function */
+  public readonly handler: lambda.Function;
 
-/\*_ the hit counter table _/
-public readonly table: dynamodb.Table;
+  /** the hit counter table */
+  public readonly table: dynamodb.Table;
 
-constructor(scope: Construct, id: string, props: HitCounterProps) {
+  constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: {
-        name: "path",
-        type: dynamodb.AttributeType.STRING
-      },
+    const table = new dynamodb.Table(this, "Hits2", {
+      partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     this.table = table;
 
-    this.handler = new lambda.Function(this, 'HitCounterHandler', {
+    this.handler = new NodejsFunction(this, "HitCounterHandler", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      handler: 'hitcounter.handler',
-      code: lambda.Code.fromAsset('lambda'),
+      handler: "handler",
+      entry: path.join(__dirname, "../lambda/hitcounter.ts"),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-        HITS_TABLE_NAME: table.tableName
-      }
+        HITS_TABLE_NAME: table.tableName,
+      },
     });
 
     // grant the lambda role read/write permissions to our table
@@ -60,8 +59,7 @@ constructor(scope: Construct, id: string, props: HitCounterProps) {
 
     // grant the lambda role invoke permissions to the downstream function
     props.downstream.grantInvoke(this.handler);
-
-}
+  }
 }
 {{</highlight>}}
 
