@@ -8,13 +8,15 @@ Stepping back, we can see a problem now that our app is being deployed by our pi
 
 First edit `lib/cdk-workshop-stack.ts` to get these values and expose them as properties of our stack:
 
-{{<highlight ts "hl_lines=9-10 26 30 36-42">}}
+{{<highlight ts "hl_lines=11-12 28 32 38-44">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import * as path from "path";
 
 export class CdkWorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
@@ -23,10 +25,10 @@ export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset('lambda'),
-      handler: 'hello.handler',
+    const hello = new NodejsFunction(this, "HelloHandler", {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      entry: path.join(__dirname, "../lambda/hello.ts"),
+      handler: "handler",
     });
 
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {

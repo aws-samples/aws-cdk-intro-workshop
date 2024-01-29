@@ -61,10 +61,11 @@ help you with auto-complete, inline documentation and type safety.
 Add an `import` statement for `lambda` and `NodejsFunction` at the beginning of `lib/cdk-workshop-stack.ts`, and then add a
 `NodejsFunction` to your stack.
 
-{{<highlight ts "hl_lines=2 3 9-14">}}
-import _ as cdk from 'aws-cdk-lib';
-import _ as lambda from 'aws-cdk-lib/aws-lambda';
+{{<highlight ts "hl_lines=2-4 10-15">}}
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import * as path from "path";
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {

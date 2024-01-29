@@ -69,14 +69,14 @@ test('read capacity can be configured', () => {
 
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
-      downstream:  new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'hello.handler',
-        code: lambda.Code.fromAsset('lambda')
+      downstream:  new NodejsFunction(stack, "TestFunction", {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: path.join(__dirname, "../lambda/hello.ts"),
+        handler: "handler",
       }),
       readCapacity: 3
     });
-  }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
+  }).toThrowError("readCapacity must be greater than 5 and less than 20");
 });
 ```
 
@@ -115,25 +115,25 @@ test('read capacity can be configured', () => {
 
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
-      downstream:  new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'hello.handler',
-        code: lambda.Code.fromAsset('lambda')
+      downstream:  new NodejsFunction(stack, "TestFunction", {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: path.join(__dirname, "../lambda/hello.ts"),
+        handler: "handler",
       }),
       readCapacity: 3
     });
-  }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
+  }).toThrowError("readCapacity must be greater than 5 and less than 20");
 
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
-      downstream:  new lambda.Function(stack, 'TestFunction', {
-        runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'hello.handler',
-        code: lambda.Code.fromAsset('lambda')
+      downstream:  new NodejsFunction(stack, "TestFunction", {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: path.join(__dirname, "../lambda/hello.ts"),
+        handler: "handler",
       }),
       readCapacity: 25
     });
-  }).toThrowError(/readCapacity must be greater than 5 and less than 20/);
+  }).toThrowError("readCapacity must be greater than 5 and less than 20");
 });
 {{</highlight >}}
 
