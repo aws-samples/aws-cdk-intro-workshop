@@ -316,7 +316,7 @@ Ran all test suites.
 
 Grab the real values for the environment variables and update your test
 
-{{<highlight ts "hl_lines=22 25">}}
+{{<highlight ts "hl_lines=35 38">}}
 test("Lambda Has Environment Variables", () => {
   const stack = new cdk.Stack();
 
@@ -475,7 +475,7 @@ Ran all test suites.
 
 Now lets fix the broken test. Update the hitcounter code to enable encryption by default.
 
-{{<highlight ts "hl_lines=13">}}
+{{<highlight ts "hl_lines=14">}}
 export class HitCounter extends Construct {
 /\*_ allows accessing the counter function _/
 public readonly handler: lambda.Function;
