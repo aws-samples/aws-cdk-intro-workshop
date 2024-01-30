@@ -69,14 +69,14 @@ test('read capacity can be configured', () => {
 
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
-      downstream:  new NodejsFunction(stack, "TestFunction", {
+      downstream:  new NodejsFunction(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, "../lambda/hello.ts"),
-        handler: "handler",
+        entry: path.join(__dirname, '../lambda/hello.ts'),
+        handler: 'handler'
       }),
       readCapacity: 3
     });
-  }).toThrowError("readCapacity must be greater than 5 and less than 20");
+  }).toThrowError('readCapacity must be greater than 5 and less than 20');
 });
 ```
 
@@ -115,25 +115,25 @@ test('read capacity can be configured', () => {
 
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
-      downstream:  new NodejsFunction(stack, "TestFunction", {
+      downstream:  new NodejsFunction(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, "../lambda/hello.ts"),
-        handler: "handler",
+        entry: path.join(__dirname, '../lambda/hello.ts'),
+        handler: 'handler'
       }),
       readCapacity: 3
     });
-  }).toThrowError("readCapacity must be greater than 5 and less than 20");
+  }).toThrowError('readCapacity must be greater than 5 and less than 20');
 
   expect(() => {
     new HitCounter(stack, 'MyTestConstruct', {
-      downstream:  new NodejsFunction(stack, "TestFunction", {
+      downstream:  new NodejsFunction(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, "../lambda/hello.ts"),
-        handler: "handler",
+        entry: path.join(__dirname, '../lambda/hello.ts'),
+        handler: 'handler'
       }),
       readCapacity: 25
     });
-  }).toThrowError("readCapacity must be greater than 5 and less than 20");
+  }).toThrowError('readCapacity must be greater than 5 and less than 20');
 });
 {{</highlight >}}
 
@@ -169,31 +169,31 @@ Ran all test suites.
 This has happened as we are trying to add a new hits counter and new test function to the same stack. This can be solved by adding a second stack and passing that into the `HitCounter` and `NodejsFunction`.
 
 {{<highlight ts "hl_lines=15 17 18">}}
-test("Read Capacity can be configured", () => {
+test('Read Capacity can be configured', () => {
   const stack = new cdk.Stack();
 
   expect(() => {
-    new HitCounter(stack, "MyTestConstruct", {
-      downstream: new NodejsFunction(stack, "TestFunction", {
+    new HitCounter(stack, 'MyTestConstruct', {
+      downstream: new NodejsFunction(stack, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, "../lambda/hello.ts"),
-        handler: "handler",
+        entry: path.join(__dirname, '../lambda/hello.ts'),
+        handler: 'handler'
       }),
-      readCapacity: 3,
+      readCapacity: 3
     });
-  }).toThrowError("readCapacity must be greater than 5 and less than 20");
+  }).toThrowError('readCapacity must be greater than 5 and less than 20');
 
   const stack2 = new cdk.Stack();
   expect(() => {
-    new HitCounter(stack2, "MyTestConstruct", {
-      downstream: new NodejsFunction(stack2, "TestFunction", {
+    new HitCounter(stack2, 'MyTestConstruct', {
+      downstream: new NodejsFunction(stack2, 'TestFunction', {
         runtime: lambda.Runtime.NODEJS_20_X,
-        entry: path.join(__dirname, "../lambda/hello.ts"),
-        handler: "handler",
+        entry: path.join(__dirname, '../lambda/hello.ts'),
+        handler: 'handler'
       }),
-      readCapacity: 25,
+      readCapacity: 25
     });
-  }).toThrowError("readCapacity must be greater than 5 and less than 20");
+  }).toThrowError('readCapacity must be greater than 5 and less than 20');
 })
 {{</highlight>}}
 
@@ -219,15 +219,15 @@ The last thing to validate is that if we pass a valid value then we don't get an
 {{<highlight ts "hl_lines=9 11">}}
 const stack3 = new cdk.Stack();
 expect(() => {
-  new HitCounter(stack3, "MyTestConstruct", {
-    downstream: new NodejsFunction(stack3, "TestFunction", {
+  new HitCounter(stack3, 'MyTestConstruct', {
+    downstream: new NodejsFunction(stack3, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
     }),
-    readCapacity: 12,
+    readCapacity: 12
   });
-}).not.toThrowError("readCapacity must be greater than 5 and less than 20");
+}).not.toThrowError('readCapacity must be greater than 5 and less than 20');
 {{</highlight>}}
 
 The important change here is that we changed our expectation. We are now expecting this `NOT` to throw an error. The `.not` method is really nice for keeping a test consistent whilst testing the positive and negative cases.
@@ -238,45 +238,45 @@ Rerunning the tests doesn't change the output much, only increasing the time it 
 
 
 {{<highlight ts "hl_lines=1 2 15 28">}}
-describe("Read Capacity can be configured", () => {
-  test("can't set read capacity to 3", () => {
+describe('Read Capacity can be configured', () => {
+  test('can't set read capacity to 3', () => {
     const stack = new cdk.Stack();
     expect(() => {
-      new HitCounter(stack, "MyTestConstruct", {
-        downstream: new NodejsFunction(stack, "TestFunction", {
+      new HitCounter(stack, 'MyTestConstruct', {
+        downstream: new NodejsFunction(stack, 'TestFunction', {
           runtime: lambda.Runtime.NODEJS_20_X,
-          entry: path.join(__dirname, "../lambda/hello.ts"),
-          handler: "handler",
+          entry: path.join(__dirname, '../lambda/hello.ts'),
+          handler: 'handler'
         }),
-        readCapacity: 3,
+        readCapacity: 3
       });
-    }).toThrowError("readCapacity must be greater than 5 and less than 20");
+    }).toThrowError('readCapacity must be greater than 5 and less than 20');
   });
-  test("can't set read capacity to 25", () => {
+  test('can't set read capacity to 25', () => {
     const stack2 = new cdk.Stack();
     expect(() => {
-      new HitCounter(stack2, "MyTestConstruct", {
-        downstream: new NodejsFunction(stack2, "TestFunction", {
+      new HitCounter(stack2, 'MyTestConstruct', {
+        downstream: new NodejsFunction(stack2, 'TestFunction', {
           runtime: lambda.Runtime.NODEJS_20_X,
-          entry: path.join(__dirname, "../lambda/hello.ts"),
-          handler: "handler",
+          entry: path.join(__dirname, '../lambda/hello.ts'),
+          handler: 'handler'
         }),
-        readCapacity: 25,
+        readCapacity: 25
       });
-    }).toThrowError("readCapacity must be greater than 5 and less than 20");
+    }).toThrowError('readCapacity must be greater than 5 and less than 20');
   });
-  test("can set read capacity to 12", () => {
+  test('can set read capacity to 12', () => {
     const stack3 = new cdk.Stack();
     expect(() => {
-      new HitCounter(stack3, "MyTestConstruct", {
-        downstream: new NodejsFunction(stack3, "TestFunction", {
+      new HitCounter(stack3, 'MyTestConstruct', {
+        downstream: new NodejsFunction(stack3, 'TestFunction', {
           runtime: lambda.Runtime.NODEJS_20_X,
-          entry: path.join(__dirname, "../lambda/hello.ts"),
-          handler: "handler",
+          entry: path.join(__dirname, '../lambda/hello.ts'),
+          handler: 'handler'
         }),
-        readCapacity: 12,
+        readCapacity: 12
       });
-    }).not.toThrowError("readCapacity must be greater than 5 and less than 20");
+    }).not.toThrowError('readCapacity must be greater than 5 and less than 20');
   });
 });
 {{</highlight>}}

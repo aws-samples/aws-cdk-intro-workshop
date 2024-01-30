@@ -21,24 +21,24 @@ same level as `bin` and `lib` and then create a file called `hitcounter.test.ts`
 import { Template, Capture } from 'aws-cdk-lib/assertions';
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import * as path from "path";
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 import { HitCounter }  from '../lib/hitcounter';
 
 test('DynamoDB Table Created', () => {
   const stack = new cdk.Stack();
   // WHEN
   new HitCounter(stack, 'MyTestConstruct', {
-    downstream: new NodejsFunction(stack, "TestFunction", {
+    downstream: new NodejsFunction(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
    });
   });
 
   // THEN
   const template = Template.fromStack(stack);
-  template.resourceCountIs("AWS::DynamoDB::Table", 1);
+  template.resourceCountIs('AWS::DynamoDB::Table', 1);
 });
 ```
 
@@ -78,14 +78,14 @@ Add another test below the DynamoDB test. If you remember, when we created the l
 environment variable values were references to other constructs.
 
 {{<highlight ts "hl_lines=6-7">}}
-this.handler = new NodejsFunction(this, "HitCounterHandler", {
+this.handler = new NodejsFunction(this, 'HitCounterHandler', {
   runtime: lambda.Runtime.NODEJS_20_X,
-  handler: "handler",
-  entry: path.join(__dirname, "../lambda/hitcounter.ts"),
+  handler: 'handler',
+  entry: path.join(__dirname, '../lambda/hitcounter.ts'),
   environment: {
     DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-    HITS_TABLE_NAME: table.tableName,
-  },
+    HITS_TABLE_NAME: table.tableName
+  }
 });
 {{</highlight>}}
 
@@ -96,33 +96,33 @@ dummy value for now. Once we run the test it will fail and show us the expected 
 Create a new test in `hitcounter.test.ts` with the below code:
 
 ```typescript
-test("Lambda Has Environment Variables", () => {
+test('Lambda Has Environment Variables', () => {
   const stack = new cdk.Stack();
   // WHEN
-  new HitCounter(stack, "MyTestConstruct", {
-    downstream: new NodejsFunction(stack, "TestFunction", {
+  new HitCounter(stack, 'MyTestConstruct', {
+    downstream: new NodejsFunction(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
     }),
   });
   // THEN
   const template = Template.fromStack(stack);
   const envCapture = new Capture();
-  template.hasResourceProperties("AWS::Lambda::Function", {
-    Environment: envCapture,
+  template.hasResourceProperties('AWS::Lambda::Function', {
+    Environment: envCapture
   });
 
   expect(envCapture.asObject()).toEqual({
     Variables: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       DOWNSTREAM_FUNCTION_NAME: {
-        Ref: "TestFunctionXXXXX",
+        Ref: 'TestFunctionXXXXX'
       },
       HITS_TABLE_NAME: {
-        Ref: "MyTestConstructHitsXXXXX",
-      },
-    },
+        Ref: 'MyTestConstructHitsXXXXX'
+      }
+    }
   });
 });
 ```
@@ -162,12 +162,12 @@ FAIL test/hitcounter.test.ts
         "Variables": Object {
           "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
     -     "DOWNSTREAM_FUNCTION_NAME": Object {
-    -       "Ref": "TestFunctionXXXXX",
+    -       "Ref": "TestFunctionXXXXX"
     -     },
     -     "HITS_TABLE_NAME": Object {
-    -       "Ref": "MyTestConstructHitsXXXXX",
-    -     },
-        },
+    -       "Ref": "MyTestConstructHitsXXXXX"
+    -     }
+        }
       }
 
 ...
@@ -183,7 +183,7 @@ Ran all test suites.
 If we think about what our test is doing we are getting the environment variables for a Lambda function:
 
 ```ts
-template.hasResourceProperties("AWS::Lambda::Function", {
+template.hasResourceProperties('AWS::Lambda::Function', {
 ```
 
 The issue we have is that we have more than one function in our stack. We have the hits counter function, but also the hello function. Our tests are failing because we aren't controlling which Lambda's environment we should be looking at.
@@ -198,8 +198,8 @@ test("Lambda Has Environment Variables", () => {
     downstream: new NodejsFunction(stack, "TestFunction", {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: path.join(\_\_dirname, "../lambda/hello.ts"),
-      handler: "handler",
-    }),
+      handler: "handler"
+    })
   });
 
   const template = Template.fromStack(stack);
@@ -208,12 +208,12 @@ test("Lambda Has Environment Variables", () => {
     Variables: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       DOWNSTREAM_FUNCTION_NAME: {
-        Ref: Match.stringLikeRegexp("TestFunction*"),
+        Ref: Match.stringLikeRegexp("TestFunction*")
       },
       HITS_TABLE_NAME: {
-        Ref: Match.stringLikeRegexp("MyTestConstructHits*"),
-      },
-    },
+        Ref: Match.stringLikeRegexp("MyTestConstructHits*")
+      }
+    }
   });
 
   template.hasResourceProperties("AWS::Lambda::Function", {
@@ -224,12 +224,12 @@ test("Lambda Has Environment Variables", () => {
     Variables: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       DOWNSTREAM_FUNCTION_NAME: {
-        Ref: "TestFunctionXXXXX",
+        Ref: "TestFunctionXXXXX"
       },
       HITS_TABLE_NAME: {
-        Ref: "MyTestConstructHitsXXXXX",
-      },
-    },
+        Ref: "MyTestConstructHitsXXXXX"
+      }
+    }
   });
 });
 {{</highlight>}}
@@ -239,14 +239,14 @@ What we've done here is specify a pattern for the environment capture to try and
 ```ts
 const envCapture = new Capture({
   Variables: {
-    AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     DOWNSTREAM_FUNCTION_NAME: {
-      Ref: Match.stringLikeRegexp("TestFunction*"),
+      Ref: Match.stringLikeRegexp('TestFunction*')
     },
     HITS_TABLE_NAME: {
-      Ref: Match.stringLikeRegexp("MyTestConstructHits*"),
-    },
-  },
+      Ref: Match.stringLikeRegexp('MyTestConstructHits*')
+    }
+  }
 });
 ```
 
@@ -273,11 +273,11 @@ $ npm run test
 > cdk-workshop@0.1.0 test /home/aws-cdk-intro-workshop
 > jest
 
-FAIL test/hitcounter.test.ts
-✓ DynamoDB Table Created (184ms)
-✕ Lambda Has Environment Variables (53ms)
+ FAIL  test/hitcounter.test.ts
+  ✓ DynamoDB Table Created (184ms)
+  ✕ Lambda Has Environment Variables (53ms)
 
-● Lambda Has Environment Variables
+  ● Lambda Has Environment Variables
 
     expect(received).toEqual(expected) // deep equality
 
@@ -308,55 +308,55 @@ FAIL test/hitcounter.test.ts
       at Object.<anonymous> (test/hitcounter.test.ts:39:33)
 
 Test Suites: 1 failed, 1 total
-Tests: 1 failed, 1 passed, 2 total
-Snapshots: 0 total
-Time: 3.971 s, estimated 4 s
+Tests:       1 failed, 1 passed, 2 total
+Snapshots:   0 total
+Time:        3.971 s, estimated 4 s
 Ran all test suites.
 {{</highlight>}}
 
 Grab the real values for the environment variables and update your test
 
 {{<highlight ts "hl_lines=35 38">}}
-test("Lambda Has Environment Variables", () => {
+test('Lambda Has Environment Variables', () => {
   const stack = new cdk.Stack();
 
-  new HitCounter(stack, "MyTestConstruct", {
-    downstream: new NodejsFunction(stack, "TestFunction", {
+  new HitCounter(stack, 'MyTestConstruct', {
+    downstream: new NodejsFunction(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
-    }),
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
+    })
   });
 
   const template = Template.fromStack(stack);
-  console.log(template.findResources("AWS::Lambda::Function"));
+  console.log(template.findResources('AWS::Lambda::Function'));
   const envCapture = new Capture({
     Variables: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       DOWNSTREAM_FUNCTION_NAME: {
-        Ref: Match.stringLikeRegexp("TestFunction*"),
+        Ref: Match.stringLikeRegexp('TestFunction*')
       },
       HITS_TABLE_NAME: {
-        Ref: Match.stringLikeRegexp("MyTestConstructHits*"),
-      },
-    },
+        Ref: Match.stringLikeRegexp('MyTestConstructHits*')
+      }
+    }
   });
 
-  template.hasResourceProperties("AWS::Lambda::Function", {
+  template.hasResourceProperties('AWS::Lambda::Function', {
     Environment: envCapture,
   });
   console.log(envCapture.asObject());
 
   expect(envCapture.asObject()).toEqual({
     Variables: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+      AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       DOWNSTREAM_FUNCTION_NAME: {
-        Ref: YOUR_VALUE_GOES_HERE,
+        Ref: YOUR_VALUE_GOES_HERE
       },
       HITS_TABLE_NAME: {
-        Ref: YOUR_VALUE_GOES_HERE,
-      },
-    },
+        Ref: YOUR_VALUE_GOES_HERE
+      }
+    }
   });
 });
 {{</highlight>}}
@@ -392,22 +392,22 @@ requirement that our DynamoDB table be encrypted.
 First we'll add a new test to reflect this new requirement.
 
 ```ts
-test("DynamoDB Table Created With Encryption", () => {
+test('DynamoDB Table Created With Encryption', () => {
   const stack = new cdk.Stack();
 
-  new HitCounter(stack, "MyTestConstruct", {
-    downstream: new NodejsFunction(stack, "TestFunction", {
+  new HitCounter(stack, 'MyTestConstruct', {
+    downstream: new NodejsFunction(stack, 'TestFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
-    }),
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
+    })
   });
 
   const template = Template.fromStack(stack);
-  template.hasResourceProperties("AWS::DynamoDB::Table", {
+  template.hasResourceProperties('AWS::DynamoDB::Table', {
     SSESpecification: {
-      SSEEnabled: true,
-    },
+      SSEEnabled: true
+    }
   });
 });
 ```
