@@ -118,7 +118,7 @@ signature:
    CDK, see the* [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
 3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
-   the `lambda.Function` construct accepts properties like `runtime`, `code` and
+   the `NodejsFunction` construct accepts properties like `runtime`, `entry` and
    `handler`. You can explore the various options using your IDE's auto-complete
    or in the [online
    documentation](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-readme.html).

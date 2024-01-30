@@ -127,12 +127,12 @@ export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset(path.resolve(__dirname, '../lambda')),
-      handler: 'hello.handler',
-
+    const hello = new NodejsFunction(this, 'HelloHandler', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
     });
+
 {{</highlight>}}
 
 Here we are explicitly navigating up a level from the current directory to find the Lambda code.
