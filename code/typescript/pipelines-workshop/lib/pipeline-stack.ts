@@ -2,7 +2,11 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import { WorkshopPipelineStage } from './pipeline-stage';
-import { CodeBuildStep, CodePipeline, CodePipelineSource } from "aws-cdk-lib/pipelines";
+import {
+  CodeBuildStep,
+  CodePipeline,
+  CodePipelineSource
+} from 'aws-cdk-lib/pipelines';
 
 export class WorkshopPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -10,7 +14,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
     // This creates a new CodeCommit repository called 'WorkshopRepo'
     const repo = new codecommit.Repository(this, 'WorkshopRepo', {
-      repositoryName: "WorkshopRepo"
+      repositoryName: 'WorkshopRepo'
     });
 
     // The basic pipeline declaration. This sets the initial structure
@@ -20,16 +24,9 @@ export class WorkshopPipelineStack extends cdk.Stack {
       pipelineName: 'WorkshopPipeline',
       synth: new CodeBuildStep('SynthStep', {
         input: CodePipelineSource.codeCommit(repo, 'master'),
-        installCommands: [
-          'npm install -g aws-cdk'
-        ],
-        commands: [
-          'npm ci',
-          'npm run build',
-          'npx cdk synth'
-        ]
-      }
-      )
+        installCommands: ['npm install -g aws-cdk'],
+        commands: ['npm ci', 'npm run build', 'npx cdk synth']
+      })
     });
 
     const deploy = new WorkshopPipelineStage(this, 'Deploy');
@@ -41,9 +38,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
         envFromCfnOutputs: {
           ENDPOINT_URL: deploy.hcViewerUrl
         },
-        commands: [
-          'curl -Ssf $ENDPOINT_URL'
-        ]
+        commands: ['curl -Ssf $ENDPOINT_URL']
       }),
       new CodeBuildStep('TestAPIGatewayEndpoint', {
         projectName: 'TestAPIGatewayEndpoint',
@@ -56,6 +51,6 @@ export class WorkshopPipelineStack extends cdk.Stack {
           'curl -Ssf $ENDPOINT_URL/test'
         ]
       })
-    )
+    );
   }
 }
