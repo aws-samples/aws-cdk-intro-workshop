@@ -104,7 +104,7 @@ test('Lambda Has Environment Variables', () => {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: path.join(__dirname, '../lambda/hello.ts'),
       handler: 'handler'
-    }),
+    })
   });
   // THEN
   const template = Template.fromStack(stack);
@@ -477,23 +477,22 @@ Now lets fix the broken test. Update the hitcounter code to enable encryption by
 
 {{<highlight ts "hl_lines=14">}}
 export class HitCounter extends Construct {
-/\*_ allows accessing the counter function _/
+/** allows accessing the counter function */
 public readonly handler: lambda.Function;
 
-/\*_ the hit counter table _/
+/** the hit counter table */
 public readonly table: dynamodb.Table;
 
 constructor(scope: Construct, id: string, props: HitCounterProps) {
-super(scope, id);
+  super(scope, id);
 
-    const table = new dynamodb.Table(this, 'Hits', {
-      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      encryption: dynamodb.TableEncryption.AWS_MANAGED
-    });
-    ...
-
-}
+  const table = new dynamodb.Table(this, 'Hits', {
+    partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+    billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+    encryption: dynamodb.TableEncryption.AWS_MANAGED
+  });
+  ...
+  }
 }
 {{</highlight>}}
 
