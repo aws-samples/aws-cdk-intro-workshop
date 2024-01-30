@@ -14,19 +14,19 @@ We'll start with the AWS Lambda handler code.
 ---
 
 ```ts
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from 'aws-lambda';
 
 export const handler = async (event: APIGatewayProxyEvent) => {
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/plain" },
-    body: `Hello, CDK! You've hit ${event.path}\n`,
+    body: `Hello, CDK! You've hit ${event.path}\n`
   };
 };
 ```
 
-This is a simple Lambda function which returns the text **"Hello, CDK! You've
-hit [url path]"**. The function's output also includes the HTTP status code and
+This is a simple Lambda function which returns the text __"Hello, CDK! You've
+hit [url path]"__. The function's output also includes the HTTP status code and
 HTTP headers. These are used by API Gateway to formulate the HTTP response to
 the user.
 
@@ -37,8 +37,8 @@ Lambda documentation [here](https://docs.aws.amazon.com/lambda/latest/dg/welcome
 
 ## Install the AWS Lambda construct library
 
-The AWS CDK is shipped with an extensive library of constructs called the **AWS
-Construct Library**. The construct library is divided into **modules**, one for
+The AWS CDK is shipped with an extensive library of constructs called the __AWS
+Construct Library__. The construct library is divided into __modules__, one for
 each AWS service. For example, if you want to define an AWS Lambda function, we
 will need to use the AWS Lambda construct library.
 
@@ -64,18 +64,18 @@ Add an `import` statement for `lambda` and `NodejsFunction` at the beginning of 
 {{<highlight ts "hl_lines=2-4 10-15">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import * as path from "path";
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
    super(scope, id, props);
 
    // defines an AWS Lambda resource
-   const hello = new NodejsFunction(this, "HelloHandler", {
+   const hello = new NodejsFunction(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
    });
 
   }
@@ -95,7 +95,7 @@ A few things to notice:
 
 As you can see, the class constructors of both `CdkWorkshopStack` and
 `NodejsFunction` (and many other classes in the CDK) have the signature
-`(scope, id, props)`. This is because all of these classes are **constructs**.
+`(scope, id, props)`. This is because all of these classes are __constructs__.
 Constructs are the basic building block of CDK apps. They represent abstract
 "cloud components" which can be composed together into higher level abstractions
 via scopes. Scopes can include constructs, which in turn can include other
@@ -106,17 +106,17 @@ have an identifier which must be unique within the scope it's created.
 Therefore, construct initializers (constructors) will always have the following
 signature:
 
-1. **`scope`**: the first argument is always the scope in which this construct
+1. __`scope`__: the first argument is always the scope in which this construct
    is created. In almost all cases, you'll be defining constructs within the
    scope of _current_ construct, which means you'll usually just want to pass
    `this` for the first argument. Make a habit out of it.
-2. **`id`**: the second argument is the **local identity** of the construct.
+2. __`id`__: the second argument is the __local identity__ of the construct.
    It's an ID that has to be unique amongst construct within the same scope. The
    CDK uses this identity to calculate the CloudFormation [Logical
    ID](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html)
-   for each resource defined within this scope. _To read more about IDs in the
-   CDK, see the_ [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
-3. **`props`**: the last (sometimes optional) argument is always a set of
+   for each resource defined within this scope. *To read more about IDs in the
+   CDK, see the* [CDK user manual](https://docs.aws.amazon.com/cdk/latest/guide/identifiers.html#identifiers_logical_ids).
+3. __`props`__: the last (sometimes optional) argument is always a set of
    initialization properties. Those are specific to each construct. For example,
    the `lambda.Function` construct accepts properties like `runtime`, `code` and
    `handler`. You can explore the various options using your IDE's auto-complete
@@ -159,7 +159,7 @@ Resources
 [+] AWS::Lambda::Function HelloHandler HelloHandler2E4FBA4D
 ```
 
-As you can see, this code synthesizes an **AWS::Lambda::Function** resource. It
+As you can see, this code synthesizes an __AWS::Lambda::Function__ resource. It
 also synthesized a couple of [CloudFormation
 parameters](https://docs.aws.amazon.com/cdk/latest/guide/get_cfn_param.html)
 that are used by the toolkit to propagate the location of the handler code.
@@ -198,21 +198,21 @@ Let's go to the AWS Lambda Console and test our function.
 
 2. Click on the function name to go to the console.
 
-3. Click on the **Test** button to open the **Configure test event** dialog:
+3. Click on the __Test__ button to open the __Configure test event__ dialog:
 
    ![](./lambda-2.png)
 
-4. Select **Amazon API Gateway AWS Proxy** from the **Event template** list.
+4. Select __Amazon API Gateway AWS Proxy__ from the __Event template__ list.
 
-5. Enter `test` under **Event name**.
+5. Enter `test` under __Event name__.
 
    ![](./lambda-3.png)
 
-6. Hit **Create**.
+6. Hit __Create__.
 
-7. Click **Test** again and wait for the execution to complete.
+7. Click __Test__ again and wait for the execution to complete.
 
-8. Expand **Details** in the **Execution result** pane and you should see our expected output:
+8. Expand __Details__ in the __Execution result__ pane and you should see our expected output:
 
    ![](./lambda-4.png)
 

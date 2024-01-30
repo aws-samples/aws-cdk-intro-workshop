@@ -21,17 +21,17 @@ Going back to `lib/cdk-workshop-stack.ts`, let's define an API endpoint and asso
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // defines an AWS Lambda resource
-    const hello = new NodejsFunction(this, "HelloHandler", {
+    const hello = new NodejsFunction(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
     });
 
     // defines an API Gateway REST API resource backed by our "hello" function.
