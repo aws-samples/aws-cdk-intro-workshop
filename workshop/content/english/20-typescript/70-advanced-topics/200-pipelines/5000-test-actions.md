@@ -15,8 +15,8 @@ import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import * as path from "path";
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export class CdkWorkshopStack extends cdk.Stack {
   public readonly hcViewerUrl: cdk.CfnOutput;
@@ -25,10 +25,10 @@ export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const hello = new NodejsFunction(this, "HelloHandler", {
+    const hello = new NodejsFunction(this, 'HelloHandler', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, "../lambda/hello.ts"),
-      handler: "handler",
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler',
     });
 
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
@@ -80,7 +80,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import { Construct } from 'constructs';
 import {WorkshopPipelineStage} from './pipeline-stage';
-import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from 'aws-cdk-lib/pipelines';
 
 export class WorkshopPipelineStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
