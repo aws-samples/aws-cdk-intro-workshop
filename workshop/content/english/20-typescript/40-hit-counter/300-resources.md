@@ -51,10 +51,10 @@ export class HitCounter extends Construct {
 
 This code is hopefully quite easy to understand:
 
-- We defined a DynamoDB table with `path` as the partition key and `PAY_PER_REQUEST` billing.
-- We defined a Lambda function which is calls the `lambda/hitcounter.ts` code, invoking the `handler` function.
-- We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
-  of our resources.
+ * We defined a DynamoDB table with `path` as the partition key and `PAY_PER_REQUEST` billing.
+ * We defined a Lambda function which is calls the `lambda/hitcounter.ts` code, invoking the `handler` function.
+ * We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
+   of our resources.
 
 ## Late-bound values
 

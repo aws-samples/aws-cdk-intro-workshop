@@ -32,6 +32,7 @@ inside `lambda/hello.ts`:
 {{<highlight ts "hl_lines=6">}}
 import { APIGatewayProxyEvent } from 'aws-lambda';
 export const handler = async (event: APIGatewayProxyEvent) => {
+  console.log("request:", JSON.stringify(event, undefined, 2));
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/plain" },
@@ -92,6 +93,7 @@ Let's change the lambda code in `lambda/hello.ts` another time:
 {{<highlight js "hl_lines=6">}}
 import { APIGatewayProxyEvent } from 'aws-lambda';
 export const handler = async (event: APIGatewayProxyEvent) => {
+  console.log("request:", JSON.stringify(event, undefined, 2));
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/plain" },
@@ -223,6 +225,7 @@ Let's change our lambda asset code in `lambda/hello.ts` one more time:
 {{<highlight js "hl_lines=6">}}
 import { APIGatewayProxyEvent } from 'aws-lambda';
 export const handler = async (event: APIGatewayProxyEvent) => {
+  console.log("request:", JSON.stringify(event, undefined, 2));
   return {
     statusCode: 200,
     headers: { "Content-Type": "text/plain" },
