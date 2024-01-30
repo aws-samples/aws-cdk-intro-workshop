@@ -10,11 +10,11 @@ Let's give our Lambda's execution role permissions to read/write from our table.
 Go back to `hitcounter.ts` construct and add the following highlighted lines:
 
 {{<highlight ts "hl_lines=34-35">}}
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import { Construct } from "constructs";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import * as path from "path";
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -22,32 +22,32 @@ export interface HitCounterProps {
 }
 
 export class HitCounter extends Construct {
+
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
+    const table = new dynamodb.Table(this, 'Hits', {
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 
-    this.handler = new NodejsFunction(this, "HitCounterHandler", {
+    this.handler = new NodejsFunction(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      handler: "handler",
-      entry: path.join(__dirname, "../lambda/hitcounter.ts"),
+      handler: 'handler',
+      entry: path.join(__dirname, '../lambda/hitcounter.ts'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-        HITS_TABLE_NAME: table.tableName,
-      },
+        HITS_TABLE_NAME: table.tableName
+      }
     });
 
     // grant the lambda role read/write permissions to our table
     table.grantReadWriteData(this.handler);
   }
 }
-
 {{</highlight>}}
 
 ## Deploy
@@ -118,11 +118,11 @@ But, we must also give our hit counter permissions to invoke the downstream lamb
 Add the highlighted lines to `lib/hitcounter.ts`:
 
 {{<highlight ts "hl_lines=37-38">}}
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import { Construct } from "constructs";
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import * as path from "path";
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Construct } from 'constructs';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -130,21 +130,22 @@ export interface HitCounterProps {
 }
 
 export class HitCounter extends Construct {
+
   /** allows accessing the counter function */
   public readonly handler: lambda.Function;
 
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: { name: "path", type: dynamodb.AttributeType.STRING },
+    const table = new dynamodb.Table(this, 'Hits', {
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 
-    this.handler = new NodejsFunction(this, "HitCounterHandler", {
+    this.handler = new NodejsFunction(this, 'HitCounterHandler', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      handler: "handler",
-      entry: path.join(__dirname, "../lambda/hitcounter.ts"),
+      handler: 'handler',
+      entry: path.join(__dirname, '../lambda/hitcounter.ts'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName,
@@ -158,7 +159,6 @@ export class HitCounter extends Construct {
     props.downstream.grantInvoke(this.handler);
   }
 }
-
 {{</highlight>}}
 
 ## Diff
