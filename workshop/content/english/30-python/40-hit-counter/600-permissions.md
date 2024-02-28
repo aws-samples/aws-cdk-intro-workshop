@@ -32,7 +32,7 @@ class HitCounter(Construct):
 
         self._handler = _lambda.Function(
             self, 'HitCountHandler',
-            runtime=_lambda.Runtime.PYTHON_3_7,
+            runtime=_lambda.Runtime.PYTHON_3_10,
             handler='hitcount.handler',
             code=_lambda.Code.from_asset('lambda'),
             environment={
@@ -134,7 +134,7 @@ class HitCounter(Construct):
 
         self._handler = _lambda.Function(
             self, 'HitCountHandler',
-            runtime=_lambda.Runtime.PYTHON_3_7,
+            runtime=_lambda.Runtime.PYTHON_3_10,
             handler='hitcount.handler',
             code=_lambda.Code.from_asset('lambda'),
             environment={
