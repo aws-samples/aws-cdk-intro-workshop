@@ -9,10 +9,9 @@ export class CdkWorkshopStack extends cdk.Stack {
     super(scope, id, props);
 
     const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler',
-
     });
 
     const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
@@ -26,8 +25,9 @@ export class CdkWorkshopStack extends cdk.Stack {
 
     new TableViewer(this, 'ViewHitCounter', {
       title: 'Hello Hits',
-      table: helloWithCounter.table,
-      sortBy: '-hits'
+      // table: helloWithCounter.table, /** when cdk-dynamo-table-viewer supports TableV2 (https://github.com/cdklabs/cdk-dynamo-table-viewer/pull/737) */
+      table: helloWithCounter.table as any,
+      sortBy: '-hits',
     });
   }
 }
