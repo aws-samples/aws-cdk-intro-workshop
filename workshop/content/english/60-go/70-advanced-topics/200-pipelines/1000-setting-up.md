@@ -28,7 +28,7 @@ type CdkWorkshopStackProps struct {
 	awscdk.StackProps
 }
 
-func NewCdkWorkshopStack(scope constructs.Construct, id string, props *cdkWorkshopStackProps) awscdk.Stack {
+func NewCdkWorkshopStack(scope constructs.Construct, id string, props *CdkWorkshopStackProps) awscdk.Stack {
 	var sprops awscdk.StackProps
 	if props != nil {
 		sprops = props.StackProps
