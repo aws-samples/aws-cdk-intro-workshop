@@ -9,9 +9,9 @@ Before you can use the table viewer in your application, you'll need to install
 the python module. Add this code to `requirements.txt`:
 
 {{<highlight python "hl_lines=3">}}
-aws-cdk-lib==2.37.0
+aws-cdk-lib==2.128.0
 constructs>=10.0.0,<11.0.0
-cdk-dynamo-table-view==0.2.0
+cdk-dynamo-table-view==0.2.488
 {{</highlight>}}
 
 Once the virtualenv is activated, you can install the required dependencies.
