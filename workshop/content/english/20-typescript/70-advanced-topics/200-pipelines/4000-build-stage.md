@@ -27,13 +27,15 @@ All this does is declare a new `Stage` (component of a pipeline), and in that st
 Now, at this point your code editor may be telling you that you are doing something wrong. This is because the application stack as it stands now is not configured to be deployed by a pipeline.
 Open `lib/cdk-workshop-stack.ts` and make the following changes:
 
-{{<highlight ts "hl_lines=9">}}
+{{<highlight ts "hl_lines=11">}}
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 import { HitCounter } from './hitcounter';
 import { TableViewer } from 'cdk-dynamo-table-viewer';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -52,7 +54,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as codecommit from 'aws-cdk-lib/aws-codecommit';
 import { Construct } from 'constructs';
 import {WorkshopPipelineStage} from './pipeline-stage';
-import {CodeBuildStep, CodePipeline, CodePipelineSource} from "aws-cdk-lib/pipelines";
+import {CodeBuildStep, CodePipeline, CodePipelineSource} from 'aws-cdk-lib/pipelines';
 
 export class WorkshopPipelineStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -60,7 +62,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
         // This creates a new CodeCommit repository called 'WorkshopRepo'
         const repo = new codecommit.Repository(this, 'WorkshopRepo', {
-            repositoryName: "WorkshopRepo"
+            repositoryName: 'WorkshopRepo'
         });
 
        // The basic pipeline declaration. This sets the initial structure
@@ -125,12 +127,12 @@ export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const hello = new lambda.Function(this, 'HelloHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset(path.resolve(__dirname, '../lambda')),
-      handler: 'hello.handler',
-
+    const hello = new NodejsFunction(this, 'HelloHandler', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      entry: path.join(__dirname, '../lambda/hello.ts'),
+      handler: 'handler'
     });
+
 {{</highlight>}}
 
 Here we are explicitly navigating up a level from the current directory to find the Lambda code.

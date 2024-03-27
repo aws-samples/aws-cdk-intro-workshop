@@ -8,11 +8,12 @@ weight = 300
 Now, let's define the AWS Lambda function and the DynamoDB table in our
 `HitCounter` construct. Go back to `lib/hitcounter.ts` and add the following highlighted code:
 
-{{<highlight ts "hl_lines=3 13-14 19-31">}}
-import * as cdk from 'aws-cdk-lib';
+{{<highlight ts "hl_lines=2 13-14 19-32">}}
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -28,28 +29,30 @@ export class HitCounter extends Construct {
     super(scope, id);
 
     const table = new dynamodb.Table(this, 'Hits', {
-        partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING }
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 
-    this.handler = new lambda.Function(this, 'HitCounterHandler', {
-        runtime: lambda.Runtime.NODEJS_14_X,
-        handler: 'hitcounter.handler',
-        code: lambda.Code.fromAsset('lambda'),
-        environment: {
-            DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
-            HITS_TABLE_NAME: table.tableName
-        }
+    this.handler = new NodejsFunction(this, 'HitCounterHandler', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'handler',
+      entry: path.join(__dirname, '../lambda/hitcounter.ts'),
+      environment: {
+        DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
+        HITS_TABLE_NAME: table.tableName,
+      },
     });
   }
 }
+
 {{</highlight>}}
 
 ## What did we do here?
 
 This code is hopefully quite easy to understand:
 
- * We defined a DynamoDB table with `path` as the partition key.
- * We defined a Lambda function which is bound to the `lambda/hitcounter.handler` code.
+ * We defined a DynamoDB table with `path` as the partition key and `PAY_PER_REQUEST` billing.
+ * We defined a Lambda function which is calls the `lambda/hitcounter.ts` code, invoking the `handler` function.
  * We __wired__ the Lambda's environment variables to the `functionName` and `tableName`
    of our resources.
 

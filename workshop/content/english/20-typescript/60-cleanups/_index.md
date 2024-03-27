@@ -15,11 +15,12 @@ code by using `RemovalPolicy`:
 
 Edit `hitcounter.ts` and add the `removalPolicy` prop to the table
 
-{{<highlight ts "hl_lines=25-26">}}
-import * as cdk from 'aws-cdk-lib';
+{{<highlight ts "hl_lines=25">}}
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as path from 'path';
 
 export interface HitCounterProps {
   /** the function for which we want to count url hits **/
@@ -36,19 +37,17 @@ export class HitCounter extends Construct {
   constructor(scope: Construct, id: string, props: HitCounterProps) {
     super(scope, id);
 
-    const table = new dynamodb.Table(this, "Hits", {
-      partitionKey: {
-        name: "path",
-        type: dynamodb.AttributeType.STRING
-      },
+    const table = new dynamodb.Table(this, 'Hits', {
+      partitionKey: { name: 'path', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     this.table = table;
 
-    this.handler = new lambda.Function(this, 'HitCounterHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      handler: 'hitcounter.handler',
-      code: lambda.Code.fromAsset('lambda'),
+    this.handler = new NodejsFunction(this, 'HitCounterHandler', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'handler',
+      entry: path.join(__dirname, '../lambda/hitcounter.ts'),
       environment: {
         DOWNSTREAM_FUNCTION_NAME: props.downstream.functionName,
         HITS_TABLE_NAME: table.tableName
