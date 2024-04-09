@@ -56,7 +56,7 @@ All that's left to get our pipeline up and running is to commit our changes and 
 
 ```
 git commit -am "MESSAGE" && git push
-npx cdk deploy
+cdk deploy
 ```
 
 CDK Pipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!
