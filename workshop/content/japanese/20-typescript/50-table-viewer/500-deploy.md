@@ -76,3 +76,5 @@ $ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/hit1
 **Table Viewer の仕組みに興味ありますか？** 簡単に見られます！**Ctrl** (あるいは **Command**) を押しながら `TableViewer` 要素をクリックすると、ソースコードに遷移できます。それとも、[こちら](https://github.com/eladb/cdk-dynamo-table-viewer)の GitHub のリポジトリで確認できます。
 
 {{% /notice %}}
+
+{{< nextprevlinks >}}

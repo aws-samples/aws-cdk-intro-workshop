@@ -23,3 +23,5 @@ found 0 vulnerabilities
 ----
 
 Now we are ready to add a viewer to our app.
+
+{{< nextprevlinks >}}

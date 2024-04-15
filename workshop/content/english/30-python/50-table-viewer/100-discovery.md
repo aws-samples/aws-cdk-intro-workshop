@@ -17,3 +17,5 @@ it will expose contents from your DynamoDB table to anyone without authenticatio
 {{% /notice %}}
 
 ![](./table-viewer-pypi.png)
+
+{{< nextprevlinks >}}

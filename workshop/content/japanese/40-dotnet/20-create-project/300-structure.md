@@ -89,3 +89,5 @@ namespace CdkWorkshop
 - SQS キュー (`new sqs.Queue`)
 - SNS トピック (`new sns.Topic`)
 - SNS トピックにパブリッシュされたメッセージを受信するように SQS キューをサブスクライブします。 (`topic.AddSubscription`)
+
+{{< nextprevlinks >}}

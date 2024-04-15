@@ -7,3 +7,5 @@ weight = 700
 .NET Core SDK のダウンロードとインストールについては、[こちら](https://dotnet.microsoft.com/download) をご覧ください。
 
 この Workshop では .NET Core CLIを使用しますので、不慣れな方は [ドキュメント](https://docs.microsoft.com/en-us/dotnet/core/tools) をご覧ください。
+
+{{< nextprevlinks >}}

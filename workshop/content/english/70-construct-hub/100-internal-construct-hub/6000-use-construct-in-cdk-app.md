@@ -165,3 +165,5 @@ Hello, CDK! You've hit /hello!
 ## Review benefits
 
 That's it! Your CDK app is now consuming the Hitcounter construct from the `cdkworkshop-lib` CDK Construct library. Multiple CDK apps can use this construct without copy/pasting its code so that code duplication is avoided and standardized best practices can be reused. You can now start adding additional CDK Constructs to `cdkworkshop-lib` to build a construct library that help accelerate your teams and establish best practices!
+
+{{< nextprevlinks >}}

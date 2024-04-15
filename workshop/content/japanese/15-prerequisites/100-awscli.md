@@ -12,3 +12,5 @@ AWS CLI を使用すると、ターミナルから AWS サービスを操作す�
 詳しくは [AWS Command Line Interface
 installation](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 のページをご覧ください。
+
+{{< nextprevlinks >}}

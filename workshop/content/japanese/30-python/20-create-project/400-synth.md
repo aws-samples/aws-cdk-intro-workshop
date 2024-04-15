@@ -89,3 +89,5 @@ Resources:
 **AWS::CDK::Metadata** リソースは、ツールキットによってすべてのスタックに自動的に追加されます。セキュリティ上の問題があるバージョンを特定できるようAWS CDK チームが分析に使用します。詳細については、AWS CDK ユーザーガイドの [バージョンレポート](https://docs.aws.amazon.com/cdk/latest/guide/tools.html) を参照してください。以降、このワークショップではメタデータリソースを省略します。
 
 {{% /notice %}}
+
+{{< nextprevlinks >}}

@@ -125,3 +125,5 @@ func main() {
 	app.Synth(nil)
 }
 {{</highlight>}}
+
+{{< nextprevlinks >}}

@@ -61,3 +61,5 @@ CDK パイプラインはソースリポジトリのコミットごとに自動�
 デプロイが完了したら [CodePipeline コンソール](https://console.aws.amazon.com/codesuite/codepipeline/pipelines) を開くと、新しいパイプラインを確認できます。パイプラインを開くと、以下のような画面を確認できます。
 
 ![](./pipeline-init.png)
+
+{{< nextprevlinks >}}

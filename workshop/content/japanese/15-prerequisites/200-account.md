@@ -52,3 +52,5 @@ AWS Secret Access Key [None]: <type access key>
 Default region name [None]: <choose region (e.g. "us-east-1", "eu-west-1")>
 Default output format [None]: <leave blank>
 ```
+
+{{< nextprevlinks >}}

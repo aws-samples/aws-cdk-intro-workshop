@@ -100,3 +100,5 @@ git commit -am "Add deploy stage to pipeline" && git push
 ![](./pipeline-succeed.png)
 
 成功しました !
+
+{{< nextprevlinks >}}

@@ -36,3 +36,5 @@ weight = 200
 ----
 
 これで、アプリケーションに table viewer を追加する準備ができました。
+
+{{< nextprevlinks >}}

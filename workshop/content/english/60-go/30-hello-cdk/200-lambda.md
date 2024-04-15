@@ -218,3 +218,5 @@ Let's go to the AWS Lambda Console and test our function.
     ![](./lambda-4.png)
 
 # 👏
+
+{{< nextprevlinks >}}

@@ -37,3 +37,5 @@ HitCounter はシンプルな JavaScript クラスであるため、npm モジ�
 -----
 
 次の章では、HitCounter テーブルの内容をブラウザで表示することを可能とする、 npm に公開されたコンストラクトライブラリを使用します。
+
+{{< nextprevlinks >}}

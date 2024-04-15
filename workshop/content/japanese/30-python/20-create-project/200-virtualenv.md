@@ -26,3 +26,5 @@ Windowsプラットフォームでは、こちらを使用します。
 ```
 pip install -r requirements.txt
 ```
+
+{{< nextprevlinks >}}

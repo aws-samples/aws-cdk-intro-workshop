@@ -16,3 +16,5 @@ heartwarming greeting from our function.
 ![](/images/hello-arch.png)
 
 First, let's clean up the sample code.
+
+{{< nextprevlinks >}}

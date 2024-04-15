@@ -182,3 +182,5 @@ export class WorkshopPipelineStage extends Stage {
 ![](./pipeline-tests.png)
 
 おめでとうございます！アプリケーションのテストも含む完璧な CD パイプラインを作成できました！興味があれば、コンソールで作成されたスタックの詳細を確認したり、[API リファレンス](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html) の CDK パイプラインのセクションを確認してみてください。お持ちのアプリケーションにも CDK パイプラインを作ってみるのはいかがでしょうか？
+
+{{< nextprevlinks >}}

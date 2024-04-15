@@ -97,3 +97,5 @@ Select `cdkworkshop-lib > HitCounter` to display the details of the published co
 ## Summary
 
 In this section, we created the pipeline instance from the pipeline CDK code. We saw that the pipeline built, transpiled, packaged and published the artifacts into our Internal Construct Hub. Next we will look into how to consume the transpiled artifacts from our Internal Construct Hub.
+
+{{< nextprevlinks >}}

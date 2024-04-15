@@ -122,3 +122,5 @@ Next, in `main()` the code creates an app and defines an instance of the `NewCdk
 within the scope of the app. This will allow the stack to be synthesized and deployed. A null
 value is passed in for the environment of the stack - that's okay for the purposes of the workshop
 since the account and region to deploy to will be inferred through your credentials.
+
+{{< nextprevlinks >}}

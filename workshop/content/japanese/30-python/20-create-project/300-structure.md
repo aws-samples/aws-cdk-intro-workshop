@@ -87,3 +87,5 @@ class CdkWorkshopStack(Stack):
 - SQS キュー (`sqs.Queue`)
 - SNS トピック (`sns.Topic`)
 - SNS トピックにパブリッシュされたメッセージを受信するように SQS キューをサブスクライブします。 (`topic.add_subscription`)
+
+{{< nextprevlinks >}}

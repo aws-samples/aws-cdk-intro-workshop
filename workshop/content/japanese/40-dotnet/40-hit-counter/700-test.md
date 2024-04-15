@@ -42,3 +42,5 @@ their CDK apps.
 -----
 
 次の章では、HitCounter テーブルの内容をブラウザで表示することを可能とする、 Nuget に公開されたコンストラクトライブラリを使用します。
+
+{{< nextprevlinks >}}

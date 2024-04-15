@@ -13,3 +13,5 @@ CD is an important component in most web projects, but can be challenging to set
 These pipelines consist of "stages" that represent the phases of your deployment process from how the source code is managed, to how the fully built artifacts are deployed.
 
 ![](./pipeline-stages.png)
+
+{{< nextprevlinks >}}

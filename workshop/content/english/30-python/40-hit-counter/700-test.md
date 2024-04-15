@@ -45,3 +45,5 @@ their CDK apps.
 In the next chapter we __consume__ a construct library published to
 pip, which enables us to view the contents of our hit counter table from any
 browser.
+
+{{< nextprevlinks >}}

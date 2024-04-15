@@ -98,3 +98,5 @@ Once that is done, we can go back to the [CodePipeline console](https://console.
 ![](./pipeline-succeed.png)
 
 Success!
+
+{{< nextprevlinks >}}

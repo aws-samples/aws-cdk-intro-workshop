@@ -13,3 +13,5 @@ bookCollapseSection = true
 それぞれのパイプラインは、ソースコードの管理方法から、ビルドされた全てのアーティファクトのデプロイ方法まで、デプロイプロセスのフェーズを表す「ステージ」で構成されます。
 
 ![](./200-pipelines/pipeline-stages.png)
+
+{{< nextprevlinks >}}

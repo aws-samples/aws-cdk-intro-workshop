@@ -48,3 +48,5 @@ exports.handler = async function(event) {
  * `DOWNSTREAM_FUNCTION_NAME` ダウンストリームの Lambda 関数の名前
 
 テーブルとダウンストリーム関数の名前はアプリをデプロイするときに決まるため、これらの値をコンストラクトのコードから関連付ける必要があります。次のセクションでそれを行います。
+
+{{< nextprevlinks >}}

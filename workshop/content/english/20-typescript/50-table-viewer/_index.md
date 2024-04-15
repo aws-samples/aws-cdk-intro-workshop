@@ -12,3 +12,4 @@ into our project and install it on our hit counter table.
 
 ![](/images/table-viewer.png)
 
+{{< nextprevlinks >}}

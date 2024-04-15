@@ -99,3 +99,5 @@ physical identities of our resources:
 ![](./cfn2.png)
 
 # I am ready for some actual coding!
+
+{{< nextprevlinks >}}

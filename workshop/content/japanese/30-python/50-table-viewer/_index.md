@@ -11,3 +11,4 @@ bookFlatSection = true
 
 ![](/images/table-viewer.png)
 
+{{< nextprevlinks >}}

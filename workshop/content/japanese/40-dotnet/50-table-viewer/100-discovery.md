@@ -12,3 +12,5 @@ GitHubの [DynamoTableViewer page](https://github.com/cdklabs/cdk-dynamo-table-v
 {{% /notice %}}
 
 ![](./table-viewer.png)
+
+{{< nextprevlinks >}}
