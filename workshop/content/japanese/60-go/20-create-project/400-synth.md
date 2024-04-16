@@ -183,3 +183,5 @@ to allow us to identify versions with security issues. See [Version Reporting](h
 the AWS CDK User Guide for more details. We will omit the metadata resource in
 diff views for the rest of this workshop {{% /notice %}}
 
+
+{{< nextprevlinks >}}

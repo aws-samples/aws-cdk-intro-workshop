@@ -51,3 +51,4 @@ Since the actual name of the table and the downstream function will only be
 decided when we deploy our app, we need to wire up these values from our
 construct code. We'll do that in the next section.
 
+{{< nextprevlinks >}}

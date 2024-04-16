@@ -92,3 +92,5 @@ class CdkWorkshopStack(Stack):
             table=hello_with_counter.table,
         )
 {{</highlight>}}
+
+{{< nextprevlinks >}}

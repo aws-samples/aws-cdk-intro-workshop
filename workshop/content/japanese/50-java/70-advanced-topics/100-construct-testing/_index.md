@@ -51,3 +51,5 @@ template.hasResourceProperties("AWS::CertificateManager::Certificate", expected)
 ```
 
 詳しい説明は、[こちら](https://github.com/aws/aws-cdk/blob/master/packages/%40aws-cdk/assertions/README.md)のドキュメントを参照してください。
+
+{{< nextprevlinks >}}

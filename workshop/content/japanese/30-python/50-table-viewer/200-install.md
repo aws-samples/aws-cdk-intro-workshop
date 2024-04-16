@@ -27,3 +27,5 @@ Successfully installed cdk-dynamo-table-view-0.2.0
 ```
 
 これで、アプリケーションに table viewer を追加する準備ができました。
+
+{{< nextprevlinks >}}

@@ -39,3 +39,5 @@ template.has_resource_properties("AWS::CertificateManager::Certificate", {
 `Match.absent()` can be used to assert that a particular key in an object is *not* set (or set to `undefined`).
 
 To see the rest of the documentation, please read the docs [here](https://docs.aws.amazon.com/cdk/api/latest/python/aws_cdk.assertions/README.html).
+
+{{< nextprevlinks >}}

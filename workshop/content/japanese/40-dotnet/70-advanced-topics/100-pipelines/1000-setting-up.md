@@ -58,3 +58,5 @@ namespace CdkWorkshop
 これで準備が整いました！
 
 # パイプラインを作りましょう！
+
+{{< nextprevlinks >}}

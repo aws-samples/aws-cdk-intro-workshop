@@ -10,3 +10,5 @@ You can find information about downloading and installing .NET Core SDK
 
 We will be using the .NET Core CLI for this project, so if you are not familiar, 
 please take a look at their [documentation](https://docs.microsoft.com/en-us/dotnet/core/tools).
+
+{{< nextprevlinks >}}

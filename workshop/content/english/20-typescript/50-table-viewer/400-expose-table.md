@@ -96,3 +96,5 @@ export class CdkWorkshopStack extends cdk.Stack {
 We're finished making code changes,
 so once you save this file,
 you can close the `npm run watch` command with `Ctrl-C`.
+
+{{< nextprevlinks >}}

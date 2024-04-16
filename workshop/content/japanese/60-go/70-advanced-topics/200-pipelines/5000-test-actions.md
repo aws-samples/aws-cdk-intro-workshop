@@ -260,3 +260,5 @@ Commit those changes, wait for the pipeline to re-deploy the app, and navigate b
 ![](./pipeline-tests.png)
 
 Congratulations! You have successfully created a CD pipeline for your application complete with tests and all! Feel free to explore the console to see the details of the stack created, or check out the [API Reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html) section on CDK Pipelines and build one for your application.
+
+{{< nextprevlinks >}}

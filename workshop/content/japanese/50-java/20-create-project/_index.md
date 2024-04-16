@@ -9,3 +9,5 @@ weight = 20
 この章では、`cdk init` を使用して新しい AWS CDK Java プロジェクトを作成します。
 
 また、CDK Toolkit を使用してサンプルアプリケーション用の AWS CloudFormation テンプレートを合成する方法とアプリケーションをデプロイする方法について学習します。
+
+{{< nextprevlinks >}}

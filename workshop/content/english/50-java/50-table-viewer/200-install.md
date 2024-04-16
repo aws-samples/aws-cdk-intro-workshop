@@ -36,3 +36,5 @@ Before you can use the table viewer in your application, you'll need to add the 
 ----
 
 Now we are ready to add a viewer to our app.
+
+{{< nextprevlinks >}}

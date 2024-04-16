@@ -56,3 +56,5 @@ It seems like our Lambda function can't write to our DynamoDB table. This
 actually makes sense - we didn't grant it those permissions! Let's go do that
 now.
 
+
+{{< nextprevlinks >}}

@@ -90,3 +90,5 @@ Hold **Ctrl** (or **Command**) and click on the `TableViewer`
 identifier to navigate to its source code.
 
 {{% /notice %}}
+
+{{< nextprevlinks >}}

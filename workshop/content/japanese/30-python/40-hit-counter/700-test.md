@@ -37,3 +37,5 @@ HitCounter はシンプルな Python クラスであるため、pip モジュー
 -----
 
 次の章では、HitCounter テーブルの内容をブラウザで表示することを可能とする、PyPi に公開されたコンストラクトライブラリを使用します。
+
+{{< nextprevlinks >}}

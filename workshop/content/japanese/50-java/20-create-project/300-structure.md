@@ -90,3 +90,5 @@ public class CdkWorkshopStack extends Stack {
 - SQS キュー (`final Queue queue`)
 - SNS トピック (`final Topic topic`)
 - SNS トピックにパブリッシュされたメッセージを受信するように SQS キューをサブスクライブします。 (`topic.AddSubscription`)
+
+{{< nextprevlinks >}}

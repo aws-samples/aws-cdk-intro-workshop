@@ -279,3 +279,5 @@ Inspect `dist/js/` directory contents to see the generated artifact.
 ## Summary
 
 In this section, we structured the construct library construct code in a way that is expected by the construct library pipline code. In the next section we deploy the pipeline to build, transpile, and publish artifacts to our Internal Construct Hub.
+
+{{< nextprevlinks >}}

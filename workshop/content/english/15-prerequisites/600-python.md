@@ -18,3 +18,5 @@ editing the `PATH` environment variable. To edit environment variables, click th
 choose **Edit the system environment variables** from the Start menu.)
 
 Additionally you will need to have the Python package installer (pip) installed. See installation instructions [here](https://pypi.org/project/pip/).
+
+{{< nextprevlinks >}}

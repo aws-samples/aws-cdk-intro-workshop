@@ -10,3 +10,5 @@ configure the table viewer to sort the table by "hits" in descending order (top
 path is first).
 
 ![](./viewer2.png)
+
+{{< nextprevlinks >}}

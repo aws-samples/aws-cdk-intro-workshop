@@ -43,3 +43,5 @@ new WorkshopPipelineStack(app, 'CdkWorkshopPipelineStack');
 これで準備が整いました！
 
 # パイプラインを作りましょう！
+
+{{< nextprevlinks >}}

@@ -29,3 +29,5 @@ template.HasResourceProperties("AWS::Lambda::Function", new Dictionary<string, o
 `Match.AnyValue()` can be used to assert that a particular key in an object is set with any value.
 
 To see the rest of the documentation, please read the docs [here](https://www.fuget.org/packages/Amazon.CDK.Assertions/1.194.0).
+
+{{< nextprevlinks >}}

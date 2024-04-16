@@ -88,3 +88,5 @@ git push --set-upstream origin main
 CodeCommit のコンソールを見ると、コードがプッシュされたことを確認できます！
 
 ![](./repo-code.png)
+
+{{< nextprevlinks >}}

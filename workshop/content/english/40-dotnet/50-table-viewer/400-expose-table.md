@@ -112,3 +112,5 @@ namespace CdkWorkshop
 
 We're finished making code changes, congratulations!
 You can now save and exit out of your code editor if you want.
+
+{{< nextprevlinks >}}

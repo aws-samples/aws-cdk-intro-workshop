@@ -59,3 +59,5 @@ public final class CdkWorkshopApp {
 And now we're ready!
 
 # Lets build a pipeline!
+
+{{< nextprevlinks >}}

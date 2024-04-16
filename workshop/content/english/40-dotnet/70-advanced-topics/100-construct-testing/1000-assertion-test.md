@@ -210,3 +210,6 @@ This portion of the workshop has provided only a small overview of testing cshar
 * Figure out commands to do things instead of Visual Studio solution explorer things, got idea from [here](https://scottie.is/writing/a-cdk-companion-for-the-rahul-nath-lambda-course/)
 * Manage nuget packages via CLI, e.g.: `dotnet add package Amazon.CDK.Assertions`
 * Remove need for Visual Studio
+
+
+{{< nextprevlinks >}}

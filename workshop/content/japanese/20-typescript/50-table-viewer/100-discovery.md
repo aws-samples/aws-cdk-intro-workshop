@@ -12,3 +12,5 @@ npmjs.org の [cdk-dynamo-table-viewer のページ](https://www.npmjs.com/packa
 {{% /notice %}}
 
 ![](./table-viewer-npm.png)
+
+{{< nextprevlinks >}}

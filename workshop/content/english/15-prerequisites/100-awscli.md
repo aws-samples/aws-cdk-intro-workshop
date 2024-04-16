@@ -12,3 +12,5 @@ Make sure you have the latest version of the AWS CLI installed on your system.
 See the [AWS Command Line Interface
 installation](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 page for more details.
+
+{{< nextprevlinks >}}

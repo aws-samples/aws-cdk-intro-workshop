@@ -46,3 +46,5 @@ Navigate to  <a href="https://console.aws.amazon.com/s3" target="_blank">S3</a> 
 ### Delete the construct-hub-workshop Directory
 
 On your machine, delete the `construct-hub-workshop` directory.
+
+{{< nextprevlinks >}}

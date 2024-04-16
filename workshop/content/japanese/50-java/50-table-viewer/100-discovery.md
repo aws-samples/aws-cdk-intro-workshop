@@ -13,3 +13,5 @@ page](https://github.com/cdklabs/cdk-dynamo-table-viewer) にアクセスして�
 {{% /notice %}}
 
 ![](./table-viewer.png)
+
+{{< nextprevlinks >}}

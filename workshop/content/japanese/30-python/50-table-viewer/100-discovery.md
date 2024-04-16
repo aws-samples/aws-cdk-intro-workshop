@@ -14,3 +14,5 @@ README には table viewer の使い方に関するドキュメントがあり�
 {{% /notice %}}
 
 ![](./table-viewer-pypi.png)
+
+{{< nextprevlinks >}}

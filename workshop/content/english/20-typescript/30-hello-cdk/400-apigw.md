@@ -183,3 +183,5 @@ If you received a 5xx error from API Gateway, it is likely one of two issues:
 ---
 
 Good job! In the next chapter, we'll write our own reusable construct.
+
+{{< nextprevlinks >}}

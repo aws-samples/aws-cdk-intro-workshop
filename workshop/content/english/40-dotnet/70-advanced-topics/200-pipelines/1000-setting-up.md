@@ -57,3 +57,5 @@ namespace CdkWorkshop
 And now we're ready!
 
 # Lets build a pipeline!
+
+{{< nextprevlinks >}}

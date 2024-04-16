@@ -50,3 +50,5 @@ This instructs the CDK to use those new features any time it synthesizes a stack
 And now we're ready!
 
 # Lets build a pipeline!
+
+{{< nextprevlinks >}}
