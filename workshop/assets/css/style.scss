@@ -50,3 +50,16 @@ $codeFF: {{ i18n "codeFontFamily" }};
 body {
     font-size:calc(14pt + 0.081vw);
 }
+
+.nextprev-container {
+    padding-bottom: 25px;
+    margin-bottom: 10px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
