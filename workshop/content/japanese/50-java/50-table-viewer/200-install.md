@@ -21,10 +21,10 @@ weight = 200
         <dependency>
             <groupId>io.github.cdklabs</groupId>
             <artifactId>cdk-dynamo-table-view</artifactId>
-            <version>0.2.0</version>
+            <version>0.2.488</version>
             <exclusions>
                 <exclusion>
-                    <groupId> software.amazon.jsii</groupId>
+                    <groupId>software.amazon.jsii</groupId>
                     <artifactId>jsii-runtime</artifactId>
                 </exclusion>
             </exclusions>

@@ -15,8 +15,9 @@ go get github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer
 Output should look like this:
 
 ```
-go: upgraded github.com/aws/jsii-runtime-go v1.63.2 => v1.65.0
-go: added github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer v0.2.248
+go: upgraded github.com/aws/constructs-go/constructs/v10 v10.0.5 => v10.3.0
+go: upgraded github.com/aws/jsii-runtime-go v1.29.0 => v1.96.0
+go: added github.com/cdklabs/cdk-dynamo-table-viewer-go/dynamotableviewer v0.2.488
 ```
 
 ----

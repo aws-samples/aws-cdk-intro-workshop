@@ -1,7 +1,7 @@
 <hr />
 
-<div style="padding-bottom: 25px;margin-bottom: 10px;">
-    <div style="float: left;">
+<div class="nextprev-container">
+    <div class="float-left">
         {{ if .Page.NextInSection }}
             {{ with .Page.NextInSection }} <!-- This will return NULL if current page is first in section. -->
             <a href="{{ .Page.RelPermalink }}" class="book-btn">Previous</a>
@@ -16,7 +16,7 @@
             {{ end }}
         {{ end }}
     </div>
-    <div style="float: right;">
+    <div class="float-right">
         {{ if eq .Page.CurrentSection .Page }} <!-- If current page is same as index page for section. -->
             {{ if ge (len .Page.CurrentSection.Pages) 0 }} <!-- If current section has pages, render Next link pointing to 1st page. -->
                 <a href="{{ (index .Page.CurrentSection.Pages 0).RelPermalink }}" class="book-btn">Next</a>
