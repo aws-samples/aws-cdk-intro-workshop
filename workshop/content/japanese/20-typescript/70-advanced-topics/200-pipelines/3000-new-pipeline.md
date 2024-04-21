@@ -37,7 +37,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
                     commands: [
                         'npm ci',
                         'npm run build',
-                        'npx cdk synth'
+                        'cdk synth'
                     ]
                 }
             )
@@ -50,7 +50,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 上記ソースコードは以下の通りに構成されています。
 
 * `new CodePipeline(...)`: 必要な値でパイプラインを初期化します。今後のベースコンポーネントになります。すべてのパイプラインには以下のような構成が必要です。
-   * `synth(...)`: パイプラインの `synthAction` の値は、依存関係のインストール、ビルド、ソースから CDK アプリケーションの生成を行うために必要なコマンドを示します。最後に必ず *synth* コマンドで終わる必要があります。NPM ベースのプロジェクトの場合は、`npx cdk synth` になります。
+   * `synth(...)`: パイプラインの `synthAction` の値は、依存関係のインストール、ビルド、ソースから CDK アプリケーションの生成を行うために必要なコマンドを示します。最後に必ず *synth* コマンドで終わる必要があります。NPM ベースのプロジェクトの場合は、`cdk synth` になります。
       * synth ステップの `input` の値はCDK ソースコードが格納されているリポジトリを指定します。
 
 ## パイプラインをデプロイし、結果を確認
@@ -58,7 +58,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 
 ```
 git commit -am "MESSAGE" && git push
-npx cdk deploy
+cdk deploy
 ```
 
 CDK パイプラインはソースリポジトリのコミットごとに自動的に更新するので、このコマンドを実行するのはこれで *最後* です！

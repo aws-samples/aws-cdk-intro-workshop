@@ -44,7 +44,7 @@ public class WorkshopPipelineStack extends Stack {
 
 ```
 mvn package
-npx cdk deploy
+cdk deploy
 ```
 
 ## リポジトリ情報の取得とコミット

@@ -65,7 +65,7 @@ namespace CdkWorkshop
                         "npm install -g aws-cdk",
                         "sudo apt-get install -y dotnet-sdk-3.1",  // Language-specific install cmd
                         "dotnet build",  // Language-specific build cmd
-                        "npx cdk synth"
+                        "cdk synth"
                     }
                 }),
             });

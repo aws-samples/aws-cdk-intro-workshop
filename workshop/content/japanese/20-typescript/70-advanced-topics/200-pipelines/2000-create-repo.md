@@ -31,7 +31,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 ## デプロイメント
 
 ```
-npx cdk deploy
+cdk deploy
 ```
 
 ## リポジトリ情報の取得とコミット
