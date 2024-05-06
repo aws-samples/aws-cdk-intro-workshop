@@ -53,17 +53,18 @@ Open up `lib/cdk-workshop-stack.ts`. This is where the meat of our application
 is:
 
 ```ts
-import * as cdk from 'aws-cdk-lib';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { Construct } from 'constructs';
 
-export class CdkWorkshopStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class CdkWorkshopStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const queue = new sqs.Queue(this, 'CdkWorkshopQueue', {
-      visibilityTimeout: cdk.Duration.seconds(300)
+      visibilityTimeout: Duration.seconds(300)
     });
 
     const topic = new sns.Topic(this, 'CdkWorkshopTopic');
