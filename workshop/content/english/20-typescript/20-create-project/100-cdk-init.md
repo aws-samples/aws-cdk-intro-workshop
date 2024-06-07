@@ -24,7 +24,7 @@ initialization of a git repository, this probably means you don't have git
 installed, which is fine for this workshop):
 
 ```
-Applying project template app for typescript
+Applying project template sample-app for typescript
 Initializing a new git repository...
 Executing npm install...
 npm notice created a lockfile as package-lock.json. You should commit this file.
