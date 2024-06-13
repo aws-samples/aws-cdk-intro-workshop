@@ -58,6 +58,7 @@ Here are a few things you can do from here:
 * Learn about [__jsii__](https://github.com/awslabs/jsii), the technology
   behind the CDK's multi-language support
 * Browse some [examples](https://github.com/aws-samples/aws-cdk-examples) on our GitHub repository
+* Check out our YouTube channel, [CDK Live!](https://bit.ly/cdk-live) for live and pre-recorded content about the AWS CDK.
 
 -----
 
