@@ -15,15 +15,15 @@ You'll see something like this:
 
 ![](./structure.png)
 
-* __`lib/cdk-workshop-stack.ts`__ is where your CDK application's main stack is defined.
+* __`lib/cdk_workshop-stack.ts`__ is where your CDK application's main stack is defined.
   This is the file we'll be spending most of our time in.
-* `bin/cdk-workshop.ts` is the entrypoint of the CDK application. It will load
-  the stack defined in `lib/cdk-workshop-stack.ts`.
+* `bin/cdk_workshop.ts` is the entrypoint of the CDK application. It will load
+  the stack defined in `lib/cdk_workshop-stack.ts`.
 * `package.json` is your npm module manifest. It includes information like the
   name of your app, version, dependencies and build scripts like "watch" and
   "build" (`package-lock.json` is maintained by npm)
 * `cdk.json` tells the toolkit how to run your app. In our case it will be
-  `"npx ts-node bin/cdk-workshop.ts"`
+  `"npx ts-node bin/cdk_workshop.ts"`
 * `tsconfig.json` your project's [typescript
   configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 * `.gitignore` and `.npmignore` tell git and npm which files to include/exclude
@@ -33,23 +33,23 @@ You'll see something like this:
 
 ## Your app's entry point
 
-Let's have a quick look at `bin/cdk-workshop.ts`:
+Let's have a quick look at `bin/cdk_workshop.ts`:
 
 ```js
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
-import { CdkWorkshopStack } from '../lib/cdk-workshop-stack';
+import { CdkWorkshopStack } from '../lib/cdk_workshop-stack';
 
 const app = new cdk.App();
 new CdkWorkshopStack(app, 'CdkWorkshopStack');
 ```
 
 This code loads and instantiates the `CdkWorkshopStack` class from the
-`lib/cdk-workshop-stack.ts` file. We won't need to look at this file anymore.
+`lib/cdk_workshop-stack.ts` file. We won't need to look at this file anymore.
 
 ## The main stack
 
-Open up `lib/cdk-workshop-stack.ts`. This is where the meat of our application
+Open up `lib/cdk_workshop-stack.ts`. This is where the meat of our application
 is:
 
 ```ts
