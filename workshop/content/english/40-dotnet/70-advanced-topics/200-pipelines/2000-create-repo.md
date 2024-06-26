@@ -37,7 +37,7 @@ Now we can deploy the app to see our new repo.
 
 ```
 dotnet build
-npx cdk deploy
+cdk deploy
 ```
 
 ## Get Repo Info and Commit

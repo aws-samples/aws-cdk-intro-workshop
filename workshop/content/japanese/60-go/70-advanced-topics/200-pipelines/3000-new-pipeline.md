@@ -42,7 +42,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 				"npm install -g aws-cdk",
                 "goenv install 1.18.3",
 				"goenv local 1.18.3",
-				"npx cdk synth",
+				"cdk synth",
 			),
 		}),
 	})
@@ -55,7 +55,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 The above code does several things:
 
 * `NewCodePipeline(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `Synth(...)`: The `synthAction` of the pipeline describes the commands necessary to install dependencies, build, and synth the CDK application from source. This should always end in a *synth* command, for NPM-based projects this is always `npx cdk synth`.
+    * `Synth(...)`: The `synthAction` of the pipeline describes the commands necessary to install dependencies, build, and synth the CDK application from source. This should always end in a *synth* command, for NPM-based projects this is always `cdk synth`.
   * The `Input` of the synth step specifies the repository where the CDK source code is stored.
 
 ## Deploy Pipeline and See Result
@@ -63,7 +63,7 @@ All that's left to get our pipeline up and running is to commit our changes and 
 
 ```
 git commit -am "MESSAGE" && git push
-npx cdk deploy
+cdk deploy
 ```
 
 CDK Pipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!

@@ -72,7 +72,7 @@ public class WorkshopPipelineStack extends Stack {
                         ))
                         .commands(List.of(
                                 "mvn package",            // Language-specific build commands
-                                "npx cdk synth"           // Synth command (always same)
+                                "cdk synth"           // Synth command (always same)
                         )).build())
                 .build();
 

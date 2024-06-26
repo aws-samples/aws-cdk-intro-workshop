@@ -137,7 +137,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 				"npm install -g aws-cdk",
 				"goenv install 1.18.3",
 				"goenv local 1.18.3",
-				"npx cdk synth",
+				"cdk synth",
 			),
 		}),
 	})

@@ -49,7 +49,7 @@ public class WorkshopPipelineStack extends Stack {
                         ))
                         .commands(List.of(
                                 "mvn package",            // Language-specific build commands
-                                "npx cdk synth"           // Synth command (always same)
+                                "cdk synth"           // Synth command (always same)
                         )).build())
                 .build();
     }
@@ -60,7 +60,7 @@ public class WorkshopPipelineStack extends Stack {
 上記ソースコードは以下の通りに構成されています。
 
 * `CodePipeline.Builder.create(...)`: 必要な値でパイプラインを初期化します。これが今後のベースコンポーネントになります。すべてのパイプラインには以下のような構成が必要です。
-   * `synth(...)`: パイプラインの `synthAction` は、`input`によって生成されたソースアーティファクトを取得し、`commands`に基づいてアプリケーションをビルドします。この後には常に `npx cdk synth` が続きます
+   * `synth(...)`: パイプラインの `synthAction` は、`input`によって生成されたソースアーティファクトを取得し、`commands`に基づいてアプリケーションをビルドします。この後には常に `cdk synth` が続きます
       * synth ステップの `input` は、指定されたリポジトリのソースコードをチェックし、アーティファクトを生成します。 
 
 ## パイプラインをデプロイし、結果を確認
@@ -70,7 +70,7 @@ public class WorkshopPipelineStack extends Stack {
 ```
 git commit -am "MESSAGE" && git push
 mvn package
-npx cdk deploy
+cdk deploy
 ```
 
 CdkPipelines はソースリポジトリのコミットごとに自動的に更新するので、このコマンドを実行するのはこれで *最後* です！

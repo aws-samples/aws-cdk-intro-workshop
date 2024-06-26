@@ -30,7 +30,7 @@ export class WorkshopPipelineStack extends cdk.Stack {
 ## Deploy
 
 ```
-npx cdk deploy
+cdk deploy
 ```
 
 ## Get Repo Info and Commit

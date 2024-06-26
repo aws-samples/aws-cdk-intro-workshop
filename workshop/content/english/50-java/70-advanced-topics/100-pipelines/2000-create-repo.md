@@ -42,7 +42,7 @@ Now we can deploy the app to see our new repo.
 Run:
 ```
 mvn package
-npx cdk deploy
+cdk deploy
 ```
 
 ## Get Repo Info and Commit

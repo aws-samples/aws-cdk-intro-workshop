@@ -40,7 +40,7 @@ func NewPipelineStack(scope constructs.Construct, id string, props *PipelineStac
 ## Deploy
 
 ```
-npx cdk deploy
+cdk deploy
 ```
 
 ## Get Repo Info and Commit

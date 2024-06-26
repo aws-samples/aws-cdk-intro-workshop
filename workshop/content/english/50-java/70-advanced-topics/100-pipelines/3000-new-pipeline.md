@@ -49,7 +49,7 @@ public class WorkshopPipelineStack extends Stack {
                         ))
                         .commands(List.of(
                                 "mvn package",            // Language-specific build commands
-                                "npx cdk synth"           // Synth command (always same)
+                                "cdk synth"           // Synth command (always same)
                         )).build())
                 .build();
     }
@@ -60,7 +60,7 @@ public class WorkshopPipelineStack extends Stack {
 The above code does several things:
 
 * `CodePipeline.Builder.create(...)`: This initializes the pipeline with the required values. This will serve as the base component moving forward. Every pipeline requires at bare minimum:
-    * `synth(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `input` and build the application based on the `commands`. This is always followed by `npx cdk synth`.
+    * `synth(...)`: The `synthAction` of the pipeline will take the source artifact generated in by the `input` and build the application based on the `commands`. This is always followed by `cdk synth`.
   The `input` of the synth step will check the designated repository for source code and generate an artifact.
 
 ## Deploy Pipeline and See Result
@@ -69,7 +69,7 @@ All that's left to get our pipeline up and running is to commit our changes and 
 ```
 git commit -am "MESSAGE" && git push
 mvn package
-npx cdk deploy
+cdk deploy
 ```
 
 CdkPipelines auto-update for each commit in a source repo, so this is the *last time* we will need to execute this command!
