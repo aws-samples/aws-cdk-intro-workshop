@@ -106,9 +106,7 @@ export class CdkWorkshop extends Stack {
           return {
             status: '302',
             statusDescription: 'Found',
-            headers: {
-              location: [{ key: 'Location', value: newUri }],
-            },
+            headers: {'Location': { value: newUri }},
           };
         }
       `),
