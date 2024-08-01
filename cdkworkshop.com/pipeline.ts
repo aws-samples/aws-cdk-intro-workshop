@@ -6,10 +6,10 @@ import {
     aws_sns_subscriptions as subs,
     SecretValue,
     Stack,
-    StackProps,
+    type StackProps,
 } from 'aws-cdk-lib';
 import { TheCdkWorkshopStage } from './cdkworkshop.com';
-import { Construct } from 'constructs';
+import type { Construct } from 'constructs';
 
 export class PipelineStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
@@ -19,9 +19,14 @@ export class PipelineStack extends Stack {
             pipelineName: 'WorkshopPipeline',
 
             synth: new pipelines.ShellStep('Synth', {
-                input: pipelines.CodePipelineSource.gitHub('aws-samples/aws-cdk-intro-workshop', 'master', {
-                    authentication: SecretValue.secretsManager('github-token'),
-                }),
+                input: pipelines.CodePipelineSource.gitHub(
+                    'aws-samples/aws-cdk-intro-workshop',
+                    'master',
+                    {
+                        authentication:
+                            SecretValue.secretsManager('github-token'),
+                    },
+                ),
                 commands: [
                     'cd cdkworkshop.com',
                     'npm ci && tar -C /usr/local/bin -xzf hugo/hugo_*_Linux-64bit.tar.gz hugo',
@@ -36,7 +41,11 @@ export class PipelineStack extends Stack {
 
         const failTopic = new sns.Topic(this, 'PipelineFailTopic');
 
-        failTopic.addSubscription(new subs.EmailSubscription('aws-sdk-opensource-support-cdk-primary@amazon.com'));
+        failTopic.addSubscription(
+            new subs.EmailSubscription(
+                'aws-sdk-opensource-support-cdk-primary@amazon.com',
+            ),
+        );
 
         const failEvent = new events.Rule(this, 'PipelineFailedEvent', {
             eventPattern: {
