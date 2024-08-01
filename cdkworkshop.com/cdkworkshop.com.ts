@@ -102,11 +102,12 @@ export class CdkWorkshop extends Stack {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
       code: cloudfront.FunctionCode.fromInline(`
         function handler(event) {
+          const request = event.request;
           const newUri = '${props.redirectTarget}';
           return {
-            status: '302',
-            statusDescription: 'Found',
-            headers: {'Location': { value: newUri }},
+            statusCode: 301,
+            statusDescription: 'Permanent Redirect',
+            headers: { location: { value: newUri } },
           };
         }
       `),
