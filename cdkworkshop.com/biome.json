@@ -1,0 +1,11 @@
+{
+    "javascript": {
+        "formatter": {
+            "trailingCommas": "all",
+            "quoteStyle": "single",
+            "indentWidth": 4,
+            "lineEnding": "lf",
+            "indentStyle": "space"
+        }
+    }
+}

@@ -4,7 +4,7 @@ import {
     aws_events_targets as eventTargets,
     aws_sns as sns,
     aws_sns_subscriptions as subs,
-    Stack,
+    type Stack,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
@@ -24,7 +24,10 @@ export class GuardDutyNotifier extends Construct {
         new guardduty.CfnDetector(this, 'GuardDutyDetector', { enable: true });
 
         // Configure GuardDuty to email any security findings
-        const guardDutyTopic = new sns.Topic(this, 'GuardDutyNotificationTopic');
+        const guardDutyTopic = new sns.Topic(
+            this,
+            'GuardDutyNotificationTopic',
+        );
         guardDutyTopic.addSubscription(new subs.EmailSubscription(props.email));
         const eventRule = new events.Rule(this, 'GuardDutyEventRule', {
             eventPattern: {
