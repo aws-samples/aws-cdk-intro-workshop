@@ -102,7 +102,7 @@ export class CdkWorkshop extends Stack {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
       code: cloudfront.FunctionCode.fromInline(`
         function handler(event) {
-          const newUri = ${props.redirectTarget};
+          const newUri = '${props.redirectTarget}';
           return {
             status: '302',
             statusDescription: 'Found',
